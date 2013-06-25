@@ -85,14 +85,14 @@
 % of rendered bitmaps). You can do this by zooming very close to any letter
 % - if the letter is shown pixelated, you should change this setting
 % (try commenting out the entire line, for example).
-\usepackage[OT1]{fontenc}
+\usepackage[OT1]{fontenc} %fontenc first, then inputenc if need be
 % The babel package provides hyphenating instructions for LaTeX. Give
 % the languages you wish to use in your thesis as options to the babel
 % package (as shown below). You can remove any language you are not
 % going to use.
 % Examples of valid language codes: english (or USenglish), british,
 % finnish, swedish; and so on.
-\usepackage[finnish,swedish,english]{babel}
+\usepackage[finnish,british]{babel}
 
 
 % Font selection
@@ -216,8 +216,8 @@
 %   twoinstructors  - changes the title of instructors to plural form
 %   twosupervisors  - changes the title of supervisors to plural form
 \usepackage[mydraft,twosupervisors]{aalto-thesis}
-%\usepackage[mydraft,doublenumbering]{aalto-thesis}
-%\usepackage{aalto-thesis}
+\usepackage[mydraft,doublenumbering]{aalto-thesis}
+\usepackage{aalto-thesis}
 
 
 % Hyperref
@@ -360,7 +360,7 @@ yrkesutövare, intresseföretag, verifieringskedja}
 % Use this to control how much space there is between each line of text.
 % 1 is normal (no extra space), 1.3 is about one-half more space, and
 % 1.6 is about double line spacing.
-% \linespread{1} % This is the default
+\linespread{1} % This is the default
 % \linespread{1.3}
 
 % Bibliography style
@@ -411,34 +411,41 @@ yrkesutövare, intresseföretag, verifieringskedja}
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-A dissertation or thesis is a document submitted in support of candidature
-for a degree or professional qualification presenting the author's research and
-findings. In some countries/universities, the word thesis or a cognate is used
-as part of a bachelor's or master's course, while dissertation is normally
-applied to a doctorate, whilst, in others, the reverse is true.
 
-\fixme{Abstract text goes here (and this is an example how to use fixme).}
-Fixme is a command that helps you identify parts of your thesis that still
-require some work. When compiled in the custom \texttt{mydraft} mode, text
-parts tagged with fixmes are shown in bold and with fixme tags around them. When
-compiled in normal mode, the fixme-tagged text is shown normally (without
-special formatting). The draft mode also causes the ``Draft'' text to appear on
-the front page, alongside with the document compilation date. The custom
-\texttt{mydraft} mode is selected by the \texttt{mydraft} option given for the
-package \texttt{aalto-thesis}, near the top of the \texttt{thesis-example.tex}
-file.
+The purpose of this diploma thesis is to realise a crane load position measurement setup.
+The measurement should accurately describe the position and orientation of an arbitrary load
+lifted with a process crane or a boom (todo: check type) crane.
 
-The thesis example file (\texttt{thesis-example.tex}), all the chapter content
-files (\texttt{1introduction.tex} and so on), and the Aalto style file
-(\texttt{aalto-thesis.sty}) are commented with explanations on how the Aalto
-thesis works. The files also contain some examples on how to customize various
-details of the thesis layout, and of course the example text works as an
-example in itself. Please read the comments and the example text; that should
-get you well on your way!}
+This thesis will primarily study a machine vision approach that uses stereo vision for the work environment
+depth mapping. Other optional sensors, such as laser scanner, are considered.
+
+Existing machine vision approaches will be applied to the crane load problem. 
+The location measurement of the crane load could enable additional improvements in obstable avoidance while
+operating the crane.}
+
+%\fixme{Abstract text goes here (and this is an example how to use fixme).}
+%Fixme is a command that helps you identify parts of your thesis that still
+%require some work. When compiled in the custom \texttt{mydraft} mode, text
+%parts tagged with fixmes are shown in bold and with fixme tags around them. When
+%compiled in normal mode, the fixme-tagged text is shown normally (without
+%special formatting). The draft mode also causes the ``Draft'' text to appear on
+%the front page, alongside with the document compilation date. The custom
+%\texttt{mydraft} mode is selected by the \texttt{mydraft} option given for the
+%package \texttt{aalto-thesis}, near the top of the \texttt{thesis-example.tex}
+%file.
+
+%The thesis example file (\texttt{thesis-example.tex}), all the chapter content
+%files (\texttt{1introduction.tex} and so on), and the Aalto style file
+%(\texttt{aalto-thesis.sty}) are commented with explanations on how the Aalto
+%thesis works. The files also contain some examples on how to customize various
+%details of the thesis layout, and of course the example text works as an
+%example in itself. Please read the comments and the example text; that should
+%get you well on your way!}
 
 % Abstract in Finnish
 % ------------------------------------------------------------------
 \thesisabstract{finnish}{
+\fixme{
 Kivi on materiaali, joka muodostuu mineraaleista ja luokitellaan
 mineraalisisältönsä mukaan. Kivet luokitellaan yleensä ne muodostaneiden
 prosessien mukaan magmakiviin, sedimenttikiviin ja metamorfisiin kiviin.
@@ -456,30 +463,29 @@ Suomen peruskallio on suurimmaksi osaksi graniittia, gneissiä ja
 Kaakkois-Suomessa rapakiveä.
 
 Kiveä käytetään teollisuudessa moniin eri tarkoituksiin, kuten keittiötasoihin.
-Kivi on materiaalina kalliimpaa mutta kestävämpää kuin esimerkiksi puu.}
-
+Kivi on materiaalina kalliimpaa mutta kestävämpää kuin esimerkiksi puu.}}
 % Abstract in Swedish
 % ------------------------------------------------------------------
-\thesisabstract{swedish}{
-Lilla Vargens universum är det tredje fiktiva universumet inom huvudfäran av de
-tecknade disneyserierna - de övriga två är Kalle Ankas och Musse Piggs
-universum. Figurerna runt Lilla Vargen kommer huvudsakligen frän tre källor ---
-dels persongalleriet i kortfilmen Tre smä grisar frän 1933 och dess uppföljare,
-dels längfilmen Sängen om Södern frän 1946, och dels frän episoden ``Bongo'' i
-längfilmen Pank och fägelfri frän 1947. Framför allt de två första har
-sedermera även kommit att leva vidare, utvidgas och införlivas i varandra genom
-tecknade serier, främst sädana producerade av Western Publishing för
-amerikanska Disneytidningar under ären 1945--1984.
+%\thesisabstract{swedish}{
+%illa Vargens universum är det tredje fiktiva universumet inom huvudfäran av de
+%ecknade disneyserierna - de övriga två är Kalle Ankas och Musse Piggs
+%niversum. Figurerna runt Lilla Vargen kommer huvudsakligen frän tre källor ---
+%els persongalleriet i kortfilmen Tre smä grisar frän 1933 och dess uppföljare,
+%dels längfilmen Sängen om Södern frän 1946, och dels frän episoden ``Bongo'' i
+%ängfilmen Pank och fägelfri frän 1947. Framför allt de två första har
+%sedermera även kommit att leva vidare, utvidgas och införlivas i varandra genom
+%tecknade serier, främst sädana producerade av Western Publishing för
+%amerikanska Disneytidningar under ären 1945--1984.
 
-Världen runt Lilla Vargen är, i jämförelse med den runt Kalle Anka eller Musse
-Pigg, inte helt enhetlig, vilket bland annat märks i Bror Björns skiftande
-personlighet. Den har även varit betydligt mer öppen för influenser frän andra
-Disneyvärldar, inte minst de tecknade längfilmerna. Ytterligare en skillnad är
-att varelserna i vargserierna förefaller stä närmare sina förebilder inom den
-verkliga djurvärlden. Att vargen Zeke vill äta upp grisen Bror Duktig är till
-exempel ett ständigt äterkommande tema, men om katten Svarte Petter skulle fä
-för sig att äta upp musen Musse Pigg skulle detta antagligen höja ett och annat
-ögonbryn bland läsarna.}
+%Världen runt Lilla Vargen är, i jämförelse med den runt Kalle Anka eller Musse
+%Pigg, inte helt enhetlig, vilket bland annat märks i Bror Björns skiftande
+%personlighet. Den har även varit betydligt mer öppen för influenser frän andra
+%Disneyvärldar, inte minst de tecknade längfilmerna. Ytterligare en skillnad är
+%tt varelserna i vargserierna förefaller stä närmare sina förebilder inom den
+%verkliga djurvärlden. Att vargen Zeke vill äta upp grisen Bror Duktig är till
+%exempel ett ständigt äterkommande tema, men om katten Svarte Petter skulle fä
+%för sig att äta upp musen Musse Pigg skulle detta antagligen höja ett och annat
+%ögonbryn bland läsarna.}
 
 
 % Acknowledgements
@@ -575,435 +581,15 @@ note & Note also, that this list is not compulsory, and should be omitted if you
 
 % \input{1introduction.tex}
 
-\chapter{Introduction}
-\label{chapter:intro}
 
-This is my master's thesis, and I am very proud of it.  Of course,
-when I write my \emph{real} master's thesis, I will not use the
-singular pronoun \emph{I}, but rather try to avoid referring to myself
-and speak of the research \emph{we} have conducted---I rarely work
-alone, after all.  Yet, both \emph{I} and \emph{we} are correct, and
-it depends on the instructor and the supervisor (of course from you,
-too), which one they would prefer. Anyway, the tense should be active,
-and passive sentenses should be avoided (especially, writing sentences
-where the subject is presented with by preposition), so often you
-cannot avoid choosing between the pronouns. Life is strange, but there
-you have it.
+%===========================================================================================================
+\section{Notation and Symbols}
 
-By the way, the preferred order of writing your master's thesis is
-about the same as the outline of the thesis: you first discover your
-problem and write about that, then you find out what methods you
-should use and write about that.  Then you do your implementation, and
-document that, and so on.  However, the abstract and introduction are
-often easiest to write last.  This is because these really cover the
-entire thesis, and there is no way you could know what to put in your
-abstract before you have actually done your implementation and
-evaluation. Rarely anyone write the thesis from the beginning to the
-end just one time, but the writing is more like process, where every
-piece of text is written at least twice. Be also prepared to delete
-your own text. In the first phase, you can hide it into comments that
-are started with \% but during the writing, the many comments should be
-visible for your helpers, the instructor and supervisor.
+%\footnote{http://owl.english.purdue.edu/owl/resource/574/02/} of
+%Purdue University or Strunk's Elements of
+%Style\footnote{http://www.bartleby.com/141/}. Remember that footnotes
 
-The introduction in itself is rarely very long; two to five pages often
-suffice.
-
-
-\section{Problem statement}
-
-Undergraduate students studying technical subjects do not consider typography
-very interesting these days, and therefore the typographical quality of many
-theses is unacceptably low.
-We plan to rectify this situation somewhat by providing a decent-quality
-example thesis outline for students.
-We expect that the typographical quality of the master's theses will
-dramatically increase as the new thesis outline is taken into use.
-
-\section{Helpful hints}
-
-Read the information from the university master's thesis
-pages~\cite{ThesisInstructions} before starting the thesis.  You
-should also go through the thesis grading
-instructions~\cite{ThesisGrading} together with your instructor and/or
-supervisor in the beginning of your work.
-
-\section{Structure of the Thesis}
-\label{section:structure}
-
-You should use transition in your text, meaning that you should help
-the reader follow the thesis outline. Here, you tell what will be in
-each chapter of your thesis.
-
-
-
-% \input{2background.tex}
-
-\chapter{Background}
-\label{chapter:background}
-
-The problem must have some background, otherwise it is not
-interesting.  You can explain the background here. Probably you should
-change the title to something that describes more the content of this
-chapter. Background consists of information that help other masters of
-the same degree program to understand the rest of the thesis.
-
-Transitions mentioned in Section~\ref{section:structure} are used also
-in the chapters and sections. For example, next in this chapter we
-tell how to use English language, how to find and refer to sources,
-and enlight different ways to include graphics in the thesis.
-
-\section{Language and Structure}
-
-Moreover, the transitions are also used in the paragraph and the
-sentence level meaning that all the text is linked together. For example,
-the word ``moreover'' here is one way, but of course you should use
-variation in the text. Examples of transitional devices (words) and
-their use can be found from writing guides, e.g. from the Online
-Writing Lab
-(OWL)\footnote{http://owl.english.purdue.edu/owl/resource/574/02/} of
-Purdue University or Strunk's Elements of
-Style\footnote{http://www.bartleby.com/141/}. Remember that footnotes
-are additional information, and they are seldom used.  If you refer to a source, you do no
-not use footnote. The right command for the references is \emph{cite}.
-
-The language used in the thesis should be technical (or
-scientifical). For example, the abreviations aren't used but all them
-are written open (i.e. ``are not''). Since the content itself is often
-hard to understand (and explain), the sentences should not be very
-long, use complex language with several examples embedded in the same
-sentence, and, also, seldom used words and weird euphemism or paraphrases
-can make the sentence hard to follow and to read it with only one
-time, and making everything even harder to understand all this without
-any punctuation marks makes the instructor cry and finally after
-trying to correct the language, you will get boomerang, and everyone's
-time has just been wasted.
-
-Please use proofreaders before sending even your unfinished version to
-the instructor and/or supervisor. You will get better comments when
-they do not need first proofread your text. Moreover, they can
-consentrate to the content better if the language and spelling
-mistakes are not distracting the reading. Several editors have their
-own proofreading tools, e.g. ispell in emacs. You can also use
-Microsoft Word to proofread your thesis: it can correct also some
-grammatical errors and not just misspelled words.
-
-Note also that if you have a section or a subsection, you have to have
-at least two of them, or otherwise the section or subsection title is
-unnecessary. Same with the paragraphs an: you should not have sections
-with only one paragraphe, and single sentence paragraph. Furthermore,
-always write some text after the title before the next level title.
-
-\section{Finding and referring to sources}
-
-Never ever copy anything into your theses from somebody else's text
-(nor your own previously published text). Never. Not even for starting
-point to be rewritten later. The risk is that you forgot the copied
-text to your thesis and end up to be accused of plagiarism. Plagiarism
-is a serious crime in studies and science and can ruin your career
-even its beginning. To repeate: never cut and paste text into your
-thesis!
-
-\subsection{Finding sources}
-
-All work is based on someone else's work. You should find the relevant
-sources of your field and choose the best of them. Also, you should
-refer to the original source where a fact has been mentioned first
-time. Remember source evaluation (criticism) with all sources you
-find.
-
-Good starting points for finding references in computer science are:
-\begin{itemize}
-% You can use this command to set the items in the list closer to each other
-% (ITEM SEParation, the vertical space between the list items)
-\setlength{\itemsep}{0pt}
-\item Nelli Portal (Aalto Library): \url{http://www.nelliportaali.fi}
-\item ACM Digital library: \url{http://portal.acm.org/}
-\item IEEExplore: \url{http://ieeexplore.ieee.org}
-\item ScienceDirect: \url{http://www.sciencedirect.com/}
-\item \ldots although Google Scholar (\url{http://scholar.google.com/}) will
-find links to most of the articles from the abovementioned sources, if you
-search from within the university network
-\end{itemize}
-
-Some of the publishers do not offer all the text of the articles
-freely, but the library has agreed on the rights to use the whole
-text. Thus, you should sometimes use computers in the domain of the
-university in order to get the full text. Sometimes the Nelli Portal
-can also help getting the whole article instead of just the abstract.
-The library has also brief instrucions how to find
-information~\cite{howfindinfo}.
-
-Instead of normal Google, use Google Scholar
-(\url{http://scholar.google.fi/}). It finds academic publications whereas
-normal Google find too much commercial advertisements or otherwise
-biased information. Wikipedia articles should be referred to in the master
-thesis only very, very seldomly. You can use Wikipedia for understanding
-some basics and finding more sources, but often you cannot be sure if
-the article is correct and unbiased.
-
-One important part of the sources that you have found is the reference
-list. This way you can find the original sources that all the other
-research of the field refer. Often you can also find more information
-with the name of the researchers that are often referred in the
-articles.
-
-\subsection{Referring to sources}
-
-The main point in referring to sources is to separate your own
-thinking and text from that of others. Facts of the research area can
-be given without reference, but otherwise you should refer to
-sources. This means two things: marking the source in the text where
-it has been used, and listing the sources usually in the end of the
-thesis in a way that help the reader to find the original source.
-
-There are several bibliography styles, meaning how to form the
-bibliography in the end of the thesis. Aalto's library has good
-instructions for many styles~\cite{bibinstructions}. You should ask
-from your supervisor or instructors which style you should use. This
-thesis template uses the number style that is often used in software
-engineering. The other style also used in the CS field,
-e.g. usability, is the Harvard style where instead of numbers, the
-reference is marked into the text with author's name and publishing
-year. Other areas use also many other styles for making the lists and
-marking the references.
-
-In addition to the list in the end of the thesis, you have to mark the
-source in the text where the source is used. There are three places
-for the reference: in a sentence before the period, in the end of a
-sentence after the period, or in the end of a paragraph. All of them
-have different meaning. The main point is that first you paraphrase
-the source using your own words and then mark the source. Next, we
-give short examples that are marked with \emph{emphasised text}.
-
-\emph{Haapasalo~\cite{HaapasaloThesis} researched database algorithms
-  that allows use of previous versions of the content stored in the
-  database.} This kind of marking means that this paragraph (or until
-the next reference is given) is based on the source mentioned in the
-beginning.  Giving the source you should use only the family name of
-the first author of the article, and not give any hints about what is
-the type of the article that is referred.
-
-\emph{B+-trees offers one way to index data that is stored in to a
-  database. Multiversion B+-trees (MVBT) offer also a way to restore
-  the data from previous versions of the database. Concurrent MVBT
-  allows many simultaneous updates to the database that is was not
-  possible with MVBT.~\cite{HaapasaloThesis}} When the marking is
-after the period, the reference is retrospective: all the paragraph
-(or after previous reference marking) is based on the source given in
-its end. If the content is very broad, you can start with saying
-\emph{According to Haapasalo}, then continue referring the source with
-several separate sentences, and in the end put the marking of your
-source \emph{ that shows that CMVBT are the
-  best. ~\cite{HaapasaloThesis}}.
-
-If your paragraph has several sources, the above mentioned styles are
-not proper. The reader of your thesis cannot know which of your
-sources give which of the statements. In this case, it is better to
-use more finegraded refering where the reference markings that are
-embedded in the sentences. For example, \emph{the multiversion B+-tree
-  (MVBT) index of Becker et al.~\cite{becker:1996:mvbt} allows database
-  users to query old versions of the database, but the index is not
-  transactional.
-  It's successor, the transactional MBVT (TMVBT), allows a single transaction
-  running in its own thread or process to update the database concurrently
-  with other transactions that only read the
-  database~\cite{haapasalo:2009:tmvbt}.
-  Further development, titled the concurrent MBVT (CMVBT),
-  allows several transactions to perform updates to the database at the same
-  time~\cite{HaapasaloThesis}}.
-  Here, the references are marked before
-  the period in the sentences where they are used.
-
-Finally, direct quotes are allowed. However, often you should avoid
-them since they do not usually fit in to your text very well. Using
-direct quotes has two tricks: quotation marks and the source.  \emph{
-  ``Even though deletions in a multiversion index must not physically
-  delete the history of the data items, queries and range scans can
-  become more efficient, if the leaf pages of the index structure are
-  merged to retain optimality.''~\cite{HaapasaloThesis}} Quotes are
-hard to make neatly since you should use only as much as needed
-without changing the text. Moreover, you often do not really
-understand what the author has mentioned with his wordings if you
-cannot write the same with your own words. Remember also that never
-cut and paste anything without marking the quotation marks right away,
-and in general, never cut and paste anything at all!
-
-Sometimes getting the original source can be almost impossible. In an
-extremely desperate situation, you can refer with structure \emph{mr
-  X~[\ldots] according to ms Y~[\ldots] defined that}, if you find a
-source that refers to the original source. Note also that the
-reference marking is never used as sentence element (example of how
-\textbf{not} to do it: \emph{\cite{HaapasaloThesis} describes
-an optimal algorithm for indexing multiversiond databases.}).
-
-
-
-% \input{3environment.tex}
-
-\chapter{Environment}
-\label{chapter:environment}
-
-A problem instance is rarely totally independent of its environment.
-Most often you need to describe the environment you work in, what
-limits there are and so on. This is a good place to do that. First we
-tell you about the LaTeX working environments and then is an example
-from an thesis written some years ago.
-
-
-\section{LaTeX working environments}
-\label{sec:environments}
-
-To create \LaTeX\ documents you need two things: a \LaTeX\ environment for
-compiling your documents and a text editor for writing them.
-
-\subsection{Environment}
-
-Fortunately \LaTeX\ can nowadays be found for any (modern) computer
-environment, be it Linux, Windows, or Macintosh.
-For Linuxes (and other Unix clones) and Macs, I'd recommend \emph{TeX
-Live}~\cite{TeXLive}, which is the current default \LaTeX\ distribution for
-many Linux flavors such as Fedora, Debian, Ubuntu, and Gentoo.
-TeX Live is the replacement for the older \emph{teTeX}, which is
-no longer developed.
-
-TeX Live works also for Windows machines (at least according to their web
-site); however, I have used \emph{MiKTeX}~\cite{MiKTeX} and can recommend it
-for Windows.
-MiKTeX has a nice package manager and automatically fetches missing packages
-for you.
-
-\subsection{Editor}
-
-You can write \LaTeX\ documents with any text editor you like, but having
-syntax coloring options and such really helps a lot.
-My personal favourite for editing \LaTeX\ is the
-\emph{TeXlipse}~\cite{TeXlipse} plugin for the Eclipse IDE~\cite{Eclipse}.
-Eclipse is an open-source integrated development environment (IDE) initially
-created for writing Java code, but it currently has support for editing
-languages such as C, C++, JavaScript, XML, HTML, and many more.
-The TeXlipse plugin allows you to edit and compile \LaTeX\ documents directly
-in Eclipse, and compilation errors and warnings are shown in the Eclipse
-\emph{Problems} dialog so that you can locate and fix the issues easily.
-The plugin also supports reference traversal so that you can locate the source
-line where a label or a citation is defined.
-
-Eclipse is an entire development environment, so it may feel a bit heavy-weight
-for editing a document.
-If you are looking for a more light-weight option, check out TeXworks.
-TeXworks is a \LaTeX\ editor that is packaged with the newer MiKTeX
-distributions, and it can be acquired from \url{http://www.tug.org/texworks/}.
-
-And if you are attached to your \emph{emacs} or \emph{vim} editor, you
-can of course edit your \LaTeX\ documents with them.
-Emacs at least has syntax coloring and you can compile your document with a key
-binding, so this may be a good option if you prefer working with the standard
-Linux text editors.
-
-\section{Graphics}
-
-When you use \texttt{pdflatex} to render your thesis, you can include PDF images
-directly, as shown by Figure~\ref{fig:indica_model} below.
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{example_indica_model.pdf}
-    \caption{The INDICA two-layered value chain model.}
-    \label{fig:indica_model}
-  \end{center}
-\end{figure}
-
-You can also include JPEG or PNG files, as shown by Figure~\ref{fig:eeyore}.
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=9cm]{example_ihaa.jpg}
-    \caption{Eeyore, or Ihaa, a very sad donkey.}
-    \label{fig:eeyore}
-  \end{center}
-\end{figure}
-
-You can create PDF files out of practically anything.
-In Windows, you can download PrimoPDF or CutePDF (or some such) and install a
-printing driver so that you can print directly to PDF files from any
-application. There are also tools that allow you to upload documents in common
-file formats and convert them to the PDF format.
-If you have PS or EPS files, you can use the tools \texttt{ps2pdf} or
-\texttt{epspdf} to convert your PS and EPS files to PDF\@.
-
-% Comment: If your sentence ends in a capital letter, like here, you should
-% write \@ before the period; otherwise LaTeX will assume that this is not
-% really an end of the sentence and will not put a large enough space after the
-% period. That is, LaTeX assumes that you are (for example), enumerating using
-% capital roman numerals, like I. do something, II. do something else. In this
-% case, the periods do not end the sentence.
-
-% Similarly, if you do need a normal space after a period (instead of
-% the longer sentence separator), use \  (backslash and space) after the
-% period. Like so: a.\ first item, b.\ second item.
-
-Furthermore, most newer editor programs allow you to save directly to the PDF
-format. For vector editing, you could try Inkscape, which is a new open source
-WYSIWYG vector editor that allows you to save directly to PDF\@.
-For graphs, either export/print your graphs from OpenOffice Calc/Microsoft
-Excel to PDF format, and then add them; or use \texttt{gnuplot}, which can
-create PDF files directly (at least the new versions can).
-The terminal type is \emph{pdf}, so the first line of your plot file should be
-something like \texttt{set term pdf \ldots}.
-
-To get the most professional-looking graphics, you can encode them using the
-TikZ package (TikZ is a frontend for the PGF graphics formatting system).
-You can create practically any kind of technical images with TikZ, but it has a
-rather steep learning curve. Locate the manual (\texttt{pgfmanual.pdf}) from
-your \LaTeX\ distribution and check it out. An example of TikZ-generated
-graphics is shown in Figure~\ref{fig:page-merge}.
-
-\begin{figure}[ht]
-  \begin{center}
-    \input{example_page-merge.tex}
-    \caption{Example of a multiversion database page merge. This figure has
-    been taken from the PhD thesis of Haapasalo~\cite{HaapasaloThesis}.}
-    \label{fig:page-merge}
-  \end{center}
-\end{figure}
-
-Another example of graphics created with TikZ is shown in
-Figure~\ref{fig:tikz-examples}.
-These show how graphs can be drawn and labeled.
-You can consult the example images and the PGF manual for more examples of what
-kinds figures you can draw with TikZ.
-
-% These definitions are only used in the example images; you will not
-% need them for your thesis...
-\newlength{\graphdotsize}
-\setlength{\graphdotsize}{1.7pt}
-\newlength{\graphgridsize}
-\setlength{\graphgridsize}{1.2em}
-\begin{figure}[ht]
-\begin{center}
-\subfigure[Examples of obstruction graphs for the Ferry Problem]{
-  \input{example_obstruction-grouped.tex}
-}
-\subfigure[Examples of star graphs]{
-  \input{example_general-star-graphs.tex}
-}
-\caption{Examples of graphs draw with TikZ. These figures have been taken from a
-course report for the graph theory course~\cite{FerryProblem}.}
-\label{fig:tikz-examples}
-\end{center}
-\end{figure}
-
-
-
-% \input{4methods.tex}
-
-\chapter{Methods}
-\label{chapter:methods}
-
-You have now stated your problem, and you are ready to do something
-about it!  \emph{How} are you going to do that? What methods do you
-use?  You also need to review existing literature to justify your
-choices, meaning that why you have chosen the method to be applied in
-your work.
+%\emph{cite}.
 
 % An example of a traditional LaTeX table
 % ------------------------------------------------------------------
@@ -1042,65 +628,674 @@ your work.
 % paragraph-formatting environment inside the cell. Most common ones are
 % the minipage-environment and the \parbox command (see LaTeX documentation
 % for details; or just google for ``LaTeX minipage'' and ``LaTeX parbox'').
-\begin{table}
-\begin{tabular}{|p{2cm}|p{3.8cm}|p{4.5cm}|p{1.1cm}|}
 % Alignment of sells: l=left, c=center, r=right.
 % If you want wrapping lines, use p{width} exact cell widths.
 % If you want vertical lines between columns, write | above between the letters
 % Horizontal lines are generated with the \hline command:
-\hline % The line on top of the table
-\textbf{Code} & \textbf{Name} & \textbf{Methods} & \textbf{Area} \\
-\hline
+
 % Place a & between the columns
 % In the end of the line, use two backslashes \\ to break the line,
 % then place a \hline to make a horizontal line below the row
-T-110.6130 & Systems Engineering for Data Communications
-    Software & \raggedright Computer simulations, mathematical modeling,
-  experimental research, data analysis, and network service business
-  research methods, (agile method) & T-110 \\
-\hline
-\multicolumn{2}{|p{6.25cm}|}{Mat-2.3170 Simulation (here is an example of
- multicolumn for tables)}& Details of how to build simulations & T-110 \\
-% The multicolumn command takes the following 3 arguments:
+
+%\begin{table}
+%\begin{tabular}{|p{2cm}|p{3.8cm}|p{4.5cm}|p{1.1cm}|}
+%\hline % The line on top of the table
+%\textbf{Code} & \textbf{Name} & \textbf{Methods} & \textbf{Area} \\
+%\hline
+%T-110.6130 & Systems Engineering for Data Communications
+%    Software & \raggedright Computer simulations, mathematical modeling,
+%  experimental research, data analysis, and network service business
+%  research methods, (agile method) & T-110 \\
+%\hline
+%\multicolumn{2}{|p{6.25cm}|}{Mat-2.3170 Simulation (here is an example of
+% multicolumn for tables)}& Details of how to build simulations & T-110 \\
+%\hline
+%S-38.3184 & Network Traffic Measurements and Analysis
+%& \raggedright How to measure and analyse network
+%  traffic & T-110 \\ \hline
+% \end{tabular} % for really simple tables, you can just use tabular
+% You can place the caption either below (like here) or above the table
+%\caption{Research methodology courses}
+% Place the label just after the caption to make the link work
+%\label{table:courses}
+%\end{table} % table makes a floating object with a title
+
+
+%The multicolumn command takes the following 3 arguments:
 % the number of cells to merge, the cell formatting for the new cell, and the
 % contents of the cell
+
+\chapter{Introduction}
+\label{chapter:introduction}
+
+Cranes have been used for moving goods as long as people have been moving from one place to another.
+
+\section{How To Detect Goods?}
+
+\section{Towards Automatic Operation}
+
+The results achieved by image processing technologies have claimed a lot of interest in two major application areas.
+
+First area is the enhancing of graphical content for human interpretation. In scientific image treatment it simply means that a noisy or corrupted original image can be treated in order to remove or diminish the corruption, resulting in useful content for human users to survey.
+
+The second area is enabling autonomous machine perception. A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
+ 
+Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
+
+\section{Instrumentation Problem}
+
+The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
+
+\section{Improved Safety}
+
+
+\section{}
+
+% BACKGROUND => METHODS => IMPLEMENTATION
+
+%====================================================================================================
+\chapter{Applications For Load Positioning and Tracking}
+\label{chapter:applications}
+
+\section{Safety Applications}
+
+Traditional and new safety applications can utilize load positioning information for added functionality.
+
+A traditional safety application stops the crane process if a human is detected in a dangerous work zone \cite{Raula11}. Alternatively, an adaptive safety scheme can be utilised to restrict the operation range of the crane, but not halt it. If we are able to reliably detect a location for the moving load
+
+The work area of the crane can be modelled with state-of-the-art sensing of the environment enabling for example pre-collision avoidance.
+
+Adaptive safety techniques can be realised with the improved
+
+%====================================================================================================
+\chapter{Sensing Of Time-Varying Real World Events}
+
+\section{Object Recognition}
+
+Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
+
++ classification principle
+    * statistical classifier
+    
++ knowledge representations
+    + syntactic pattern recognition
+        * relations and description language
++ machine learning
+    * neural nets
+    * genetic algorithms
+    
++ graph matching
+
++ fuzzy systems
+
+
+\subsection{}
+
+
+
+\section{Object modeling of a real-world item}
+
+The digital model of a real-world item
+
+In the virtual reality (VR) research the modeling of real-world items has been a big problem for many years. 
+It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
+
+One option is to record video from multiple cameras that look at the object from different points of view. In order to obtain a digital model we may utilise a multi-camera stereo process and compute range images for further processing. Obviously, this approach is very computationally difficult and results vary depending on the object convexity, lighting environment and the used algorithms.  
+
+A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
+m
+
+\subsection{Structure From Motion}
+
+
+
+\subsection{Multiple Perspective Interactive Video}
+
+Multiple perspective interactive video (MPI) method is used to enhance live video with interactivity. The user can adjust camera views, or add digital content in the video. 
+
+Basically, a detection of motion is achieved when each video frame is compared to a background image and the differences are logged. 
+
+The method starts with knowing a priori metric map of the scene, and it requires multiple cameras to work with. The number of cameras connected to the system is in range from 2 to 1000 cameras.
+
+Visible surface model
++ 2.5D Marr paradigm
++ Structure recovery method: multibaseline stereo
++ First make a triangle mesh model 
+
+The real-world coordinates of each backprojected pixel can be computed using the depth and image coordinates given a camera calibration \cite{Rander97}. The resulting set of [x,y,z] coordinates is mainly referred to as a point cloud, depicting a point structure of the computed object.
+
+In MPI method a triangle mesh presentation of the depicted scene is computed with the resulting point cloud. Many software exist that can visualise a point cloud, such as rviz in RoS system, but the suggested textured mesh presentation needs further processing and texture mapping. 
+
+After digital processing we get a digital model of the scene from viewpoint A. When the camera is located exactly in viewpoint A, the presentation is flawless in comparison to the original scene. The report from Rander et al. \cite{Rander97} states that if a virtual camera is moved not far away, the scene can be transformed to another viewpoint B. In viewpoint B the image contains holes where occlusion was present in the original scene.
+
+If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
+
+\subsection{Stereo Techniques}
+
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+
+\subsubsection{Stereo Assumptions}
+
+Some basic assumptions about the scene to be measured must be made.
+
++ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
++ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
++ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle
+
+Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
+Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+
+\subsubsection{Stereo Errors}
+
+In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
+
+A simple equation for the depth error is introduced in \cite{Gallup08}:
+
+\begin{equation}
+\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
+\end{equation}
+
+where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
+
+
+
+\subsubsection{Stereo Matching}
+
+It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
+In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
+The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
+
+\image{disparity_space_from_zitnick_report}
+
++ Uniqueness and continuity assumptions
+
+\section{Camera Calibration}
+
++ Why do we have to calibrate the cameras?
+    * correct distortions
+    * rectify images
+        + Why do have to we rectify images?
+    * improve performance of stereo corresponsdence algorithms
+    
++ How do we calibrate a camera?
+    * Air-glass interfaces in the lens system
+    * 
+
+Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
+
+\subsection{Planar Calibration Grids}
+Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
+
+\subsection{Calibration Error Sources}
+
++ Tangential distortion
+
++ Radial distortion
+
++ Chromatic aberration
+
++ Affine distortion (aspect ratio)
+
++ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
+
++ Calibration target location
+\subsection{The Camera Model}
+The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
+
+The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
+
+Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
+
+\subsubsection{Intrinsic and Extrinsic Camera Parameters}
+
+A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used. 
+
+The camera model has internal parameters that describe the major features of the camera model. Those are focal length, principal point, skew coefficient, and distortion coefficients \cite{CaltechWeb10}.
+
+
+
+A calibration technique that is unbiased and optimal is ideal. 
+
+Originally, camera calibration algorithms were used in aerial imaging systems.
+
+
+Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
+
++ Intrinsic camera parameters
+
++ Extrinsic camera parameters
+
+\section{The Pinhole Camera}
+
+The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
+
+\begin{equation}
+a = \frac{w}{h}
+\end{equation}
+
+We can relate the width of the image sensor with the field of view angle by equation
+
+\begin{equation}
+w = 2f\tan{\frac{\theta_{fov}}{2}}
+\label{equation:width}
+\end{equation}
+
+If we consider a fixed-baseline stereo setup where baseline \emph{b} is kept constant a report by Gallup et al. easily shows how the depth error is related to the depth measurement in quadratic sense by equation
+
+If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
+
+\begin{equation}
+number of pixels = wh = \frac{w^2}{a}
+\end{equation}
+
+Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
+
+\begin{equation}
+nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
+\label{equation:zdepth}
+\end{equation}
+
+As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
+
+The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
+
+When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
+
+The basis for camera modeling begins with the pinhole camera model where image coordinates \emph{u} and \emph{v} are transformed as
+
+\begin{equation}
+\Biggl[ \begin{array}{c}
+\emph{u} \\
+\emph{v} \\
+1 \end{array} \Biggl]
+= \Biggl[ \begin{array}{c}
+\lambda \emph{u} \\
+\lambda \emph{v} \\
+\lambda \end{array} \Biggl]
+= \textbf{F}\Biggl[ \begin{array}{c}
+\emph{X} \\
+\emph{Y} \\
+\emph{Z} \\
+1 \end{array} \Biggl]
+= \textbf{PM} \Biggl[ \begin{array}{c} 
+\emph{X} \\
+\emph{Y} \\
+\emph{Z} \\
+1 \end{array} \Biggl]
+\end{equation}
+
+where a perspective transformation matrix \emph{P} is introduced as
+
+%\begin{equation}
+%\textbf{P} = \Biggl[ \begin{array}{cccc}
+%emph{sf} & 0 & \emph{u_0} & 0 \\
+% & \emph{f} & \emph{v_0} & 0 \\
+% & 0 & 1 & 0 \end{array} \Biggl]
+%\end{equation}
+
+%+ The camera matrix
+
+\begin{equation} K =
+\Biggl[ \begin{array}{ccc}
+Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
+0 & Focal length 2 & Principal point 2 \\
+0 & 0 & 1 \Biggl] \end{array}
+\end{equation}
+
++ Aspect ratio
+
+\image{lossy_transformation}
+
+Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
+
+\subsection{Effects of Weather Conditions}
+
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
+\chapter{3D Vision}
+
+3D vision or stereo vision is a machine vision technique that is used in many engineering applications.
+We are mainly interested in machine vision as means of extracting point cloud data from a scene that represents the crane load in a crane working area.
+
+3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
+
+\section{Marr's Theory}
+
+Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
+
+
+
+
+\subsection{From 2D to 3D}
+
+According to \cite{Sonka07}, an object-centered approach is required in favor of perspective approach in order to fully realise the power of descriptor classes used for reconstruction of the scene. The requirement then, is to move step-by-step from a pixel-based intensity image representation to a full three-dimensional representation.
+
+1. From pixels to surface representation
+2. From surface representation to surface orientation model
+3. From surface orientation model to a full three-dimensional description
+
+2D => primal sketch => 2.5D sketch => full 3D
+
+The primal sketch is an edge image where physical edges are not incurred. The idea is to extract information about physical features of different scales using filtering and second-order zero crossings. First, the original image is filtered with different radii Gaussian filters and after that a Laplacian operator is used to locate second-order zero crossings \cite{Sonka07}. 
+
+The next step constructs the 2.5D image, or a depth map, with bottom-up machine vision techniques. Since bottom-up techniques are used, this step of depth map computing is applicable for all applications and no additional domain-speficic information is needed. 
+
+The final transformation from the depth map to a full three-dimensional object representation is not presented in the thesis. It is also the most difficult transformation as opposed to well-known mechanisms of primal sketch generation and depth map generation. It is 
+
+
+No additional domain-specific information is needed since the 
+
+Interesting problems
++ Feature observability in an image
++ Marr's theory
++ Perspective projection challenges
+
+Bottom-up reconstruction
+    * from multiple image construct range images
+
+Top-down recognition
+    * CAD model recognition especially
+
+Space Carving
+    * vcolumetric representationtgoo
+
+
++ object surface parameters
+    * reflectivity e.g.
+    
++ 
+
+\section{Object Occlusion}
+
+Occlusion means partial or full loss of line of sight of the object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A but not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+
+Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
+Some methods:
++ multiple cameras and camera masking
++ bidirectional matching
++ 
+
+%================================================================================================================================
+\chapter{Hardware}
+
+\section{HIMMELI Sensor Rig}
+
+The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
+
+HIMMELI includes
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item HDR stereo camera pair
+\item High resolution camera
+\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
+\item Infrared (IR) camera
+\item Automotive radar
+\end{itemize}
+
+Additionally, an IR light source and LED flash are included.
+
+\begin{table}
+\caption{Device and its connector type in HIMMELI platform.}
+\label{table:connectortypes} %lable just after caption
+\begin{tabular}{|p{6cm}|p{5cm}|}
+\hline % The line on top of the table
+\textbf{Device} & \textbf{Connector Type} \\
 \hline
-S-38.3184 & Network Traffic Measurements and Analysis
-& \raggedright How to measure and analyse network
-  traffic & T-110 \\ \hline
+High dynamic range camera & Gigabit Ethernet \\
+\hline
+High resolution camera & IEEE 1394b (FireWire) \\
+\hline
+Automotive radar & CAN bus \\
+\hline
+Thermal camera & CVBS (PAL) or serial bus \\
+\hline
+LIDAR laser scanner & LIDAR \\
+\hline
+GNSS receiver & Serial bus 1 \\ \hline
 \end{tabular} % for really simple tables, you can just use tabular
-% You can place the caption either below (like here) or above the table
-\caption{Research methodology courses}
-% Place the label just after the caption to make the link work
-\label{table:courses}
 \end{table} % table makes a floating object with a title
 
-If you have not yet done any (real) metholodogical courses (but chosen
-introduction courses of different areas that are listed in the
-methodological courses list), now is the time to do so or at least
-check through material of suitable methodological courses. Good
-methodologial courses that consentrates especially to methods are
-presented in Table~\ref{table:courses}. Remember to explain the
-content of the tables (as with figures). In the table, the last column
-gives the research area where the methods are often used. Here we used
-table to give an example of tables. Abbreviations and Acronyms is also
-a long table. The difference is that longtables can continue to next
-page.
+The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
+
+The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
+
+The stereo camera setup installed on the rig has two HDR cameras.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli.pdf}
+%    \includegraphics[width=9cm]{example_ihaa.jpg}
+    \caption{HIMMELI Sensor Platform Schematic.}
+    \label{fig:himmeli}
+  \end{center}
+\end{figure}
+
+%=================================================================================================================================
+\chapter{Industry Applications}
+
+\section{Forestry Machines}
+
+\subsection{Harvester}
+
+\subsection{Log Picker Truck}
+
+\section{Process Crane}
+
+\section{Skylifter}
+%============================================================================================================================
+
+\chapter{Image Coordinate Systems}
+
+A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the viewer in a two-dimensional image plane.
+
+\section{Matrix Coordinate Transformations}
+
+The coordinate transformation matrices depicted in this thesis are three-dimensional Cartesian coordinate transformations who use a base coordinate denoted (x,y,z).
+
+A point is a metric location in space that is uniquely defined with a three-dimensional vector in a chosen coordinate system.
+A spatial coordinate has three parameters, namely x, y, and z, and the corresponding vector is referred to with a subscript after the coordinate space name.
+
+\begin{equation*}
+\Biggl[ \begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+g & h & i \end{array} \Biggl]
+\end{equation*}
+
+The subscript depicts the coordinate space where a point is located. 
+Also the transformation matrix has a subscript: it depicts on which coordinate space point (or vector) the transformation acts upon.
+The transformation matrix has a superscript: it depicts to which coordinate space the point will end up transformed in.
 
 
+\subsection{Prototype Transforms and Ordering}
 
-% \input{5implementation.tex}
+Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
 
-\chapter{Implementation}
-\label{chapter:implementation}
+\textbf{Translation} of a point is given by a translation transformation matrix
 
-You have now explained how you are going to tackle your problem.
-Go do that now! Come back when the problem is solved!
+\begin{equation}
+\Biggl[ \begin{array}{c}
+X^* \\
+Y^* \\
+Z^* \end{array} \Biggl]
+= \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & X_0 \\
+0 & 1 & 0 & Y_0 \\
+0 & 0 & 1 & Z_0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
 
-Now, how did you solve the problem?
-Explain how you implemented your solution, be it a software component, a
-custom-made FPGA, a fried jelly bean, or whatever.
-Describe the problems you encountered with your implementation work.
+\end{equation}
+
+Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
+
+\textbf{Scaling} of a point is given by a scaling transformation matrix
+
++ scaling matrix definition here (2.5-8).
+
+When is scaling used?
+
+\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
+
+\begin{equation}
+\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos \alpha & \sin \alpha & 0 \\
+0 & -\sin \alpha & \cos \alpha & 0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
+\end{equation}
+
+Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
+
+It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
+
+If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
+
+\begin{equation}
+P = \Biggl[ \begin{array}{ccccc}
+X_0 & X_1 & X_2 & \dots & X_n \\
+Y_0 & Y_1 & X_2 & \dots & Y_n \\
+Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
+\end{equation}
+
+\subsection{Camera Image Plane}
+
+The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
+
+The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
+
+The world has its own coordinate system, namely $(X,Y,Z)$ coordinate system.
+
+
+%====================================================================================================================================
+\chapter{Image Manipulations}
+\section{Histogram Operations}
+
+A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
+
+\subsection{Histogram Equalization}
+
+Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
+
+todo: corresponding histograms of two test images, and their cumulative distribution functions
+
+\subsection{Linear Filters}
+
+This section introduces linear filters that can be used for image enhancing.
+
+\subsubsection{Gaussian Blur Filter}
+
+\subsubsection{Gradient Filters}
+
+\subsubsection{Laplacian Filters}
+
+
+\subsubsection{Image Convolution Filters}
+
+Some image convolution kernels are 
+
+\subsection{Non-linear Filters}
+
+\subsubsection{Median Filter}
+
+\subsubsection{Wiener Filter}
+
+\subsubsection{Bilateral Filter}
+
+\subsection{Frequency Filters}
+
+\chapter{Machine Learning In Object Recognition}
+
++ probability density estimation
++ direct loss minimization
+
+
+\chapter{Cascade Classifiers}
+\section{Haar Training}
+
+Haar training is an object detection system that can detect features in a digital image. The first suggestion of using Haar training for feature detection was by Viola et al in 
+
+\subsection{Machine Learning Classifiers}
+
+A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+
+A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+
+In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
+
+The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
+
+The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
+
+complexity for a single feature is constant. 
+
+Currently, the 
+
++ 14 Haar-like features
++ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
++ 
+
+\subsection{Boosting Algorithms}
+
+There are a number of different boosting algorithms available, 
++ Discrete Adaboost
++ Gentle Adaboost 
++ Real Adaboost
+
+All the mentioned boosting algorithms are identical in classification sense, but they differ in their parameter learning algorithms \cite{Lienhart03}.
+
+\subsection{Cascade of Classifiers}
+
+A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade.
+
+\image{cascade_of_n_classifiers}
+
+Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages.
+
+\formula{false_alarm_rate}
+
+The cascade of classifiers can be constructed to enable feature scaling and scale-invariant detection. If the test image is re-scaled, the computation still works in constant time since a look-up table can be scaled accordingly and used in the computation. The downside of feature scaling is the loss of accuracy due integer rounding. The algorithm is sensitive to rounding errors and the result can vary severely.
+
+
++ 20 stages used in \cite{Lienhart03}
+
+
+\chapter{Available Sensor Technologies}
+
+\section{Automotive Radar}
+
+Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
+
+Radar is often usen
+
+The advantages that the automotive radar has are weather-independent operation, and direct acquisition of range and velocity measurements \cite{Wenger07}.
+
+The challenges that automotive radar introduces are measurement accuracy in resolution, and electromagnetic emissions on other radio frequencies \cite{Wenger07}. 
+
+The automotive radar operates on a wide band of 5GHz to achieve a resolution of 5 cm \cite{Wenger07}.
+
+In Europe the bands that are reserved for automotive radar operation in traffic applications are approximately 21 GHz to 27 GHz and 77 GHz to 81 GHz \cite{Wenger07}.
+
+A world-wide harmonized channel allocation system for radar widebands has been proposed, but also considered very difficult to achieve due to national regulations \cite{Wenger07}.
+
+Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
 
 
 
