@@ -866,8 +866,98 @@ Many fast but inaccurate algortihms for parameter estimation have been introduce
 + Intrinsic camera parameters
 
 + Extrinsic camera parameters
+\subsection{Effects of Weather Conditions}
+
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
+\chapter{3D Vision}
+
+3D vision or stereo vision is a machine vision technique that is used in many engineering applications.
+We are mainly interested in machine vision as means of extracting point cloud data from a scene that represents the crane load in a crane working area.
+
+3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
+
+\section{Marr's Theory}
+
+Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
+
+\subsection{From 2D to 3D}
+
+According to \cite{Sonka07}, an object-centered approach is required in favor of perspective approach in order to fully realise the power of descriptor classes used for reconstruction of the scene. The requirement then, is to move step-by-step from a pixel-based intensity image representation to a full three-dimensional representation.
+
+1. From pixels to surface representation
+2. From surface representation to surface orientation model
+3. From surface orientation model to a full three-dimensional description
+
+2D => primal sketch => 2.5D sketch => full 3D
+
+The primal sketch is an edge image where physical edges are not incurred. The idea is to extract information about physical features of different scales using filtering and second-order zero crossings. First, the original image is filtered with different radii Gaussian filters and after that a Laplacian operator is used to locate second-order zero crossings \cite{Sonka07}. 
+
+The next step constructs the 2.5D image, or a depth map, with bottom-up machine vision techniques. Since bottom-up techniques are used, this step of depth map computing is applicable for all applications and no additional domain-speficic information is needed. 
+
+The final transformation from the depth map to a full three-dimensional object representation is not presented in the thesis. It is also the most difficult transformation as opposed to well-known mechanisms of primal sketch generation and depth map generation. It is 
+
+
+No additional domain-specific information is needed since the 
+
+Interesting problems
++ Feature observability in an image
++ Marr's theory
++ Perspective projection challenges
+
+Bottom-up reconstruction
+    * from multiple image construct range images
+
+Top-down recognition
+    * CAD model recognition especially
+
+Space Carving
+    * vcolumetric representationtgoo
+
+
++ object surface parameters
+    * reflectivity e.g.
+    
++ 
+
+\section{Perspective projection geometry}
+
+In general, a perspective projection, or central projection, is the de facto type of projection for human beings. We all have a pair of eyes that can be modeled with a pinhole camera model, and the pinhole camera depicts any scene with a perspective projection. In perspective projection objects that are far away appear smaller than objects that are near. This phenomenon is called a perspective. 
+
+The stereo cameras that sense the world with CCD arrays give the user a perspective projection of the world on a 2D image plane. The basics of this projective geometry will be discussed in the case of non-parallel setup of the stereo cameras. That means the optical axes of the cameras are not in parallel, but have a specified angle with which the optical axes coincide. The cameras themselves will be modeled as pinhole cameras with certain lens system errors corrected for.
+
+In computer vision, 
+
++ homogenous transformation => transforms lines into lines
+
+
+
+The camera geometry model that we use is a single perspective camera model or a pinhole camera model.
+
+
+As depicted in the \ref{}
 
 \section{The Pinhole Camera}
+
+A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
+The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
+
+
+
 
 The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
 
@@ -950,76 +1040,6 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 
 Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 
-\subsection{Effects of Weather Conditions}
-
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
-
-\chapter{3D Vision}
-
-3D vision or stereo vision is a machine vision technique that is used in many engineering applications.
-We are mainly interested in machine vision as means of extracting point cloud data from a scene that represents the crane load in a crane working area.
-
-3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
-
-\section{Marr's Theory}
-
-Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
-
-
-
-
-\subsection{From 2D to 3D}
-
-According to \cite{Sonka07}, an object-centered approach is required in favor of perspective approach in order to fully realise the power of descriptor classes used for reconstruction of the scene. The requirement then, is to move step-by-step from a pixel-based intensity image representation to a full three-dimensional representation.
-
-1. From pixels to surface representation
-2. From surface representation to surface orientation model
-3. From surface orientation model to a full three-dimensional description
-
-2D => primal sketch => 2.5D sketch => full 3D
-
-The primal sketch is an edge image where physical edges are not incurred. The idea is to extract information about physical features of different scales using filtering and second-order zero crossings. First, the original image is filtered with different radii Gaussian filters and after that a Laplacian operator is used to locate second-order zero crossings \cite{Sonka07}. 
-
-The next step constructs the 2.5D image, or a depth map, with bottom-up machine vision techniques. Since bottom-up techniques are used, this step of depth map computing is applicable for all applications and no additional domain-speficic information is needed. 
-
-The final transformation from the depth map to a full three-dimensional object representation is not presented in the thesis. It is also the most difficult transformation as opposed to well-known mechanisms of primal sketch generation and depth map generation. It is 
-
-
-No additional domain-specific information is needed since the 
-
-Interesting problems
-+ Feature observability in an image
-+ Marr's theory
-+ Perspective projection challenges
-
-Bottom-up reconstruction
-    * from multiple image construct range images
-
-Top-down recognition
-    * CAD model recognition especially
-
-Space Carving
-    * vcolumetric representationtgoo
-
-
-+ object surface parameters
-    * reflectivity e.g.
-    
-+ 
 
 \section{Object Occlusion}
 
@@ -1228,6 +1248,8 @@ The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coo
 
 The world has its own coordinate system, namely $(X,Y,Z)$ coordinate system.
 
++ extrinsic axes => scene axes
++ intrinsic axes => camera axes
 
 %====================================================================================================================================
 \chapter{Image Manipulations}
