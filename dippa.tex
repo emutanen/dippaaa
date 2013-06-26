@@ -1285,11 +1285,22 @@ The camera coordinate system axes may be referred to as camera axes. Interchange
 
 \subsection{Image Affine Coordinate System}
 
+The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
+
 The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
 
-The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted.
+The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
 
+\section{Geometric projection}
 
+If a world point $X_w$ is translated and rotated into the camera coordinate system it will be transformed to point $X_c$. Next, the point will be projected onto the image plane \pi according to the pinhole camera model. Poin $X_c$ projects onto the image plane as Euclidean point $U_c$ where
+
+\begin{equation}
+U_c = \Biggl[
+a \\
+b \\
+0 \Biggl]
+\end{equation}
 
 %====================================================================================================================================
 \chapter{Image Manipulations}
