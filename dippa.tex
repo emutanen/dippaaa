@@ -1269,18 +1269,27 @@ The world scene that the camera sensors are detecting is called \emph{the world}
 
 The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
 
-The extrinsic parameters of the camera interact with the world coordinate system. Since the camera's position lie in some arbitrary world coordinates X and its orientation changes the detected scene accordingly we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.
+The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
+
++ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
+
+The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
 
 \subsection{Camera Coordinate System}
 
 The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
 
+The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
+
+The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
+
+\subsection{Image Affine Coordinate System}
+
+The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
+
+The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted.
 
 
-
-
-+ extrinsic axes => scene axes
-+ intrinsic axes => camera axes
 
 %====================================================================================================================================
 \chapter{Image Manipulations}
