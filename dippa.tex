@@ -1293,13 +1293,13 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 
 \section{Geometric projection}
 
-If a world point $X_w$ is translated and rotated into the camera coordinate system it will be transformed to point $X_c$. Next, the point will be projected onto the image plane \pi according to the pinhole camera model. Poin $X_c$ projects onto the image plane as Euclidean point $U_c$ where
+If a world point $X_w$ is translated and rotated into the camera coordinate system it will be transformed to point $X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where
 
 \begin{equation}
-U_c = \Biggl[
+U_c = \Biggl[ \begin{array}{c}
 a \\
 b \\
-0 \Biggl]
+0 \end{array} \Biggl]
 \end{equation}
 
 %====================================================================================================================================
