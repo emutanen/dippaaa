@@ -954,6 +954,23 @@ As depicted in the \ref{}
 \section{The Pinhole Camera}
 
 A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
+
+Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
+Optical axis.
+Focal point (optical point)
+
+
+
+
+
+
+
+
+
+
+
+
+
 The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
 
 
@@ -1169,7 +1186,7 @@ The stereo camera setup installed on the rig has two HDR cameras.
 
 \chapter{Image Coordinate Systems}
 
-A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the viewer in a two-dimensional image plane.
+A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
 
 \section{Matrix Coordinate Transformations}
 
@@ -1246,7 +1263,17 @@ The camera image plane is the projection plane where the three-dimensional point
 
 The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
 
-The world has its own coordinate system, namely $(X,Y,Z)$ coordinate system.
+\subsection{World Coordinate System}
+
+The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
+
+The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
+
+\subsection{Camera Coordinate System}
+
+The camera coordinate system
+
+
 
 + extrinsic axes => scene axes
 + intrinsic axes => camera axes
