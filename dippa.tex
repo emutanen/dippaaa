@@ -1269,9 +1269,13 @@ The world scene that the camera sensors are detecting is called \emph{the world}
 
 The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
 
+The extrinsic parameters of the camera interact with the world coordinate system. Since the camera's position lie in some arbitrary world coordinates X and its orientation changes the detected scene accordingly we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.
+
 \subsection{Camera Coordinate System}
 
-The camera coordinate system
+The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
+
+
 
 
 
