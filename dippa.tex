@@ -1362,7 +1362,7 @@ The obtained $3x3$ transformation matrix is called the camera calibration matrix
 K = \Biggl[ \begin{array}{ccc}
 -fa & -fb & -u_0 \\
 0 & -fc & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl] \Biggl[
+0 & 0 & 1 \end{array} \Biggl]
 \end{equation}.
 
 We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
@@ -1375,8 +1375,8 @@ Let us list the 5 intrinsic camera parameters in detail. The 5 intrinsic paramet
 \item -fa = represents scaling in the $u_a$ axis
 \item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
 \item -fc = represents scaling in the $v_a$ axis
-\item u_0 = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
-\item v_0 = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
+\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
+\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
 \end{itemize}
 
 All the units are given in pixels.
