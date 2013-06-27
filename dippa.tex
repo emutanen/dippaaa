@@ -1293,14 +1293,56 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 
 \section{Geometric projection}
 
-If a world point $X_w$ is translated and rotated into the camera coordinate system it will be transformed to point $X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where
+A world point $X_w$ is translated and rotated into the camera coordinate system so that
 
 \begin{equation}
+\textbf{X}_c = \Biggl[ \begin{array}{c}
+x_c \\
+y_c \\
+z_c \end{array} \Biggl] = R(\textbf{X}_w - \textbf{t})
+\end{equation}
+
+The point in the world according to the camera coordinate system now transformed to point
+$X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. 
+Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the projected point can be computed from the similar triangles of image \ref{image:projectedpoint}. 
+
+\begin{equation}
+\textbf{U}_c = \Biggl[ \begin{array}{c}
+\frac{-fx_c}{z_c} \\
+\frac{-fy_c}{z_c} \\
+-f \end{array} \Biggl]
+\end{equation}
+
+
+
+
+
+
+\begin{equation}
+\label{equation:projectedpoint}
 U_c = \Biggl[ \begin{array}{c}
 a \\
 b \\
 0 \end{array} \Biggl]
 \end{equation}
+
+Now, the point $U_c$ in equation \ref{equation:projectedpoint} can be represented in homogenous coordinate system as 
+
+\begin{equation}
+\tilde{U_c} = \Biggl[\begin{array}{c}
+U \\
+V \\
+W \end{array} \Biggl]
+\end{equation}
+
+where the presentation equals \ref{equation:projectedpoint} when 
+
+\begin{equation*}
+
+
+\end{equation*}
+
+\begin{equation}
 
 %====================================================================================================================================
 \chapter{Image Manipulations}
