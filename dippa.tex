@@ -848,24 +848,7 @@ The real-world object projection on the camera image plane is a lossy transforma
 
 Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
-\subsubsection{Intrinsic and Extrinsic Camera Parameters}
 
-A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used. 
-
-The camera model has internal parameters that describe the major features of the camera model. Those are focal length, principal point, skew coefficient, and distortion coefficients \cite{CaltechWeb10}.
-
-
-
-A calibration technique that is unbiased and optimal is ideal. 
-
-Originally, camera calibration algorithms were used in aerial imaging systems.
-
-
-Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
-
-+ Intrinsic camera parameters
-
-+ Extrinsic camera parameters
 \subsection{Effects of Weather Conditions}
 
 Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
@@ -1345,7 +1328,7 @@ v_0 \\
 0 \end{array} \Biggl]
 \end{equation}
 
-We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle matrix containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. The equation for the affine transformation of projected point $U_c$ is
+The equation for the affine transformation of projected point $U_c$ is
 
 \begin{equation}
 \tilde{u} = \Biggl[ \begin{array}{c}
@@ -1372,6 +1355,32 @@ and with reordering the multiplication of $-f$ we obtain
 1 \end{array} \Biggl]
 \end{equation}
 
+The obtained $3x3$ transformation matrix is called the camera calibration matrix K where
+
+\begin{equation}
+\label{equation:cameracalibrationmatrix}
+K = \Biggl[ \begin{array}{ccc}
+-fa & -fb & -u_0 \\
+0 & -fc & -v_0 \\
+0 & 0 & 1 \end{array} \Biggl] \Biggl[
+\end{equation}.
+
+We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
+
+Let us list the 5 intrinsic camera parameters in detail. The 5 intrinsic parameters and their associated coefficients of matrix K are 
+
+\begin{itemize}
+\label{list:intrinsiccameraparameters}
+\setlength{\itemsep}{0pt}
+\item -fa = represents scaling in the $u_a$ axis
+\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
+\item -fc = represents scaling in the $v_a$ axis
+\item u_0 = u coordinate for the optical axis intersection on the image plane
+\item v_0 = v coordinate for the optical axis intersection on the image plane
+\end{itemize}
+
+All the units are given in pixels.
+
 Now, the point $U_c$ in equation \ref{equation:projectedpoint} can be represented in homogenous coordinate system as 
 
 \begin{equation}
@@ -1380,6 +1389,31 @@ U \\
 V \\
 W \end{array} \Biggl]
 \end{equation}
+
+\subsubsection{Intrinsic and Extrinsic Camera Parameters}
+
+A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
+
+The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
+
+If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
+
+
+
+
+
+A calibration technique that is unbiased and optimal is ideal. 
+
+Originally, camera calibration algorithms were used in aerial imaging systems.
+
+
+Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
+
++ Intrinsic camera parameters
+
++ Extrinsic camera parameters
+
+
 
 %====================================================================================================================================
 \chapter{Image Manipulations}
