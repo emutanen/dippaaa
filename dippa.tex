@@ -1313,17 +1313,26 @@ Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the pro
 -f \end{array} \Biggl]
 \end{equation}
 
-The image point that the camera outputs is the affine transformed \textbf{U}_c. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication.
+The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication.
 
 We can represent a homogenous coordinate point in the image plane $\pi$ as 
 
 \begin{equation}
-\tilde{u} = \begin{array}{c}
+\tilde{u} = \Biggl[ \begin{array}{c}
 U \\
 V \\
-W \end{array}
+W \end{array} \Biggl]
 \end{equation}
 
+so that a Euclidean distance representation of point $\tilde{u}$ is 
+
+\begin{equation}
+\textbf{u} = \Biggl[ \begin{array}{c}
+\emph{u} \\
+\emph{v} \end{array} \Biggl] = \Biggl[ \begin{array}{c}
+\frac{U}{W} \\
+\frac{V}{W} \end{array} \Biggl]
+\end{equation}
 
 \begin{equation}
 \label{equation:projectedpoint}
