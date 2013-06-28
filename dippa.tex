@@ -1389,7 +1389,18 @@ Next we will introduce a two-camera epipolar geometry setup that is used for the
 
 + reference to the optical centers C and C', and baseline of the camera setup
 
-By definition, the epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. 
+By definition, an epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. The epipolar plane intersects the image planes $\pi$ and $\pi'$ at epipolar lines. A feature of the epipolar line is that any projected point X must lie on this epipolar line on the image plane, a fact which greatly reduces the search space for matching image features.
+
+Next, we introduce the epipole, which is the line intersection of an epipolar line and the baseline of the stereo camera configuration. By definition, epipoles always lie on the baseline.
+
+A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
+
+Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing.
+In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known. 
+
+\begin{equation}
+\mathsf{depth} = \frac{\mathfs{baseline * focal length}}{\mathfs{disparity}}
+\end{equation}
 
 
 
@@ -1447,6 +1458,10 @@ Many fast but inaccurate algortihms for parameter estimation have been introduce
 + Intrinsic camera parameters
 
 + Extrinsic camera parameters
+
+
+
+
 
 
 
