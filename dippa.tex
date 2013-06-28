@@ -1453,18 +1453,18 @@ Using only two cameras instead of multiple cameras helps to avoid occlusion of o
 
 \subsection{Correspondence Problem}
 + the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
-disparity limit constraint
-disparity smoothness constraint
-epipolar constraint
-figural disparity constraint
-feature compatibility constraint
-geometric similarity constraint
-mutual correspondence constraint
-ordering constraints
-photometric compatibility constraint
-uniqueness constraint
+disparity limit constraint (disparity must be < limit, e.g. finger in front of the face cannot be imagined in stereo)
+disparity smoothness (disparity changes only a little in any direction)
+epipolar constraint (search space for matching pixels 1D on the epipolar line)
+figural disparity constraint (corresponding elements should lie on an edge element in both images)
+feature compatibility (physical origin of the matched points should be the same)
+geometric similarity constraint (geometric features differ only a little)
+mutual correspondence constraint (occluded points are not found thus ruled out)
+ordering constraints (typically points lie on the same epipolar line for similar depth items, exception narrow close-up sticks)
+photometric compatibility (little intensity differences)
+uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
 
-
++ specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
 
 
 
