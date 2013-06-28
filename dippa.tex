@@ -1396,10 +1396,10 @@ Next, we introduce the epipole, which is the line intersection of an epipolar li
 A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
 
 Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing.
-In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known. 
+In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known according to
 
 \begin{equation}
-\mathsf{depth} = \frac{\mathfs{baseline * focal length}}{\mathfs{disparity}}
+\mathsf{depth} = \frac{\mathsf{baseline * focal length}}{\mathsf{disparity}}
 \end{equation}
 
 
