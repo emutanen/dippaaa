@@ -528,12 +528,8 @@ Thank you, and keep up the good work!
 
 \noindent
 \begin{longtable}{@{}p{0.25\textwidth}p{0.7\textwidth}@{}}
-2k/4k/8k mode & COFDM operation modes \\
-3GPP & 3rd Generation Partnership Project \\
-ESP & Encapsulating Security Payload; An IPsec security protocol \\
-FLUTE  & The File Delivery over Unidirectional Transport protocol \\
-e.g.& for example (do not list here this kind of common acronymbs or abbreviations, but only those that are essential for understanding the content of your thesis. \\
-note & Note also, that this list is not compulsory, and should be omitted if you have only few abbreviations
+HDR & High Dynamic Range \\
+HIMMELI & 
 
 \end{longtable}
 
@@ -712,6 +708,15 @@ Adaptive safety techniques can be realised with the improved
 
 \section{Object Recognition}
 
++ Mechanical coordinate measuring machine (CMM) (3D modeling)
+    * DCC CMM
+
+
+
+
+
+
+
 Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
 
 + classification principle
@@ -747,6 +752,9 @@ m
 
 \subsection{Structure From Motion}
 
+Structure from X techniques
++ Shape from shading
++ Structure from motion
 
 
 \subsection{Multiple Perspective Interactive Video}
@@ -774,9 +782,21 @@ If the point cloud contains N x N points in the depth map, the computational com
 
 Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
 
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+
+
+
 \subsubsection{Stereo Assumptions}
 
-Some basic assumptions about the scene to be measured must be made.
+Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+
+In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+
+A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+
+
+
+
 
 + A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
 + Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
@@ -915,7 +935,12 @@ Space Carving
 + object surface parameters
     * reflectivity e.g.
     
-+ 
+
+\subsection{Range Imaging}
+
+One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
+
+
 
 \section{Perspective projection geometry}
 
@@ -1153,8 +1178,19 @@ The stereo camera setup installed on the rig has two HDR cameras.
   \end{center}
 \end{figure}
 
+\section{HDR Cameras}
+
+HIMMELI carries two GigE uEye UI-52120 RE HDR cameras in its camera module. 
+
+
 %=================================================================================================================================
 \chapter{Industry Applications}
+
+\section{Sensors}
+
++ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
+
+
 
 \section{Forestry Machines}
 
