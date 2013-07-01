@@ -711,6 +711,7 @@ Adaptive safety techniques can be realised with the improved
 %====================================================================================================
 \chapter{Sensing Of Time-Varying Real World Events}
 
+
 \section{Object Recognition}
 
 
@@ -831,6 +832,7 @@ Photometric Stereo \cite{Woodham80}.
     * Recovers surface orientation assuming a known reflection function
     * a Lambertian surface model
     * requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    * point illumination sources with known intensity and direction
     
 
 
@@ -938,12 +940,18 @@ If a stereo camera is used, inhomogenous degradation in image quality
 
 Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
-\chapter{3D Vision}
+\chapter{Stereo Vision}
 
-3D vision or stereo vision is a machine vision technique that is used in many engineering applications.
-We are mainly interested in machine vision as means of extracting point cloud data from a scene that represents the crane load in a crane working area.
+Stereo vision or 3D vision is a machine vision technique that is used in many engineering applications. 3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
 
-3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
+Usually, a stereo camera setup is used for solving the problem of 3D information recovery from 2D images using knowledge about the camera geometry and the image content. We are mainly interested in machine vision as means of extracting point cloud data from a scene. Full recovery of the spatial 3D scene is not possible, because the stereo cameras only see the surface parts that project onto the image plane.
+
+A full recovery of a 3-dimensional object model is not needed to solve the problem of load positioning. A computed point cloud will provide depth mapping for the visible surface, which we can further mask and process.
+
+*Embedded geometric and radiometric difficulties
+
+*different approaches: top-down (model-based) or bottom-up (reconstruction)
+
 
 \section{Marr's Theory}
 
