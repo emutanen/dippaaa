@@ -532,9 +532,9 @@ CCIR & Comité Consultatif International pour la Radio
 CMOS & Complementary Metal Oxide Semiconductor \\
 HDR & High Dynamic Range \\
 HIMMELI & 
-LIDAR & Light Detecting and Ranging \\
-RADAR & Radio Detecting and Ranging \\
-
+LIDAR & Light Detecting And Ranging \\
+RADAR & Radio Detecting And Ranging \\
+SONAR & Sound Navigation And Ranging \\
 
 \end{longtable}
 
@@ -713,16 +713,20 @@ Adaptive safety techniques can be realised with the improved
 
 \section{Object Recognition}
 
+
+
 + Mechanical coordinate measuring machine (CMM) (3D modeling)
     * DCC CMM
 
 + Structured Light Triangulation
     *laser plane range finder
     
-+ Sonar
-    *ultrasonic 
 
-\section{Automotive Radar}
+\subsection{Sensor Technologies}
+
+\subsubsection{Ultrasonic SONAR}
+
+\subsubsection{Automotive Radar}
 
 Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
 
@@ -787,7 +791,7 @@ The relation between an object's surface that radiates onto the camera sensor ar
 E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
 \end{equation}
 
-where L is radiance of the object unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
 
 \subsection{Structure From Motion}
 
@@ -840,7 +844,10 @@ A single pixel must correspond to a single surface point in the world in order t
 + A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
 + Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
 + Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
+    * opaque
+    * ideal diffusion
+    * reclefts light energy in all directions
 
 Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
 Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
