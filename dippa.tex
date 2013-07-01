@@ -827,6 +827,11 @@ Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
 
 Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
 
+Photometric Stereo \cite{Woodham80}.
+    * Recovers surface orientation assuming a known reflection function
+    * a Lambertian surface model
+    * requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    
 
 
 \subsubsection{Stereo Assumptions}
@@ -1121,6 +1126,8 @@ Some methods:
 + multiple cameras and camera masking
 + bidirectional matching
 + 
+
++ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
 
 %================================================================================================================================
 \chapter{Hardware}
