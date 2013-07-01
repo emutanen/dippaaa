@@ -532,6 +532,9 @@ CCIR & Comité Consultatif International pour la Radio
 CMOS & Complementary Metal Oxide Semiconductor \\
 HDR & High Dynamic Range \\
 HIMMELI & 
+LIDAR & Light Detecting and Ranging \\
+RADAR & Radio Detecting and Ranging \\
+
 
 \end{longtable}
 
@@ -713,8 +716,29 @@ Adaptive safety techniques can be realised with the improved
 + Mechanical coordinate measuring machine (CMM) (3D modeling)
     * DCC CMM
 
++ Structured Light Triangulation
+    *laser plane range finder
+    
++ Sonar
+    *ultrasonic 
 
+\section{Automotive Radar}
 
+Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
+
+Radar is often usen
+
+The advantages that the automotive radar has are weather-independent operation, and direct acquisition of range and velocity measurements \cite{Wenger07}.
+
+The challenges that automotive radar introduces are measurement accuracy in resolution, and electromagnetic emissions on other radio frequencies \cite{Wenger07}. 
+
+The automotive radar operates on a wide band of 5GHz to achieve a resolution of 5 cm \cite{Wenger07}.
+
+In Europe the bands that are reserved for automotive radar operation in traffic applications are approximately 21 GHz to 27 GHz and 77 GHz to 81 GHz \cite{Wenger07}.
+
+A world-wide harmonized channel allocation system for radar widebands has been proposed, but also considered very difficult to achieve due to national regulations \cite{Wenger07}.
+
+Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
 
 
 
@@ -751,6 +775,19 @@ One option is to record video from multiple cameras that look at the object from
 
 A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 m
+
+\subsection{Photometrics}
+
+Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+Irradiance is a measure of power of light cast on a unit surface are of an object.
+The relation between an object's surface that radiates onto the camera sensor array can be formulated as
+
+\begin{equation}
+\label{equation:radiance}
+E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+\end{equation}
+
+where L is radiance of the object unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
 
 \subsection{Structure From Motion}
 
@@ -1183,11 +1220,9 @@ The stereo camera setup installed on the rig has two HDR cameras.
 
 The HIMMELI sensor platform carries two industrial-grade GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs the image at 50 frames per second maximum. 
 
-The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. Additionally, the manufacturer claims 
+The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
 
 The data is transmitted through Gigabit Ethernet with Opto I/O interface.
-
-
 
 \subsection{NIT CMOS Array}
 
@@ -1571,6 +1606,10 @@ Many fast but inaccurate algortihms for parameter estimation have been introduce
 
 A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
 
+Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
+
+
+
 \subsection{Histogram Equalization}
 
 Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
@@ -1656,29 +1695,6 @@ The cascade of classifiers can be constructed to enable feature scaling and scal
 
 
 + 20 stages used in \cite{Lienhart03}
-
-
-\chapter{Available Sensor Technologies}
-
-\section{Automotive Radar}
-
-Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
-
-Radar is often usen
-
-The advantages that the automotive radar has are weather-independent operation, and direct acquisition of range and velocity measurements \cite{Wenger07}.
-
-The challenges that automotive radar introduces are measurement accuracy in resolution, and electromagnetic emissions on other radio frequencies \cite{Wenger07}. 
-
-The automotive radar operates on a wide band of 5GHz to achieve a resolution of 5 cm \cite{Wenger07}.
-
-In Europe the bands that are reserved for automotive radar operation in traffic applications are approximately 21 GHz to 27 GHz and 77 GHz to 81 GHz \cite{Wenger07}.
-
-A world-wide harmonized channel allocation system for radar widebands has been proposed, but also considered very difficult to achieve due to national regulations \cite{Wenger07}.
-
-Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
-
-
 
 % \input{6evaluation.tex}
 
