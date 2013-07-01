@@ -1172,7 +1172,6 @@ The stereo camera setup installed on the rig has two HDR cameras.
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{himmeli.pdf}
-%    \includegraphics[width=9cm]{example_ihaa.jpg}
     \caption{HIMMELI Sensor Platform Schematic.}
     \label{fig:himmeli}
   \end{center}
@@ -1180,8 +1179,17 @@ The stereo camera setup installed on the rig has two HDR cameras.
 
 \section{HDR Cameras}
 
-HIMMELI carries two GigE uEye UI-52120 RE HDR cameras in its camera module. 
+HIMMELI carries two GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use carries a monochrome sensor that outputs the image at 50 frames per second natively.
 
+The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{IDSImagingWeb13}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{gige-camera.jpg}
+    \caption{The GigE uEye HDR camera with no protective casing. Image from \cite{IDSImagingWeb13}.}
+    \label{fig:gige-camera}
+  \end{center}
+\end{figure}
 
 %=================================================================================================================================
 \chapter{Industry Applications}
