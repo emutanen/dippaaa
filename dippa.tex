@@ -698,6 +698,7 @@ The very first problem we had was that the boom in the forestry crane cannot be 
 %end of chapter 1
 \chapter{Applications For Load Positioning and Tracking}
 \label{chapter:theory}
+%Teoriaa ja teknologioita. Pituus noin 20 sivua.
 
 \section{Safety Applications}
 
@@ -851,7 +852,8 @@ The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{I
 \subsection{Person Lifter}
 %end of chapter 2
 \chapter{Sensing Of Time-Varying Real World Events}
-
+\label{chapter:systemoverview}
+%Systeemitason kuvaus käsiteltävistä sovelluksista ja niiden rajaukset. Kaikki asiat mihin ei itse ole päässyt vaikuttamaan.
 
 \section{Object Recognition}
 
@@ -1081,7 +1083,10 @@ If a stereo camera is used, inhomogenous degradation in image quality
 
 Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
+%end of chapter 3
 \chapter{Stereo Vision}
+\label{chapter:stereovision}
+%Valittujen työkalujen / kirjastojen / yms. kuvauksia
 
 Stereo vision or 3D vision is a machine vision technique that is used in many engineering applications. 3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
 
@@ -1278,8 +1283,10 @@ Some methods:
 
 + occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
 
-%end of chapter 5
+%end of chapter 4
 \chapter{Image Coordinate Systems}
+\label{chapter:coordinatesystems}
+%Mitä olet itse toteuttanut ja miten
 
 A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
 
@@ -1493,7 +1500,10 @@ Let us list the 5 intrinsic camera parameters in detail. The 5 intrinsic paramet
 
 All the units are given in pixels.
 
+%end of chapter 5
 \chapter{Epipolar Geometry}
+\label{chapter:geometry}
+%Testit ja tulokset, miten toimii
 
 Next we will introduce a two-camera epipolar geometry setup that is used for the depth mapping of the image features.
 
@@ -1621,8 +1631,10 @@ Many fast but inaccurate algortihms for parameter estimation have been introduce
 
 
 
-%====================================================================================================================================
+%end of chapter 6
 \chapter{Image Manipulations}
+\label{chapter:manipulations}
+%Pohdintaa ja future workia
 \section{Histogram Operations}
 
 A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
@@ -1662,13 +1674,14 @@ Some image convolution kernels are
 
 \subsection{Frequency Filters}
 
-\chapter{Machine Learning In Object Recognition}
+%end of chapter 7
+\chapter{Cascade Classifiers}
+\label{chapter:classifiers}
 
+Machine learning basics
 + probability density estimation
 + direct loss minimization
 
-
-\chapter{Cascade Classifiers}
 \section{Haar Training}
 
 Haar training is an object detection system that can detect features in a digital image. The first suggestion of using Haar training for feature detection was by Viola et al in 
