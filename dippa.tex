@@ -979,6 +979,10 @@ After digital processing we get a digital model of the scene from viewpoint A. W
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
 
+\section{Volumetric Object Description}
+
+Octomap is a new open-source framework for depicting 3D maps that can represent the world in multiple volumetric resolutions. The Octomap framework is based on a probabilistic 
+
 \section{Camera Calibration}
 
 + Why do we have to calibrate the cameras?
