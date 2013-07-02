@@ -932,6 +932,25 @@ E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
 
 where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
 
+\subsubsection{Effects of Weather Conditions}
+
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
+
 \subsection{Structure From Motion}
 
 Structure from X techniques
@@ -960,55 +979,6 @@ After digital processing we get a digital model of the scene from viewpoint A. W
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
 
-\subsection{Stereo Techniques}
-
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-
-Photometric Stereo \cite{Woodham80}.
-    * Recovers surface orientation assuming a known reflection function
-    * a Lambertian surface model
-    * requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    * point illumination sources with known intensity and direction
-    
-
-
-\subsubsection{Stereo Assumptions}
-
-Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
-
-In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
-
-A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
-
-
-
-
-
-+ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
-+ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
-+ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    * opaque
-    * ideal diffusion
-    * reclefts light energy in all directions
-
-Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
-Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
-
-\subsubsection{Stereo Errors}
-
-In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
-
-A simple equation for the depth error is introduced in \cite{Gallup08}:
-
-\begin{equation}
-\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
-\end{equation}
-
-where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
-
 \section{Camera Calibration}
 
 + Why do we have to calibrate the cameras?
@@ -1022,6 +992,7 @@ where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is t
     * 
 
 Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
 
 
 \subsection{Planar Calibration Grids}
@@ -1040,31 +1011,8 @@ Planar calibration grids are the most common calibration method for a stereo cam
 + Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
 
 + Calibration target location
-\subsection{The Camera Model}
-The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
-
-The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
-
-Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
 
-\subsection{Effects of Weather Conditions}
-
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
 %end of chapter 3
 \chapter{Stereo Vision}
@@ -1132,15 +1080,88 @@ Stereo imaging is divided into two different categories by the used algorithm. T
 
 
 
-\subsubsection{Stereo Matching}
+
+\subsubsection{Stereo Assumptions}
+
+Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+
+In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+
+A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+
+
+
+
+
++ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
++ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
++ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
+    * opaque
+    * ideal diffusion
+    * reclefts light energy in all directions
+
+Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
+Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+
+\subsubsection{Stereo Errors}
+
+In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
+
+A simple equation for the depth error is introduced in \cite{Gallup08}:
+
+\begin{equation}
+\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
+\end{equation}
+
+where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
+
+\subsubsubsection{Object Occlusion}
+
+Occlusion means partial or full loss of line of sight of the object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A but not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+
+Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
+Some methods:
++ multiple cameras and camera masking
++ bidirectional matching
++ 
+
++ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
+
+
+\subsection{Stereo Matching}
 
 It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
 In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
 The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
 
++ Feature-based Stereo Vision Algorithms
+    * SIFT (slow)
+    * SURF
+    * MSER
+    
+
+
+
+
 \image{disparity_space_from_zitnick_report}
 
 + Uniqueness and continuity assumptions
+
+\subsection{Stereo Techniques}
+
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+
+Photometric Stereo \cite{Woodham80}.
+    * Recovers surface orientation assuming a known reflection function
+    * a Lambertian surface model
+    * requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    * point illumination sources with known intensity and direction
+    
+
+
 
 \section{Perspective projection geometry}
 
@@ -1159,7 +1180,14 @@ The camera geometry model that we use is a single perspective camera model or a 
 
 As depicted in the \ref{}
 
-\section{The Pinhole Camera}
+\section{The Camera Model}
+The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
+
+The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
+
+Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
+
+\subsection{The Pinhole Camera}
 
 A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
 
@@ -1266,17 +1294,6 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 
 
-\section{Object Occlusion}
-
-Occlusion means partial or full loss of line of sight of the object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A but not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
-
-Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
-Some methods:
-+ multiple cameras and camera masking
-+ bidirectional matching
-+ 
-
-+ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
 
 %end of chapter 4
 \chapter{Image Coordinate Systems}
