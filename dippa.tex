@@ -832,7 +832,9 @@ The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{I
 
 + active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
 
+\subsection{Stereo Vision Applications}
 
+State-of-the-art application for stereo vision is stereoscopic teleoperation. 
 
 \subsection{Forestry Machines}
 
@@ -1083,9 +1085,9 @@ Colored markers are sensitive to natural light in outdoor environments \cite{Kaw
 
 Stereo vision or 3D vision is a machine vision technique that is used in many engineering applications. 3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
 
-Usually, a stereo camera setup is used for solving the problem of 3D information recovery from 2D images using knowledge about the camera geometry and the image content. We are mainly interested in machine vision as means of extracting point cloud data from a scene. Full recovery of the spatial 3D scene is not possible, because the stereo cameras only see the surface parts that project onto the image plane.
+Usually, a stereo camera setup is used for solving the problem of 3D information recovery from 2D images using knowledge about the camera geometry and the image content. We are mainly interested in machine vision as means of extracting coordinate data from a scene. Full recovery of the spatial 3D scene is not possible, because the stereo cameras only see the surface parts that project onto the image plane.
 
-A full recovery of a 3-dimensional object model is not needed to solve the problem of load positioning. A computed point cloud will provide depth mapping for the visible surface, which we can further mask and process.
+A full recovery of a 3-dimensional object model is not needed to solve the problem of load positioning. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
 
 *Embedded geometric and radiometric difficulties
 
