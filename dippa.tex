@@ -668,6 +668,7 @@ SONAR & Sound Navigation And Ranging \\
 
 \chapter{Introduction}
 \label{chapter:introduction}
+%Ongelman esittely, johdanto. Pituus noin 5 sivua.
 
 Cranes have been used for moving goods as long as people have been moving from one place to another.
 
@@ -694,9 +695,9 @@ The very first problem we had was that the boom in the forestry crane cannot be 
 
 % BACKGROUND => METHODS => IMPLEMENTATION
 
-%====================================================================================================
+%end of chapter 1
 \chapter{Applications For Load Positioning and Tracking}
-\label{chapter:applications}
+\label{chapter:theory}
 
 \section{Safety Applications}
 
@@ -708,7 +709,147 @@ The work area of the crane can be modelled with state-of-the-art sensing of the 
 
 Adaptive safety techniques can be realised with the improved
 
-%====================================================================================================
+%================================================================================================================================
+\section{Hardware}
+
+\subsection{HIMMELI Sensor Rig}
+
+HIMMELI sensor rig is a modular sensor platform that was created in Aalto university department of automation and systems technology as a research project during 2012. HIMMELI sensor rig was manufactured for usage in future automated machinery research and its purpose is to provide flexible sensing of environment with multitude of sensors.
+
+The rig consists of three modules that can be installed separately depending on the space constraints of a selected application. The base rig on the backside includes two computing stations with a control cabinet. There are two modules in front where the lower module of the rig includes IR light source, and the upper module includes most camera sensors.
+
+The sensor rig can be powered with a 230 V mains power or alternatively with a 24 V DC source. We do not consider the details of powering up the HIMMELI rig since the power-up sequence and details are irrelevant for the end user.
+
+\subsubsection{HIMMELI Control Cabinet}
+
+The control cabinet includes 11 different components that are listed briefly in table \ref{table:controlcabinet}.
+
+\begin{table}
+\caption{Control cabinet components in the HIMMELI sensor rig.}
+\label{table:controlcabinet}
+\begin{tabular}{|p{6cm}|p{5cm}|}
+\hline
+\textbf{Component} & \textbf{Details} \\
+\hline
+ATX power supply x 2 & One for each embedded PC. \\
+\hline
+Embedded PC 1 & Operating system Windows 7 \\
+\hline
+Embedded PC 2 & Operating system GNU/Linux
+\hline
+Gigabit Ethernet switch & \\
+\hline
+Power supply switch & 230VAC/24VDC \\
+\hline
+Fuse box & \\
+\hline
+Capacitor & For power change-over usage. \\
+\hline
+Wireless module & \\
+\hline
+Power ground box & \\
+\hline
+Selector relay & For power change-over usage. \\ \hline
+\end{tabular}
+\end{table}
+
+in order to provide a flexible sensory platform for research 
+
+is currently readily available for recording stero image data, and is located in Tampere university of technology 
+
+
+
+The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
+
+HIMMELI includes
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item HDR stereo camera pair
+\item High resolution camera
+\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
+\item Infrared (IR) camera
+\item Automotive radar
+\end{itemize}
+
+Additionally, an IR light source and LED flash are included.
+
+\begin{table}
+\caption{Device and its connector type in HIMMELI sensor rig.}
+\label{table:connectortypes} %lable just after caption
+\begin{tabular}{|p{6cm}|p{5cm}|}
+\hline % The line on top of the table
+\textbf{Device} & \textbf{Connector Type} \\
+\hline
+High dynamic range camera & Gigabit Ethernet \\
+\hline
+High resolution camera & IEEE 1394b (FireWire) \\
+\hline
+Automotive radar & CAN bus \\
+\hline
+Thermal camera & CVBS (PAL) or serial bus \\
+\hline
+LIDAR laser scanner & LIDAR \\
+\hline
+GNSS receiver & Serial bus 1 \\ \hline
+\end{tabular} % for really simple tables, you can just use tabular
+\end{table} % table makes a floating object with a title
+
+The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
+
+The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
+
+The stereo camera setup installed on the rig has two HDR cameras.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli.pdf}
+    \caption{HIMMELI Sensor Platform Schematic.}
+    \label{fig:himmeli}
+  \end{center}
+\end{figure}
+
+\subsection{HDR Cameras}
+
+The HIMMELI sensor platform carries two industrial-grade GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs the image at 50 frames per second maximum. 
+
+The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
+
+The data is transmitted through Gigabit Ethernet with Opto I/O interface.
+
+\subsection{NIT CMOS Array}
+
+The CMOS sensor is manufactured by Northern Institute of Technology Management and has an optical size of 5.75 mm x 7.68 mm. It has a color depth of 12 bits 
+
+The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{IDSImagingWeb13}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=5cm]{camera-gige-ueye-se-cmos-1.jpg}
+    \caption{The GigE uEye HDR camera with no protective casing. Image from \cite{IDSImagingWeb13}.}
+    \label{fig:gige-camera}
+  \end{center}
+\end{figure}
+
+\section{Industry Applications}
+
+\subsection{Sensors}
+
++ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
+
+
+
+\subsection{Forestry Machines}
+
+\subsubsection{Harvester}
+
+\subsubsection{Log Picker Truck}
+
+\subsection{Process Crane}
+
+\subsection{Person Lifter}
+%end of chapter 2
 \chapter{Sensing Of Time-Varying Real World Events}
 
 
@@ -1137,149 +1278,7 @@ Some methods:
 
 + occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
 
-%================================================================================================================================
-\chapter{Hardware}
-
-\section{HIMMELI Sensor Rig}
-
-HIMMELI sensor rig is a modular sensor platform that was created in Aalto university department of automation and systems technology as a research project during 2012. HIMMELI sensor rig was manufactured for usage in future automated machinery research and its purpose is to provide flexible sensing of environment with multitude of sensors.
-
-The rig consists of three modules that can be installed separately depending on the space constraints of a selected application. The base rig on the backside includes two computing stations with a control cabinet. There are two modules in front where the lower module of the rig includes IR light source, and the upper module includes most camera sensors.
-
-The sensor rig can be powered with a 230 V mains power or alternatively with a 24 V DC source. We do not consider the details of powering up the HIMMELI rig since the power-up sequence and details are irrelevant for the end user.
-
-\subsection{HIMMELI Control Cabinet}
-
-The control cabinet includes 11 different components that are listed briefly in table \ref{table:controlcabinet}.
-
-\begin{table}
-\caption{Control cabinet components in the HIMMELI sensor rig.}
-\label{table:controlcabinet}
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline
-\textbf{Component} & \textbf{Details} \\
-\hline
-ATX power supply x 2 & One for each embedded PC. \\
-\hline
-Embedded PC 1 & Operating system Windows 7 \\
-\hline
-Embedded PC 2 & Operating system GNU/Linux
-\hline
-Gigabit Ethernet switch & \\
-\hline
-Power supply switch & 230VAC/24VDC \\
-\hline
-Fuse box & \\
-\hline
-Capacitor & For power change-over usage. \\
-\hline
-Wireless module & \\
-\hline
-Power ground box & \\
-\hline
-Selector relay & For power change-over usage. \\ \hline
-\end{tabular}
-\end{table}
-
-in order to provide a flexible sensory platform for research 
-
-is currently readily available for recording stero image data, and is located in Tampere university of technology 
-
-
-
-The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
-
-HIMMELI includes
-
-\begin{itemize}
-% item separation length in a list
-\setlength{\itemsep}{0pt}
-\item HDR stereo camera pair
-\item High resolution camera
-\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
-\item Infrared (IR) camera
-\item Automotive radar
-\end{itemize}
-
-Additionally, an IR light source and LED flash are included.
-
-\begin{table}
-\caption{Device and its connector type in HIMMELI sensor rig.}
-\label{table:connectortypes} %lable just after caption
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline % The line on top of the table
-\textbf{Device} & \textbf{Connector Type} \\
-\hline
-High dynamic range camera & Gigabit Ethernet \\
-\hline
-High resolution camera & IEEE 1394b (FireWire) \\
-\hline
-Automotive radar & CAN bus \\
-\hline
-Thermal camera & CVBS (PAL) or serial bus \\
-\hline
-LIDAR laser scanner & LIDAR \\
-\hline
-GNSS receiver & Serial bus 1 \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
-
-The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
-
-The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
-
-The stereo camera setup installed on the rig has two HDR cameras.
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{himmeli.pdf}
-    \caption{HIMMELI Sensor Platform Schematic.}
-    \label{fig:himmeli}
-  \end{center}
-\end{figure}
-
-\section{HDR Cameras}
-
-The HIMMELI sensor platform carries two industrial-grade GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs the image at 50 frames per second maximum. 
-
-The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
-
-The data is transmitted through Gigabit Ethernet with Opto I/O interface.
-
-\subsection{NIT CMOS Array}
-
-The CMOS sensor is manufactured by Northern Institute of Technology Management and has an optical size of 5.75 mm x 7.68 mm. It has a color depth of 12 bits 
-
-The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{IDSImagingWeb13}
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=5cm]{camera-gige-ueye-se-cmos-1.jpg}
-    \caption{The GigE uEye HDR camera with no protective casing. Image from \cite{IDSImagingWeb13}.}
-    \label{fig:gige-camera}
-  \end{center}
-\end{figure}
-
-%=================================================================================================================================
-\chapter{Industry Applications}
-
-\section{Sensors}
-
-+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
-
-
-
-\section{Forestry Machines}
-
-\subsection{Harvester}
-
-\subsection{Log Picker Truck}
-
-\section{Process Crane}
-
-\section{Skylifter}
-%============================================================================================================================
-
+%end of chapter 5
 \chapter{Image Coordinate Systems}
 
 A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
