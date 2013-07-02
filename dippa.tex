@@ -1009,18 +1009,6 @@ A simple equation for the depth error is introduced in \cite{Gallup08}:
 
 where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
 
-
-
-\subsubsection{Stereo Matching}
-
-It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
-In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
-The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
-
-\image{disparity_space_from_zitnick_report}
-
-+ Uniqueness and continuity assumptions
-
 \section{Camera Calibration}
 
 + Why do we have to calibrate the cameras?
@@ -1098,7 +1086,7 @@ A full recovery of a 3-dimensional object model is not needed to solve the probl
 
 Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
 
-\subsection{From 2D to 3D}
+\section{From 2D to 3D}
 
 According to \cite{Sonka07}, an object-centered approach is required in favor of perspective approach in order to fully realise the power of descriptor classes used for reconstruction of the scene. The requirement then, is to move step-by-step from a pixel-based intensity image representation to a full three-dimensional representation.
 
@@ -1136,11 +1124,23 @@ Space Carving
     * reflectivity e.g.
     
 
-\subsection{Range Imaging}
+\section{Stereo Imaging}
 
 One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
 
+Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
 
+
+
+\subsubsection{Stereo Matching}
+
+It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
+In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
+The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
+
+\image{disparity_space_from_zitnick_report}
+
++ Uniqueness and continuity assumptions
 
 \section{Perspective projection geometry}
 
@@ -1290,7 +1290,7 @@ A widely accepted right-handed coordinate system will be used for describing a t
 The coordinate transformation matrices depicted in this thesis are three-dimensional Cartesian coordinate transformations who use a base coordinate denoted (x,y,z).
 
 A point is a metric location in space that is uniquely defined with a three-dimensional vector in a chosen coordinate system.
-A spatial coordinate has three parameters, namely x, y, and z, and the corresponding vector is referred to with a subscript after the coordinate space name.
+A spatial coordinate has three parameters, namely x, y, and z, that will belong to a coordinate system indicated by a subscript character.
 
 \begin{equation*}
 \Biggl[ \begin{array}{ccc}
@@ -1360,17 +1360,19 @@ The camera image plane is the projection plane where the three-dimensional point
 
 The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
 
-\subsection{World Coordinate System}
+\subsubsection{World Coordinate System}
 
 The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
 
 The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
+We acquire the world coordinate system orientation described in a report by Terho in 2010 \cite{Terho10}. Basically, the world x-y-surface can be fitted to the ground plane that is searched from coordinate point space. In this thesis, the absolute world coordinate mapping will be shown only if the information about the position and orientation of the camera platform will be available to use.
+
+The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
+
 
 The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
 
 + Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
-
-The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
 
 \subsection{Camera Coordinate System}
 
