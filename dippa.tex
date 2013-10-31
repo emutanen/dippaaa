@@ -397,16 +397,15 @@
 % ------------------------------------------------------------------
 \thesisabstract{english}{
 
-The purpose of this diploma thesis is to realise a crane load position measurement setup.
-The measurement should accurately describe the position and orientation of an arbitrary load
-lifted with a process crane or a boom (todo: check type) crane.
+The purpose of this diploma thesis is to introduce a crane load position and orientation measurement using machine vision.
+The measurement should describe the position and orientation of an arbitrary load lifted with a process crane or a small telescopic crane within required accuracy limits.
 
-This thesis will primarily study a machine vision approach that uses stereo vision for the work environment
-depth mapping. Other optional sensors, such as a laser scanner, are considered.
+%BADThis thesis will primarily study a machine vision approach that uses stereo vision for the work environment
+%epth mapping. Other optional sensors, such as a laser scanner, are considered.
 
-Existing machine vision approaches will be applied to the crane load problem. 
-The location measurement of the crane load could enable additional improvements in obstable avoidance while
-operating the crane.}
+%BADExisting machine vision approaches will be applied to the crane load problem. 
+%The location measurement of the crane load could enable additional improvements in obstable avoidance while
+%operating the crane.}
 
 %\fixme{Abstract text goes here (and this is an example how to use fixme).}
 %Fixme is a command that helps you identify parts of your thesis that still
@@ -669,9 +668,6 @@ The second area is enabling autonomous machine perception. A machine can tireles
  
 Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
 
-\section{Instrumentation Problem}
-
-The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
 
 \section{Improved Safety}
 
@@ -698,11 +694,17 @@ Adaptive safety techniques can be realised with the improved
 %================================================================================================================================
 \section{Hardware}
 
-\subsection{HIMMELI Sensor Rig}
+\subsection{HIMMELI Sensor Platform}
 
-HIMMELI sensor rig is a modular sensor platform that was created in Aalto university department of automation and systems technology as a research project during 2012. HIMMELI sensor rig was manufactured for usage in future automated machinery research and its purpose is to provide flexible sensing of environment with multitude of sensors.
+HIMMELI sensor platform is a modular sensor rig that was created in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors.
 
-The rig consists of three modules that can be installed separately depending on the space constraints of a selected application. The base rig on the backside includes two computing stations with a control cabinet. There are two modules in front where the lower module of the rig includes IR light source, and the upper module includes most camera sensors.
+With installed stereo cameras, HIMMELI sensor platform provides means for creating a digital model of the environment, including the model of the crane load that we wish to measure. This is done using stereo imaging that outputs a range image of the crane working area. The area that the rig can model depends on the tilt of the cameras used, distance from the working area, and many other parameters. 
+
+Two main reasons for choosing machine vision as the medium were the limitations of the crane environment instrumentation possibilities, and the cost-effectiveness of a camera system. With HIMMELI, we have the option to use laser scanning, too, so it was a natural choice as a camera platform for testing and evaluation. 
+
+%The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. %The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
+
+The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything,  so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
 
 %\begin{figure}[ht]
 %  \begin{center}
@@ -1790,7 +1792,7 @@ The cascade of classifiers can be constructed to enable feature scaling and scal
 
 % \input{6evaluation.tex}
 
-\chapter{Load Measurement Design, Configurations, and Use Cases}
+\chapter{Use Case Configurations and Use Cases}
 
 The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
 
