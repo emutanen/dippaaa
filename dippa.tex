@@ -909,9 +909,7 @@ Object recognition works on a classification principle: a classifier detects att
 
 
 
-\section{Representing a Model}
-
-The digital model of a real-world item
+\section{3d Scene Representation}
 
 In the virtual reality (VR) research the modeling of real-world items has been a big problem for many years. 
 It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
@@ -920,7 +918,7 @@ One option is to record video from multiple cameras that look at the object from
 
 A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
-\subsection{Range Imaging}
+\subsection{Range Image Representation}
 
 Range image is a type of 3d data point representation that uses a 2d image array whose pixels correspond to a known location in the imaged scene. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
 
@@ -934,6 +932,41 @@ Also, if the ranging sensor has a spatially different measurement lattice struct
 for range measurements than what the range image uses, then some pixels in the range image will be left empty.
 
 Since we create the point cloud with a camera system, we would not have the described projection data loss problem. Another problem with range images       \cite{Unnikrishnan08}.
+
+\subsection{Volume Pixel Representation}
+
+A volume pixel, or a voxel, is a prototype of a single entry in a 3d grid structure consisting of voxels. A voxel indicates occupancy in space, and it has at least a volume, and a location, which usually is in 3-dimensional array with constant dimensional sampling. A perfect example of a prototype voxel is a wooden box, which occupies a constant volume in space, and has a location in terms of, for example, a living room space. In digital systems, a voxel is more of a conceptual item that has a location, size, and optional services, such as statistical information about the encompassed voxel subspace. 
+
+A 3d scene captured with a stereo camera system can be represented with a voxel grid. A standard voxel grid will have a constant sampling grid, thus, the scene will be composed of same-sized cubes. Anoter option is to use a varying sampling grid structure, or an octree structure (described in...?).
+
+limitations: grid resolution, high-resolution grid consumes a lot of memory
+
+\subsubsection{Octree Structure}
+
+Originally, the idea to use octrees for mapping was introduced by Meagher in 1982 \cite{Meagher82].
+
+Octomap is a new open-source framework for depicting 3D maps that can represent the world in multiple volumetric resolutions. The Octomap framework is based on a probabilistic octree structure using probabilistic occupancy estimation \cite{Hornung10}. 
+
+We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
+
+Octomap differs from a traditional point cloud in some ways. In the original work Hornung et al. claim that a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
+
++ Octomap can model occupied space, free space, and unknown space all at the same time.
+
+
++ probabilistic sensor fusion
+
+Octomap
+    * memory-efficiency principle (memory and disk space handling)
+    * differentiates unmapped and obstacle-free areas
+    * supports probabilistic information fusing
+    * can represent arbitrary shapes in space (elevation map cannot)
+
+\subsection{Point Cloud Representation}
+
+
+
+limitations: range-based noise 
 
 \subsection{Photometrics}
 
@@ -995,34 +1028,6 @@ After digital processing we get a digital model of the scene from viewpoint A. W
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
 
-\section{Volumetric Object Description}
-
-\subsection{Point Cloud Approach}
-
-
-
-\subsection{Octree Object Description}
-
-Originally, the idea to use octrees for mapping was introduced by Meagher in 1982 \cite{Meagher82].
-
-Octomap is a new open-source framework for depicting 3D maps that can represent the world in multiple volumetric resolutions. The Octomap framework is based on a probabilistic octree structure using probabilistic occupancy estimation \cite{Hornung10}. 
-
-We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
-
-Octomap differs from a traditional point cloud in some ways. In the original work Hornung et al. claim that a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
-
-+ Octomap can model occupied space, free space, and unknown space all at the same time.
-
-
-+ probabilistic sensor fusion
-
-Octomap
-    * memory-efficiency principle (memory and disk space handling)
-    * differentiates unmapped and obstacle-free areas
-    * supports probabilistic information fusing
-    * can represent arbitrary shapes in space (elevation map cannot)
-
-
 \section{Camera Calibration}
 
 + Why do we have to calibrate the cameras?
@@ -1036,8 +1041,6 @@ Octomap
     * 
 
 Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-
 
 \subsection{Planar Calibration Grids}
 Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
