@@ -909,7 +909,7 @@ Object recognition works on a classification principle: a classifier detects att
 
 
 
-\section{Object modeling of a real-world item}
+\section{Representing a Model}
 
 The digital model of a real-world item
 
@@ -919,7 +919,21 @@ It is not easy to recreate a real-world item in a digital system, but many appro
 One option is to record video from multiple cameras that look at the object from different points of view. In order to obtain a digital model we may utilise a multi-camera stereo process and compute range images for further processing. Obviously, this approach is very computationally difficult and results vary depending on the object convexity, lighting environment and the used algorithms.  
 
 A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
-m
+
+\subsection{Range Imaging}
+
+Range image is a type of 3d data point representation that uses a 2d image array whose pixels correspond to a known location in the imaged scene. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
+
+Range images have limitations in the ability to reproduce a detailed original point cloud. The term detailed point cloud here is a reference to an object model that loosely describes the object shape and details using a convex hull of points in space, including points that may be not visible from a single viewpoint. Then, if the detailed original point cloud includes multiple points on a line that projects to a single pixel in the range image, some data will be lost in the conversion to a range image. 
+
+Also, if the ranging sensor has a spatially different measurement lattice structure compared to the 2d-array structure of range image, some pixels may be left blank because of a mismatch in spacing of range measurements.
+
+
+
+
+for range measurements than what the range image uses, then some pixels in the range image will be left empty.
+
+Since we create the point cloud with a camera system, we would not have the described projection data loss problem. Another problem with range images       \cite{Unnikrishnan08}.
 
 \subsection{Photometrics}
 
