@@ -1850,9 +1850,16 @@ ROS is mainly used in this thesis for its excellent capability of networked mess
 ROS also includes a multitude of tools that can be used for data traffic verification. 
 
 
+
 \emph{rqt} visualizer can be used for subscribing to topics, and for visualizing the data contained in them. For example, we may verify that both stereo camera image feeds are actually online, and see how the computed point cloud looks like nearly in real-time.
 
 \emph{rxlogger}
+
+\subsection{Evaluation}
+
+Since the work on load pose measurement system was started, ROS was considered as the number one framework choice in terms of cross-platform communication. It was also known that the learning curve for the ROS system is steep, so one risk in accomplishing a working online measurement system was actually missing knowledge on setting a ROS system up. Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
+
+
 
 
 
