@@ -512,18 +512,23 @@ Thank you, and keep up the good work!
 
 \noindent
 \begin{longtable}{@{}p{0.25\textwidth}p{0.7\textwidth}@{}}
+AI & Artificial Intelligence \\
 CCIR & Comité Consultatif International pour la Radio
 CMOS & Complementary Metal Oxide Semiconductor \\
+CUDA & Compute Unified Device Architecture \\
+GPU & Graphics Processing Unit \\
 HDR & High Dynamic Range \\
-HIMMELI & 
+HIMMELI & \\
 LIDAR & Light Detecting And Ranging \\
-RADAR & Radio Detecting And Ranging \\
-SONAR & Sound Navigation And Ranging \\
+PC & Personal Computer \\
 PCL & Point Cloud Library \\
+RADAR & Radio Detecting And Ranging \\
 ROS & Robot Operating System \\
-SSD & Sum of Squared Differences \\
 SAD & Sum of Absolute Differences \\
-
+SIMD & Single Instruction, Multiple Data \\
+SONAR & Sound Navigation And Ranging \\
+SSD & Sum of Squared Differences \\
+SSE & Streaming SIMD Extensions, an Intel optimized instruction set extension to the x86 processor architecture \\
 \end{longtable}
 
 
@@ -1723,30 +1728,6 @@ Histogram equalization maps the current image intensity response over the full a
 
 todo: corresponding histograms of two test images, and their cumulative distribution functions
 
-\subsection{Linear Filters}
-
-This section introduces linear filters that can be used for image enhancing.
-
-\subsubsection{Gaussian Blur Filter}
-
-\subsubsection{Gradient Filters}
-
-\subsubsection{Laplacian Filters}
-
-
-\subsubsection{Image Convolution Filters}
-
-Some image convolution kernels are 
-
-\subsection{Non-linear Filters}
-
-\subsubsection{Median Filter}
-
-\subsubsection{Wiener Filter}
-
-\subsubsection{Bilateral Filter}
-
-\subsection{Frequency Filters}
 
 \chapter{Algorithms and Computation}
 
@@ -1859,15 +1840,28 @@ In this use case the crane load shape is considered always cylindrical.
 
 
 
+\section{Robot Operating System}
+
+Robot Operating System, or shortly ROS, is an open source operating system-like framework targeted specifically for robotics application use. It was originally developed by Stanford AI laboratory in 2007 and the support is currently continued by Willow Garage Inc., who released the latest ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, stacks (legacy), and community-supported repositories, who provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup.
+
+ROS is mainly used in this thesis for its excellent capability of networked messaging through topics and subscribers. With a little effort we may use readily available data types for point cloud data networking, and interaction between popular operating system platforms, such as Windows and Unix environments. Data can be published via topics if we wish to disseminate it in the ROS network without receiving any feedback. In case we need feedback whether someone uses the data or not, ROS provides with a server-client scheme. 
+
+ROS also includes a multitude of tools that can be used for data traffic verification. 
+
+
+\emph{rqt} visualizer can be used for subscribing to topics, and for visualizing the data contained in them. For example, we may verify that both stereo camera image feeds are actually online, and see how the computed point cloud looks like nearly in real-time.
+
+\emph{rxlogger}
 
 
 
 
 
+\section{Point Cloud Library}
 
+Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
 
-
-
+PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
 
 
 
