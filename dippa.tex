@@ -1883,6 +1883,9 @@ byte[] & base64 & Base64-encoded byte array \\ \hline
 \end{tabular}
 \end{table}
 
+Setting parameters in the ROS parameter server is done using an XML launch file when launching a ROS node. All the variables are evaluated before launching any nodes, and all information is uploaded to the parameter server before launching the nodes. We can force certain data types for the parameters if the data types are not unambiguos. Supported types in the launch file are \emph{str}, \emph{int}, \emph{double}, and \emph{bool}. Additionally, we may set parameters in child namespaces or fully upload the contents of a parameter file to the parameter server as text or binary.
+
+
 
 \subsection{Point cloud in ROS}
 
