@@ -1841,7 +1841,7 @@ In this use case the crane load shape is considered always cylindrical.
 
 
 
-\section{Robot Operating System}
+\section{Robot Operating System (ROS)}
 
 Robot Operating System, or shortly ROS, is an open source operating system-like framework targeted specifically for robotics application use. It was originally developed by Stanford AI laboratory in 2007 and the support is currently continued by Willow Garage Inc., who released the latest ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, stacks (legacy), and community-supported repositories, who provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup.
 
@@ -1849,7 +1849,42 @@ ROS is mainly used in this thesis for its excellent capability of networked mess
 
 ROS also includes a multitude of tools that can be used for data traffic verification. 
 
-\subsection{PointCloud2 Format}
+\subsection{ROS Naming Conventions}
+
+The current naming convention is meant to protect from colliding topic, node, and parameter names. 
+
+\subsection{ROS Parameter Server}
+
+ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is one of the advantages of using ROS since it can be used for reliably configuring a multi-device network. The parameter server is implemented usig XMLRPC libraries in the ROS master node.
+
+The data types supported by the XMLRPC library are supported in the ROS parameter server.
+\begin{table}
+\caption{Supported data types of the ROS parameter server.}
+\label{table:parameterserver}
+\begin{tabular}{|p|p|}
+\hline
+\textbf{Java Type} & \textbf{XML Tag Name} & \textbf{Description} \\
+\hline
+Integer & int & 32-bit signed integer, non-null \\
+\hline
+Boolean & boolean & 0 or 1, non-null \\
+\hline
+String & string & A string, non-null\\
+\hline
+Double & double & A 64-bit signed floating point number, non-null \\
+\hline
+java.util.Date & dateTime.iso8601 & A ISO860 timestamp with milliseconds and time zone information missing \\
+\hline
+java.util.List & array & An array of objects \\
+\hline
+java.util.Map & struct & Key-value pairs \\
+\hline
+byte[] & base64 & Base64-encoded byte array \\ \hline
+\end{tabular}
+\end{table}
+
+
+\subsection{Point cloud in ROS}
 
 
 
