@@ -529,6 +529,7 @@ SIMD & Single Instruction, Multiple Data \\
 SONAR & Sound Navigation And Ranging \\
 SSD & Sum of Squared Differences \\
 SSE & Streaming SIMD Extensions, an Intel optimized instruction set extension to the x86 processor architecture \\
+TOF & Time-of-flight \\
 UCC & Use Case Configuration \\
 \end{longtable}
 
@@ -705,7 +706,7 @@ Adaptive safety techniques can be realised with the improved
 \section{Hardware}
 
 \subsection{Commercially Available Sensors}
-
++ time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
 \subsection{HIMMELI Sensor Platform}
@@ -1177,9 +1178,9 @@ A simple equation for the depth error is introduced in \cite{Gallup08}:
 
 where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
 
-\subsubsubsection{Object Occlusion}
+\subsubsubsection{Occlusion Issues}
 
-Occlusion means partial or full loss of line of sight of the object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A that is not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A that is not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
 
 Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
 Some methods:
@@ -1189,6 +1190,7 @@ Some methods:
 
 + occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
 
++ merging and splitting situations \cite{tikkanen13}
 
 \subsection{Stereo Matching}
 
