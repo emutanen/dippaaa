@@ -1930,7 +1930,9 @@ PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA pr
 
 \section{Bounding Volume for Load}
 
-It is compuatationally expensive to update the AABB bounding box as the load orientation is rotated, and according to \cite{}
+It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
+
+
 
 
 
