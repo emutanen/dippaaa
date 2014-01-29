@@ -1936,7 +1936,7 @@ AABB computation can be easily optimized, but the biggest drawback of this techn
 
 Another simple solution is an oriented bounding box. If we first specify a main longitudal axis for an object, and then calculate its orientation, we can iterate the smallest possible bounding volume that is oriented along the object axis. This will tremendously help to more accurately represent a volume of special shaped objects, such as cylinders and planar items.
 
-We can find more advanced bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented DOPs, k-DOPs and boxtrees.
+We can find more advanced bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented DOPs, k-DOPs and boxtrees. For example, BVH can be used to detect collisions, or object interference, and it is computed using raytracing and culling. 
 
 
 
