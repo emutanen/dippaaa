@@ -1930,7 +1930,28 @@ Bounding volume is the main product we wish to generate out of all the computati
 
 Usually, a volume of an arbitrary object is presented as a linear combination of simple geometric objects. These prototypes of geometric  objects support some or all of the linear operations available, such as summation, subtraction, multiplication and division.
 
-One of the simplest bounding volume outputs is an axis-aligned bounding box, or in short AABB. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object. AABB is straightforward to find by computing minimae and maximae along each axis and by spanning a convex polyhedron so that we select all minimum values in one corner of the polyhedral graph, and we select all maximum values for the opposing farthest possible corner of the polyhedron.
+One of the simplest bounding volume outputs is an axis-aligned bounding box, or AABB, applied in 3 dimensional Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object. AABB is straightforward to find by computing minimae and maximae along each axis and by spanning a convex polyhedron so that we select all minimum values in one corner of the polyhedral graph, and we select all maximum values for the opposing farthest possible corner of the polyhedron.
+
+AABB computation can be easily optimized, but the biggest drawback of this technique is the large amount of empty space not occupied by the object that the AABB volume contains. In the special case of stick-like objects, or planar objects, whose orientation is maximally off-axis aligned, an AABB volume representation will show a volume that is occupied less than 10 \% by the actual object.
+
+Another simple solution is an oriented bounding box. If we first specify a main longitudal axis for an object, and then calculate its orientation, we can iterate the smallest possible bounding volume that is oriented along the object axis. This will tremendously help to more accurately represent a volume of special shaped objects, such as cylinders and planar items.
+
+We can find more advanced bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented DOPs, k-DOPs and boxtrees.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
