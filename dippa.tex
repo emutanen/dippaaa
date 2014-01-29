@@ -1923,7 +1923,20 @@ PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA pr
 
 
 
-\section{Bounding Volume for Load}
+\section{Bounding Volume Computation}
+Keywords: bounding volume, collision detection, urban simulation, AABB (axis-aligned bounding box)
+
+Bounding volume is the main product we wish to generate out of all the computation done in the PCL library previously. The format of the information output from the underlying software depends on the user, but we can present some suggestions for standard solutions. 
+
+Usually, a volume of an arbitrary object is presented as a linear combination of simple geometric objects. These prototypes of geometric  objects support some or all of the linear operations available, such as summation, subtraction, multiplication and division.
+
+One of the simplest bounding volume outputs is an axis-aligned bounding box, or in short AABB. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object. AABB is straightforward to find by computing minimae and maximae along each axis and by spanning a convex polyhedron so that we select all minimum values in one corner of the polyhedral graph, and we select all maximum values for the opposing farthest possible corner of the polyhedron.
+
+
+
+
+possibly previously unknown object who is suspended from the crane end effector tool. The form of the output information should be simple while still carefully thought in order to 
+
 
 It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
 
