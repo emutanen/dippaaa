@@ -2035,7 +2035,7 @@ thesis---if you can analyze what went wrong and what should have been done.
 \label{chapter:discussion}
 
 
-A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would be possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently using. Due to limited resources we decided to keep the algorithms simple and instead realize a concept software that will run with a supported camera system. This way we have a working platform that can be used as a testbench for future upgrades and more advanced algorithms.  
+A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would have been possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently running on. Due to limited resources we decided to keep the algorithms simple and instead realised a concept software that will run with a supported camera setup. This way we got a working platform that can be used as a testbench for future upgrades and as a framework for implementing more advanced algorithms.  
 
 \begin{figure}[ht]
   \begin{center}
@@ -2045,7 +2045,16 @@ A lot of time was used for working on the ROS implementation of the load detecti
   \end{center}
 \end{figure}
 
-
+We lifted a tree trunk with a forestry machine crane and processed the video output with the FAMOUS software. A screenshot of the resulting output from the visualizer can be seen in Figure \ref{fig:load_detected1} where the parameters for stereo matching and 3D segmentation were not tuned optimally. The segmentation of the scene into objects turned out to be quite robust against missing data, fluctuating point clouds, and bad parameter values. The robustness is partly due to a good automatic stereo parameter functionality of OpenCV that was shamelessly used to obtain the stereo parameters. Other reasons for good robustness are the smart handling of uninitialized data in PCL library, and the software architecture that does not differentiate X, Y, and Z directions - no information about orientation of the scene is utilized in 3D segmentation. 
+    Then again, we can generate more accurate information with optimal parameter sets, and the measurements from the load object will change for each timestep unless we use adaptive filtering to fight out the white noise and orientation differences in time. We have considered a Kalman filter that tracks the estimate of the actual bounding volume signal, but is was not implemented for simplicity.
+    
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{taakka_tunnistettu2.png}
+    \caption{Cylindrical load viewed from a virtual camera from across the crane working area.}
+    \label{fig:load_detected2}
+  \end{center}
+\end{figure}
 
 
 
