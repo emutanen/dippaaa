@@ -2007,8 +2007,9 @@ thesis---if you can analyze what went wrong and what should have been done.
 \label{chapter:discussion}
 
 
-A lot of time was used for preparing the online implementation of the load detection software running on top of the ROS operating system. The software currently uses quite simple implementation, but most of the simplicity incurs using the PCL library. In fact, there are optimized, and very advanced algorithms running in the background 
+A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would be possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently using. Due to limited resources we decided to keep the algorithms simple and realize a concept software that will run with a supported camera system.   
 
+create first a working proof-of-concept software
 
 \begin{figure}[ht]
   \begin{center}
@@ -2019,11 +2020,6 @@ A lot of time was used for preparing the online implementation of the load detec
 \end{figure}
 
 
-At this point, you will have some insightful thoughts on your implementation
-and you may have ideas on what could be done in the future.
-This chapter is a good place to discuss your thesis as a whole and to show your
-professor that you have really understood some non-trivial aspects of the
-methods you used\ldots
 
 
 
