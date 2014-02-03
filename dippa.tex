@@ -1761,6 +1761,16 @@ Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
 + RadiusOutlierRemoval
 + StatisticalOutlierRemoval
 
+\section{Load Object Computation}
+
+The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
+
+We are not required to fully model the load object in order to find its position and a bounding volume. The produced point cloud depicts the visible part of the load object since a stereo camera setup cannot generate a point cloud with all the details. It would be possible to use adaptive iteration techniques to statistically model the object 
+
+
+
+Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
+
 
 
 %end of chapter 7
@@ -2008,8 +2018,6 @@ thesis---if you can analyze what went wrong and what should have been done.
 
 
 A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would be possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently using. Due to limited resources we decided to keep the algorithms simple and instead realize a concept software that will run with a supported camera system. This way we have a working platform that can be used as a testbench for future upgrades and more advanced algorithms.  
-
-create first a working proof-of-concept software
 
 \begin{figure}[ht]
   \begin{center}
