@@ -875,10 +875,10 @@ State-of-the-art application for stereo vision is stereoscopic teleoperation.
 
 
 + Mechanical coordinate measuring machine (CMM) (3D modeling)
-    * DCC CMM
+    + DCC CMM
 
 + Structured Light Triangulation
-    *laser plane range finder
+    +laser plane range finder
     
 
 \subsection{Sensor Technologies}
@@ -916,10 +916,10 @@ Object recognition works on a classification principle: a classifier detects att
     
 + knowledge representations
     + syntactic pattern recognition
-        * relations and description language
+        + relations and description language
 + machine learning
-    * neural nets
-    * genetic algorithms
+    + neural nets
+    + genetic algorithms
     
 + graph matching
 
@@ -981,10 +981,10 @@ Octomap differs from a traditional point cloud in some ways. In the original wor
 + probabilistic sensor fusion
 
 Octomap
-    * memory-efficiency principle (memory and disk space handling)
-    * differentiates unmapped and obstacle-free areas
-    * supports probabilistic information fusing
-    * can represent arbitrary shapes in space (elevation map cannot)
+    + memory-efficiency principle (memory and disk space handling)
+    + differentiates unmapped and obstacle-free areas
+    + supports probabilistic information fusing
+    + can represent arbitrary shapes in space (elevation map cannot)
 
 \subsection{Point Cloud Representation}
 
@@ -1055,14 +1055,14 @@ If the point cloud contains N x N points in the depth map, the computational com
 \section{Camera Calibration}
 
 + Why do we have to calibrate the cameras?
-    * correct distortions
-    * rectify images
+    + correct distortions
+    + rectify images
         + Why do have to we rectify images?
-    * improve performance of stereo corresponsdence algorithms
+    + improve performance of stereo corresponsdence algorithms
     
 + How do we calibrate a camera?
-    * Air-glass interfaces in the lens system
-    * 
+    + Air-glass interfaces in the lens system
+    + 
 
 Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
 
@@ -1096,9 +1096,9 @@ Usually, a stereo camera setup is used for solving the problem of 3D information
 
 A full recovery of a 3-dimensional object model is not needed to solve the problem of load positioning. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
 
-*Embedded geometric and radiometric difficulties
++Embedded geometric and radiometric difficulties
 
-*different approaches: top-down (model-based) or bottom-up (reconstruction)
++different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 
 \section{Marr's Theory}
@@ -1130,17 +1130,17 @@ Interesting problems
 + Perspective projection challenges
 
 Bottom-up reconstruction
-    * from multiple image construct range images
+    + from multiple image construct range images
 
 Top-down recognition
-    * CAD model recognition especially
+    + CAD model recognition especially
 
 Space Carving
-    * vcolumetric representationtgoo
+    + volumetric representation
 
 
 + object surface parameters
-    * reflectivity e.g.
+    + reflectivity e.g.
     
 
 \section{Stereo Imaging}
@@ -1168,9 +1168,9 @@ A single pixel must correspond to a single surface point in the world in order t
 + Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
 + Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
 + Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    * opaque
-    * ideal diffusion
-    * reclefts light energy in all directions
+    + opaque
+    + ideal diffusion
+    + reclefts light energy in all directions
 
 Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
 Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
@@ -1210,9 +1210,9 @@ In general, a small window is desirable to avoid unnecessary smoothing, but opti
 The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
 
 + Feature-based Stereo Vision Algorithms
-    * SIFT (slow)
-    * SURF
-    * MSER
+    + SIFT (slow)
+    + SURF
+    + MSER
     
 
 
@@ -1229,10 +1229,10 @@ Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
 Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
 
 Photometric Stereo \cite{Woodham80}.
-    * Recovers surface orientation assuming a known reflection function
-    * a Lambertian surface model
-    * requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    * point illumination sources with known intensity and direction
+    + Recovers surface orientation assuming a known reflection function
+    + a Lambertian surface model
+    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    + point illumination sources with known intensity and direction
     
 
 
@@ -1658,10 +1658,10 @@ Solving the overdetermined linear equation system in epipolar geometry requires 
 + Mismatch errors 
 
 + 3D similarity reconstruction
-    * X is found up to a scale and not Euclidean
+    + X is found up to a scale and not Euclidean
     
 + case of unknown intrinsic and extrinsic parameters is not shown here
-    * can do, depth from unknown video source
+    + can do, depth from unknown video source
 
 + stereopsis => scene reconstruction in Euclidean reconstruction from 2 calibrated cameras
 
