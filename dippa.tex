@@ -530,9 +530,10 @@ RADAR & Radio Detecting And Ranging \\
 ROS & Robot Operating System \\
 SAD & Sum of Absolute Differences \\
 SIMD & Single Instruction, Multiple Data \\
+SOM & Self-organizing Map \\
 SONAR & Sound Navigation And Ranging \\
 SSD & Sum of Squared Differences \\
-SSE & Streaming SIMD Extensions, an Intel optimized instruction set extension to the x86 processor architecture \\
+SSE & Streaming SIMD Extensions \\
 TOF & Time-of-flight \\
 UCC & Use Case Configuration \\
 XML & Extensive Markup Language \\
@@ -1763,7 +1764,21 @@ Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
 
 \section{Load Object Computation}
 
-We are not required to fully model the load object in order to find its position and a bounding volume. The produced point cloud depicts the visible part of the load object since a stereo camera setup cannot generate a point cloud with all the details. It would be possible to use adaptive iteration techniques to statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing \cite{Medeiros07}   
+We are not required to fully model the load object in order to find its position and a bounding volume. 
+
+Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
+
+If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
+
+An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
+
+It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
+
+
+using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
+
+
+statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
 
 
 The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
