@@ -1763,9 +1763,12 @@ Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
 
 \section{Load Object Computation}
 
+We are not required to fully model the load object in order to find its position and a bounding volume. The produced point cloud depicts the visible part of the load object since a stereo camera setup cannot generate a point cloud with all the details. It would be possible to use adaptive iteration techniques to statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing \cite{Medeiros07}   
+
+
 The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
 
-We are not required to fully model the load object in order to find its position and a bounding volume. The produced point cloud depicts the visible part of the load object since a stereo camera setup cannot generate a point cloud with all the details. It would be possible to use adaptive iteration techniques to statistically model the object 
+Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
 
 
 
