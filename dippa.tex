@@ -2060,6 +2060,10 @@ One problem present in Figure \ref{fig:load_detected2} was that the forestry cra
 
 Now, if the user wishes not to use the cylinder coefficients for pose measurements, and a crane-structure cutting AABB-based bounding volume is not a problem, then the AABB shown in Figure \ref{fig:load_detected2} can be used, too. The cylinder fitting implementation did pick up the cylindrical crane boom sometimes in testing, but we implemented a check for the condition that the load is located near the end effector tool location. With a little research, we found out that the cylinder fitting in a forestry crane machine vision system was not engineered previously in Aalto university. The advantage of the cylinder coefficients over the AABB bounding volume is that the oriented cylinder describes the actual volume and orientation of the tree trunk in much more detail compared to an AABB bounding volume, as discussed in chapter \ref{aabb_reference}. 
 
++ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
+
+
+
 % \input{8conclusions.tex}
 
 \chapter{Conclusions}
