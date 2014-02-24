@@ -519,10 +519,11 @@ BVH & Bounding Volume Hierarchies \\
 CCIR & Comité Consultatif International pour la Radio \\
 CMOS & Complementary Metal Oxide Semiconductor \\
 CUDA & Compute Unified Device Architecture \\
-FLIR & Forward Looking Infra Red, a thermal camera setup \\
+FLIR & Forward Looking Infra Red \\
 GPU & Graphics Processing Unit \\
 HDR & High Dynamic Range \\
 HIMMELI & \\
+I/O & Input Output\\
 LIDAR & Light Detecting And Ranging \\
 PC & Personal Computer \\
 PCL & Point Cloud Library \\
@@ -534,7 +535,8 @@ SOM & Self-organizing Map \\
 SONAR & Sound Navigation And Ranging \\
 SSD & Sum of Squared Differences \\
 SSE & Streaming SIMD Extensions \\
-TOF & Time-of-flight \\
+TLD & Tracking, Detection, And Learning \\
+TOF & Time Of Flight \\
 UCC & Use Case Configuration \\
 XML & Extensive Markup Language \\
 XML-RPC & XML Remote Procedure Call \\ 
@@ -890,6 +892,7 @@ Octomap
 
 \subsection{Point Cloud Representation}
 
+\emph{rqt} visualizer can be used for subscribing to topics, and for visualizing the data contained in them. For example, we may verify that both stereo camera image feeds are actually online, and see how the computed point cloud looks like nearly in real-time.
 
 
 limitations: range-based noise 
@@ -924,6 +927,16 @@ If a stereo camera is used, inhomogenous degradation in image quality
 
 
 Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
+% another snippet
+
+A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
+
+Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
+%histogram equalisation
+Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
+
+todo: corresponding histograms of two test images, and their cumulative distribution functions
 
 
 \subsection{Structure From Motion}
@@ -1121,6 +1134,28 @@ Using only two cameras instead of multiple cameras helps to avoid occlusion of o
 
 \subsubsection{Intrinsic Camera Parameters}
 \label{subsubsection:intrinsic_camera_parameters}
+
+A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
+
+The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
+
+If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
+
+
+
+
+
+A calibration technique that is unbiased and optimal is ideal. 
+
+Originally, camera calibration algorithms were used in aerial imaging systems.
+
+
+Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
+
++ Intrinsic camera parameters
+
++ Extrinsic camera parameters
+
 
 \subsubsection{Extrinsic Camera Parameters}
 \label{subsubsection:extrinsic_camera_parameters}
@@ -1347,6 +1382,30 @@ The problems of window size can be solved with iterative window size methods, bu
 \image{disparity_space_from_zitnick_report}
 
 + Uniqueness and continuity assumptions
+
+% correspondence problem
++ the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
+disparity limit constraint (disparity must be < limit, e.g. finger in front of the face cannot be imagined in stereo)
+disparity smoothness (disparity changes only a little in any direction)
+epipolar constraint (search space for matching pixels 1D on the epipolar line)
+figural disparity constraint (corresponding elements should lie on an edge element in both images)
+feature compatibility (physical origin of the matched points should be the same)
+geometric similarity constraint (geometric features differ only a little)
+mutual correspondence constraint (occluded points are not found thus ruled out)
+ordering constraints (typically points lie on the same epipolar line for similar depth items, exception narrow close-up sticks)
+photometric compatibility (little intensity differences)
+uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
+
++ specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
+
+Now, the point $U_c$ in equation \ref{equation:projectedpoint} can be represented in homogenous coordinate system as 
+
+\begin{equation}
+\tilde{U_c} = \Biggl[\begin{array}{c}
+U \\
+V \\
+W \end{array} \Biggl]
+\end{equation}
 
 \subsection{Block Matching Techniques}
 \label{subsection:block_matching_techniques}
@@ -1589,14 +1648,63 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 \label{subsection:multiple_viewpoint_registration}
 
 \section{Load Object Tracking}
-\label{section:load_ovbject_tracking}
+\label{section:load_object_tracking}
+
+
+A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+
+A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+
+In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
+
+The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
+
+The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
+
+complexity for a single feature is constant. 
+
+Currently, the 
+
++ 14 Haar-like features
++ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
++ 
+
 
 %end of chapter 5
 \chapter{Implementation And Algorithms}
 \label{chapter:implementation_and_algorithms}
 
+The programming work done for the thesis was carried out during March 2013 to February 2014. External C++ libraries, namely Boost, OpenCV by Willow Garage, and PointCloudLibrary (PCL) were used in addition to the standard C and C++ libraries. The versions of the libraries are discussed later, but it is good to know that one of the biggest changes during the development of the thesis project was the moving from earlier versions of the PCL library to the PCL version 1.7 in August 2013. This on one hand helped the project onwards with simplified development effort, and on the other hand, made development more difficult with less IDE functionality and less ROS support than before.
+
+Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
+
+
 \section{Overall System Design}
 \label{section:overall_system_design}
+
+\subsection{Use Cases}
+\label{subsection:use_cases}
+
+The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
+
+\subsubsection{Use Case Configurations}
+\label{subsubsection:use_case_configurations}
+
+
+Four different use case configurations (UCC) are considered for the evaluation of the machine vision system implemented. Different use case configurations are titled with a paired numbering scheme, e.g. 1-1 or 2-1. The use case configurations will describe the overview of installed hardware, used parameters, and output data. Additionally, each UCC has very different advantages and drawbacks, which will be discussed in brief detail.
+
+The first use case configuration UCC 1-1 had a process crane setup where the stereo camera rig is attached to the crane trolley with cameras facing down. The crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the same location at all times in the image center. Hoisting the load up will not decenter the crane load showing in the output image. Instead, the crane load will be shown enlarged.
+
+The second use case configuration UCC 1-2 had a process crane setup where the stereo camera rig is attached to the extreme end of the crane bridge beam on the left. The cameras are facing the load when the trolley is located near the left end of the crane bridge and the load is hoisted half way. Hoisting the load up will show the load moving towards the upper part of the output image. Hoisting movement does not enlarge the load,  instead driving the crane bridge trolley near the cameras will enlarge the load image in the output image.
+
+
+The third use case configuration UCC 2-1 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras are attached on the right side of the forestry machine chassis. The cameras are facing the load when the load is hoisted off of the ground behind the machine. The working area of the telescopic crane is occluded on the left side of the telescopic boom. Thus, the crane load will be occluded when the boom is actuated to the leftmost visible working area. 
+
+In this use case the crane load shape is considered always cylindrical.
+
+The fourth use case configuration UCC 2-2 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras were attached on top of the operator cabin slightly to the right side of the telescopic crane boom . The cameras are facing the crane working area, and the crane boom is mostly visible in the output image. The log lifting tool at the end of the boom is mostly visible. The crane load is mostly visible, but partly occluded by the telescopic boom. 
+
+In this use case the crane load shape is considered always cylindrical.
 
 \subsection{Online Software}
 \label{subsection:online_software}
@@ -1606,6 +1714,28 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 
 \subsubsection{End Effector Tracker Integration}
 \label{subsubsection:end_effector_tracker_integration}
+
+Haar training is an object detection system that can detect features in a digital image. The first suggestion of using Haar training for feature detection was by Viola et al in 
+
+
+There are a number of different boosting algorithms available, 
++ Discrete Adaboost
++ Gentle Adaboost 
++ Real Adaboost
+
+All the mentioned boosting algorithms are identical in classification sense, but they differ in their parameter learning algorithms \cite{Lienhart03}.
+
+A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade.
+
+
+Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages.
+
+\formula{false_alarm_rate}
+
+The cascade of classifiers can be constructed to enable feature scaling and scale-invariant detection. If the test image is re-scaled, the computation still works in constant time since a look-up table can be scaled accordingly and used in the computation. The downside of feature scaling is the loss of accuracy due integer rounding. The algorithm is sensitive to rounding errors and the result can vary severely.
+
+
++ 20 stages used in \cite{Lienhart03}
 
 \section{HIMMELI Sensor Platform}
 \label{section:himmeli_sensor_platform}
@@ -1748,227 +1878,90 @@ The stereo camera setup installed on the rig has two HDR cameras.
   \end{center}
 \end{figure}
 
-\subsection{Correspondence Problem}
-+ the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
-disparity limit constraint (disparity must be < limit, e.g. finger in front of the face cannot be imagined in stereo)
-disparity smoothness (disparity changes only a little in any direction)
-epipolar constraint (search space for matching pixels 1D on the epipolar line)
-figural disparity constraint (corresponding elements should lie on an edge element in both images)
-feature compatibility (physical origin of the matched points should be the same)
-geometric similarity constraint (geometric features differ only a little)
-mutual correspondence constraint (occluded points are not found thus ruled out)
-ordering constraints (typically points lie on the same epipolar line for similar depth items, exception narrow close-up sticks)
-photometric compatibility (little intensity differences)
-uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
+\section{Point Cloud Library}
+\label{section:point_cloud_library}
 
-+ specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
+
+Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
+
+PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
 
 
 
+\subsection{Limitations of Point Cloud Computing}
+\label{subsection:limitations_of_point_cloud_computing}
 
+\subsection{Point Cloud Processing Using Point Cloud Library}
+\label{subsection:point_cloud_processing_using_point_cloud_library}
 
+\subsubsection{Object Segmentation}
+\label{subsubsection:object_segmentation}
++ Euclidean Cluster Extraction
 
-Now, the point $U_c$ in equation \ref{equation:projectedpoint} can be represented in homogenous coordinate system as 
+\subsubsection{Point Cloud Filtering}
+\label{subsubsection:point_cloud_filtering}
 
-\begin{equation}
-\tilde{U_c} = \Biggl[\begin{array}{c}
-U \\
-V \\
-W \end{array} \Biggl]
-\end{equation}
++ Voxel Grid Filtering
++ Outlier Removal
 
-\subsubsection{Intrinsic and Extrinsic Camera Parameters}
-
-A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
-
-The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
-
-If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
-
-
-
-
-
-A calibration technique that is unbiased and optimal is ideal. 
-
-Originally, camera calibration algorithms were used in aerial imaging systems.
-
-
-Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
-
-+ Intrinsic camera parameters
-
-+ Extrinsic camera parameters
-
-
-
-
-
-
-
-%end of chapter 6
-\chapter{Image Manipulations}
-\label{chapter:manipulations}
-%Pohdintaa ja future workia
-\section{Histogram Operations}
-
-A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
-
-Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
-
-
-
-\subsection{Histogram Equalization}
-
-Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
-
-todo: corresponding histograms of two test images, and their cumulative distribution functions
-
-
-\chapter{Algorithms and Computation}
-
-The programming work done for this thesis was carried out during March 2013 to February 2014. External C++ libraries, namely Boost, OpenCV by Willow Garage, and PointCloudLibrary (PCL) were used in addition to the standard C and C++ libraries. The versions of the libraries are discussed later, but it is good to know that one of the biggest changes during the development of the thesis project was the moving from earlier versions of the PCL library to the PCL version 1.7 in August 2013. This on one hand helped the project onwards with simplified development effort, and on the other hand, made development more difficult with less IDE functionality and less ROS support than before.
-
-Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
-
-\section{Statistical Point Cloud Library Algorithms}
-
-+ RadiusOutlierRemoval
-+ StatisticalOutlierRemoval
-
-\section{Load Object Computation}
-
-We are not required to fully model the load object in order to find its position and a bounding volume. 
-
-Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
-
-If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
-
-An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
-
-It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
-
-
-using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
-
-
-statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
-
-
-The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
-
-Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
-
-
-
-Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
-
-
-
-%end of chapter 7
-\chapter{Cascade Classifiers}
-\label{chapter:classifiers}
-
-Machine learning basics
-+ probability density estimation
-+ direct loss minimization
-
-\section{Random Sample Consensus Algorithms}
+\subsubsection{Geometric Fitting}
+\label{subsubsection:geometric_fitting}
 
 + RANSAC = Random Sample Consensus
 + MSAC =>weighted distances...
 + MLESAC = Maximum likelihood estimator
 + PROSAC = Progressive Sample Consensus
 
-\section{Haar Training}
+\section{Bounding Volume Computation}
 
-Haar training is an object detection system that can detect features in a digital image. The first suggestion of using Haar training for feature detection was by Viola et al in 
+%Keywords: bounding volume, collision detection, urban simulation, AABB (axis-aligned bounding box)
 
-\subsection{Machine Learning Classifiers}
+Bounding volume is the main product we wish to generate out of all the computation done in the PCL library previously. The format of the information output from the underlying software depends on the user, but we can present some suggestions for standard solutions. 
 
-A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+Usually, a volume of an arbitrary object is presented as a linear combination of simple geometric objects. These prototypes of geometric  objects support some or all of the linear operations available, such as summation, subtraction, multiplication and division.
 
-A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+One of the simplest bounding volume outputs is an axis-aligned bounding box, or AABB, applied in 3 dimensional Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object. AABB is straightforward to find by computing minimae and maximae along each axis and by spanning a convex polyhedron so that we select all minimum values in one corner of the polyhedral graph, and we select all maximum values for the opposing farthest possible corner of the polyhedron.
 
-In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
+AABB computation can be easily optimized, but the biggest drawback of this technique is the large amount of empty space not occupied by the object that the AABB volume contains. In the special case of stick-like objects, or planar objects, whose orientation is maximally off-axis aligned, an AABB volume representation will show a volume that is occupied less than 10 \% by the actual object.
 
-The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
+Another simple solution is an oriented bounding box. If we first specify a main longitudal axis for an object, and then calculate its orientation, we can iterate the smallest possible bounding volume that is oriented along the object axis. This will tremendously help to more accurately represent a volume of special shaped objects, such as cylinders and planar items.
 
-The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
+We can find more advanced bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented DOPs, k-DOPs and boxtrees. For example, BVH can be used to detect collisions, or object interference, and it is computed using raytracing and culling. 
 
-complexity for a single feature is constant. 
+%snippet begins
 
-Currently, the 
-
-+ 14 Haar-like features
-+ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
-+ 
-
-\subsection{Boosting Algorithms}
-
-There are a number of different boosting algorithms available, 
-+ Discrete Adaboost
-+ Gentle Adaboost 
-+ Real Adaboost
-
-All the mentioned boosting algorithms are identical in classification sense, but they differ in their parameter learning algorithms \cite{Lienhart03}.
-
-\subsection{Cascade of Classifiers}
-
-A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade.
-
-\image{cascade_of_n_classifiers}
-
-Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages.
-
-\formula{false_alarm_rate}
-
-The cascade of classifiers can be constructed to enable feature scaling and scale-invariant detection. If the test image is re-scaled, the computation still works in constant time since a look-up table can be scaled accordingly and used in the computation. The downside of feature scaling is the loss of accuracy due integer rounding. The algorithm is sensitive to rounding errors and the result can vary severely.
+possibly previously unknown object who is suspended from the crane end effector tool. The form of the output information should be simple while still carefully thought in order to 
 
 
-+ 20 stages used in \cite{Lienhart03}
+It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
 
-% \input{6evaluation.tex}
+%snippet ends
 
-\chapter{Use Case Configurations and Use Cases}
+\subsection{Bounding Volume From 3d Axis-aligned Bounding Box}
+\label{subsection:bounding_volume_from_3d_axisaligned_bounding_box}
 
-The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
+\subsection{Bounding Volume From 3d Oriented Bounding Box}
+\label{subsection:bounding_volume_from_3d_oriented_bounding_box}
 
-\section{Use Case Configurations}
-
-Four different use case configurations (UCC) are considered for the evaluation of the machine vision system implemented. Different use case configurations are titled with a paired numbering scheme, e.g. 1-1 or 2-1. The use case configurations will describe the overview of installed hardware, used parameters, and output data. Additionally, each UCC has very different advantages and drawbacks, which will be discussed in brief detail.
-
-The first use case configuration UCC 1-1 had a process crane setup where the stereo camera rig is attached to the crane trolley with cameras facing down. The crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the same location at all times in the image center. Hoisting the load up will not decenter the crane load showing in the output image. Instead, the crane load will be shown enlarged.
-
-The second use case configuration UCC 1-2 had a process crane setup where the stereo camera rig is attached to the extreme end of the crane bridge beam on the left. The cameras are facing the load when the trolley is located near the left end of the crane bridge and the load is hoisted half way. Hoisting the load up will show the load moving towards the upper part of the output image. Hoisting movement does not enlarge the load,  instead driving the crane bridge trolley near the cameras will enlarge the load image in the output image.
-
-
-The third use case configuration UCC 2-1 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras are attached on the right side of the forestry machine chassis. The cameras are facing the load when the load is hoisted off of the ground behind the machine. The working area of the telescopic crane is occluded on the left side of the telescopic boom. Thus, the crane load will be occluded when the boom is actuated to the leftmost visible working area. 
-
-In this use case the crane load shape is considered always cylindrical.
-
-The fourth use case configuration UCC 2-2 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras were attached on top of the operator cabin slightly to the right side of the telescopic crane boom . The cameras are facing the crane working area, and the crane boom is mostly visible in the output image. The log lifting tool at the end of the boom is mostly visible. The crane load is mostly visible, but partly occluded by the telescopic boom. 
-
-In this use case the crane load shape is considered always cylindrical.
-
-\chapter{Evaluation}
-\label{chapter:evaluation}
-
-
-
-\section{Robot Operating System (ROS)}
+\section{Robot Operating System}
+\label{section:robot_operating_system}
 
 Robot Operating System, or shortly ROS, is an open source operating system-like framework targeted specifically for robotics application use. It was originally developed by Stanford AI laboratory in 2007 and the support is currently continued by Willow Garage Inc., who released the latest ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, stacks (legacy), and community-supported repositories, who provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup.
 
 ROS is mainly used in this thesis for its excellent capability of networked messaging through topics and subscribers. With a little effort we may use readily available data types for point cloud data networking, and interaction between popular operating system platforms, such as Windows and Unix environments. Data can be published via topics if we wish to disseminate it in the ROS network without receiving any feedback. In case we need feedback whether someone uses the data or not, ROS provides with a server-client scheme. 
 
-ROS also includes a multitude of tools that can be used for data traffic verification. 
+ROS also includes a multitude of tools that can be used for data traffic verification.
+
+\subsection{ROS I/O}
+\label{subsection:ros_io}
 
 \subsection{ROS Naming Conventions}
 
+
 The current naming convention is meant to protect from colliding topic, node, and parameter names. 
 
-\subsection{ROS Parameter Server}
+\subsection{Parameter Server}
+\label{subsection:parameter_server}
 
 ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is one of the advantages of using ROS since it can be used for reliably configuring a multi-device network. The parameter server is implemented usig XMLRPC libraries in the ROS master node.
 
@@ -2000,114 +1993,110 @@ byte[] & base64 & Base64-encoded byte array \\ \hline
 
 Setting parameters in the ROS parameter server is done using an XML launch file when launching a ROS node. All the variables are evaluated before launching any nodes, and all information is uploaded to the parameter server before launching the nodes. We can force certain data types for the parameters if the data types are not unambiguos. Supported types in the launch file are \emph{str}, \emph{int}, \emph{double}, and \emph{bool}. Additionally, we may set parameters in child namespaces or fully upload the contents of a parameter file to the parameter server as text or binary.
 
+\subsection{Other Features}
+\label{subsection:other_features}
+
++ dynamic_reconfigure
++ rxlogger
+
+\section{Camera Calibration Toolbox}
+\label{section:camera_calibration_toolbox}
+
+\section{Algorithms}
+\label{section:algorithms}
+
+\subsection{Load Selection Algorithm}
+\label{subsection:load_selection_algorithm}
+
+\subsection{Segmentation Center Selection Algorithm}
+\label{subsection:segmentation_center_selection_algorithm}
+
+\subsection{Cylinder Growing Algorithm}
+\label{subsection:cylinder_growing_algorithm}
 
 
-\subsection{Point cloud in ROS}
+%end of chapter 6
+\chapter{Evaluation}
+\label{chapter:evaluation}
+%Pohdintaa ja future workia
 
-
-
-\emph{rqt} visualizer can be used for subscribing to topics, and for visualizing the data contained in them. For example, we may verify that both stereo camera image feeds are actually online, and see how the computed point cloud looks like nearly in real-time.
-
-\emph{rxlogger}
-
-\subsection{Evaluation}
 
 Since the work on load pose measurement system was started, ROS was considered as the number one framework choice in terms of cross-platform communication. It was also known that the learning curve for the ROS system is steep, so one risk in accomplishing a working online measurement system was actually missing knowledge on setting a ROS system up. Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
 
+\section{Offline Testing}
+\label{section:offline_testing}
+
+\subsection{Process Hall Case}
+\label{subsection:offline_process_hall_case}
+%note labeling
+
+\subsection{Forest Case}
+\label{subsection:forest_case}
+%note labeling
+
+\section{Applicability For Online Testing}
+\label{section:applicability_for_realtime_testing}
+
+\subsection{Process Hall Case}
+\label{subsection:online_process_hall_case}
+%note labeling
+
+\subsection{Forest Case}
+\label{subsection:online_forest_case}
+%note labelin
+
+\section{Data Quality in the Machine Vision Process}
+\label{section:data_quality_in_the_machine_vision_process}
+
+\subsection{Available Metrics}
+\label{subsection:available_metrics}
+
+\subsection{Point Cloud Segmentation Statistics}
+\label{subsection:point_cloud_segmentation_statistics}
+
+\section{Parameter Tuning Evaluation}
+\label{section:parameter_tuning_evaluation}
+
+\subsection{Disparity Tuning}
+\label{subsection:disparity_tuning}
+
+\subsection{Segmentation Tuning}
+\label{subsection:segmentation_tuning}
+
+\section{Load Object Modeling Quality}
+\label{section:load_object_modeling_quality}
+
+%fix passive
+We are not required to fully model the load object in order to find its position and a bounding volume. 
+
+Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
+
+If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
+
+An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
+
+It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
+
+
+using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
+
+
+statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
+
+
+The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
+
+Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
 
 
 
+Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
-
-
-\section{Point Cloud Library}
-
-Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
-
-PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
-
-
-
-\section{Bounding Volume Computation}
-Keywords: bounding volume, collision detection, urban simulation, AABB (axis-aligned bounding box)
-
-Bounding volume is the main product we wish to generate out of all the computation done in the PCL library previously. The format of the information output from the underlying software depends on the user, but we can present some suggestions for standard solutions. 
-
-Usually, a volume of an arbitrary object is presented as a linear combination of simple geometric objects. These prototypes of geometric  objects support some or all of the linear operations available, such as summation, subtraction, multiplication and division.
-
-One of the simplest bounding volume outputs is an axis-aligned bounding box, or AABB, applied in 3 dimensional Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object. AABB is straightforward to find by computing minimae and maximae along each axis and by spanning a convex polyhedron so that we select all minimum values in one corner of the polyhedral graph, and we select all maximum values for the opposing farthest possible corner of the polyhedron.
-
-AABB computation can be easily optimized, but the biggest drawback of this technique is the large amount of empty space not occupied by the object that the AABB volume contains. In the special case of stick-like objects, or planar objects, whose orientation is maximally off-axis aligned, an AABB volume representation will show a volume that is occupied less than 10 \% by the actual object.
-
-Another simple solution is an oriented bounding box. If we first specify a main longitudal axis for an object, and then calculate its orientation, we can iterate the smallest possible bounding volume that is oriented along the object axis. This will tremendously help to more accurately represent a volume of special shaped objects, such as cylinders and planar items.
-
-We can find more advanced bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented DOPs, k-DOPs and boxtrees. For example, BVH can be used to detect collisions, or object interference, and it is computed using raytracing and culling. 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-possibly previously unknown object who is suspended from the crane end effector tool. The form of the output information should be simple while still carefully thought in order to 
-
-
-It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-You have done your work, but that's\footnote{By the way, do \emph{not} use
-shorthands like this in your text! It is not professional! Always write out all
-the words: ``that is''.} not enough.
-
-You also need to evaluate how well your implementation works.  The
-nature of the evaluation depends on your problem, your method, and
-your implementation that are all described in the thesis before this
-chapter.  If you have created a program for exact-text matching, then
-you measure how long it takes for your implementation to search for
-different patterns, and compare it against the implementation that was
-used before.  If you have designed a process for managing software
-projects, you perhaps interview people working with a waterfall-style
-management process, have them adapt your management process, and
-interview them again after they have worked with your process for some
-time. See what's changed.
-
-The important thing is that you can evaluate your success somehow.
-Remember that you do not have to succeed in making something spectacular; a
-total implementation failure may still give grounds for a very good master's
-thesis---if you can analyze what went wrong and what should have been done.
-
-
-
-
-% \input{7discussion.tex}
+\section{Software Robustness In Tests}
+\label{section:software_robustness_in_tests}
 
 \chapter{Discussion}
 \label{chapter:discussion}
-
 
 A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would have been possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently running on. Due to limited resources we decided to keep the algorithms simple and instead realised a concept software that will run with a supported camera setup. This way we got a working platform that can be used as a testbench for future upgrades and as a framework for implementing more advanced algorithms.  
 
@@ -2134,20 +2123,13 @@ One problem present in Figure \ref{fig:load_detected2} was that the forestry cra
 
 Now, if the user wishes not to use the cylinder coefficients for pose measurements, and a crane-structure cutting AABB-based bounding volume is not a problem, then the AABB shown in Figure \ref{fig:load_detected2} can be used, too. The cylinder fitting implementation did pick up the cylindrical crane boom sometimes in testing, but we implemented a check for the condition that the load is located near the end effector tool location. With a little research, we found out that the cylinder fitting in a forestry crane machine vision system was not engineered previously in Aalto university. The advantage of the cylinder coefficients over the AABB bounding volume is that the oriented cylinder describes the actual volume and orientation of the tree trunk in much more detail compared to an AABB bounding volume, as discussed in chapter \ref{aabb_reference}. 
 
-+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
-
-
-
-% \input{8conclusions.tex}
+%+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
 \chapter{Conclusions}
 \label{chapter:conclusions}
-
-Time to wrap it up!
-Write down the most important findings from your work.
-Like the introduction, this chapter is not very long.
-Two to four pages might be a good limit.
-
+%Write down the most important findings from your work.
+%Like the introduction, this chapter is not very long.
+%Two to four pages might be a good limit.
 
 
 % Load the bibliographic references
