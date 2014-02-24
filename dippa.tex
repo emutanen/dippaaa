@@ -1169,7 +1169,7 @@ In computer vision,
 The camera geometry model that we use is a single perspective camera model or a pinhole camera model.
 
 
-As depicted in the \ref{}
+%As depicted in the \ref{}
 
 \section{The Camera Model}
 
@@ -1343,7 +1343,7 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 
 + Aspect ratio
 
-\image{lossy_transformation}
+%\image{lossy_transformation}
 
 Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 
@@ -1358,7 +1358,6 @@ Camera calibration can be weak or strong. If strong camera parameters are known 
     
 + How do we calibrate a camera?
     + Air-glass interfaces in the lens system
-    + 
 
 Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
 
@@ -1568,7 +1567,6 @@ Z^* \end{array} \Biggl]
 0 & 1 & 0 & Y_0 \\
 0 & 0 & 1 & Z_0 \\
 0 & 0 & 0 & 1 \end{array} \Biggl]
-
 \end{equation}
 
 Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
