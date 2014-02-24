@@ -672,6 +672,9 @@ XML-RPC & XML Remote Procedure Call \\
 \label{chapter:introduction}
 %Ongelman esittely, johdanto. Pituus noin 5 sivua.
 
+\section{Incentives For Measuring Moving Materials}
+\label{section:incentives_for_measuring_moving_materials}
+
 Cranes have been used for moving goods as long as people have been relocating from one place to another.
 
 In the modern world, we still move goods and we wish to make it as easy, cost-efficiently, and safe as possible.
@@ -694,12 +697,28 @@ Research effort in image processing technologies continues to result in better a
 
 % BACKGROUND => METHODS => IMPLEMENTATION
 
+\section{Process Cranes}
+\label{section:process_cranes}
+
+\section{Forestry Machines}
+\label{section:forestry_machines}
+
+\section{Goals And Objectives}
+\label{section:goals_and_objectives}
+
+
 %end of chapter 1
-\chapter{Applications For Load Positioning and Tracking}
-\label{chapter:theory}
+\chapter{Industry Applications}
+\label{chapter:industry_applications}
+
 %Teoriaa ja teknologioita. Pituus noin 20 sivua.
+%Applications that can benefit from accurate positioning and tracking of a load object
+
+\section{Existing Positioning And Tracking Applications}
+\label{section:existing_positioning_and_tracking_applications}}
 
 \section{Safety Applications}
+\label{section:safety_applications}
 
 Traditional and new safety applications can utilize load positioning information for added functionality.
 
@@ -709,8 +728,18 @@ The work area of the crane can be modelled with state-of-the-art sensing of the 
 
 Adaptive safety techniques can be realised with the improved
 
+\section{Mapping Applications}
+\label{section:mapping_applications}
+
+
+\section{Selected Use Cases}
+\label{section:selected_use_cases}
+
+
 %================================================================================================================================
-\section{Hardware}
+\chapter{Environment Acquisition, Representation, and Object Modeling}
+\label{chapter:environment_acquisition_representation_and_object_modeling}
+
 
 \subsection{Commercially Available Sensors}
 + time-of-flight cameras (TOF)
@@ -1056,43 +1085,11 @@ After digital processing we get a digital model of the scene from viewpoint A. W
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
 
-\section{Camera Calibration}
-
-+ Why do we have to calibrate the cameras?
-    + correct distortions
-    + rectify images
-        + Why do have to we rectify images?
-    + improve performance of stereo corresponsdence algorithms
-    
-+ How do we calibrate a camera?
-    + Air-glass interfaces in the lens system
-    + 
-
-Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-\subsection{Planar Calibration Grids}
-Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
-
-\subsection{Calibration Error Sources}
-
-+ Tangential distortion
-
-+ Radial distortion
-
-+ Chromatic aberration
-
-+ Affine distortion (aspect ratio)
-
-+ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
-
-+ Calibration target location
-
 
 
 %end of chapter 3
-\chapter{Stereo Vision}
-\label{chapter:stereovision}
-%Valittujen työkalujen / kirjastojen / yms. kuvauksia
+\chapter{Stereographic Machine Vision System}
+\label{chapter:stereographic_machine_vision_system}
 
 Stereo vision or 3D vision is a machine vision technique that is used in many engineering applications. 3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
 
@@ -1105,11 +1102,8 @@ A full recovery of a 3-dimensional object model is not needed to solve the probl
 +different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 
-\section{Marr's Theory}
-
-Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
-
-\section{From 2D to 3D}
+\section{From 2d to 3d}
+\label{section:from_2d_to_3d}
 
 According to \cite{Sonka07}, an object-centered approach is required in favor of perspective approach in order to fully realise the power of descriptor classes used for reconstruction of the scene. The requirement then, is to move step-by-step from a pixel-based intensity image representation to a full three-dimensional representation.
 
@@ -1147,16 +1141,74 @@ Space Carving
     + reflectivity e.g.
     
 
-\section{Stereo Imaging}
+\subsection{Marr's Theory}
+\label{subsection:marrs_theory}
+
+Marr's theory especially points out the great challenge in machine vision of how to achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific target.
+
+\subsection{Stereo Imaging Techniques}
+\label{subsection:stereo_imaging_techniques}
 
 One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
 
 Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
 
+\section{Perspective Projection Geometry}
+\label{section:perspective_projection_geometry}
+
+\subsection{Epipolar Geometry}
+\label{subsection:epipolar_geometry}
+
+\subsubsection{Intrinsic Camera Parameters}
+\label{subsubsection:intrinsic_camera_parameters}
+
+\subsubsection{Extrinsic Camera Parameters}
+\label{subsubsection:extrinsic_camera_parameters}
+
+\subsection{Stereo Assumptions}
+\label{subsection:stereo_assumptions}
+
+\subsection{Stereo Errors}
+\label{subsection:stereo_errors}
+
+\subsubsection{Occlusion}
+\label{subsubsection:occlusion}
+
+\section{Camera Calibration According To Pinhole Camera Model}
+\label{section:camera_calibration_according_to_pinhole_camera_model}
 
 
 
-\subsubsection{Stereo Assumptions}
++ Why do we have to calibrate the cameras?
+    + correct distortions
+    + rectify images
+        + Why do have to we rectify images?
+    + improve performance of stereo corresponsdence algorithms
+    
++ How do we calibrate a camera?
+    + Air-glass interfaces in the lens system
+    + 
+
+Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
+\subsection{Planar Calibration Grids}
+Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
+
+\subsection{Calibration Error Sources}
+
++ Tangential distortion
+
++ Radial distortion
+
++ Chromatic aberration
+
++ Affine distortion (aspect ratio)
+
++ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
+
++ Calibration target location
+
+
 
 Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
 
