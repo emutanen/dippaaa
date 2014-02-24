@@ -1156,145 +1156,6 @@ Stereo imaging is divided into two different categories by the used algorithm. T
 \section{Perspective Projection Geometry}
 \label{section:perspective_projection_geometry}
 
-\subsection{Epipolar Geometry}
-\label{subsection:epipolar_geometry}
-
-\subsubsection{Intrinsic Camera Parameters}
-\label{subsubsection:intrinsic_camera_parameters}
-
-\subsubsection{Extrinsic Camera Parameters}
-\label{subsubsection:extrinsic_camera_parameters}
-
-\subsection{Stereo Assumptions}
-\label{subsection:stereo_assumptions}
-
-\subsection{Stereo Errors}
-\label{subsection:stereo_errors}
-
-\subsubsection{Occlusion}
-\label{subsubsection:occlusion}
-
-\section{Camera Calibration According To Pinhole Camera Model}
-\label{section:camera_calibration_according_to_pinhole_camera_model}
-
-
-
-+ Why do we have to calibrate the cameras?
-    + correct distortions
-    + rectify images
-        + Why do have to we rectify images?
-    + improve performance of stereo corresponsdence algorithms
-    
-+ How do we calibrate a camera?
-    + Air-glass interfaces in the lens system
-    + 
-
-Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-\subsection{Planar Calibration Grids}
-Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
-
-\subsection{Calibration Error Sources}
-
-+ Tangential distortion
-
-+ Radial distortion
-
-+ Chromatic aberration
-
-+ Affine distortion (aspect ratio)
-
-+ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
-
-+ Calibration target location
-
-
-
-Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
-
-In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
-
-A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
-
-
-
-
-
-+ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
-+ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
-+ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    + opaque
-    + ideal diffusion
-    + reclefts light energy in all directions
-
-Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
-Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
-
-\subsubsection{Stereo Errors}
-
-In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
-
-A simple equation for the depth error is introduced in \cite{Gallup08}:
-
-\begin{equation}
-\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
-\end{equation}
-
-where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
-
-\subsubsubsection{Occlusion Issues}
-
-Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A that is not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
-
-Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
-Some methods:
-+ multiple cameras and camera masking
-+ bidirectional matching
-+ 
-
-+ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
-
-+ merging and splitting situations \cite{tikkanen13}
-+ object tracks, initiating and terminating
-+ 
-
-\subsection{Stereo Matching}
-
-It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
-In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
-The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
-
-+ Feature-based Stereo Vision Algorithms
-    + SIFT (slow)
-    + SURF
-    + MSER
-    
-
-
-
-
-\image{disparity_space_from_zitnick_report}
-
-+ Uniqueness and continuity assumptions
-
-\subsection{Stereo Techniques}
-
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-
-Photometric Stereo \cite{Woodham80}.
-    + Recovers surface orientation assuming a known reflection function
-    + a Lambertian surface model
-    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    + point illumination sources with known intensity and direction
-    
-
-
-
-\section{Perspective projection geometry}
-
 In general, a perspective projection, or central projection, is the de facto type of projection for human beings. We all have a pair of eyes that can be modeled with a pinhole camera model, and the pinhole camera depicts any scene with a perspective projection. In perspective projection objects that are far away appear smaller than objects that are near. This phenomenon is called a perspective. 
 
 The stereo cameras that sense the world with CCD arrays give the user a perspective projection of the world on a 2D image plane. The basics of this projective geometry will be discussed in the case of non-parallel setup of the stereo cameras. That means the optical axes of the cameras are not in parallel, but have a specified angle with which the optical axes coincide. The cameras themselves will be modeled as pinhole cameras with certain lens system errors corrected for.
@@ -1326,25 +1187,79 @@ The real-world object projection on the camera image plane is a lossy transforma
 
 Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
-\subsection{The Pinhole Camera}
+\subsection{Epipolar Geometry}
+\label{subsection:epipolar_geometry}
+
+\subsubsection{Intrinsic Camera Parameters}
+\label{subsubsection:intrinsic_camera_parameters}
+
+\subsubsection{Extrinsic Camera Parameters}
+\label{subsubsection:extrinsic_camera_parameters}
+
+\subsection{Stereo Assumptions}
+\label{subsection:stereo_assumptions}
+
+Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+
+In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+
+A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+
++ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
++ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
++ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
+    + opaque
+    + ideal diffusion
+    + reclefts light energy in all directions
+
+Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
+Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+
+\subsection{Stereo Errors}
+\label{subsection:stereo_errors}
+
+In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
+
+A simple equation for the depth error is introduced in \cite{Gallup08}:
+
+\begin{equation}
+\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
+\end{equation}
+
+where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
+
+
+\subsubsection{Occlusion}
+\label{subsubsection:occlusion}
+
+
+Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A that is not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+
+Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
+Some methods:
++ multiple cameras and camera masking
++ bidirectional matching
++ 
+
++ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
+
++ merging and splitting situations \cite{tikkanen13}
++ object tracks, initiating and terminating
++ 
+
+\section{Camera Calibration According To Pinhole Camera Model}
+\label{section:camera_calibration_according_to_pinhole_camera_model}
+
+\subsection{Pinhole Camera Geometry}
+\label{subsection:pinhole_camera_geometry}
+
 
 A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
 
 Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
 Optical axis.
 Focal point (optical point)
-
-
-
-
-
-
-
-
-
-
-
-
 
 The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
 
@@ -1432,16 +1347,84 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 
 Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 
+\subsection{Single Camera Calibration}
+\label{subsection:single_camera_calibration}
+
++ Why do we have to calibrate the cameras?
+    + correct distortions
+    + rectify images
+        + Why do have to we rectify images?
+    + improve performance of stereo corresponsdence algorithms
+    
++ How do we calibrate a camera?
+    + Air-glass interfaces in the lens system
+    + 
+
+Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
+\subsection{Calibration Targets}
+\label{subsection:calibration_targets}
+
+Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
+
+\subsection{Calibration Errors}
+\label{subsection:calibration_errors}
+
++ Tangential distortion
+
++ Radial distortion
+
++ Chromatic aberration
+
++ Affine distortion (aspect ratio)
+
++ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
+
++ Calibration target location
+
+\subsection{Stereo Camera Calibration}
+\label{subsection:stereo_camera_calibration}
 
 
+\section{Stereo Correspondence Problem}
+\label{section:stereo_correspondence_problem}
+
+It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
+In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
+The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
+
++ Feature-based Stereo Vision Algorithms
+    + SIFT (slow)
+    + SURF
+    + MSER
+    
+\image{disparity_space_from_zitnick_report}
+
++ Uniqueness and continuity assumptions
+
+\subsection{Block Matching Techniques}
+\label{subsection:block_matching_techniques}
+
+
+\subsection{Stereo Techniques}
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+Photometric Stereo \cite{Woodham80}.
+    + Recovers surface orientation assuming a known reflection function
+    + a Lambertian surface model
+    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    + point illumination sources with known intensity and direction
 %end of chapter 4
-\chapter{Image Coordinate Systems}
-\label{chapter:coordinatesystems}
-%Mitä olet itse toteuttanut ja miten
+\chapter{Load Object Registration And Tracking}
+\label{chapter:load_object_registration_and_tracking}
+
+\section{Image Coordinate Systems}
+\label{section:image_coordinate_systems}
 
 A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
 
-\section{Matrix Coordinate Transformations}
+\subsection{Coordinate Transformations}
+\label{subsection:coordinate_transformations}
 
 The coordinate transformation matrices depicted in this thesis are three-dimensional Cartesian coordinate transformations who use a base coordinate denoted (x,y,z).
 
@@ -1459,94 +1442,8 @@ The subscript depicts the coordinate space where a point is located.
 Also the transformation matrix has a subscript: it depicts on which coordinate space point (or vector) the transformation acts upon.
 The transformation matrix has a superscript: it depicts to which coordinate space the point will end up transformed in.
 
-
-\subsection{Prototype Transforms and Ordering}
-
-Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
-
-\textbf{Translation} of a point is given by a translation transformation matrix
-
-\begin{equation}
-\Biggl[ \begin{array}{c}
-X^* \\
-Y^* \\
-Z^* \end{array} \Biggl]
-= \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & X_0 \\
-0 & 1 & 0 & Y_0 \\
-0 & 0 & 1 & Z_0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-
-\end{equation}
-
-Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
-
-\textbf{Scaling} of a point is given by a scaling transformation matrix
-
-+ scaling matrix definition here (2.5-8).
-
-When is scaling used?
-
-\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
-
-\begin{equation}
-\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & 0 \\
-0 & \cos \alpha & \sin \alpha & 0 \\
-0 & -\sin \alpha & \cos \alpha & 0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-\end{equation}
-
-Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
-
-It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
-
-If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
-
-\begin{equation}
-P = \Biggl[ \begin{array}{ccccc}
-X_0 & X_1 & X_2 & \dots & X_n \\
-Y_0 & Y_1 & X_2 & \dots & Y_n \\
-Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
-\end{equation}
-
-\subsection{Camera Image Plane}
-
-The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
-
-The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
-
-\subsubsection{World Coordinate System}
-
-The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
-
-The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
-We acquire the world coordinate system orientation described in a report by Terho in 2010 \cite{Terho10}. Basically, the world x-y-surface can be fitted to the ground plane that is searched from coordinate point space. In this thesis, the absolute world coordinate mapping will be shown only if the information about the position and orientation of the camera platform will be available to use.
-
-The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
-
-
-The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
-
-+ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
-
-\subsection{Camera Coordinate System}
-
-The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
-
-The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
-
-The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
-
-\subsection{Image Affine Coordinate System}
-
-The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
-
-The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
-
-The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
-
-\section{Geometric projection}
+\subsubsection{Geometric projection}
+\label{subsubsection:geometric_projection}
 
 A world point $X_w$ is translated and rotated into the camera coordinate system so that
 
@@ -1652,6 +1549,99 @@ Let us list the 5 intrinsic camera parameters in detail. The 5 intrinsic paramet
 \end{itemize}
 
 All the units are given in pixels.
+
+
+\subsection{Prototype Transforms and Ordering}
+\label{subsection:prototype_transforms_and_ordering}
+
+Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
+
+\textbf{Translation} of a point is given by a translation transformation matrix
+
+\begin{equation}
+\Biggl[ \begin{array}{c}
+X^* \\
+Y^* \\
+Z^* \end{array} \Biggl]
+= \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & X_0 \\
+0 & 1 & 0 & Y_0 \\
+0 & 0 & 1 & Z_0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
+
+\end{equation}
+
+Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
+
+\textbf{Scaling} of a point is given by a scaling transformation matrix
+
++ scaling matrix definition here (2.5-8).
+
+When is scaling used?
+
+\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
+
+\begin{equation}
+\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos \alpha & \sin \alpha & 0 \\
+0 & -\sin \alpha & \cos \alpha & 0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
+\end{equation}
+
+Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
+
+It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
+
+If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
+
+\begin{equation}
+P = \Biggl[ \begin{array}{ccccc}
+X_0 & X_1 & X_2 & \dots & X_n \\
+Y_0 & Y_1 & X_2 & \dots & Y_n \\
+Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
+\end{equation}
+
+\subsection{World Coordinate System}
+\label{subsection:world_coordinate_system}
+
+The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
+
+The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
+We acquire the world coordinate system orientation described in a report by Terho in 2010 \cite{Terho10}. Basically, the world x-y-surface can be fitted to the ground plane that is searched from coordinate point space. In this thesis, the absolute world coordinate mapping will be shown only if the information about the position and orientation of the camera platform will be available to use.
+
+The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
+
+
+The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
+
++ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
+
+\subsection{Camera Coordinate System}
+\label{subsection:camera_coordinate_system}
+
+The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
+
+The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
+
+The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
+
+\subsubsection{Camera Image Plane}
+\label{subsubsection:camera_image_plane}
+
+The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
+
+The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
+
+\subsection{Image Affine Coordinate System}
+\label{subsection:image_affine_coordinate_system}
+
+The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
+
+The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
+
+The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
+
 
 %end of chapter 5
 \chapter{Epipolar Geometry}
