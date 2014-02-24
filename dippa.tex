@@ -745,139 +745,8 @@ Adaptive safety techniques can be realised with the improved
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
-\subsection{HIMMELI Sensor Platform}
-
-HIMMELI sensor platform is a modular sensor rig that was created in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors.
-
-With installed stereo cameras, HIMMELI sensor platform provides means for creating a digital model of the environment, including the model of the crane load that we wish to measure. This is done using stereo imaging that outputs a range image of the crane working area. The area that the rig can model depends on the tilt of the cameras used, distance from the working area, and many other parameters. 
-
-Two main reasons for choosing machine vision as the medium were the limitations of the crane environment instrumentation possibilities, and the cost-effectiveness of a camera system. With HIMMELI, we have the option to use laser scanning, too, so it was a natural choice as a camera platform for testing and evaluation. 
-
-%The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. %The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
-
-The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything,  so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
-
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=\textwidth]{himmeli.JPG}
-%    \caption{HIMMELI sensor platform prepared for measurement session.}
-%    \label{fig:himmelifull}
-%  \end{center}
-%\end{figure}
-
-The sensor rig can be powered with a 230 V mains power or alternatively with a 24 V DC source. We do not consider the details of powering up the HIMMELI rig since the power-up sequence and details are irrelevant for the end user.
-
-\subsubsection{HIMMELI Control Cabinet}
-
-The control cabinet includes 11 different components that are listed briefly in table \ref{table:controlcabinet}.
-
-\begin{table}
-\caption{Control cabinet components in the HIMMELI sensor rig.}
-\label{table:controlcabinet}
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline
-\textbf{Component} & \textbf{Details} \\
-\hline
-ATX power supply x 2 & One for each embedded PC. \\
-\hline
-Embedded PC 1 & Operating system Windows 7 \\
-\hline
-Embedded PC 2 & Operating system GNU/Linux
-\hline
-Gigabit Ethernet switch & \\
-\hline
-Power supply switch & 230VAC/24VDC \\
-\hline
-Fuse box & \\
-\hline
-Capacitor & For power change-over usage. \\
-\hline
-Wireless module & \\
-\hline
-Power ground box & \\
-\hline
-Selector relay & For power change-over usage. \\ \hline
-\end{tabular}
-\end{table}
-
-in order to provide a flexible sensory platform for research 
-
-is currently readily available for recording stero image data, and is located in Tampere university of technology 
 
 
-
-The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
-
-HIMMELI includes
-
-\begin{itemize}
-% item separation length in a list
-\setlength{\itemsep}{0pt}
-\item HDR stereo camera pair
-\item High resolution camera
-\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
-\item Infrared (IR) camera
-\item Automotive radar
-\end{itemize}
-
-Additionally, an IR light source and LED flash are included.
-
-\begin{table}
-\caption{Device and its connector type in HIMMELI sensor rig.}
-\label{table:connectortypes} %lable just after caption
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline % The line on top of the table
-\textbf{Device} & \textbf{Connector Type} \\
-\hline
-High dynamic range camera & Gigabit Ethernet \\
-\hline
-High resolution camera & IEEE 1394b (FireWire) \\
-\hline
-Automotive radar & CAN bus \\
-\hline
-Thermal camera & CVBS (PAL) or serial bus \\
-\hline
-LIDAR laser scanner & LIDAR \\
-\hline
-GNSS receiver & Serial bus 1 \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
-
-The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
-
-The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
-
-The stereo camera setup installed on the rig has two HDR cameras.
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{himmeli.pdf}
-    \caption{HIMMELI Sensor Platform Schematic.}
-    \label{fig:himmeli}
-  \end{center}
-\end{figure}
-
-\subsection{HDR Cameras}
-
-The HIMMELI sensor platform carries two industrial-grade GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs the image at 50 frames per second maximum. 
-
-The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
-
-The data is transmitted through Gigabit Ethernet with Opto I/O interface.
-
-\subsection{NIT CMOS Array}
-
-The CMOS sensor is manufactured by Northern Institute of Technology Management and has an optical size of 5.75 mm x 7.68 mm. It has a color depth of 12 bits 
-
-The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{IDSImagingWeb13}
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=5cm]{camera-gige-ueye-se-cmos-1.jpg}
-    \caption{The GigE uEye HDR camera with no protective casing. Image from \cite{IDSImagingWeb13}.}
-    \label{fig:gige-camera}
-  \end{center}
-\end{figure}
 
 \section{Industry Applications}
 
@@ -1085,6 +954,14 @@ After digital processing we get a digital model of the scene from viewpoint A. W
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
 
+\subsection{Stereo Techniques}
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+Photometric Stereo \cite{Woodham80}.
+    + Recovers surface orientation assuming a known reflection function
+    + a Lambertian surface model
+    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    + point illumination sources with known intensity and direction
 
 
 %end of chapter 3
@@ -1171,24 +1048,76 @@ The camera geometry model that we use is a single perspective camera model or a 
 
 %As depicted in the \ref{}
 
-\section{The Camera Model}
-
-TODO: different camera models
-1. pinhole camera model
-2. orthographic projection
-3. scaled orthographic projection
-4. paraperspective projection
-5. perspective projection
-%source: NUS CS4243 camera.pdf slide
-
-The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
-
-The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
-
-Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
-
 \subsection{Epipolar Geometry}
 \label{subsection:epipolar_geometry}
+
+Next we will introduce a two-camera epipolar geometry setup that is used for the depth mapping of the image features.
+
++ here put an image of the stereo geometry setup
+
++ reference to the optical centers C and C', and baseline of the camera setup
+
+By definition, an epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. The epipolar plane intersects the image planes $\pi$ and $\pi'$ at epipolar lines. A feature of the epipolar line is that any projected point X must lie on this epipolar line on the image plane, a fact which greatly reduces the search space for matching image features.
+
+Next, we introduce the epipole, which is the line intersection of an epipolar line and the baseline of the stereo camera configuration. By definition, epipoles always lie on the baseline.
+
+A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
+
+Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing.
+In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known according to
+
+\begin{equation}
+\mathsf{depth} = \frac{\mathsf{baseline * focal\:length}}{\mathsf{disparity}}
+\end{equation}
+
+Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix can be introduced. The co-planar constraint 
+
+\begin{equation}
+\mathbf{X}_{L}^T (\mathbf{t} \times \mathbf{X'}_{L}) = 0
+\end{equation}
+
+is transformed into 
+
+\begin{equation}
+\nathbf{u}^T (K^{-1})^T S(t) R^{-1} (K')^{-1} \mathbf{u'} = 0
+\end
+
+An interested reader can find the full formulation of the fundamental matrix in Sonka et al. book \cite{Sonka07}. The fundamental matrix F is according to the bilinear relation introduced by Longuet and Higgins
+
+\begin{equation}
+\mathbf{u}^T F \mathbf{u'} = 0
+\end{equation}
+
+where the fundamental matrix F is 
+
+\begin{equation}
+F = (K^{-1})^T S(\mathbf{t}) R^{-1} (K')^{-1}
+\end{equation}
+
+The fundamental matrix captures all the available information from a pair of views between two different images.
+The relative motion of the camera scheme is present in the used stereo camera setup, or namely two cameras with known caliberation in space. As we know the camera calibration matrices the normalized measurements can be described with a similar bilinear relation that includes the essential matrix $\mathbf{E}$. E can be estimated from the image measurements and it has a rank of 2 and it can be decomposed with a singular value decomposition (SVD). A normalization must be done in order to solve the epipolar geometry problem so that the solution is numerically stable \cite{Sonka07}.'
+%Butterworth 97 also 
+
+The fact that the essential matrix is a $3x3$ matrix with a rank of 2 means the projection of point X onto the image plane is a lossy transformation. 
+
+Solving the overdetermined linear equation system in epipolar geometry requires a minimum of 6 image points. Noise affects the solution, and real image measurements use an algorithm called eight-point algorithm or a modification of it. The solution is minimised with least squares (Frobenius norm) effort. 
++ at least 8 points for a linear solution in 2 image system \cite{Sonka07}
++ at least 7 points for a linear solution in 3 image system (trilinear tensors used)
+
++ Mismatch errors 
+
++ 3D similarity reconstruction
+    + X is found up to a scale and not Euclidean
+    
++ case of unknown intrinsic and extrinsic parameters is not shown here
+    + can do, depth from unknown video source
+
++ stereopsis => scene reconstruction in Euclidean reconstruction from 2 calibrated cameras
+
+Using only two cameras instead of multiple cameras helps to avoid occlusion of objects and use existing powerful stereo processing tools.
+
++ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
+%page 473 Sonka07
 
 \subsubsection{Intrinsic Camera Parameters}
 \label{subsubsection:intrinsic_camera_parameters}
@@ -1248,8 +1177,26 @@ Some methods:
 + object tracks, initiating and terminating
 + 
 
-\section{Camera Calibration According To Pinhole Camera Model}
+\section{Camera Modeling And Calibration According To Pinhole Camera Model}
 \label{section:camera_calibration_according_to_pinhole_camera_model}
+
+\subsection{Available Camera Models}
+\label{subsection:available_camera_models}
+
+TODO: different camera models
+1. pinhole camera model
+2. orthographic projection
+3. scaled orthographic projection
+4. paraperspective projection
+5. perspective projection
+%source: NUS CS4243 camera.pdf slide
+
+The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
+
+The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
+
+Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
+
 
 \subsection{Pinhole Camera Geometry}
 \label{subsection:pinhole_camera_geometry}
@@ -1361,13 +1308,13 @@ Camera calibration can be weak or strong. If strong camera parameters are known 
 
 Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
 
-\subsection{Calibration Targets}
-\label{subsection:calibration_targets}
+\subsubsection{Calibration Targets}
+\label{subsubsection:calibration_targets}
 
 Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
 
-\subsection{Calibration Errors}
-\label{subsection:calibration_errors}
+\subsubsection{Calibration Errors}
+\label{subsubsection:calibration_errors}
 
 + Tangential distortion
 
@@ -1404,16 +1351,11 @@ The problems of window size can be solved with iterative window size methods, bu
 \subsection{Block Matching Techniques}
 \label{subsection:block_matching_techniques}
 
+\section{Depth Map Generation}
+\label{section:depth_map_generation}
 
-\subsection{Stereo Techniques}
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-Photometric Stereo \cite{Woodham80}.
-    + Recovers surface orientation assuming a known reflection function
-    + a Lambertian surface model
-    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    + point illumination sources with known intensity and direction
 %end of chapter 4
+
 \chapter{Load Object Registration And Tracking}
 \label{chapter:load_object_registration_and_tracking}
 
@@ -1640,79 +1582,171 @@ The reason to introduce the image affine coordinate system is that pixels are no
 
 The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
 
+\section{Load Object Registration}
+\label{section:load_object_registration}
+
+\subsection{Multiple Viewpoint Registration}
+\label{subsection:multiple_viewpoint_registration}
+
+\section{Load Object Tracking}
+\label{section:load_ovbject_tracking}
 
 %end of chapter 5
-\chapter{Epipolar Geometry}
-\label{chapter:geometry}
-%Testit ja tulokset, miten toimii
+\chapter{Implementation And Algorithms}
+\label{chapter:implementation_and_algorithms}
 
-Next we will introduce a two-camera epipolar geometry setup that is used for the depth mapping of the image features.
+\section{Overall System Design}
+\label{section:overall_system_design}
 
-+ here put an image of the stereo geometry setup
+\subsection{Online Software}
+\label{subsection:online_software}
 
-+ reference to the optical centers C and C', and baseline of the camera setup
+\subsection{Offline Software}
+\label{subsection:offline_software}
 
-By definition, an epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. The epipolar plane intersects the image planes $\pi$ and $\pi'$ at epipolar lines. A feature of the epipolar line is that any projected point X must lie on this epipolar line on the image plane, a fact which greatly reduces the search space for matching image features.
+\subsubsection{End Effector Tracker Integration}
+\label{subsubsection:end_effector_tracker_integration}
 
-Next, we introduce the epipole, which is the line intersection of an epipolar line and the baseline of the stereo camera configuration. By definition, epipoles always lie on the baseline.
+\section{HIMMELI Sensor Platform}
+\label{section:himmeli_sensor_platform}
 
-A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
 
-Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing.
-In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known according to
+HIMMELI sensor platform is a modular sensor rig that was created in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors.
 
-\begin{equation}
-\mathsf{depth} = \frac{\mathsf{baseline * focal\:length}}{\mathsf{disparity}}
-\end{equation}
+With installed stereo cameras, HIMMELI sensor platform provides means for creating a digital model of the environment, including the model of the crane load that we wish to measure. This is done using stereo imaging that outputs a range image of the crane working area. The area that the rig can model depends on the tilt of the cameras used, distance from the working area, and many other parameters. 
 
-Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix can be introduced. The co-planar constraint 
+Two main reasons for choosing machine vision as the medium were the limitations of the crane environment instrumentation possibilities, and the cost-effectiveness of a camera system. With HIMMELI, we have the option to use laser scanning, too, so it was a natural choice as a camera platform for testing and evaluation. 
 
-\begin{equation}
-\mathbf{X}_{L}^T (\mathbf{t} \times \mathbf{X'}_{L}) = 0
-\end{equation}
+%The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. %The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
 
-is transformed into 
+The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything,  so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
 
-\begin{equation}
-\nathbf{u}^T (K^{-1})^T S(t) R^{-1} (K')^{-1} \mathbf{u'} = 0
-\end
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{himmeli.JPG}
+%    \caption{HIMMELI sensor platform prepared for measurement session.}
+%    \label{fig:himmelifull}
+%  \end{center}
+%\end{figure}
 
-An interested reader can find the full formulation of the fundamental matrix in Sonka et al. book \cite{Sonka07}. The fundamental matrix F is according to the bilinear relation introduced by Longuet and Higgins
+The sensor rig can be powered with a 230 V mains power or alternatively with a 24 V DC source. We do not consider the details of powering up the HIMMELI rig since the power-up sequence and details are irrelevant for the end user.
 
-\begin{equation}
-\mathbf{u}^T F \mathbf{u'} = 0
-\end{equation}
+\subsection{HIMMELI Platform Cameras}
+\label{subsection:himmeli_platform_cameras}
 
-where the fundamental matrix F is 
+The HIMMELI sensor platform carries two industrial-grade GigE uEye UI-5120 RE HDR cameras in its camera module. The uEye camera is a high dynamic range camera with a CMOS sensor array in PAL resolution 768 x 576 pixels. The model currently in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs the image at 50 frames per second maximum. 
 
-\begin{equation}
-F = (K^{-1})^T S(\mathbf{t}) R^{-1} (K')^{-1}
-\end{equation}
+The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
 
-The fundamental matrix captures all the available information from a pair of views between two different images.
-The relative motion of the camera scheme is present in the used stereo camera setup, or namely two cameras with known caliberation in space. As we know the camera calibration matrices the normalized measurements can be described with a similar bilinear relation that includes the essential matrix $\mathbf{E}$. E can be estimated from the image measurements and it has a rank of 2 and it can be decomposed with a singular value decomposition (SVD). A normalization must be done in order to solve the epipolar geometry problem so that the solution is numerically stable \cite{Sonka07}.'
-%Butterworth 97 also 
+The data is transmitted through Gigabit Ethernet with Opto I/O interface.
 
-The fact that the essential matrix is a $3x3$ matrix with a rank of 2 means the projection of point X onto the image plane is a lossy transformation. 
+\subsubsection{Image Array Details} 
+%remove section
 
-Solving the overdetermined linear equation system in epipolar geometry requires a minimum of 6 image points. Noise affects the solution, and real image measurements use an algorithm called eight-point algorithm or a modification of it. The solution is minimised with least squares (Frobenius norm) effort. 
-+ at least 8 points for a linear solution in 2 image system \cite{Sonka07}
-+ at least 7 points for a linear solution in 3 image system (trilinear tensors used)
+NIT CMOS Array
 
-+ Mismatch errors 
+The CMOS sensor is manufactured by Northern Institute of Technology Management and has an optical size of 5.75 mm x 7.68 mm. It has a color depth of 12 bits 
 
-+ 3D similarity reconstruction
-    + X is found up to a scale and not Euclidean
-    
-+ case of unknown intrinsic and extrinsic parameters is not shown here
-    + can do, depth from unknown video source
+The dynamic range of the camera is logarithmic with a 120dB sensitivity. \cite{IDSImagingWeb13}
 
-+ stereopsis => scene reconstruction in Euclidean reconstruction from 2 calibrated cameras
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=5cm]{camera-gige-ueye-se-cmos-1.jpg}
+    \caption{The GigE uEye HDR camera with no protective casing. Image from \cite{IDSImagingWeb13}.}
+    \label{fig:gige-camera}
+  \end{center}
+\end{figure}
 
-Using only two cameras instead of multiple cameras helps to avoid occlusion of objects and use existing powerful stereo processing tools.
+\subsection{HIMMELI Control Cabinet}
+\label{subsection:himmeli_control_cabinet}
 
-+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
-%page 473 Sonka07
+The control cabinet includes 11 different components that are listed briefly in table \ref{table:controlcabinet}.
+
+\begin{table}
+\caption{Control cabinet components in the HIMMELI sensor rig.}
+\label{table:controlcabinet}
+\begin{tabular}{|p{6cm}|p{5cm}|}
+\hline
+\textbf{Component} & \textbf{Details} \\
+\hline
+ATX power supply x 2 & One for each embedded PC. \\
+\hline
+Embedded PC 1 & Operating system Windows 7 \\
+\hline
+Embedded PC 2 & Operating system GNU/Linux
+\hline
+Gigabit Ethernet switch & \\
+\hline
+Power supply switch & 230VAC/24VDC \\
+\hline
+Fuse box & \\
+\hline
+Capacitor & For power change-over usage. \\
+\hline
+Wireless module & \\
+\hline
+Power ground box & \\
+\hline
+Selector relay & For power change-over usage. \\ \hline
+\end{tabular}
+\end{table}
+
+in order to provide a flexible sensory platform for research 
+
+is currently readily available for recording stero image data, and is located in Tampere university of technology 
+
+
+
+The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
+
+HIMMELI includes
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item HDR stereo camera pair
+\item High resolution camera
+\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
+\item Infrared (IR) camera
+\item Automotive radar
+\end{itemize}
+
+Additionally, an IR light source and LED flash are included.
+
+\begin{table}
+\caption{Device and its connector type in HIMMELI sensor rig.}
+\label{table:connectortypes} %lable just after caption
+\begin{tabular}{|p{6cm}|p{5cm}|}
+\hline % The line on top of the table
+\textbf{Device} & \textbf{Connector Type} \\
+\hline
+High dynamic range camera & Gigabit Ethernet \\
+\hline
+High resolution camera & IEEE 1394b (FireWire) \\
+\hline
+Automotive radar & CAN bus \\
+\hline
+Thermal camera & CVBS (PAL) or serial bus \\
+\hline
+LIDAR laser scanner & LIDAR \\
+\hline
+GNSS receiver & Serial bus 1 \\ \hline
+\end{tabular} % for really simple tables, you can just use tabular
+\end{table} % table makes a floating object with a title
+
+The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
+
+The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
+
+The stereo camera setup installed on the rig has two HDR cameras.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli.pdf}
+    \caption{HIMMELI Sensor Platform Schematic.}
+    \label{fig:himmeli}
+  \end{center}
+\end{figure}
 
 \subsection{Correspondence Problem}
 + the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
