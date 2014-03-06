@@ -1416,6 +1416,19 @@ W \end{array} \Biggl]
 %end of chapter 4
 
 \chapter{Load Object Registration And Tracking}
+
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=5cm]{process_crane_load_object.jpg}
+    \caption{The lifted load object in the process crane use case.}
+    \label{fig:process_crane_load_object.jpg}
+  \end{center}
+\end{figure}
+
+
+
+
 \label{chapter:load_object_registration_and_tracking}
 
 \section{Image Coordinate Systems}
@@ -2102,6 +2115,8 @@ Online tests for the FAMOUS project deliverables were conducted on March 5th, 20
 
 \subsection{Disparity Tuning}
 \label{subsection:disparity_tuning}
+
+The disparity map generated with standard OpenCV libraries needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm parameters was done first, and then a semi-global block matching algorithm was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. This way a user can tune parameters according to incoming data with a 
 
 \subsection{Segmentation Tuning}
 \label{subsection:segmentation_tuning}
