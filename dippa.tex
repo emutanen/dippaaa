@@ -1878,6 +1878,33 @@ The stereo camera setup installed on the rig has two HDR cameras.
   \end{center}
 \end{figure}
 
+\subsection{Platform Installations}
+\label{section:platform_installations}
+
+The HIMMELI platform was installed in two different test environments as described in the use cases. 
+
+\subsubsection{Forestry Crane Installation}
+\label{subsubsection:forestry_crane_installation}
+
+\subsubsection{Process Crane Installation}
+\label{subsubsection:process_crane_installation}
+
+The process crane had two options for a HIMMELI sensor platform installation. For both options, the different modules of the HIMMELI platform had to be installed in their own location because of size constraints. Thus, the sensor module and the support frame module were taken apart from the main PC frame for the duration of the process crane installation. 
+
+The first installation option was to attach the HIMMELI sensor module to the side of the moving bridge using a custom made metal frame. In this installation option the camera units are facing towards the crane working area from side and above in a bird's eye view manner. The laser scanner rotation axis points towards the opposite end of the moving bridge aligning the laser scan lines along the longer length of the warehouse space (x axis of the warehouse coordinate system).
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli_installation_11.png}
+    \caption{Sensor platform installation in the moving bridge of a process hall crane in online test session.}
+    \label{fig:himmeli_installation_11}
+  \end{center}
+\end{figure}
+
+The second installation option was to attach the HIMMELI sensor module directly to the moving crane trolley housing. In this installation option the camera units are facing the crane working area in a top-down manner with a slight angle to the warehouse floor normal. Now, the laser scanner rotation axis points towards the floor aligning the laser scan lines along the shorter length of the warehouse space (y axis of the warehouse coordinate system).
+
+
+
 \section{Point Cloud Library}
 \label{section:point_cloud_library}
 
@@ -2020,11 +2047,12 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 \label{chapter:evaluation}
 %Pohdintaa ja future workia
 
+Evaluation of the load object measurement system uses captured offline data. Online tests could not be run because the data from the HIMMELI platform at the time of online testing (March 2014) was not functional. The problems with online testing will be described in more detail in x
 
 Since the work on load pose measurement system was started, ROS was considered as the number one framework choice in terms of cross-platform communication. It was also known that the learning curve for the ROS system is steep, so one risk in accomplishing a working online measurement system was actually missing knowledge on setting a ROS system up. Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
 
-\section{Offline Testing}
-\label{section:offline_testing}
+\section{Offline Tests}
+\label{section:offline_tests}
 
 \subsection{Process Hall Case}
 \label{subsection:offline_process_hall_case}
@@ -2034,12 +2062,13 @@ Since the work on load pose measurement system was started, ROS was considered a
 \label{subsection:forest_case}
 %note labeling
 
-\section{Applicability For Online Testing}
-\label{section:applicability_for_realtime_testing}
+\section{Online Tests}
+\label{section:online_tests}
 
 \subsection{Process Hall Case}
 \label{subsection:online_process_hall_case}
 %note labeling
+Online tests for the FAMOUS project deliverables were conducted on March 5th, 2014 in a process hall crane test environment. 
 
 \subsection{Forest Case}
 \label{subsection:online_forest_case}
