@@ -1417,6 +1417,8 @@ W \end{array} \Biggl]
 \section{Depth Map Generation}
 \label{section:depth_map_generation}
 
+After the image rectification is done for a stereo image pair captured by the calibrated stereo camera setup, then the 3d point cloud generation becomes a problem of extracting the estimate of the disparity map (d(x,y).
+
 Q is the reprojection matrix that encodes information about the stereo camera setup. Q matrix will provide information about camera optical axis convergence (parallel or cross-eyed), image plane principal points, and the stereo setup baseline width b.
 
 
@@ -2247,7 +2249,6 @@ Speckle Range & 17 \\
 Disp12MaxDiff & 1 \\ \hline
 \end{tabular} % for really simple tables, you can just use tabular
 \end{table} % table makes a floating object with a title
-
 
 \subsubsection{Semi-global Block Matching Algorithm Tuning}
 \label{subsubsection:semiglobal_block_matching_algorithm_tuning}
