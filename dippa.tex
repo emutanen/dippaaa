@@ -515,6 +515,7 @@ Thank you, and keep up the good work!
 \begin{longtable}{@{}p{0.25\textwidth}p{0.7\textwidth}@{}}
 AABB & Axis-aligned bounding-box \\
 AI & Artificial Intelligence \\
+BM & Block Matching \\
 BVH & Bounding Volume Hierarchies \\
 CCIR & Comité Consultatif International pour la Radio \\
 CMOS & Complementary Metal Oxide Semiconductor \\
@@ -522,7 +523,6 @@ CUDA & Compute Unified Device Architecture \\
 FLIR & Forward Looking Infra Red \\
 GPU & Graphics Processing Unit \\
 HDR & High Dynamic Range \\
-HIMMELI & \\
 I/O & Input Output\\
 LIDAR & Light Detecting And Ranging \\
 PC & Personal Computer \\
@@ -530,6 +530,7 @@ PCL & Point Cloud Library \\
 RADAR & Radio Detecting And Ranging \\
 ROS & Robot Operating System \\
 SAD & Sum of Absolute Differences \\
+SGBM & Semi-Global Block Matching \\
 SIMD & Single Instruction, Multiple Data \\
 SOM & Self-organizing Map \\
 SONAR & Sound Navigation And Ranging \\
@@ -2112,7 +2113,47 @@ Online tests for the FAMOUS project deliverables were conducted on March 5th, 20
 \subsection{Disparity Tuning}
 \label{subsection:disparity_tuning}
 
-The disparity map generated with standard OpenCV libraries needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm parameters was done first, and then a semi-global block matching algorithm was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. This way a user can tune parameters according to incoming data with a 
+The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. The tool was made for what you see is what you get (WYSIWYG) operation, and the resulting disparity image is displayed instantaneously beside the sliders.
+
+\subsubsection{Block Matching Algorithm Tuning}
+\label{subsubsection:block_matching_algorithm_tuning}
+
+The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in \ref{table:block_matching_state_parameters}.
+
+\begin{table}
+\caption{The block matching algorithm parameters in a BM state object.}
+\label{table:block_matching_state_parameters} %label just after caption
+\begin{tabular}{|p{6cm}|p{2cm}|p{2cm}|p{4m}|}
+\hline % The line on top of the table
+\textbf{Parameter Name} & \textbf{Min. Value} & \textbf{Max. Value} & \textbf{Special Requirements} \\
+\hline
+Pre-Filter Size & 5 & 255 & Must Be Odd Number \\
+\hline
+Pre-Filter Cap & 1 & 63 & - \\
+\hline
+SAD Window Size & 5 & 255 & Must Be Odd Number \\
+\hline
+Min. Disparity & -100 & 100 & - \\
+\hline
+Number Of Disparities & 16 & 256 & Must Be Divisable By 16 \\
+\hline
+Texture Threshold & 0 & no upper limit & - \\ 
+\hline
+Uniqueness Ratio & 0 & 255 & - \\
+\hline
+Speckle Window Size & 0 & 100 & - \\
+\hline
+Speckle Range & 0 & 100 & - \\
+\hline
+Disp12MaxDiff & 0 & no upper limit & \\ \hline
+\end{tabular} % for really simple tables, you can just use tabular
+\end{table} % table makes a floating object with a title
+
+\subsubsection{Semi-global Block Matching Algorithm Tuning}
+\label{subsubsection:semiglobal_block_matching_algorithm_tuning}
+
+
+
 
 \subsection{Segmentation Tuning}
 \label{subsection:segmentation_tuning}
