@@ -525,9 +525,12 @@ GPU & Graphics Processing Unit \\
 HDR & High Dynamic Range \\
 I/O & Input Output\\
 LIDAR & Light Detecting And Ranging \\
+OBB & Oriented Bounding Box \\
 PC & Personal Computer \\
 PCL & Point Cloud Library \\
+PLC & Programmable Logic Controller \\
 RADAR & Radio Detecting And Ranging \\
+ROI & Region Of Interest \\
 ROS & Robot Operating System \\
 SAD & Sum of Absolute Differences \\
 SGBM & Semi-Global Block Matching \\
@@ -2118,7 +2121,15 @@ The disparity map generated with standard OpenCV functions needed parameter tuni
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
 
-The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}.
+The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}. Additionally, a pair of regions of interest (ROI) are set up in the BM state to mark off the new effective image regions after rectification process.
+
+The tuning of the BM parameters was done against offline data collected from both selected use cases. The forestry crane data was preferred in the tuning effort since more objects can be seen in the images, thus, the saliency content of the captured video is higher compared to the process hall crane area. High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud. For example, the texture rate of change for a single coloured warehouse floor is small, and in the process hall crane case the collected data had minimal floor feature matching response for some BM tuning sets.
+
+First, the tuning was started with a coarse selection of parameters to get a working feature matching response. Especially, the SAD window size was kept higher than normal to produce a lot of visible matched points. The most important parameters in the final BM state tuning set are SAD window size, number of disparities, and speckle range parameters. These parameters should be tuned first, and other parameters can be used for fine tuning of the disparity map afterwards. 
+
+The SAD window size, or sum of absolute differences window size, affects the size of the sliding kernel window used for feature matching in the 1d search space for rectified images. The smaller the value, the smaller the feature smoothing kernel used is, and with a minimum value the search is called pixel-to-pixel feature matching. For metric measurement purposes the disparity map should be as accurate as possible, thus, the minimum value of the SAD window size will be used at all times. The downside of high accuracy disparity map is that the number of matched points is smaller than with less accurate tuning sets. If the point cloud is used for 3d visualization purposes, a higher SAD window size value selection should produce more points for the delight of the viewer.
+
+The number of disparities parameter sets the number of disparity levels in a disparity map image. The higher the value, the 
 
 \begin{table}
 \caption{List of block matching parameters in a BM state object.}
@@ -2127,15 +2138,15 @@ The block matching algorithm is tuned with 10 parameters who reside in a BM stat
 \hline % The line on top of the table
 \textbf{Parameter Name} & \textbf{Min.} & \textbf{Max.} & \textbf{Requirements} \\
 \hline
-Pre-Filter Size & 5 & 255 & Must Be Odd Number \\
+Pre-Filter Size & 5 & 255 & Odd Number \\
 \hline
 Pre-Filter Cap & 1 & 63 & - \\
 \hline
-SAD Window Size & 5 & 255 & Must Be Odd Number \\
+SAD Window Size & 5 & 255 & Odd Number \\
 \hline
 Min. Disparity & -100 & 100 & - \\
 \hline
-No. Of Disparities & 16 & 256 & Must Be Divisable By 16 \\
+No. Of Disparities & 16 & 256 & Divisable By 16 \\
 \hline
 Texture Threshold & 0 & no upper limit & - \\ 
 \hline
@@ -2145,7 +2156,7 @@ Speckle Window Size & 0 & 100 & - \\
 \hline
 Speckle Range & 0 & 100 & - \\
 \hline
-Disp12MaxDiff & 0 & no upper limit & \\ \hline
+Disp12MaxDiff & 0 & no upper limit & - \\ \hline
 \end{tabular} % for really simple tables, you can just use tabular
 \end{table} % table makes a floating object with a title
 
