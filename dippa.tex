@@ -539,10 +539,10 @@ SSE & Streaming SIMD Extensions \\
 TLD & Tracking, Detection, And Learning \\
 TOF & Time Of Flight \\
 UCC & Use Case Configuration \\
+WYSIWYG & What You See Is What You Get \\
 XML & Extensive Markup Language \\
 XML-RPC & XML Remote Procedure Call \\ 
 \end{longtable}
-
 
 % Table of contents
 % ------------------------------------------------------------------
@@ -2118,14 +2118,14 @@ The disparity map generated with standard OpenCV functions needed parameter tuni
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
 
-The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in \ref{table:block_matching_state_parameters}.
+The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}.
 
 \begin{table}
-\caption{The block matching algorithm parameters in a BM state object.}
+\caption{List of block matching parameters in a BM state object.}
 \label{table:block_matching_state_parameters} %label just after caption
 \begin{tabular}{|p{4cm}|l|l|p{4cm}|}
 \hline % The line on top of the table
-\textbf{Parameter Name} & \textbf{Min.} & \textbf{Max.} & \textbf{Special Requirements} \\
+\textbf{Parameter Name} & \textbf{Min.} & \textbf{Max.} & \textbf{Requirements} \\
 \hline
 Pre-Filter Size & 5 & 255 & Must Be Odd Number \\
 \hline
@@ -2135,7 +2135,7 @@ SAD Window Size & 5 & 255 & Must Be Odd Number \\
 \hline
 Min. Disparity & -100 & 100 & - \\
 \hline
-Number Of Disparities & 16 & 256 & Must Be Divisable By 16 \\
+No. Of Disparities & 16 & 256 & Must Be Divisable By 16 \\
 \hline
 Texture Threshold & 0 & no upper limit & - \\ 
 \hline
