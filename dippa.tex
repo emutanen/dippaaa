@@ -2116,7 +2116,7 @@ Online tests for the FAMOUS project deliverables were conducted on March 5th, 20
 \subsection{Disparity Tuning}
 \label{subsection:disparity_tuning}
 
-The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. The tool was made for what you see is what you get (WYSIWYG) operation, and the resulting disparity image is displayed instantaneously beside the sliders.
+The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. The tool was made for what you see is what you get (WYSIWYG) operation, and the resulting disparity image is displayed instantaneously next to the sliders.
 
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
@@ -2128,21 +2128,24 @@ The feature matching works in three steps:
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item Pre-filter to normalize image brightness
+\item Pre-filtering to normalize image brightness
 \item Correspondence search with SAD window along the epipolar lines 
-\item Post-filter to remove bad matches
+\item Post-filtering to remove bad matches
 \end{itemize}
 
-The tuning of the BM parameters was done against offline data collected from both selected use cases. The forestry crane data was preferred in the tuning effort since more objects can be seen in the images, thus, the saliency content of the captured video is higher compared to the process hall crane area. High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud. For example, the texture rate of change for a single coloured warehouse floor is small, and in the process hall crane case the collected data had minimal floor feature matching response for some BM tuning sets.
+The tuning of the BM parameters was done against offline data collected from both selected use cases. The forestry crane data was preferred in the tuning effort since more objects can be seen in the images, thus, the saliency content of the captured video is higher compared to the process hall crane area. High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud. For example, the texture rate of change for a matt painted warehouse floor is small, and in the process hall crane case the collected data had minimal floor feature matching response for some BM tuning sets.
 
 \subsubsection{Block Matching Parameter Effects on Feature Matching Performance}
 \label{subsubsection:block_matching_parameter_effects_on_feature_matching_performance}
 
-First, the tuning was started with a coarse selection of parameters to get a working feature matching response. Especially, the SAD window size was kept higher than normal to produce a lot of visible matched points. The most important parameters in the final BM state tuning set are SAD window size, number of disparities, and speckle range parameters. These parameters should be tuned first, and other parameters can be used for fine tuning of the disparity map afterwards. 
+First, the tuning was started with a coarse selection of parameters to get a visible disparity map. Especially, the SAD window size was kept higher than normal to produce a lot of visible matched points. The most important parameters in the final BM state tuning set are SAD window size, number of disparities, and speckle range parameters. These parameters should be tuned first, and other parameters can be used for fine tuning of the disparity map afterwards. 
 
-The SAD window size, or sum of absolute differences window size, affects the size of the sliding kernel window used for feature matching in the 1d search space for rectified images. The smaller the value, the smaller the feature smoothing kernel used is, and with a minimum value the search is called pixel-to-pixel feature matching. For metric measurement purposes the disparity map should be as accurate as possible, thus, the minimum value of the SAD window size will be used at all times. The downside of high accuracy disparity map is that the number of matched points is smaller than with less accurate tuning sets. If the point cloud is used for 3d visualization purposes, a higher SAD window size value selection should produce more points for the delight of the viewer.
+The SAD window size, or sum of absolute differences window size, affects the size of the sliding kernel window used for correspondence search in the 1d epipolar search space of the rectified images. The smaller the value, the smaller the sliding smoothing kernel used is, and with a minimum value the search is called pixel-to-pixel correspondence search. For metric measurement purposes the disparity map should be as accurate as possible, thus, the minimum value of the SAD window size will be used at all times. If the rectified images are texture rich, then a match can be found for all pixels on an epipolar line. Then again, if the image pair is less rich in texture, for example, a matt painted warehouse floor, the process will find less matches, which usually is the case. A low texture environment will produce little found matches because the local neighbourhoods of the sliding window are too similar for a confirmed match. If the point cloud is used for 3d visualization purposes, a higher SAD window size value selection should produce more points for the delight of the viewer.
 
-The number of disparities parameter sets the number of disparity levels in a disparity map image. The higher the value, the 
+The number of disparities parameter sets the maximum disparity difference in pixels for a search space in a disparity map. The higher the value, the higher a pixel difference value is allowed in the disparity map. For example, if a very near-field object has a disparity difference of N pixels, and number of disparities property is set smaller than N, then the near-field object is not detected at all in the disparity map. This property can be used to remove near-field occluded objects that are impossible to triangulate successfully. For example, in the process hall crane case, the hoisting wires are problematic since they are occluded and visible only from one side in each camera. With number of disparities parameter it is possible to remove the wires from the disparity search space, and altogether from the final point cloud depicting the crane working area.
+
+
+
 
 \begin{table}
 \caption{List of block matching parameters in a BM state object.}
@@ -2151,7 +2154,7 @@ The number of disparities parameter sets the number of disparity levels in a dis
 \hline % The line on top of the table
 \textbf{Parameter Name} & \textbf{Min.} & \textbf{Max.} & \textbf{Requirements} \\
 \hline
-Pre-Filter Size & 5 & 255 & Odd Number \\
+Pre-Filter Size & 5 & 21 & Odd Number \\
 \hline
 Pre-Filter Cap & 1 & 63 & - \\
 \hline
