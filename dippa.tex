@@ -2193,7 +2193,7 @@ The tuning effort resulted in best possible BM parameters for each use case. The
 \begin{table}
 \caption{Best BM parameter tuning set in process hall crane case.}
 \label{table:process_hall_crane_bm_parameters} %label just after caption
-\begin{tabular}{|p{4cm}|p{4cm}|}
+\begin{tabular}[c]{|p{4cm}|l|}
 \hline % The line on top of the table
 \textbf{Parameter Name} & \textbf{Value} \\
 \hline
@@ -2216,6 +2216,35 @@ Speckle Window Size & 42 \\
 Speckle Range & 10 \\
 \hline
 Disp12MaxDiff & 10 \\ \hline
+\end{tabular} % for really simple tables, you can just use tabular
+\end{table} % table makes a floating object with a title
+
+\begin{table}
+\caption{Best BM parameter tuning set in forestry crane case.}
+\label{table:forestry_crane_bm_parameters} %label just after caption
+\begin{tabular}[c]{|p{4cm}|l|}
+\hline % The line on top of the table
+\textbf{Parameter Name} & \textbf{Value} \\
+\hline
+Pre-Filter Size & 9 \\
+\hline
+Pre-Filter Cap & 43 \\
+\hline
+SAD Window Size & 13 \\
+\hline
+Min. Disparity & 0 \\
+\hline
+No. Of Disparities & 160 \\
+\hline
+Texture Threshold & 0 \\ 
+\hline
+Uniqueness Ratio & 21 \\
+\hline
+Speckle Window Size & 44 \\
+\hline
+Speckle Range & 17 \\
+\hline
+Disp12MaxDiff & 1 \\ \hline
 \end{tabular} % for really simple tables, you can just use tabular
 \end{table} % table makes a floating object with a title
 
