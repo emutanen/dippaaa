@@ -2121,9 +2121,22 @@ The disparity map generated with standard OpenCV functions needed parameter tuni
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
 
-The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}. Additionally, a pair of regions of interest (ROI) are set up in the BM state to mark off the new effective image regions after rectification process.
+The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}. Additionally, a pair of regions of interest (ROI) are set up in the BM state to mark off the new effective image regions after rectification process. To be able to understand the parameter effects on the block matching performance, a quick note about the inner works of the algorithm is introduced next.
+
+The feature matching works in three steps:
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item Pre-filter to normalize image brightness
+\item Correspondence search with SAD window along the epipolar lines 
+\item Post-filter to remove bad matches
+\end{itemize}
 
 The tuning of the BM parameters was done against offline data collected from both selected use cases. The forestry crane data was preferred in the tuning effort since more objects can be seen in the images, thus, the saliency content of the captured video is higher compared to the process hall crane area. High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud. For example, the texture rate of change for a single coloured warehouse floor is small, and in the process hall crane case the collected data had minimal floor feature matching response for some BM tuning sets.
+
+\subsubsection{Block Matching Parameter Effects on Feature Matching Performance}
+\label{subsubsection:block_matching_parameter_effects_on_feature_matching_performance}
 
 First, the tuning was started with a coarse selection of parameters to get a working feature matching response. Especially, the SAD window size was kept higher than normal to produce a lot of visible matched points. The most important parameters in the final BM state tuning set are SAD window size, number of disparities, and speckle range parameters. These parameters should be tuned first, and other parameters can be used for fine tuning of the disparity map afterwards. 
 
