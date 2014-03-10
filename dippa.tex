@@ -496,7 +496,17 @@ Thank you, and keep up the good work!
 \vskip 5mm
 \noindent\AUTHOR
 
-% Acronyms
+% Table of contents
+% ------------------------------------------------------------------
+\cleardoublepage
+% This command adds a PDF bookmark that links to the contents.
+% You can use \addcontentsline{} as well, but that also adds contents
+% entry to the table of contents, which is kind of redundant.
+% The text ``Contents'' is shown in the PDF bookmark.
+\pdfbookmark[0]{Contents}{bookmark.0.contents}
+\tableofcontents
+
+% Abbreviations & Acronyms
 % ------------------------------------------------------------------
 % Use \cleardoublepage so that IF two-sided printing is used
 % (which is not often for masters theses), then the pages will still
@@ -546,16 +556,6 @@ WYSIWYG & What You See Is What You Get \\
 XML & Extensive Markup Language \\
 XML-RPC & XML Remote Procedure Call \\ 
 \end{longtable}
-
-% Table of contents
-% ------------------------------------------------------------------
-\cleardoublepage
-% This command adds a PDF bookmark that links to the contents.
-% You can use \addcontentsline{} as well, but that also adds contents
-% entry to the table of contents, which is kind of redundant.
-% The text ``Contents'' is shown in the PDF bookmark.
-\pdfbookmark[0]{Contents}{bookmark.0.contents}
-\tableofcontents
 
 % List of tables
 % ------------------------------------------------------------------
