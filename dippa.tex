@@ -926,10 +926,13 @@ Histogram equalization maps the current image intensity response over the full a
 todo: corresponding histograms of two test images, and their cumulative distribution functions
 
 %end of chapter 3
-\chapter{Stereographic Machine Vision System}
+\chapter{Stereoscopic Machine Vision System}
 \label{chapter:stereographic_machine_vision_system}
+% stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
+Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision system is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. Similarly, by using two monocular cameras in a binocular setup it is possible to not perceive, but quantifiably measure depth using a calibrated camera system. %reference?
 
-Stereo vision or 3D vision is a machine vision technique that is used in many engineering applications. 3D vision task is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
+This kind of depth measuring machine vision system is most often called a \emph{stereo vision system}, or 3d vision system.
+3d vision tasks are used in many engineering applications is generally seen as a problem of 3D scene reconstruction, object property understanding, or a visual control task of minimization, depending on the scientific application at hand \cite{Sonka07}.
 
 Usually, a stereo camera setup is used for solving the problem of 3D information recovery from 2D images using knowledge about the camera geometry and the image content. We are mainly interested in machine vision as means of extracting coordinate data from a scene. Full recovery of the spatial 3D scene is not possible, because the stereo cameras only see the surface parts that project onto the image plane.
 
@@ -1310,6 +1313,12 @@ Planar calibration grids are the most common calibration method for a stereo cam
 
 \subsection{Stereo Camera Calibration}
 \label{subsection:stereo_camera_calibration}
+
++ toed-in or parallel camera setup
+
+The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
+
+A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
 
 
 \section{Stereo Correspondence Problem}
