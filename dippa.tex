@@ -755,11 +755,44 @@ Adaptive safety techniques can be realised with the improved
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
-\section{Stereo Cameras}
-\label{section:stereo_cameras}
+\subsection{Stereo Cameras}
+\label{subsection:stereo_cameras}
+
+\subsubsection{Photometrics}
+\label{subsubsection:photometrics}
+
+Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+Irradiance is a measure of power of light cast on a unit surface are of an object.
+The relation between an object's surface that radiates onto the camera sensor array can be formulated as
+
+\begin{equation}
+\label{equation:radiance}
+E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+\end{equation}
+
+where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+
+%weather conditions
+
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
     
-\section{Lidars And Radars And Sonars}
-\label{section:lidars_and_radars_and_sonars}
+\subsection{Lidars And Radars And Sonars}
+\label{subsection:lidars_and_radars_and_sonars}
 
 Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
 
@@ -776,12 +809,9 @@ A world-wide harmonized channel allocation system for radar widebands has been p
 Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
 
 
-\section{Point Cloud Representations}
-\label{section:point_cloud_representations}
+\section{3d Scene Representations}
+\label{section:3d_scene_representations}
 + possible algorithms: clustering, water-filling, and convex hull computations
-
-\subsection{3d Scene Representation}
-\label{subsection:3d_scene_representation}
 
 In the virtual reality (VR) research the modeling of real-world items has been a big problem for many years. 
 It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
@@ -848,11 +878,11 @@ Octomap
     +laser plane range finder
 
 \subsection{Structure From Motion}
+\label{subsection:structure_from_motion}
 
 Structure from X techniques
 + Shape from shading
 + Structure from motion
-
 
 \subsection{Multiple Perspective Interactive Video}
 
@@ -884,36 +914,6 @@ Photometric Stereo \cite{Woodham80}.
     + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
     + point illumination sources with known intensity and direction
 
-\subsection{Photometrics}
-
-Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
-Irradiance is a measure of power of light cast on a unit surface are of an object.
-The relation between an object's surface that radiates onto the camera sensor array can be formulated as
-
-\begin{equation}
-\label{equation:radiance}
-E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
-\end{equation}
-
-where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
-
-\subsubsection{Effects of Weather Conditions}
-
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
 % another snippet
 
@@ -924,10 +924,6 @@ Photometrically, grey-levels of an image are quantized estimates of image irradi
 Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
 
 todo: corresponding histograms of two test images, and their cumulative distribution functions
-
-
-
-
 
 %end of chapter 3
 \chapter{Stereographic Machine Vision System}
@@ -1164,11 +1160,8 @@ Some methods:
 + object tracks, initiating and terminating
 + 
 
-\section{Camera Modeling And Calibration According To Pinhole Camera Model}
+\section{Camera Modeling And Calibration According To A Pinhole Camera Model}
 \label{section:camera_calibration_according_to_pinhole_camera_model}
-
-\subsection{Available Camera Models}
-\label{subsection:available_camera_models}
 
 TODO: different camera models
 1. pinhole camera model
@@ -1373,8 +1366,9 @@ Q is the reprojection matrix that encodes information about the stereo camera se
 
 
 %end of chapter 4
-
-\chapter{Load Object Registration And Tracking}
+%===============================================================================================================================
+\chapter{Coordinate Systems And Transformations}
+\label{chapter:coordinate_systems_and_transformations}
 
 \begin{figure}[ht]
   \begin{center}
@@ -1609,36 +1603,11 @@ The reason to introduce the image affine coordinate system is that pixels are no
 
 The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
 
-\section{Load Object Registration}
-\label{section:load_object_registration}
 
-\subsection{Multiple Viewpoint Registration}
-\label{subsection:multiple_viewpoint_registration}
-
-\section{Load Object Tracking}
-\label{section:load_object_tracking}
-
-
-A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
-
-A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
-
-In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
-
-The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
-
-The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
-
-complexity for a single feature is constant. 
-
-Currently, the 
-
-+ 14 Haar-like features
-+ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
-+ 
 
 
 %end of chapter 5
+%===============================================================================================================================
 \chapter{Implementation And Algorithms}
 \label{chapter:implementation_and_algorithms}
 
@@ -2260,6 +2229,24 @@ Object recognition works on a classification principle: a classifier detects att
 
 + fuzzy systems
 
+%machine learning
+A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+
+A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+
+In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
+
+The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
+
+The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
+
+complexity for a single feature is constant. 
+
+Currently, the 
+
++ 14 Haar-like features
++ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
++ 
 
 A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would have been possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently running on. Due to limited resources we decided to keep the algorithms simple and instead realised a concept software that will run with a supported camera setup. This way we got a working platform that can be used as a testbench for future upgrades and as a framework for implementing more advanced algorithms.  
 
