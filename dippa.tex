@@ -1027,14 +1027,22 @@ Next, we introduce the epipole, which is the line intersection of an epipolar li
 
 A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
 
-Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing.
-In a simple stereo camera configuration the depth can be calculated purely from the geometry if the intrinsic camera parameters are known according to
+Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing. 
+
+In a simple stereo camera configuration the depth of a measured feature can be calculated if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth calculation is done according to equation \ref{equation:disparity_eq},
 
 \begin{equation}
-\mathsf{depth} = \frac{\mathsf{baseline * focal\:length}}{\mathsf{disparity}}
+\label{equation:disparity_eq}
+\mathsf{depth} = \frac{\mathsf{bf}}{\mathsf{d_x}}
 \end{equation}
 
-Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix can be introduced. The co-planar constraint 
+where \emph{b} is the baseline width between the principal points of the image planes, f is the focal length for both cameras, and $d_x$ is the horizontal disparity value measured.
+
+
+
+
+
+Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix is introduced. The co-planar constraint 
 
 \begin{equation}
 \mathbf{X}_{L}^T (\mathbf{t} \times \mathbf{X'}_{L}) = 0
