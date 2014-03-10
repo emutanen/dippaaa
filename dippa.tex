@@ -1029,16 +1029,21 @@ A canonical configuration is a stereo camera setup where the camera optical axes
 
 Any other stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing. 
 
-In a simple stereo camera configuration the depth of a measured feature can be calculated if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth calculation is done according to equation \ref{equation:disparity_eq},
+The depth of a measured feature can be computed if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth measurement value $Z_m$ is calculated using equation \ref{equation:disparity_eq},
 
 \begin{equation}
 \label{equation:disparity_eq}
-\mathsf{depth} = \frac{\mathsf{bf}}{\mathsf{d_x}}
+\mathsf{Z_m} = \frac{\mathsf{bf}}{\mathsf{d_x}}
 \end{equation}
 
-where \emph{b} is the baseline width between the principal points of the image planes, f is the focal length for both cameras, and $d_x$ is the horizontal disparity value measured.
+where \emph{b} is the baseline width between the principal points of the camera image planes, f is the focal length for both cameras, and $d_x$ is the measured horizontal disparity value in a standard parallel stereo camera configuration. Now, if \ref{equation:disparity_eq} is differentiated with respect to horizontal disparity $d_x$, an equation for the effect of disparity change in the output measurement is achieved. 
 
+\begin{equation}
+\label{equation:disparity_derivative}
+\frac{dZ_m}{dd_x} = \frac{-bf}{{d_x}^²}
+\end{equation}
 
+Furthermore, we may insert disparity value as $d_x = X_L - X_R$
 
 
 
@@ -1141,6 +1146,9 @@ Some requirements for the disparity map are elaborated in Zitnick et al. report,
 
 \subsection{Stereo Errors}
 \label{subsection:stereo_errors}
+
+According to equation \ref{}
+
 
 In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
 
