@@ -592,7 +592,7 @@ XML-RPC & XML Remote Procedure Call \\
 
 
 %===========================================================================================================
-\section{Notation and Symbols}
+\chapter*{Notation and Symbols}
 
 %\footnote{http://owl.english.purdue.edu/owl/resource/574/02/} of
 %Purdue University or Strunk's Elements of
@@ -708,31 +708,16 @@ Research effort in image processing technologies continues to result in better a
 
 \section{Forestry Machines}
 \label{section:forestry_machines}
-
+% log picker truck
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
+% person lifter
 
-\section{Industry Applications}
-
-\subsection{Sensors}
-
-+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
-
-\subsection{Stereo Vision Applications}
-
-State-of-the-art application for stereo vision is stereoscopic teleoperation. 
-
-\subsection{Forestry Machines}
-
-\subsubsection{Log Picker Truck}
-
-\subsection{Process Crane}
-
-\subsection{Person Lifter}
-
-%end of chapter 1
+%===============================================================================================================================
 \chapter{Industry Applications}
 \label{chapter:industry_applications}
+
+% stereoscopic teleoperation
 
 %Teoriaa ja teknologioita. Pituus noin 20 sivua.
 %Applications that can benefit from accurate positioning and tracking of a load object
@@ -766,6 +751,7 @@ Adaptive safety techniques can be realised with the improved
 \section{Perception Sensors}
 \label{section:perception_sensors}
 
++ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
@@ -851,6 +837,9 @@ Octomap
 \section{Environment Acquisition Techniques}
 \label{section:environment_acquisition_techniques}
 
+\subsection{Triangulation}
+\label{subsection:triangulation}
+
 + lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
 + Mechanical coordinate measuring machine (CMM) (3D modeling)
     + DCC CMM
@@ -858,15 +847,42 @@ Octomap
 + Structured Light Triangulation
     +laser plane range finder
 
+\subsection{Structure From Motion}
+
+Structure from X techniques
++ Shape from shading
++ Structure from motion
 
 
+\subsection{Multiple Perspective Interactive Video}
 
-\subsection{Point Cloud Representation}
+Multiple perspective interactive video (MPI) method is used to enhance live video with interactivity. The user can adjust camera views, or add digital content in the video. 
 
-\emph{rqt} visualizer can be used for subscribing to topics, and for visualizing the data contained in them. For example, we may verify that both stereo camera image feeds are actually online, and see how the computed point cloud looks like nearly in real-time.
+Basically, a detection of motion is achieved when each video frame is compared to a background image and the differences are logged. 
 
+The method starts with knowing a priori metric map of the scene, and it requires multiple cameras to work with. The number of cameras connected to the system is in range from 2 to 1000 cameras.
 
-limitations: range-based noise 
+Visible surface model
++ 2.5D Marr paradigm
++ Structure recovery method: multibaseline stereo
++ First make a triangle mesh model 
+
+The real-world coordinates of each backprojected pixel can be computed using the depth and image coordinates given a camera calibration \cite{Rander97}. The resulting set of [x,y,z] coordinates is mainly referred to as a point cloud, depicting a point structure of the computed object.
+
+In MPI method a triangle mesh presentation of the depicted scene is computed with the resulting point cloud. Many software exist that can visualise a point cloud, such as rviz in RoS system, but the suggested textured mesh presentation needs further processing and texture mapping. 
+
+After digital processing we get a digital model of the scene from viewpoint A. When the camera is located exactly in viewpoint A, the presentation is flawless in comparison to the original scene. The report from Rander et al. \cite{Rander97} states that if a virtual camera is moved not far away, the scene can be transformed to another viewpoint B. In viewpoint B the image contains holes where occlusion was present in the original scene.
+
+If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
+
+\subsection{Stereo Techniques}
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+Photometric Stereo \cite{Woodham80}.
+    + Recovers surface orientation assuming a known reflection function
+    + a Lambertian surface model
+    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    + point illumination sources with known intensity and direction
 
 \subsection{Photometrics}
 
@@ -910,42 +926,7 @@ Histogram equalization maps the current image intensity response over the full a
 todo: corresponding histograms of two test images, and their cumulative distribution functions
 
 
-\subsection{Structure From Motion}
 
-Structure from X techniques
-+ Shape from shading
-+ Structure from motion
-
-
-\subsection{Multiple Perspective Interactive Video}
-
-Multiple perspective interactive video (MPI) method is used to enhance live video with interactivity. The user can adjust camera views, or add digital content in the video. 
-
-Basically, a detection of motion is achieved when each video frame is compared to a background image and the differences are logged. 
-
-The method starts with knowing a priori metric map of the scene, and it requires multiple cameras to work with. The number of cameras connected to the system is in range from 2 to 1000 cameras.
-
-Visible surface model
-+ 2.5D Marr paradigm
-+ Structure recovery method: multibaseline stereo
-+ First make a triangle mesh model 
-
-The real-world coordinates of each backprojected pixel can be computed using the depth and image coordinates given a camera calibration \cite{Rander97}. The resulting set of [x,y,z] coordinates is mainly referred to as a point cloud, depicting a point structure of the computed object.
-
-In MPI method a triangle mesh presentation of the depicted scene is computed with the resulting point cloud. Many software exist that can visualise a point cloud, such as rviz in RoS system, but the suggested textured mesh presentation needs further processing and texture mapping. 
-
-After digital processing we get a digital model of the scene from viewpoint A. When the camera is located exactly in viewpoint A, the presentation is flawless in comparison to the original scene. The report from Rander et al. \cite{Rander97} states that if a virtual camera is moved not far away, the scene can be transformed to another viewpoint B. In viewpoint B the image contains holes where occlusion was present in the original scene.
-
-If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
-
-\subsection{Stereo Techniques}
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-Photometric Stereo \cite{Woodham80}.
-    + Recovers surface orientation assuming a known reflection function
-    + a Lambertian surface model
-    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    + point illumination sources with known intensity and direction
 
 
 %end of chapter 3
