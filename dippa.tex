@@ -761,6 +761,8 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 \subsubsection{Photometrics}
 \label{subsubsection:photometrics}
 
+The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus alike. For a stereo measurement system, small DOFs, or extended DOFs are used to fully visualize a deep range of a scene in sharp detail. Diffraction limits the size of aperture, and small DOF images may suffer from high variance noise effects and low light conditions.
+
 Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
 Irradiance is a measure of power of light cast on a unit surface are of an object.
 The relation between an object's surface that radiates onto the camera sensor array can be formulated as
@@ -1353,6 +1355,9 @@ It is important to compensate for lens system radial distortions, because they c
 The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
 
 A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
+
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
 
 
 \section{Stereo Correspondence Problem}
