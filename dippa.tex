@@ -1815,7 +1815,7 @@ The stereo camera setup installed on the rig has two HDR cameras.
   \end{center}
 \end{figure}
 
-\subsection{Platform Installations}
+\subsection{Camera Platform Installations}
 \label{section:platform_installations}
 
 The HIMMELI platform was installed in two different test environments as described in the use cases. 
@@ -1859,18 +1859,11 @@ The second installation option was to attach the sensor module directly to the m
 \section{Point Cloud Library}
 \label{section:point_cloud_library}
 
-
 Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
-
 PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
-
-
 
 \subsection{Limitations of Point Cloud Computing}
 \label{subsection:limitations_of_point_cloud_computing}
-
-\subsection{Point Cloud Processing Using Point Cloud Library}
-\label{subsection:point_cloud_processing_using_point_cloud_library}
 
 \section{Robot Operating System}
 \label{section:robot_operating_system}
@@ -1931,19 +1924,6 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 \section{Camera Calibration Toolbox}
 \label{section:camera_calibration_toolbox}
 
-\section{Algorithms}
-\label{section:algorithms}
-
-\subsection{Load Selection Algorithm}
-\label{subsection:load_selection_algorithm}
-
-\subsection{Segmentation Center Selection Algorithm}
-\label{subsection:segmentation_center_selection_algorithm}
-
-\subsection{Cylinder Growing Algorithm}
-\label{subsection:cylinder_growing_algorithm}
-
-
 \chapter{Computation}
 \label{chapter:algorithms}
 
@@ -1977,8 +1957,8 @@ It is computationally expensive to update the AABB bounding box as the load orie
 \subsection{Bounding Volume From 3d Oriented Bounding Box}
 \label{subsection:bounding_volume_from_3d_oriented_bounding_box}
 
-\section{Algorithms}
-\label{section:algorithms}
+\section{Point Cloud Library Operations}
+\label{section:point_cloud_library_operations}
 
 \subsection{Object Segmentation}
 \label{subsection:object_segmentation}
@@ -1998,6 +1978,17 @@ It is computationally expensive to update the AABB bounding box as the load orie
 + MLESAC = Maximum likelihood estimator
 + PROSAC = Progressive Sample Consensus
 
+\section{Algorithms}
+\label{section:algorithms}
+
+\subsection{Load Selection Algorithm}
+\label{subsection:load_selection_algorithm}
+
+\subsection{Segmentation Center Selection Algorithm}
+\label{subsection:segmentation_center_selection_algorithm}
+
+\subsection{Cylinder Growing Algorithm}
+\label{subsection:cylinder_growing_algorithm}
 
 
 \chapter{Evaluation}
