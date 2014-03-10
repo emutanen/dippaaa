@@ -772,16 +772,10 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 \section{Stereo Cameras}
 \label{section:stereo_cameras}
     
-
-
-
-\subsubsection{Ultrasonic SONAR}
-
-\subsubsection{Automotive Radar}
+\section{Lidars And Radars And Sonars}
+\label{section:lidars_and_radars_and_sonars}
 
 Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
-
-Radar is often usen
 
 The advantages that the automotive radar has are weather-independent operation, and direct acquisition of range and velocity measurements \cite{Wenger07}.
 
@@ -796,43 +790,12 @@ A world-wide harmonized channel allocation system for radar widebands has been p
 Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
 
 
-
-
-Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
-
-+ classification principle
-    * statistical classifier
-    
-+ knowledge representations
-    + syntactic pattern recognition
-        + relations and description language
-+ machine learning
-    + neural nets
-    + genetic algorithms
-    
-+ graph matching
-
-+ fuzzy systems
-
-
 \section{Point Cloud Representations}
 \label{section:point_cloud_representations}
 + possible algorithms: clustering, water-filling, and convex hull computations
 
-\section{Environment Acquisition Techniques}
-\label{section:environment_acquisition_techniques}
-
-+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
-+ 
-
-+ Mechanical coordinate measuring machine (CMM) (3D modeling)
-    + DCC CMM
-
-+ Structured Light Triangulation
-    +laser plane range finder
-
-
-\section{3d Scene Representation}
+\subsection{3d Scene Representation}
+\label{subsection:3d_scene_representation}
 
 In the virtual reality (VR) research the modeling of real-world items has been a big problem for many years. 
 It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
@@ -842,6 +805,7 @@ One option is to record video from multiple cameras that look at the object from
 A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
 \subsection{Range Image Representation}
+\label{subsection:range_image_representation}
 
 Range image is a type of 3d data point representation that uses a 2d image array whose pixels correspond to a known location in the imaged scene. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
 
@@ -849,14 +813,12 @@ Range images have limitations in the ability to reproduce a detailed original po
 
 Also, if the ranging sensor has a spatially different measurement lattice structure compared to the 2d-array structure of range image, some pixels may be left blank because of a mismatch in spacing of range measurements.
 
-
-
-
 for range measurements than what the range image uses, then some pixels in the range image will be left empty.
 
 Since we create the point cloud with a camera system, we would not have the described projection data loss problem. Another problem with range images       \cite{Unnikrishnan08}.
 
 \subsection{Volume Pixel Representation}
+\label{subsection:volume_pixel_representation}
 
 A volume pixel, or a voxel, is a prototype of a single entry in a 3d grid structure consisting of voxels. A voxel indicates occupancy in space, and it has at least a volume, and a location, which usually is in 3-dimensional array with constant dimensional sampling. A perfect example of a prototype voxel is a wooden box, which occupies a constant volume in space, and has a location in terms of, for example, a living room space. In digital systems, a voxel is more of a conceptual item that has a location, size, and optional services, such as statistical information about the encompassed voxel subspace. 
 
@@ -864,7 +826,8 @@ A 3d scene captured with a stereo camera system can be represented with a voxel 
 
 limitations: grid resolution, high-resolution grid consumes a lot of memory
 
-\subsubsection{Octree Structure}
+\subsection{Octree Structure}
+\label{subsection:octree_structure}
 
 Originally, the idea to use octrees for mapping was introduced by Meagher in 1982 \cite{Meagher82].
 
@@ -884,6 +847,19 @@ Octomap
     + differentiates unmapped and obstacle-free areas
     + supports probabilistic information fusing
     + can represent arbitrary shapes in space (elevation map cannot)
+
+\section{Environment Acquisition Techniques}
+\label{section:environment_acquisition_techniques}
+
++ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
++ Mechanical coordinate measuring machine (CMM) (3D modeling)
+    + DCC CMM
+
++ Structured Light Triangulation
+    +laser plane range finder
+
+
+
 
 \subsection{Point Cloud Representation}
 
@@ -2284,6 +2260,25 @@ Since we are interested in the load object AABB measurements we are not required
 
 \chapter{Discussion}
 \label{chapter:discussion}
+
+\section{Machine Learning Extras}
+
+Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
+
++ classification principle
+    * statistical classifier
+    
++ knowledge representations
+    + syntactic pattern recognition
+        + relations and description language
++ machine learning
+    + neural nets
+    + genetic algorithms
+    
++ graph matching
+
++ fuzzy systems
+
 
 A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would have been possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently running on. Due to limited resources we decided to keep the algorithms simple and instead realised a concept software that will run with a supported camera setup. This way we got a working platform that can be used as a testbench for future upgrades and as a framework for implementing more advanced algorithms.  
 
