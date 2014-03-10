@@ -1047,6 +1047,9 @@ Furthermore, we may insert disparity value as $d_x = X_L - X_R$
 
 
 
+
+
+
 Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix is introduced. The co-planar constraint 
 
 \begin{equation}
@@ -1146,6 +1149,18 @@ Some requirements for the disparity map are elaborated in Zitnick et al. report,
 
 \subsection{Stereo Errors}
 \label{subsection:stereo_errors}
+
+
+
+It can be seen from \ref{equation:disparity_limit} that the accuracy of such a stereo system is linearly proportional to the disparity measurement error, and there are trade-offs for most factors, such as focal length, camera separation, optical axes convergence, and aperture selection.
+
+The lenght of the camera separation in a stereo camera system, also called the baseline width, affects the triangulation accuracy of the depth measurement setup to some extent. A common width for comparison is the human eye baseline width of X
+% camera separation or baseline
++ hyperstereo = baseline much higher then the human vision system baseline
+%=> distorts perception of motion for humans
+%=> distorts perception of glossiness of materials
+%=> also crosstalk = image leaks to the area of the other eye => visible ghosting in stereo perception
+
 
 According to equation \ref{}
 
@@ -1315,9 +1330,12 @@ Planar calibration grids are the most common calibration method for a stereo cam
 \subsubsection{Calibration Errors}
 \label{subsubsection:calibration_errors}
 
-+ Tangential distortion
++ Focal length estimation errors
+It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
 
-+ Radial distortion
++ Tangential distortion
++ Radial distortion (barrel effect)
+It is important to compensate for lens system radial distortions, because they cause vertical disparity on the edges of the image. \ref{Kyto14}
 
 + Chromatic aberration
 
