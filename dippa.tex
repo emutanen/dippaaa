@@ -687,53 +687,6 @@ Cranes have been used as long as people have been lifting heavy items to elevate
 Sometimes, cranes are being used for loading and unloading of goods transported in ships and vessels
 
 
-\section{Incentives For Measuring Industrial Goods}
-\label{section:incentives_for_measuring_industrial_goods}
-
-Measuring goods while they are being moved and processed at the industrial site is the very basis for all quality control: radio frequency identification tags are used to identify and control a batch of products in bulk manufacturing, video systems measure process quality in a paper factory, and spectral analyzer measures the concentration of foreign substances in a soda bottle washing process, to sum up a few. While some fast, automated, optimized, profitable, and safe system examples are found, many industrial ventures still rely on manual movement of a product on a factory floor. Such manual operation can suffer from non-optimized route selection, operator fatigue, damage to goods in collisions, safety issues for other workers, and other problems due human errors. Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. Now, if a real-time description of the load object and its environment were available, it would be possible to prevent such unfortunate events using the installed crane systems itself with some programming.
-
-A semi-automatic, safe process crane working area is the desired target that a description of the environment could provide. Currently, to the knowledge of the author, there are no commercially available systems that can provide a real-time description of an environment that integrates to a crane programmable logic controller (PLC), but it is a grand vision to start out with. The first step in realising such a system is to provide a measurement or a simple model of the load object and start aggregating other descriptions of the environment on top of it. To start with, this thesis uses a perception sensor platform solution that provides geometry knowledge of the process crane working area, and an external computer generates the best possible geometry description of the load object for the use of crane PLC computer. 
-
-This approach can bring extended safety with collision avoidance and real-time information for a remote user on currently moving goods and people. The main non-safety related feature is the optimized movement of the load object, which can save a lot of time and energy during the life cycle of the process hall crane. Optimized route planning has become available in modern process crane PLC devices, which means that it is possible to test route planning in the best case right away.
-
-Other usages for measuring industrial goods with a perception platform can be object detection and tracking, and security access control at times when the factory is shut down. Further external measuring of moved items can provide additional statistics, for example, a median moved object size information. Size and weight statistics can help track the crane usage and lead to improvements in warehouse layout, or help a factory manager decide upon investing in a larger manufacturing floor.
-
-Industrial goods, such as beams, engines, large coils, cylinders of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that can cause serious damage if collided with other objects, or in worst case with other people. Even with wireless remote controllers, anti-sway pulley systems, and countless other improvements in the crane systems there is still room for improving safety and speed of handling of heavy items.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-would help the operator to make movements safely
-
-
-an external measuring system should provide in a non-automated working area. The 
-
-
-
-
-
-
-In a highly automated shipping terminal the movement of goods is optimized and the 
-
-The focus of our work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using a process crane. 
-
-
-
 
 %from e.g. a dry storage unit to a storage space
 
@@ -759,6 +712,19 @@ First area is the enhancing of graphical content for human interpretation. In sc
 The second area is enabling autonomous machine perception. A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
  
 Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
+
+\section{Incentives For Measuring Industrial Goods}
+\label{section:incentives_for_measuring_industrial_goods}
+
+Measuring goods while they are being moved and processed at the industrial site is the very basis for all quality control: radio frequency identification tags are used to identify and control a batch of products in bulk manufacturing, video systems measure process quality in a paper factory, and spectral analyzer measures the concentration of foreign substances in a soda bottle washing process, to sum up a few. While some fast, automated, optimized, profitable, and safe system examples are found, many industrial ventures still rely on manual movement of a product on a factory floor. Such manual operation can suffer from non-optimized route selection, operator fatigue, damage to goods in collisions, safety issues for other workers, and other problems due human errors. Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. Now, if a real-time description of the load object and its environment were available, it would be possible to prevent such unfortunate events using the installed crane systems itself with some programming.
+
+A semi-automatic, safe process crane working area is the desired target that a description of the environment could provide. Currently, to the knowledge of the author, there are no commercially available systems that can provide a real-time description of an environment that integrates to a crane programmable logic controller (PLC), but it is a grand vision to start out with. The first step in realising such a system is to provide a measurement or a simple model of the load object and start aggregating other descriptions of the environment on top of it. To start with, this thesis uses a perception sensor platform solution that provides geometry knowledge of the process crane working area, and an external computer that generates the best possible geometry description of the load object for the use of crane PLC computer. 
+
+This approach can bring extended safety with collision avoidance and real-time information about currently moving goods and people for a remote operator. The main non-safety related feature here is the optimized movement of the load item, which can save a lot of time and energy during the life cycle of the crane. Optimized route planning has become available in modern process crane PLC devices, which means that it is possible to test route planning in the best case right away.
+
+Other usages for measuring industrial goods with a perception platform are object detection and tracking, and security access control at times when the factory is shut down. Further external measuring of moved items can provide additional statistics, for example, a median moved object size information. Size and weight statistics can help track the crane usage and lead to improvements in warehouse layout, or help a factory manager decide upon investing in a larger manufacturing floor.
+
+The focus of this work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using a process crane. Industrial goods, such as beams, engines, large coils, cylinders of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that can cause serious damage if in collision with other objects, or in worst case, with other people. Even with wireless remote controllers, anti-sway pulley systems, and countless other improvements installed in the crane systems there is still room for improvement. It is definitely possible to yet improve the safety and speed of handling of heavy items in a manual operation work using process hall cranes (or forestry cranes).
 
 % BACKGROUND => METHODS => IMPLEMENTATION
 
