@@ -958,17 +958,9 @@ todo: corresponding histograms of two test images, and their cumulative distribu
 % stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
 Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision  is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. Similarly, if two monocular cameras are used in a binocular setup it is possible to not perceive, but quantifiably measure scene depth using a calibrated camera system. %reference?
 
-Such a calibrated two-camera system is most often called a \emph{stereo vision system}, or \emph{3d vision system}. In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery from 2d images using knowledge about the camera setup geometry and the image content. Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques} \cite{Sonka07}
+Such a calibrated two-camera system is most often called a \emph{stereo vision system}, or \emph{3d vision system}. In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery from 2d images using knowledge about the camera setup geometry and the image content.\cite{Sonka07}
 
-In this work the machine vision system is used as means of extracting coordinate data from a pictured scene. Full recovery of the spatial 3d scene is not possible, because the stereo cameras only see the surface parts that project onto the 2d image plane.
-
-
-In our case, a full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
-
-+Embedded geometric and radiometric difficulties
-
-+different approaches: top-down (model-based) or bottom-up (reconstruction)
-
+Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques} 
 
 \section{From 2d to 3d}
 \label{section:from_2d_to_3d}
@@ -1008,6 +1000,10 @@ Space Carving
 + object surface parameters
     + reflectivity e.g.
     
+    
++different approaches: top-down (model-based) or bottom-up (reconstruction)
+
+
 
 \subsection{Marr's Theory}
 \label{subsection:marrs_theory}
@@ -1177,6 +1173,10 @@ Some requirements for the disparity map are elaborated in Zitnick et al. report,
 \subsection{Stereo Errors}
 \label{subsection:stereo_errors}
 
++Embedded geometric and radiometric difficulties
+
+In this work the machine vision system is used as means of extracting coordinate data from a pictured scene. Full recovery of the spatial 3d scene is not possible, because the stereo cameras only see the surface parts that project onto the 2d image plane.
+In our case, a full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
 
 
 It can be seen from \ref{equation:disparity_limit} that the accuracy of such a stereo system is linearly proportional to the disparity measurement error, and there are trade-offs for most factors, such as focal length, camera separation, optical axes convergence, and aperture selection.
