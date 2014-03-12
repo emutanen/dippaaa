@@ -1381,6 +1381,8 @@ The stereo cameras can be physically rotated towards each other, or they can be 
 
 A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
 
++ convergence distance of the stereo system optical axes: approx. 264cm
+
 The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
 %what is negative disparity? => in front of the screen => does this matter in a measurement system
 
