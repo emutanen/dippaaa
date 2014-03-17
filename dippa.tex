@@ -860,6 +860,7 @@ limitations: grid resolution, high-resolution grid consumes a lot of memory
 
 \subsection{Octree Structure}
 \label{subsection:octree_structure}
+% multi-resolution octree representations
 
 Originally, the idea to use octrees for mapping was introduced by Meagher in 1982 \cite{Meagher82].
 
@@ -880,8 +881,14 @@ Octomap
     + supports probabilistic information fusing
     + can represent arbitrary shapes in space (elevation map cannot)
 
-\section{Environment Acquisition Techniques}
+\section{3d Environment Acquisition Techniques}
 \label{section:environment_acquisition_techniques}
+
+In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a dexterous system. Environment acquisition techniques either use an active perception sensor that emits energy in the environment, or passive perception sensor that only records energy reflected or radiated from the environment.
+
+%omnidirectional sensors
+
+
 
 \subsection{Triangulation}
 \label{subsection:triangulation}
@@ -2346,7 +2353,8 @@ The second area is enabling autonomous machine perception. A machine can tireles
  
 Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
 
-
+\section{Other research}
++ Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
 
 %+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
