@@ -678,16 +678,23 @@ XML-RPC & XML Remote Procedure Call \\
 \label{chapter:introduction}
 %Ongelman esittely, johdanto. Pituus noin 5 sivua.
 
-The art of lifting heavy objects has introduced a multitude of problems for the mankind since the beginning of times. In history, the first written mention of a hoisting mechanism is from year 530 B.C., when the temple of Artemis was being designed in Ephesus, in the present-day Turkey by the Greeks. The Greek temple was one of the seven wonders of the ancient world, and it was built using an early construction crane mechanism to hoist the heavy pillars and the roofing in their places. \ref{Zrni04}
-
-A glimpse in the not so distant history reveals much more interesting development of another type of a hoisting crane system: the overhead crane, or more commonly known as the bridge crane. Overhead cranes support a beam-like traveling  bridge that is spanning the gap between two rails and the hoisting mechanism is installed on a trolley beneath the traveling bridge. The first mass manufactured overhead cranes systems were commissioned starting from 1876 in England, and nowadays they are widely used in heavy industry for efficient process lifting and service duties.
-
-The development of the electric overhead traveling crane
+%The art of lifting heavy objects has introduced a multitude of problems for the mankind since the beginning of times. In history, the first written mention of a hoisting mechanism is from year 530 B.C., when the temple of Artemis was being designed in Ephesus, in the present-day Turkey by the Greeks. The Greek temple was one of the seven wonders of the ancient world, and it was built using an early construction crane mechanism to hoist the heavy pillars and the roofing in their places. \ref{Zrni04}
 
 
 
 
-+is most often installed inside a warehouse for lifting purposes, or sometimes outside for small-scale lifting in e.g. docks and train depots.
+
+
+
+
+
+
+
+
+
+
+
+
 
 Ideas of the modern container cargo handling process started only after the second half of the 20th century. Before that the only known way of sea transport for goods was packing items in barrels, sacks and pallets. It was cumbersome to load and unload a ship filled with such small units, it was not unusual that ships spent more time in docks than at sea because of inefficient manhandling of small cargo.
 
@@ -731,9 +738,41 @@ Load object measurement can additionally be used for object detection and tracki
 
 The focus of this work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using a process crane. Industrial goods, such as beams, engines, large coils, drums of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that can cause serious damage if in collision with other objects. Even with wireless remote controllers, anti-sway pulley systems, and countless other improvements installed in the crane systems there is still room for improvement in the manual operation mode. It is definitely possible to improve the safety and speed of handling of heavy items using process hall cranes or forestry cranes with operators.
 
-\section{Process Cranes}
-\label{section:process_cranes}
-%refinement of steel
+\section{Overhead Cranes}
+\label{section:overhead_cranes}
+% big picture
+A glimpse in the not so distant history reveals a development of the overhead crane, a hoisting system more commonly known as the bridge crane or process crane. First mass manufactured overhead crane systems were commissioned in 1876 in England, and they were powered by steam engines in the beginning of the industrial revolution. Now, 138 years later the overhead crane is widely used in different industries for efficient process lifting and service duties, just using electricity this time. The development of the electric overhead traveling crane (EOT) has introduced the modern day overhead crane as we know it. It is powered electrically and often used in heavy process industry and in small-scale manufacturing sites.
+%structure of a single overhead crane
+Overhead cranes have a beam-like bridge installed between two rails. The bridge spans the gap between the rails and travels from one end of the rail to the other. Effectively, a polyhedron shaped crane working area (portal of the crane) is formed underneath the rails encompassing most space between a factory floor and the height of the installed crane. It can be easily deduced that an overhead crane has 3 degrees of freedom (DOF). The traveling bridge produces the first DOF (X axis), and the second DOF comes from the moving trolley mechnism that moves perpendicular to the traveling bridge direction (Y axis). The third, final degree of freedom comes from the hoisting mechanism that covers the Z axis direction movement of the end effector tool.
+
+
+
+
+
+
+
+
+
+
+, thus, a 3d working area 
+
+
+. The bridge itself is traveling on the rails from one end of the rail to the other, effectively forming a working portal underneath the installed rails where lifting can be done. 
+
+
+
+In this work, we are interested in measuring lifted cargo dimensions of small to medium heavy lifting 
+
+% medium picture, applications
+Overhead cranes are used for medium to heavy lifting, 
+
+
+
+in heavy process industry, and in warehouse solutions for heavy lifting. For example, in steel mills, heavy lifting is needed when cylinders of molten steel or other metal are carried to the next process station. Also the moving of finished products such as large iron beams requires heavy lifting that only an overhead crane can carry out. 
+
+The overhead crane is most often installed inside a warehouse for lifting purposes, or sometimes outside supported with beam walls for small-scale lifting use in e.g. dry docks and train depots. Naturally, for each desired application a different solution exists, and the looks of the overhead cranes may vary a lot, but the operating principle stays the same.
+
+the operator controls it most often using a remote control desk, a control pendant, or a wireless hand-held controller. The interest in measuring the dimensions of an overhead crane load 
 
 
 Overhead crane installation cost in a new industrial manufacturing plant can be approximately same as the rental cost of outsourced construction cranes, thus, it makes sense to install overhead crane systems to heavy industry plants to help install and service heavy equipment.
