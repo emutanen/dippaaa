@@ -379,17 +379,15 @@
 \pdfbookmark[0]{Cover page}{bookmark.0.cover}
 % This command is defined in aalto-thesis.sty. It controls the page
 % numbering based on whether the doublenumbering option is specified
-
 \startcoverpage
 
 % Cover page
 % ------------------------------------------------------------------
 % Options: finnish, english, and swedish
 % These control in which language the cover-page information is shown
-\linespread{1.3}
-\coverpage{english}
-\linespread{1}
-
+\linespacing{1.5}
+\coverpage{english\par}
+\linespacing{1.3}
 % Abstracts
 % ------------------------------------------------------------------
 % Include an abstract in the language that the thesis is written in,
@@ -397,7 +395,7 @@
 
 % Abstract in English
 % ------------------------------------------------------------------
-\thesisabstract{english}{
+\thesisabstract{english\par}{
 The purpose of this diploma thesis is to introduce a crane load position and orientation measurement using machine vision.
 The measurement should describe the position and orientation of an arbitrary load lifted with a process crane or a small telescopic crane within required accuracy limits.
 }
