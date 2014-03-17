@@ -742,30 +742,15 @@ The focus of this work is on measuring the dimensions of industrial goods being 
 \label{section:overhead_cranes}
 % big picture
 A glimpse in the not so distant history reveals a development of the overhead crane, a hoisting system more commonly known as the bridge crane or the process crane. First mass manufactured overhead crane systems were commissioned in 1876 in England, and they were powered by steam engines in the beginning of the industrial revolution. Now, 138 years later the overhead crane is widely used in different industries for efficient process lifting and service duties - using electricity. The development of the electric overhead traveling crane (EOT) has introduced the modern overhead crane as we know it. It is electrically powered and often used in heavy process industry, and in custom industrial manufacturing.
+%structure of a single overhead crane
+Overhead cranes have a beam-like bridge installed between two rails. The bridge spans the gap between the rails and travels from one end of the rail to the other. Effectively, a polyhedron shaped crane working area (portal of the crane) is formed underneath the rails encompassing most space between a factory floor and the height of the installed crane. It can be easily deduced that an overhead crane has 3 degrees of freedom (DOF). The traveling bridge produces the first DOF (X axis), and the second DOF comes from the moving trolley mechnism that moves perpendicular to the traveling bridge direction (Y axis). The third, final degree of freedom comes from the hoisting mechanism that covers the Z axis direction movement of the end effector tool.
 % medium picture, applications
 Overhead cranes are used for medium to heavy lifting in industrial manufacturing and process industries. For example, in steel mills, heavy lifting is needed when cylinders of molten steel or other metal products are carried to the next process station. In heavy industry, the capacity of the crane and standard compliance is important, and the crane must operate in hazardous environments reliably throughout the day. Then again, in industrial manufacturing, the speed of the moving bridge, energy efficiency, and safety features are more important, but the crane is not operated all day but for certain periods of time. For all applications, the lifting operations are similar, but the framework for requirements for efficient and safe usage of the specific overhead crane installation vary a lot. In all applications, most important factors usually are time-wise efficient movement of the crane, safe operation of the crane, and easiness of operation.
 % installation benefits
 The overhead crane may be installed in the factory space before the process machinery is in its place, so that the actual construction of the factory is done with the newly installed crane. The installation cost of the crane in a new industrial manufacturing plant can be approximately same as the rental cost of construction cranes. Monetarily, it makes sense to install a crane to an expensive industry plants since it will be later required for service operations of the process machines, too. In custom manufacturing and warehouse solutions, the overhead crane is often installed inside a warehouse on rails, and sometimes outside the warehouse, supported with beam walls for lifting in e.g. dry docks and train depots.
 % thesis focus on overhead cranes 
-In this thesis, the main focus of load object dimensions measurement is on custom manufacturing, and warehouse case load objects, where the carried object size is previously unknown and may change during the lifting operation. Since each item lifted with the crane should be a unique object that was ordered by a customer, or at least a non-standard object, it is valuable knowledge to understand what size the load object is to the software system that is moving it in the warehouse.
+In this thesis, the main focus of the load object dimensions measurement is on custom manufacturing and warehouse case load objects where the carried object size is previously unknown and may change during the lifting operation. Since each item lifted with the crane should be a unique object that was ordered by a customer, or at least a non-standard size object, it is valuable to understand what size the load object is for the software system that is moving it inside the warehouse. For heavy process industry, it is not meaningful to measure load objects (containers) whose size is known, and whose size is standard even if not all load objects handled are the same size. For practical reasons, all testing on overhead cranes have been done using a company test site installation that is capable of lifting medium heavy objects up to 15000 kilograms. All the objects lifted with the overhead crane were smaller than 2 meters each dimensions, which is quite a normal size for a hoisted object, say a pallet of goods. Since only the volume of the object affects its dimensional measurements, the weight of lifted objects is not considered in the works.
 
-. For heavy process industry, it is probably not interesting to measure load objects (containers) whose size is known, and at least, the size is standard even if not all load objects are the same size.
-
-
-
-Thus, it is not interesting to measure dimensions of molten metal cylinder since it is known to stay constant, and can be easily measured 
-
-
-Also for practical reasons, the heavy process industry applications are not in focus of this thesis. 
-
-On one hand measuring dimensions of a molten steel cylinder is not 
-
-
-which is why the developed load object measurement in this work is done with 
-
-
-%structure of a single overhead crane
-Overhead cranes have a beam-like bridge installed between two rails. The bridge spans the gap between the rails and travels from one end of the rail to the other. Effectively, a polyhedron shaped crane working area (portal of the crane) is formed underneath the rails encompassing most space between a factory floor and the height of the installed crane. It can be easily deduced that an overhead crane has 3 degrees of freedom (DOF). The traveling bridge produces the first DOF (X axis), and the second DOF comes from the moving trolley mechnism that moves perpendicular to the traveling bridge direction (Y axis). The third, final degree of freedom comes from the hoisting mechanism that covers the Z axis direction movement of the end effector tool.
 
 
 
