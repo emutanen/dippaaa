@@ -257,7 +257,7 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Crane Load Position and Orientation\par{5.0mm} Measurement using Machine Vision}
+\newcommand{\TITLE}{Crane Load Position and Orientation Measurement using Machine Vision}
 \newcommand{\FTITLE}{Taakan paikan ja asennon mittaus nosturista konenäköavusteisesti}
 \newcommand{\DATE}{June 18, 2011}
 \newcommand{\FDATE}{18. kesäkuuta 2011}
@@ -678,50 +678,10 @@ XML-RPC & XML Remote Procedure Call \\
 
 %The art of lifting heavy objects has introduced a multitude of problems for the mankind since the beginning of times. In history, the first written mention of a hoisting mechanism is from year 530 B.C., when the temple of Artemis was being designed in Ephesus, in the present-day Turkey by the Greeks. The Greek temple was one of the seven wonders of the ancient world, and it was built using an early construction crane mechanism to hoist the heavy pillars and the roofing in their places. \ref{Zrni04}
 
+In the modern world, goods are being moved more than ever, which brings challenges to keeping the goods handling easy and cost-efficient. Modern day goods are mostly transported from one location to another in a shipping container unit, such as a standard dry storage unit, or possibly a tank or a cylindrical drum depending on the actual product and the delivery distance. 
+Ideas of a modern container cargo handling process started only after the second half of the 20th century. Before that the only known way of transport of goods was sea cargo packed in barrels, sacks and pallets. It was cumbersome to load and unload a ship filled with such small units - it was not unusual that ships spent more time in docks than at sea because of inefficient manhandling of small cargo. \ref{Zrni04}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Ideas of the modern container cargo handling process started only after the second half of the 20th century. Before that the only known way of sea transport for goods was packing items in barrels, sacks and pallets. It was cumbersome to load and unload a ship filled with such small units, it was not unusual that ships spent more time in docks than at sea because of inefficient manhandling of small cargo.
-
-
-
-
-
-Modern day goods are mostly transported from one location to another in a shipping container unit, such as a standard dry storage unit, or possibly a tank or a cylindrical drum depending on the actual product. 
-
-
-
-
-In the modern world, goods are being moved more than ever, which brings challenges to keeping container traffic easy, cost-efficient, and as safe as possible.
-
-The bulk of moving products are shipped to customers all over the world through a complex product shipment process. Most of the goods transported are being lifted aboard container vessels with crane systems, such as a ship-to-shore gantry crane that loads and unloads containers dockside in a shipping terminal.
-
-Today the business of lifting goods is getting more and more competitive as new lift systems are being developed to meet the ever increasing demands of buyers, such as cost, speed, and power efficiency of the solution.
-
-The cost of computation is decreasing as long as the cost of electronics is decreasing, too. A lot of research is going on to find out how added programming could benefit for increased speed of crane handling
-
-. The need for bigger and better lifting solutions are tightly coupled with the development of world economies 
-
-The results achieved by image processing technologies have claimed a lot of interest in two major application areas.
-
-First area is the enhancing of graphical content for human interpretation. In scientific image treatment it simply means that a noisy or corrupted original image can be treated in order to remove or diminish the corruption, resulting in useful content for human users to survey.
-
-The second area is enabling autonomous machine perception. A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
- 
-Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
+Today, the business of moving and lifting goods is getting more and more automated as new crane systems are being developed to meet the ever increasing needs for speed, safety, and energy efficiency. Even though the cargo handling process is efficient, a container filled with goods still has to be unloaded using manual labour, potentially halting the container in its place for a day, which is expensive. Sometimes, items that need to be stored may arrive in a truck or a van, but nevertheless, they need to be lifted and moved to a secure storage location. The operators who unload shipments use an overhead crane to move the items that arrive at the industrial site in their correct places. Speed and safety affect the productivity of the event of unloading, and with ever lowering computing prices a lot of research is going on to find out how added programming could benefit the crane operator for increase in speed and/or safety.  
 
 \section{Incentives For Measuring Industrial Goods}
 \label{section:incentives_for_measuring_industrial_goods}
@@ -2370,6 +2330,18 @@ We lifted a tree trunk with a forestry machine crane and processed the video out
 One problem present in Figure \ref{fig:load_detected2} was that the forestry crane boom belongs to the segmented load object after initial processing. We can see from the third viewport that the load object contains the crane boom, end effector tool, and the load itself. Normally we could assume that the load object is found fully under the end effector tool, but with use cases UCC2-1 and UCC2-2 this is not true. In Riihimäki tests, the tree trunks did easily reach above the end effector tool location when the operator picked them up so that they were tilted. Consequently, the bounding volume does reach above the end effector height, too. We decided to avoid accidental cutting of the load object after segmentation by not making any assumptions of the axis-wise load location other than it is located somewhere near the end effector tool for these 2 use cases. Instead, we opted to fit a cylinder object using RANSAC fitting, giving the approximate position and orientation for the cylindrical load as an output. 
 
 Now, if the user wishes not to use the cylinder coefficients for pose measurements, and a crane-structure cutting AABB-based bounding volume is not a problem, then the AABB shown in Figure \ref{fig:load_detected2} can be used, too. The cylinder fitting implementation did pick up the cylindrical crane boom sometimes in testing, but we implemented a check for the condition that the load is located near the end effector tool location. With a little research, we found out that the cylinder fitting in a forestry crane machine vision system was not engineered previously in Aalto university. The advantage of the cylinder coefficients over the AABB bounding volume is that the oriented cylinder describes the actual volume and orientation of the tree trunk in much more detail compared to an AABB bounding volume, as discussed in chapter \ref{aabb_reference}. 
+
+\section{OpenCV Extras}
+
+The results achieved by image processing technologies have claimed a lot of interest in two major application areas.
+
+First area is the enhancing of graphical content for human interpretation. In scientific image treatment it simply means that a noisy or corrupted original image can be treated in order to remove or diminish the corruption, resulting in useful content for human users to survey.
+
+The second area is enabling autonomous machine perception. A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
+ 
+Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
+
+
 
 %+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
