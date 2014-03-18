@@ -1433,9 +1433,6 @@ After the image rectification is done for a stereo image pair captured by the ca
 
 Q is the reprojection matrix that encodes information about the stereo camera setup. Q matrix will provide information about camera optical axis convergence (parallel or cross-eyed), image plane principal points, and the stereo setup baseline width b.
 
-
-
-
 %end of chapter 4
 %===============================================================================================================================
 \chapter{Coordinate Systems And Transformations}
@@ -2034,6 +2031,9 @@ It is computationally expensive to update the AABB bounding box as the load orie
 \subsection{Object Segmentation}
 \label{subsection:object_segmentation}
 + Euclidean Cluster Extraction
+
+% the used scale of the point cloud point entries does have an effect on the computation time
+% a computation processed using meters is much faster than computation on the same point cloud represented in micrometers, a million times larger values
 
 \subsection{Point Cloud Filtering}
 \label{subsubsection:point_cloud_filtering}
