@@ -752,6 +752,7 @@ Adaptive safety techniques can be realised with the improved
 
 \section{Mapping Applications}
 \label{section:mapping_applications}
+% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
 
 
 \section{Selected Use Cases}
@@ -888,22 +889,18 @@ In this work the focus on environmental acquisition is on systems capable of 3d 
 
 \subsection{Object And Environment Modeling}
 
-In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to achieve a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
+In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
 
-Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints whose location and distance can be measured to produce Euclidean space measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. The details of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform} in more depth.
+Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
 
-If a complete model of an object is required using depth mapping from cameras, then data acquisition, registration between different viewpoints, and integration of the different registered views are necessary steps. \ref{Chen91}
+If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
 
-
-Environment acquisition techniques either use an active perception sensor that emits energy in the environment, or passive perception sensor that only records energy reflected or radiated from the environment. 
-
-%omnidirectional sensors
-
-%multi-view registration
-% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
+All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras.  
 
 \subsection{Triangulation}
 \label{subsection:triangulation}
+
+
 
 + lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
 + Mechanical coordinate measuring machine (CMM) (3D modeling)
@@ -946,6 +943,9 @@ If the point cloud contains N x N points in the depth map, the computational com
 
 
 \subsection{Stereo Techniques}
+%omnidirectional cameras
+
+
 Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
 Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
 Photometric Stereo \cite{Woodham80}.
@@ -2058,14 +2058,14 @@ It is computationally expensive to update the AABB bounding box as the load orie
 + Voxel Grid Filtering
 + Outlier Removal
 
-\subsection{Geometric Parameter Estimation}
-\label{subsubsection:geometric_parameter_estimation}
+\subsection{Ground Plane Estimation}
+\label{subsubsection:ground_plane_estimation}
 
-Geometric parameter estimation, or geometric fitting, is a technique for estimating parameter models in unordered data sets. The idea in geometric parameter estimation is to fit a model of a geometric primitive shape to an experimental data set. The selected parameter model is usually a plane or a cylinder, or some other geometric primitive whose shape is easy to present in parameterized format. The existence of the shape in the data set is tested by finding inliers and outliers that determine whether the data set supports the model or not.
+A parameter estimation technique was used to find the ground plane that is visible in the test data images. Parameter estimation is a technique for finding models in data sets. In this case, the parameter estimation tries to fit a model of a geometric primitive shape to a geometry data set. The geometric shape that is selected for the parameter model is in this thesis a plane or a cylinder model depending on the function. Shapes such as planes, cylinders, and spheres are usually used, but any model that can be presented implicitly using parameter model may be used. The existence of the shape in the data set is tested by finding inliers and outliers that determine whether the data set supports the model or not for some initial guess.
 
-Classic parameter estimation techniques, such as least squares minimization, effectively optimize the fit of the selected parameter model using all points in the data set. In 1981, Fischler and Bolles presented a new parameterized model estimation technique called random sample consensus (RANSAC) that can improve upon classic techniques by detecting outlier points in the data, and take into account the gross errors they induce to the fitting algorithm. \ref{Fischler81}
+Classic parameter estimation techniques, such as least squares minimization, effectively optimize the fit of the selected parameter model using all points in the data set. In 1981, Fischler and Bolles presented a new parameterized model estimation technique called random sample consensus (RANSAC) that can improve upon classic techniques by detecting outlier points in the data, and by taking into account the gross errors they induce to the fitting algorithm \ref{Fischler81}.
 
-While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initializes the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found. This way, not all data set points are used in the geometric fitting computation, and the solution is found easily even when gross errors are present in the data set.
+While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initializes the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found. This way, not all data set points are used in the geometric fitting computation, and the solution is found easily even when gross errors are present in the data set. In the implemented test software, the RANSAC algorithm from PCL package is used, which finds the ground plane from point cloud data sets successfully for most cases. 
 
 Originally, the RANSAC algorithm was used to solve the location determination problem (LDP), which states that for a set of control points whose 3d location is known, a location of the camera is computed when a sufficient set of control points are visible in the projected image taken from the unknown location. The LDP problem is actually the camera calibration problem, which was presented in chapter \ref{subsection:single_camera_calibration}. RANSAC can solve the external location of the camera according to landmarks seen in the image, but in this thesis RANSAC is used to find the ground planes from the geometric data sets. If the ground plane data points are located correctly and removed from the point clouds, then the remaining points are parts of visible objects in the scene. 
 
@@ -2079,6 +2079,8 @@ Some variants of the RANSAC algorithm are
 \end{itemize}
 
 but there are many more depending on the estimator technique used. When RANSAC algorithm produces poor results in parameter estimation application, other variants can be used if they are more suited for the data set. Many options can be found in the literature. \ref{Torr00} \ref{Huber81}
+
+While most of the time the RANSAC algorithm finds the ground plane correctly, there are some conditions that must be fulfilled in order to find a correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, such as a large warehouse wall.
 
 \section{Algorithms}
 \label{section:algorithms}
