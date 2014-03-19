@@ -731,6 +731,11 @@ An energy-saving, semi-automatic, safe process crane working area is the desired
 \chapter{Industry Applications}
 \label{chapter:industry_applications}
 
++ Environment sensing is needed for robotization of spaces
++ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
+
+
+
 % stereoscopic teleoperation
 
 %Teoriaa ja teknologioita. Pituus noin 20 sivua.
@@ -1949,6 +1954,13 @@ PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA pr
 
 \subsection{Limitations of Point Cloud Computing}
 \label{subsection:limitations_of_point_cloud_computing}
+
+Although PCL library is optimized for point cloud computing, the biggest limitation in point cloud processing currently is the slow processing speeds of some operations. The number of data entries per point cloud has a big effect on some operations, such as the K-nearest neighbour search.
+
+
+One estimate for the processing speed of a single cloud into a bounding volume output can be done by looking into other implementations in other research teams' efforts. As all the computation for PCL processing is done using an Intel Core i5 3.2GHz CPU on a 64-bit system with 
+
+
 
 \section{Robot Operating System}
 \label{section:robot_operating_system}
