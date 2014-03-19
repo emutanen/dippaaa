@@ -881,14 +881,21 @@ Octomap
     + supports probabilistic information fusing
     + can represent arbitrary shapes in space (elevation map cannot)
 
-\section{3d Environment Acquisition Techniques}
+\section{Geometric Environment Acquisition Techniques}
 \label{section:environment_acquisition_techniques}
 
-In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a dexterous system. Environment acquisition techniques either use an active perception sensor that emits energy in the environment, or passive perception sensor that only records energy reflected or radiated from the environment.
+In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a dexterous real-world acquisition system. 
+
+In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to achieve a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
+
+Since our HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints whose location and distance can be measured to produce Euclidean space measurements. In addition, a single-channel black and white high definition range image is available for e.g. object classification purposes. The details of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform} in more depth.
+
+Environment acquisition techniques either use an active perception sensor that emits energy in the environment, or passive perception sensor that only records energy reflected or radiated from the environment. 
 
 %omnidirectional sensors
 
-
+%multi-view registration
+% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
 
 \subsection{Triangulation}
 \label{subsection:triangulation}
@@ -927,6 +934,11 @@ In MPI method a triangle mesh presentation of the depicted scene is computed wit
 After digital processing we get a digital model of the scene from viewpoint A. When the camera is located exactly in viewpoint A, the presentation is flawless in comparison to the original scene. The report from Rander et al. \cite{Rander97} states that if a virtual camera is moved not far away, the scene can be transformed to another viewpoint B. In viewpoint B the image contains holes where occlusion was present in the original scene.
 
 If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
+
+
+
+
+
 
 \subsection{Stereo Techniques}
 Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
