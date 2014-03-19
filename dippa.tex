@@ -2056,17 +2056,24 @@ It is computationally expensive to update the AABB bounding box as the load orie
 \subsection{Geometric Parameter Estimation}
 \label{subsubsection:geometric_parameter_estimation}
 
-Geometric parameter estimation, or also known as geometric fitting, is a technique for estimating parameter models in unordered data sets. The parameter model is usually a pre-defined model, such as a model of a plane or a cylinder, whose location is searched in the data set by finding inliers and outliers that determine whether the data set supports the specific model or not.
+Geometric parameter estimation, or geometric fitting, is a technique for estimating parameter models in unordered data sets. The idea in geometric parameter estimation is to fit a model of a geometric primitive shape to an experimental data set. The selected parameter model is usually a plane or a cylinder, or some other geometric primitive whose shape is easy to present in parameterized format. The existence of the shape in the data set is tested by finding inliers and outliers that determine whether the data set supports the model or not.
 
 Classic parameter estimation techniques, such as least squares minimization, effectively optimize the fit of the selected parameter model using all points in the data set. In 1981, Fischler and Bolles presented a new parameterized model estimation technique called random sample consensus (RANSAC) that can improve upon classic techniques by detecting outlier points in the data, and take into account the gross errors they induce to the fitting algorithm. \ref{Fischler81}
 
+While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initializes the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found. This way, not all data set points are used in the geometric fitting computation, and the solution is found easily even when gross errors are present in the data set.
 
+Originally, the RANSAC algorithm was used to solve the location determination problem, which is also known as the camera calibration problem. RANSAC can solve the external location of the camera according to landmarks seen in the image, but in this thesis RANSAC is used to find the ground planes from the geometric data sets. If the ground plane data points are located correctly and removed from the point clouds, then the remaining points are parts of visible objects in the scene. 
 
-+ RANSAC = Random Sample Consensus
-+ MSAC =>weighted distances...
-+ MLESAC = Maximum likelihood estimator
-+ PROSAC = Progressive Sample Consensus
+Some variants of the RANSAC algorithm are 
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item M-estimator Sample Consensus (MSAC)
+\item Maximum Likelihood Estimator Sample Consensus (MLESAC) 
+\item Progressive Sample Consensus (PROSAC)
+\end{itemize}
 
+but there are many more depending on the estimator technique used. When RANSAC algorithm produces poor results in parameter estimation application, other variants can be used if they are more suited for the data set. Many options can be found in the literature. \ref{}
 \section{Algorithms}
 \label{section:algorithms}
 
