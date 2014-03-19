@@ -721,6 +721,8 @@ A forestry machine load object measurement is a secondary objective that is unde
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
 
+Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. A camera based solution price is up to 2000 USD depending on the setup, while a laser based system cost may exceed a whopping 50000 USD.
+
 % goal with the stereo camera acquisition is that the overall system would be cheap to purchase
 % objective: point cloud processing runs in almost real-time, more often than 5 times per second
 
@@ -746,6 +748,9 @@ An energy-saving, semi-automatic, safe process crane working area is the desired
 
 \section{Existing Positioning And Tracking Applications}
 \label{section:existing_positioning_and_tracking_applications}}
+
+
+
 
 \section{Safety Applications}
 \label{section:safety_applications}
@@ -898,6 +903,8 @@ In this work the focus on environmental acquisition is on systems capable of 3d 
 \subsection{Object And Environment Modeling}
 
 In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
+
+
 
 Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
 
