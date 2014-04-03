@@ -1976,11 +1976,16 @@ One estimate for the processing speed of a single cloud into a bounding volume o
 \section{Robot Operating System}
 \label{section:robot_operating_system}
 
+
+%Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
+
 Robot Operating System, or shortly ROS, is an open source operating system-like framework targeted specifically for robotics application use. It was originally developed by Stanford AI laboratory in 2007 and the support is currently continued by Willow Garage Inc., who released the latest ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, stacks (legacy), and community-supported repositories, who provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup.
 
 ROS is mainly used in this thesis for its excellent capability of networked messaging through topics and subscribers. With a little effort we may use readily available data types for point cloud data networking, and interaction between popular operating system platforms, such as Windows and Unix environments. Data can be published via topics if we wish to disseminate it in the ROS network without receiving any feedback. In case we need feedback whether someone uses the data or not, ROS provides with a server-client scheme. 
 
 ROS also includes a multitude of tools that can be used for data traffic verification.
+
+For the networked data approach, ROS was considered as the number one framework choice in terms of cross-platform communications for the load object measurement system. Other options considered were an own implementation of the UDP communication protocol, some other real-time operating system, such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not as readily available for a full-fledged PC network in an industrial LAN setting as ROS was, thus, ROS was selected for use in the software development effort.
 
 \subsection{ROS I/O}
 \label{subsection:ros_io}
@@ -2135,36 +2140,25 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 \label{chapter:evaluation}
 %Pohdintaa ja future workia
 
-\section{Software Design Review}
+\section{Software Overall Design Evaluation}
 
-The design of the implemented load object position and orientation system did evolve during its implementation cycle. The original design was non-linear, component-based design running on C++ code base using the ROS system. After it was proofed that the Point Cloud Library processing could be used together with OpenCV processing, the integration of the ROS system started. The final implementation is more linear, component-based design, still running on ROS. Since the amount of data generated in the stereo cameras is quite large, the linearity of processing components enforces the design where data decreases as the information content increases.
+The design of the implemented load object position and orientation system did evolve during its implementation cycle. The original design was non-linear, component-based design running on C++ code base using the ROS system. After it was proofed that the Point Cloud Library processing could be used together with OpenCV processing, the integration of the ROS system started. The final implementation is now more linear, component-based design, still running on ROS platform as separate node entities. Since the amount of data generated in the stereo cameras was quite large, the linearity of processing components was used to enforce the design where data decreases as its information content increases.
 
-From the design start, ROS was considered as the number one framework choice in terms of cross-platform communications. Other options considered were an own implementation of the UDP communication protocol, some other real-time operating system such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not as readily available for a full-fledged PC network in an industrial LAN setting as ROS was, and as such ROS was tried and tested for software development.
+The biggest risk in using a ROS based network was the project team missing ROS programming skills, and it was known that the ROS programming learning curve is steep for beginners. The missing knowledge risk realised as longer development time of the system, but as such it was an acceptable slow down in the process.
 
-The biggest risk in using a ROS based network was the fact that the project team was missing ROS programming skills, 
-, and it was known that the learning curve is steep for ROS systems. The risk realised in longer development times since ROS basics had to be studied first, but in the end the basic usage is not difficult at all. 
-
-
-Testing of the implemented software proofs that the selection of ROS as the communication platform enabled stable heterogenous PC networking with Himmeli platform, on which any data could be relayed from any software component to another. The drawbacks that this setup had, were that 
+Testing the software proved that ROS enabled stable heterogenous PC network communication with the Himmeli platform on wired LAN architectures. For the selected stereo camera setup, any data could be relayed from any software component to the next one by using real-time networking with topics and subscribers. No issues were found except some naturally occuring limitations: 
 
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item The ROS network introduces delays, as expected
-\item Data bandwidth for topics are capped to a maximum at some limit posed by the software or the hardware
+\item The ROS network introduced varying length delays, as expected
+\item Data bandwidth for topics were capped to a maximum data throughput at some limit posed by the software or the hardware (not reached but must be accounted for in the system design)
+\item Custom ROS message type headers must be built in all systems using the custom message
 \end{itemize}
 
-Still, ROS is highly customizable, and a great number of readily available software packages for visualization, configuration and debugging tools were used to get the network running as designed. These utilities were of tremendous help in configuring the network in different environments: in the LAN architecture of a real overhead crane hall, and in a local research network. 
+Still, ROS was highly customizable, and a great number of readily available software packages for visualization, configuration and debugging tools were used to get the network running as designed. These utilities were of tremendous help in configuring the network in different environments: in the LAN architecture of a real overhead crane hall, and in a local research network. No tests were run in a wireless network environment, but it is quite possible that the current system would be bottlenecked in a wireless network due high data bandwidth requirement.
 
-It was also known that the learning curve for ROS programming is steep, so one risk in accomplishing a working online measurement system was actually missing knowledge on setting a ROS system up.
-
-
-
-Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
-
-The evaluation of the load object measurement system has been done using offline data sets that were recorded from real use cases. Unfortunately, the online implementation was finished but not tested during the thesis writing, and as such the online performance is not included in this work.
-
-ROS enabled the project to use heterogenous PC networking to communicate with the HIMMELI platform on wired LAN architectures, and it provided large community-based support with debugging tools, and almost real-time networking using topics and subscribers.
+Any compatibility issues were not discovered during testing multiple PC network. All the installations used in the ROS network were running on top of ROS Groovy, but it is reported that different versions of ROS distributions are not cross-compatible. The evaluation of the load object measurement system was done using offline data sets that were recorded from real use cases that are sent to an online ROS network. Unfortunately, the online implementation was finished but not tested during the thesis writing, and as such the online performance is not included in this work.
 
 \section{Data Quality in the Machine Vision Process}
 \label{section:data_quality_in_the_machine_vision_process}
