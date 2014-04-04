@@ -2142,7 +2142,31 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 
 \section{Software Overall Design Evaluation}
 
-The design of the implemented load object position and orientation system did evolve during its implementation cycle. The original design was non-linear, component-based design running on C++ code base using the ROS system. After it was proved that the Point Cloud Library processing could be used together with OpenCV processing, the integration of the ROS system started. The final implementation is now more linear, component-based design, still running on ROS platform as separate node entities. Since the amount of data generated in the stereo cameras was quite large, the linearity of processing components was used to enforce the design where data decreases as its information content increases.
+The design of the load object measurement system evolved a lot during its implementation phase. The original design was a non-linear, component-based design running on a C++ code base. The early software schematic is presented in Figure \ref{figure:original_softwaredesign}. 
+
+%figure:original_softwaredesign
+
+Originally, a network of atomic processing components was ideated where data would be sent to all the required processing stages using ROS topics and subscribers. Since the amount of data generated in the stereo cameras was quite large, the design had to be changed to a more linear design where the bandwidth of the ROS networked messages per stereo pair was minimised. The final design included more logical, larger processing components that had many positive effects on the overall performance of the software compared to the first designs: 
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item The overall workflow was more usable and easier to launch (less nodes were started)
+\item Less bandwidth was used in the ROS network (less publishers and subscribers needed to be configured)
+\item \emph{Data reduced and information increased in a component} principle was enforced by the new design   
+\end{itemize}
+
+The final software schematic whose implementation is being evaluated in this chapter is presented in Figure /ref{figure:final_softwaredesign}. The design will run on 1-4 ROS nodes depending on the use case. 
+
+made the software more usable and enforced the data reduction principle.
+
+the linearity of processing components was used to enforce the design where data decreases as its information content increases. Additionally, the number of different software components was minimized to a few logical entities, such as creating and publishing the point cloud, and processing the point cloud and publishing a bounding volume.
+
+
+
+Different software components were designed to handle single processing phases, such as downsampling of the point cloud, 
+After it was proved that the Point Cloud Library processing could be used together with OpenCV processing, the integration of the ROS system started. 
+
 
 The biggest risk in using a ROS based network was the project team missing ROS programming skills, and it was known that the ROS programming learning curve is steep for beginners. The missing knowledge risk realised as longer development time of the system, but as such it was an acceptable slow down in the process.
 
