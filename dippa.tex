@@ -2153,10 +2153,11 @@ Originally, a network of atomic processing components was ideated where data wou
 \setlength{\itemsep}{0pt}
 \item The overall workflow was more usable and easier to launch (less nodes were started)
 \item Less bandwidth was used in the ROS network (less publishers and subscribers needed to be configured)
-\item \emph{Data reduced and information increased in a component} principle was enforced by the new design   
+\item \emph{Data reduced and information increased per component} principle was enforced by the new design   
 \end{itemize}
 
-The final software schematic whose implementation is being evaluated in this chapter is presented in Figure /ref{figure:final_softwaredesign}. The design proved to enable stable heterogenous PC network communications with the Himmeli platform on wired LAN architectures in tests. Tests were run in an actual overhead crane network, and also in laboratory conditions with simple networks (no hardware routers). Many readily available ROS software packages for visualization, configuration and debugging tools were used to get the networks running as designed. These utilities proved to be of tremendous help in configuring and troubleshooting the network settings. No tests were run in a wireless network environment, but it is quite possible that the current system would be bottlenecked in a wireless network due high data bandwidth requirement. For the selected stereo camera setup and tested networks, any amount of data could be relayed from any software component to the next one successfully by using networking with topics and subscribers. No issues were found, although some limitations posed by the architecture were discovered: 
+The final software schematic whose implementation is being evaluated in this chapter is presented in Figure /ref{figure:final_softwaredesign}. The design proved to enable stable heterogenous PC network communications with the Himmeli platform on wired LAN architectures in tests. Tests were run in an actual overhead crane network, and also in laboratory conditions with simple networks (no hardware routers). Many readily available ROS software packages for visualization, configuration and debugging tools were used to get the networks running as designed. These utilities proved to be of tremendous help in configuring and troubleshooting the network settings. No tests were run in a wireless network environment, but it is quite possible that the current system would be bottlenecked in a wireless network due high data bandwidth requirement. \par
+For the selected stereo camera setup and tested networks, any amount of data could be relayed from any software component to the next one successfully by using networking with topics and subscribers. No issues were found, although some limitations posed by the architecture were discovered: 
 
 \begin{itemize}
 % item separation length in a list
@@ -2165,15 +2166,10 @@ The final software schematic whose implementation is being evaluated in this cha
 \item Custom ROS message contents (LoadArea.msg) could not be viewed on subscriber machine that had no message headers built
 \end{itemize}
 
-Any compatibility issues were not discovered during multiple PC network testing. All the ROS installations used in the PC network were running ROS Groovy, and no compatibility issues were found in the bounding volume measurement tool chain even with mixed build environments (catkin and rosmake). It is reported that different versions of ROS distributions are not cross-compatible, thus, ROS Groovy was selected as the ROS platform installation. \par
+Any compatibility issues were not discovered during multiple PC network testing. All the ROS installations used in the PC network were running on ROS Groovy, and no compatibility issues were found in the bounding volume measurement tool chain even with mixed build environments (catkin and rosmake). It is reported that different versions of ROS distributions are not cross-compatible, thus, ROS Groovy was selected as the ROS platform installation. \par
 Currently, the ROS distribution functionality poses most issues for consideration in the overall design. The biggest risk in the project start was missing ROS knowledge in the project team, and it was known that the ROS programming learning curve is steep for beginners. The missing knowledge risk realised as longer development time of the system, but as such it was an acceptable slowdown in the process.
 
 In the end, the evaluation of the load object measurement system was done using offline data sets that were recorded from use cases in real crane environments. Unfortunately, the online implementation was finished but not tested during the thesis writing, and as such the online performance is not included in this work.
-
-%that are sent to an online ROS network
-
-%\item Data bandwidth for topics were capped to a maximum data throughput at some limit posed by the software or the hardware (not reached but must be accounted for in the system design)
-%After it was proved that the Point Cloud Library could be used together with OpenCV library in the same software, the integration of the ROS system started.
 
 \section{Data Quality in the Machine Vision Process}
 \label{section:data_quality_in_the_machine_vision_process}
