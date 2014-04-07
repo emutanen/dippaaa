@@ -2174,6 +2174,23 @@ In the end, the evaluation of the load object measurement system was done using 
 \section{Data Quality in the Machine Vision Process}
 \label{section:data_quality_in_the_machine_vision_process}
 
+The machine vision process resulted in a point cloud that describes the scene in 3d. The point cloud was constructed from the image areas that were visible for both cameras, and could be modeled according to section \ref{section:depth_map_generation}. This section tries to formulate a coherent goodness measure for the output point cloud quality where most important factors of point cloud quality are 
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item Location accuracy of the surface 
+\item Surface noisiness
+\item Speckle
+\item Misinterpreted Z depth regions
+\item Artefacts of any kind
+\item Number of finite data point entries
+\end{itemize}
+
+The point cloud data quality was affected by the overall machine vision process including stereo calibration, disparity tuning, and the hardware setup. The hardware setup and the stereo calibration were used as monolithic initial calibration items. The calibration was done automatically for the hardware setup at hand, and after a good basic point cloud output was reached, no further engineering was done for the hardware or the stereo calibration. \par
+The effects of different stereo camera setups, for example toe-in installation against parallel installation, were not researched and no definite results can be said of different stereo camera setups on the point cloud quality. Still, it should be reported that one time after the right stereo pair camera was moved due a collision of the platform, the cameras were re-installed and a new stereo calibration was done for the platform. In the new hardware setup, the toe-in angle between the camera optical axes was larger then previously, resulting in a smaller overlap of the image regions because of very cross-eyed camera images. The point cloud data quality was affected so that the effective region of interest in the rectified stereo image pair was smaller than previously due to the toe-in angle enlargement. This was discovered when comparing the calibration files from the original camera setup to the calibration files computed from the new installation. The point cloud data quality was affected very little by the hardware setup change and a re-calibration by the current knowledge of the author. Still, more testing and a point cloud quality goodness measure needs to be formulated in order to verify the point cloud data quality indifference towards different hardware setups with calibration.
+
+
 \subsection{Available Metrics}
 \label{subsection:available_metrics}
 
