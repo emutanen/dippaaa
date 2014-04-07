@@ -737,6 +737,8 @@ An energy-saving, semi-automatic, safe process crane working area is the desired
 \chapter{Industry Applications}
 \label{chapter:industry_applications}
 
+Industry applications for machine vision systems can be found from very different fields ranging from space exploration to agriculture, and from mobile robotics to quality control on a manufacturing site. The use of machine vision brings the speed of the computer to many errands that are dangerous or impossible for a human to do, for example quality control in high speed manufacturing line processes in a paper factory, or  
+
 + Environment sensing is needed for robotization of spaces
 + 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
 
@@ -1466,6 +1468,37 @@ After the image rectification is done for a stereo image pair captured by the ca
 
 Q is the reprojection matrix that encodes information about the stereo camera setup. Q matrix will provide information about camera optical axis convergence (parallel or cross-eyed), image plane principal points, and the stereo setup baseline width b.
 
+
+\section{Load Object Modeling Quality}
+\label{section:load_object_modeling_quality}
+
+%fix passive
+We are not required to fully model the load object in order to find its position and a bounding volume. 
+
+Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
+
+If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
+
+An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
+
+It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
+
+
+using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
+
+
+statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
+
+
+The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
+
+Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
+
+
+
+Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
+
+
 %end of chapter 4
 %===============================================================================================================================
 \chapter{Coordinate Systems And Transformations}
@@ -2193,9 +2226,9 @@ The effects of different stereo camera setups, for example toe-in installation a
 
 Point cloud data quality indicators are important in e.g. modeling of urban constructed environments and in airborne LIDAR mapping. In these fields, the quality evaluation is done separately for spatial structural analysis and positioning of point clouds for registration schemes according to \ref{Feng08}. The requirements for different quality indicators really depend on the application at hand, but still, the same principles could be applied to the crane working area point cloud data quality evaluation.\par
 
-Spatial structure analysis in other research has been carried out using spatial 3d markers or standard objects that can be located and measured in the output point cloud. Unfortunately markers were not incorporated in the offline data sets, which is why the spatial structure analysis for offline data sets are only carried out using standard object tests.
-
-One standard object test was carried out in the laboratory environment whose bounding volume measurement computed later from offline image data set reported 
+Spatial structure analysis in other research has been carried out using spatial 3d markers or standard objects that can be located and measured in the output point cloud. Unfortunately, markers were not incorporated in the recorded offline data sets, which is why the spatial structure analysis for offline data sets are only carried out using standard object tests. The standard objects were used and measured in the overhead crane case, and in the laboratory environment.\par
+One standard object measurement test was carried out in the laboratory environment for which the image data set reported...
+Another standard object measurement test was computed using the overhead crane case, which reported object lengths of...
 
 \subsection{Point Cloud Segmentation Statistics}
 \label{subsection:point_cloud_segmentation_statistics}
@@ -2349,36 +2382,6 @@ Disp12MaxDiff & 1 \\ \hline
 \subsection{Process Hall Case}
 \label{subsection:offline_process_hall_case}
 %note labeling
-
-\section{Load Object Modeling Quality}
-\label{section:load_object_modeling_quality}
-
-%fix passive
-We are not required to fully model the load object in order to find its position and a bounding volume. 
-
-Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
-
-If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
-
-An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
-
-It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
-
-
-using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
-
-
-statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
-
-
-The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
-
-Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
-
-
-
-Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
-
 
 \subsection{Forest Case}
 \label{subsection:forest_case}
