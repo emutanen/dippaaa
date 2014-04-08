@@ -1369,6 +1369,8 @@ Camera calibration can be weak or strong. If strong camera parameters are known 
 \subsection{Single Camera Calibration}
 \label{subsection:single_camera_calibration}
 
+% original reference Zhang99
+
 + Why do we have to calibrate the cameras?
     + correct distortions
     + rectify images
@@ -1403,8 +1405,18 @@ It is important to compensate for lens system radial distortions, because they c
 
 + Calibration target location
 
-\subsection{Stereo Camera Calibration}
+\subsection{Stereo Camera Pair Calibration}
 \label{subsection:stereo_camera_calibration}
+
+The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
+A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
+
+The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
+
+
+
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
 
 + toed-in or parallel camera setup
 
@@ -1414,8 +1426,7 @@ A parallel optical axes alignment is preferred to avoid vertical disparity cause
 
 + convergence distance of the stereo system optical axes: approx. 264cm
 
-The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
-%what is negative disparity? => in front of the screen => does this matter in a measurement system
+
 
 
 \section{Stereo Correspondence Problem}
@@ -1745,10 +1756,10 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 \chapter{Implementation}
 \label{chapter:implementation}
 
-The programming work done for the thesis was carried out during March 2013 to February 2014. External C++ libraries, namely Boost, OpenCV by Willow Garage, and PointCloudLibrary (PCL) were used in addition to the standard C and C++ libraries. The versions of the libraries are discussed later, but it is good to know that one of the biggest changes during the development of the thesis project was the moving from earlier versions of the PCL library to the PCL version 1.7 in August 2013. This on one hand helped the project onwards with simplified development effort, and on the other hand, made development more difficult with less IDE functionality and less ROS support than before.
-
-Mainly OpenCV and PointCloudLibrary were used for tools programming, and the
-
+The software implementation for the thesis work was prepared with the FAMOUS project team in Generic Intelligent Machines (GIM) research group. The implemented software includes many software nodes, mainly the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information. Additionally, the point cloud data publisher node was implemented that integrates the HIMMELI camera platform hardware as the sensor input platform for the load object measurement tool.\par
+The programming work done for the thesis was carried out from March 2013 to February 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library by WillowGarage Inc. was used for image processing and stereo rectification purposes, Point Cloud Library (PCL) was used for all data intensive point cloud processing, and Boost library was used for all file system operations. All the data networking, runtime configuration, and other online networking solutions were implemented using the Robot Operating System (ROS).  \par
+The design of the software was finished in December 2013 after successful compatibility testing between library functionalities and proofing of concepts with offline data sets. The final version of the load object measurement system that supports online perception sensors in the ROS network was finished in May 2014.\par
+During the implementation period, new versions of most of the libraries became available, but the implementation uses latest currently stable versions: ROS Groovy and PCL 1.6 (compatible with ROS Groovy). If the software would be upgraded, then a newer version of ROS (Hydro) can only be used with the next version of PCL (1.7). PCL 1.7 does simplify some things, for example PCL visualization camera controls, and brings some extended features that could benefit the load object measurement system (for example, the new moment of inertia and eccentricity based descriptors functionality). Other than that, the old versions have all the functionality that the system needs, and they are successfully used to run the software at the time of writing this.
 
 \section{Overall System Design}
 \label{section:overall_system_design}
@@ -2402,8 +2413,12 @@ Online tests for the FAMOUS project deliverables were conducted on March 5th, 20
 \section{Software Robustness In Tests}
 \label{section:software_robustness_in_tests}
 
-\chapter{Discussion}
+\chapter{Discussion And Conclusions}
 \label{chapter:discussion}
+% For Conclusions:
+%Write down the most important findings from your work.
+%Like the introduction, this chapter is not very long.
+%Two to four pages might be a good limit.
 
 \section{Machine Learning Extras}
 
@@ -2481,12 +2496,6 @@ Research effort in image processing technologies continues to result in better a
 + Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
 
 %+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
-
-\chapter{Conclusions}
-\label{chapter:conclusions}
-%Write down the most important findings from your work.
-%Like the introduction, this chapter is not very long.
-%Two to four pages might be a good limit.
 
 \chapter{References}
 \label{chapter:references}
