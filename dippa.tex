@@ -2418,9 +2418,9 @@ The decision to select the load object from a pre-defined 3d region of space was
 % item separation length in a list
 \setlength{\itemsep}{0pt}
 % 1372841000
-\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in bird's view camera.
+\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in the other used viewpoint (bird's eye).
 \item Nearby objects, such as the upper balcony, can be detected by the machine vision system.
-\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right.
+\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right. A smaller image ROI could possibly remove such artefacts from the end result. 
 \item A horizontal striped tape present in the data sets resulted in erroneous depth reprojection, and left a visible artefact under the floor level in the point cloud.
 %1372842312
 \item Nearby objects are grouped together as single objects by the segmentation algorithm.
@@ -2428,7 +2428,17 @@ The decision to select the load object from a pre-defined 3d region of space was
 \item Empty end effector gives such a small point response that it is discarded as not an object. It was not possible to track with the current system.
 \item People near the load object merge into the load object and enlarge the reported bounding volume.
 \item If the load object was lifted very high, it occluded most of the floor space in the image. If all the floor space is occluded by the load object, the floor removal will fail. Such an event was never encountered in testing.
-\item The scene reprojection introduced large errors when the platform was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, a moving platform will introduce a disparity map generation that does not match with the pre-defined camera baseline since the other camera is moving before the image is taken. To counteract such events, the platform should not move while measuring objects. Then again, for normal operation where the object is measured as it is lifted up, this is not problematic behaviour.
+%1372842898
+\item The scene reprojection introduced large errors when the platform was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, a moving platform will introduce a disparity map generation that does not match with the pre-defined camera baseline since the other camera is moving before it records the image. To counteract such inaccuracy, the platform should not move while measuring objects, or the shutter behaviour should be strictly enforced. For normal operation where the object is measured as it is lifted up, this is not problematic.
+%1372843166
+\item If people walk exactly under the top-down camera, their point response is so small that the response is discarded as an error in the point cloud data. This suggests that the lower limit of the point cloud object size should have been even smaller than the used value.
+% 1372843682
+\item If scene reprojection issues are present when the platform is moving, a lifted load object does not suffer from much inaccuracy because its image is not moving when the platform does. The errors introduced in the load object measurement while the platform is moving are negligible.
+% 1372851661
+\item The reprojection issues while the platform is moving depict the floor both too far away and too close in turns. This suggests that the HIMMELI platform shutters do not exposure images in the same left to right, or right to left order, but the order changes randomly due to network lag or other sync issues.
+% 1372851907
+\item In the bird's eye viewpoint the load being lifted in the background of the process hall results in a smaller point response than in the top-down view.
+\item In the bird's eye viewpoint, the load object point cloud merges with the back wall point cloud when the load is near the wall. The load object could not be measured if it merged with the back wall. Merging is easily seen in the background because more noise is in features that are further away from the cameras. 
 \item 
 \end{itemize}
 
