@@ -2448,11 +2448,13 @@ In the forestry crane data sets, the automatic TLD tracking was used in combinat
 \item As a result of some earlier findings, a person standing in close proximity to the end effector tool will easily be measured as the cylindrical load objects. Heuristics should be used to prevent these mismatched load selection, for example: cylinders that are in upright position in the world frame will not be selected as correct load objects.
 \item Static objects will generate more accurate data and provide means to statistically analyse the goodness of 3d model generation
 \item The load object cloud only contains the surfaces visible to the camera, which will introduce errors in the cylinder fitting since only half a cylinder can be recovered. A RANSAC shape model data fitting will give an estimate on the log pose and volume, but it cannot recover any knowledge about the actual backside of the log. Another camera viewpoint and point cloud registration should be used to recover any knowledge about the backside of the log.  
+\item If the crane boom is fully visible in both stereo images it can be measured and modeled. In normal operation with the current viewpoint, the crane partially goes out of the picture, which introduces challenges to continuos tracking. Another viewpoint that fully shows the crane boom must be used in case the boom modeling and tracking is needed.
+\item It is possible to measure the state of the currently used end effector tool from the point cloud response. It would be possible to implement states that report whether the end effector is closed or open, and whether it carries a log or not.
+\item An occluded log cannot be measured properly. For example, if 50\% of the length of the log is visible in the image, then approximately 50\% of the actual length of the log can be measured by the machine vision system.
+\item BM algorithm runs a lot faster than the SGBM algorith and produces reasonably similar good results.
 \end{itemize}
 
-Improvement suggestions:
-
-New heuristic check: check the distance between the end effector and the end effector projection and reject if the distance is too much.
+Some improvements to the implemented system may be instantly found. For example, the heuristic checks that select the correct load object can easily be improved. For example, if the distance between the candidate load object and the end effector is too large, then the candidate should be rejected.
 
 \chapter{Discussion And Conclusions}
 \label{chapter:discussion}
