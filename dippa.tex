@@ -2406,7 +2406,31 @@ Disp12MaxDiff & 1 \\ \hline
 
 \subsection{Overhead Crane Case}
 \label{subsection:overhead_crane_case}
-%note labeling
+
+The following overhead crane image data sets were captured in August 2013 in a real overhead crane environment. A total of 13 data sets were captured that contain different kinds of tests aimed at revealing how the dimension measurement of the load object can function in different scenarios. The lighting conditions did not change during daytime in the overhead crane environment, so there was no need to test at different times of day, or different times of year because of possible changes in the environmental conditions. 
+
+\subsubsection{Findings}
+
+In the overhead crane data sets, a manual load selection approach was used to select an object as the target to measure. This was done when the end effector location was not available for more accurate selection process. Essentially, a load object was selected from near proximity of a pre-defined coordinate. Most of the time, the manual selection coordinate was set in the center of the image, where a load object would probably appear in e.g. the top-down camera configuration. Since no heuristics were used in the overhead crane load selection process, the test design introduced a lot of erroneous load object matches, such as people walking nearby the center of the image, or new objects selected as they came in the view as the platform moved in the process hall.\par
+The decision to select the load object from a pre-defined 3d region of space was far from perfect, but it worked as a load selection condition without knowledge about the end effector location. In essence, it was guessed that a load object would be found near the center of the image, which was not always true. For example, for some data sets where the camera is located in the side of the overhead crane bridge, the load object was found in the bottom part of the image. A visual indicator for the manual load selection coordinate was added in the visualization tool to help set the manual selection center in a better location.\par
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+% 1372841000
+\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in bird's view camera.
+\item Nearby objects, such as the upper balcony, can be detected by the machine vision system.
+\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right.
+\item A horizontal striped tape present in the data sets resulted in erroneous depth reprojection, and left a visible artefact under the floor level in the point cloud.
+%1372842312
+\item Nearby objects are grouped together as single objects by the segmentation algorithm.
+%1372842573
+\item Empty end effector gives such a small point response that it is discarded as not an object. It was not possible to track with the current system.
+\item People near the load object merge into the load object and enlarge the reported bounding volume.
+\item If the load object was lifted very high, it occluded most of the floor space in the image. If all the floor space is occluded by the load object, the floor removal will fail. Such an event was never encountered in testing.
+\item The scene reprojection introduced large errors when the platform was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, a moving platform will introduce a disparity map generation that does not match with the pre-defined camera baseline since the other camera is moving before the image is taken. To counteract such events, the platform should not move while measuring objects. Then again, for normal operation where the object is measured as it is lifted up, this is not problematic behaviour.
+\item 
+\end{itemize}
 
 \begin{figure}[ht]
   \begin{center}
@@ -2427,7 +2451,7 @@ Disp12MaxDiff & 1 \\ \hline
 \subsection{Forestry Crane Case}
 \label{subsection:forestry_crane_case}
 
-The forestry crane image data sets were taken in August 2013 and readily analysed in April 2014. A total of 30 data sets were captured in March 2013 and August 2013, but only 11 data from August 2013 sets were usable. The reason to this was that the winter data sets did not contain both left and right stereo head images, but only the left stereo image doubled as left and right pictures, resulting in loss of depth information. This setback was unfortunate, which is why the winter footage was not analyzed and the effects of reflective snow and winter conditions are not included in this thesis. On the contrary, the summer footage is excellent, and the computation using the captured imagery taken in August 2013 provided many useful insights into realising a measurement system that could provide the needed dimensions of a load object.
+The forestry crane image data sets were captured in August 2013 and readily analysed in April 2014. A total of 30 data sets were captured in March 2013 and August 2013, but only 11 data from August 2013 sets were usable. The reason to this was that the winter data sets did not contain both left and right stereo head images, but only the left stereo image doubled as left and right pictures, resulting in loss of depth information. This setback was unfortunate, which is why the winter footage was not analyzed and the effects of reflective snow and winter conditions are not included in this thesis. On the contrary, the summer footage is excellent, and the computation using the captured imagery taken in August 2013 provided many useful insights into realising a measurement system that could provide the needed dimensions of a load object.
 
 \subsubsection{Findings}
 
