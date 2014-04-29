@@ -2426,7 +2426,27 @@ Disp12MaxDiff & 1 \\ \hline
 
 \subsection{Forestry Crane Case}
 \label{subsection:forestry_crane_case}
-%note labeling
+
+The forestry crane image data sets were taken in August 2013 and readily analysed in April 2014. A total of 30 data sets were captured in March 2013 and August 2013, but only 11 data from August 2013 sets were usable. The reason to this was that the winter data sets did not contain both left and right stereo head images, but only the left stereo image doubled as left and right pictures, resulting in loss of depth information. This setback was unfortunate, which is why the winter footage was not analyzed and the effects of reflective snow and winter conditions are not included in this thesis. On the contrary, the summer footage is excellent, and the computation using the captured imagery taken in August 2013 provided many useful insights into realising a measurement system that could provide the needed dimensions of a load object.
+
+\subsubsection{Findings}
+
+In the forestry crane data sets, the automatic TLD tracking was used in combination with a cylinder fitting scheme to provide more accurate results. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and its implemented heuristic checks.
+
+\begin{itemize}
+% item separation length in a list
+\setlength{\itemsep}{0pt}
+\item Objects too close to each other will fuse as single object groups in the generated point cloud response. For example, if an person is in touch with the load object, the bounding volume will be enlarged to contain both the load object and the operator as a result. This phenomenon can be controlled using the kD-tree cluster tolerance if no occlusion is present in the image data.
+\item Heuristics should be used to prevent cylinder fitting match wrong features from the environment. A check that the cylinder is not located above the end effector in the sensor frame was used, but it is not enough to prevent all erroneous matches.
+\item If the end effector tool is empty, the cylinder fitting does not produce meaningful results. Currently, it will give fully or partially the volume of the end effector tool or parts of the crane boom depending whether the RANSAC search finds a cylinder fit in the data. This behaviour adds noise and erroneous measurements in the AABB bounding volume data.
+\item A rotation of the log perpendicularly to the optical axis will report different bounding volumes for different angles of rotation. The measurement is most accurate when the length of the log is fully shown in the image plane. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the log and generate a very poor object model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the log is visible, and it was not possible to measure the actual size at all.
+\item High smoothness constraint of the disparity map fills holes that are present in the environment. For example, the loops formed by the wiring seen above the end effector tool will generate a solid surface point cloud response. This phenomenon is present in the SGBM algorithm implementation, but not in the BM algorithm implementation. It was concluded that while the SGBM algorithm produces better 3d models of the environment with a high point response output, the BM algorithm actually can have finer detail in some features. In the end, the SGBM algorithm was more suitable for the development of the bounding volume computation.
+\item 
+\end{itemize}
+
+Improvement suggestions:
+
+New heuristic check: check the distance between the end effector and the end effector projection and reject if the distance is too much.
 
 \chapter{Discussion And Conclusions}
 \label{chapter:discussion}
