@@ -2439,7 +2439,11 @@ The decision to select the load object from a pre-defined 3d region of space was
 % 1372851907
 \item In the bird's eye viewpoint the load being lifted in the background of the process hall results in a smaller point response than in the top-down view.
 \item In the bird's eye viewpoint, the load object point cloud merges with the back wall point cloud when the load is near the wall. The load object could not be measured if it merged with the back wall. Merging is easily seen in the background because more noise is in features that are further away from the cameras. 
-\item 
+\item In the bird's eye viewpoint, the load object is self-occluded, and its bounding volume does not contain its backside. Thus, the bounding volume computation is not correct from this viewpoint for e.g. the large standard box.
+\item In the bird's eye viewpoint, the hoisting wires are clearly visible in the point cloud output and the location is correctly reprojected in 3d.
+%1372852148
+\item In the bird's eye viewpoint, more points are generated to the 3d point cloud mainly because of the visible back wall. Increased number of points increased computation times.
+\item In the bird's eye viewpoint, the distant objects introduced increasing noise and measurement error.
 \end{itemize}
 
 \begin{figure}[ht]
