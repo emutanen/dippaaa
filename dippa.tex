@@ -398,7 +398,7 @@
 In the modern world, industrial goods are being moved more than ever, but only few industrial ventures rely on automatic movement of a product on the factory floor using overhead traveling cranes. The approach to measure moving goods in crane environments can enable new smarter automated features to overhead cranes, such as route planning, collision detection, and collision avoidance features. The incentives for developing such features are increased goods handling safety, and the need towards more optimal energy consumption and longer crane life cycles.
     The 3d vision system selected for producing the measurement used passive stereographic triangulation to acquire the environment model as a disparity map. Known camera calibrations enabled the disparity data reprojection into a 3d point cloud model, which represented the scene seen by the cameras in metric coordinates. Finally, the point cloud was processed into a metric AABB measurement using Point Cloud Library (PCL).    
     An offline geometry measurement system was implemented using C++ libraries and Robot Operating System (ROS). A perception platform with two high dynamic range cameras was used. Different use cases were designed and analysed for electric overhead cranes and telescopic boom cranes in forestry applications. 
-    The perception platform data from real crane environment produced a 
+    The perception platform data from real crane environment produced a deterministic response with some noise for load objects. The camera viewpoint affects th
     
     The measurement accuracy highly depended on the camera calibration and software parameters, and overall accuracy could not be verified.
     
@@ -2495,6 +2495,12 @@ The effect of the fluorescent lighting in the environment was not analysed since
     \label{fig:dimension_measurements_box_ave_eps}
   \end{center}
 \end{figure}
+
+\subsubsection{Analysis}
+
+In order to verify the accuracy of the measurement, the output value of the geometry measurement software must be compared to a value produced by an actual measurement with e.g. measuring tape. In the overhead crane case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
+Figures x and y are screen captures from the data set 1372841000, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
+Now, a comparison criterion may be formulated that relates the output value of the geometry measurement software and the actual measures of the large standard box.
 
 \subsection{Forestry Crane Case}
 \label{subsection:forestry_crane_case}
