@@ -259,9 +259,9 @@
 % ------------------------------------------------------------------
 \newcommand{\TITLE}{Crane Load Geometry Measurement using Machine Vision}
 \newcommand{\FTITLE}{Taakan geometrian mittaus nosturista konenäköavusteisesti}
-\newcommand{\DATE}{June 18, 2011}
-\newcommand{\FDATE}{18. kesäkuuta 2011}
-\newcommand{\SDATE}{Den 18 Juni 2011}
+\newcommand{\DATE}{May 27th, 2014}
+\newcommand{\FDATE}{27. toukokuuta 2014}
+\newcommand{\SDATE}{Den 27 Maj 2014}
 
 % Supervisors and instructors
 % ------------------------------------------------------------------
@@ -283,7 +283,7 @@
 %  Dr. Sami Terho}
 
 % If you have only one instructor, just write one name here
-\newcommand{\INSTRUCTOR}{Sami Terho D.Sc. (Tech.)}
+\newcommand{\INSTRUCTOR}{D.Sc. (Tech.) Sami Terho}
 \newcommand{\FINSTRUCTOR}{Tekniikan tohtori Sami Terho}
 \newcommand{\SINSTRUCTOR}{Teknologie doktor Sami Terho}
 % If you have two instructors, separate them with \\ to create linefeeds
@@ -310,9 +310,9 @@
 \newcommand{\SPROFESSORSHIP}{Intelligent Robotteknik}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{T-110}
-\newcommand{\KEYWORDS}{stereo vision, depth mapping, crane load}
-\newcommand{\FKEYWORDS}{stereonäkö, syvyyskartoitus, nosturin taakka}
-\newcommand{\SKEYWORDS}{stereoseende, djuphet kartläggning, kran last}
+\newcommand{\KEYWORDS}{stereo vision, depth mapping, crane load, machine vision}
+\newcommand{\FKEYWORDS}{stereonäkö, syvyyskartoitus, nosturin taakka, konenäkö}
+\newcommand{\SKEYWORDS}{stereoseende, djuphet kartläggning, kran last, maskinseende}
 \newcommand{\LANGUAGE}{English}
 \newcommand{\FLANGUAGE}{Englanti}
 \newcommand{\SLANGUAGE}{Engelska}
@@ -394,8 +394,29 @@
 % Abstract in English
 % ------------------------------------------------------------------
 \thesisabstract{english}{
-The purpose of this diploma thesis is to introduce a crane load position and orientation measurement using machine vision.
-The measurement should describe the position and orientation of an arbitrary load lifted with a process crane or a small telescopic crane within required accuracy limits.
+
+In the modern world, industrial goods are being moved more than ever, but only few industrial ventures rely on automatic movement of a product on the factory floor using overhead traveling cranes. The approach to measure moving goods in crane environments can enable new smarter automated features to overhead cranes, such as route planning, collision detection, and collision avoidance features. The incentives for developing such features are increased goods handling safety, and the need towards more optimal energy consumption and longer crane life cycles.
+    The 3d vision system selected for producing the measurement used passive stereographic triangulation to acquire the environment model as a disparity map. Known camera calibrations enabled the disparity data reprojection into a 3d point cloud model, which represented the scene seen by the cameras in metric coordinates. Finally, the point cloud was processed into a metric AABB measurement using Point Cloud Library (PCL).    
+    An offline geometry measurement system was implemented using C++ libraries and Robot Operating System (ROS). A perception platform with two high dynamic range cameras was used. Different use cases were designed and analysed for electric overhead cranes and telescopic boom cranes in forestry applications. 
+    The perception platform data from real crane environment produced a 
+    
+    The measurement accuracy highly depended on the camera calibration and software parameters, and overall accuracy could not be verified.
+    
+    
+    
+    
+    
+
+
+
+The measurement describes an axis-aligned bounding box (AABB) of an arbitrary load object lifted with an electric overhead crane (EOT) or a small telescopic crane in outdoor environments. A load geometry measurement is used as the basis information in design of smart electrical overhead cranes that can detect collisions in their working environments. Furthermore, the 3d AABB measurement can be used in routing computation and in collision avoidance techniques.
+
+
+
+The machine vision platform used was an earlier department project titled HIMMELI and it carries two HDR cameras and PC hardware. 
+    The measurement is computed from a 3d reprojection of a disparity map that contains the depth information of the environment visible to the cameras. 
+    A number of different factors affect the quality of the depth map computed
+    
 }
 
 %BADThis thesis will primarily study a machine vision approach that uses stereo vision for the work environment
