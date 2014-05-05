@@ -395,10 +395,10 @@
 % ------------------------------------------------------------------
 \thesisabstract{english}{
 
-In the modern world, industrial goods are being moved more than ever, but only few industrial ventures rely on automatic movement of a product on the factory floor using overhead traveling cranes. The approach to measure moving goods in crane environments can enable new smarter automated features to overhead cranes, such as route planning, collision detection, and collision avoidance features. The incentives for developing such features are increased goods handling safety, and the need towards more optimal energy consumption and longer crane life cycles.
+In the modern world, industrial goods are being moved more than ever, but only few industrial ventures rely on automatic movement of a product on the factory floor using overhead traveling cranes. The approach to measure moving goods in crane environments can enable new smarter automated features to overhead crane environments, such as route planning, collision detection, and collision avoidance features. The incentives for developing such features are increased goods handling safety, and the need towards more optimal energy consumption and longer crane life cycles.
     The 3d vision system selected for producing the measurement used passive stereographic triangulation to acquire the environment model as a disparity map. Known camera calibrations enabled the disparity data reprojection into a 3d point cloud model, which represented the scene seen by the cameras in metric coordinates. Finally, the point cloud was processed into a metric AABB measurement using Point Cloud Library (PCL).    
     An offline geometry measurement system was implemented using C++ libraries and Robot Operating System (ROS). A perception platform with two high dynamic range cameras was used. Different use cases were designed and analysed for electric overhead cranes and telescopic boom cranes in forestry applications. 
-    The perception platform data from real crane environment produced a deterministic response with some noise for load objects. The camera viewpoint affects th
+    The perception platform data from real crane environment produced a deterministic response with some noise in the load object measurement. 
     
     The measurement accuracy highly depended on the camera calibration and software parameters, and overall accuracy could not be verified.
     
@@ -2503,7 +2503,11 @@ Figures x and y are screen captures from the data set 1372841000, which was used
 Now, a comparison criterion may be formulated that relates the output value of the geometry measurement software and the actual measures of the large standard box. The mean output values computed using MATLAB for the large box are shown in table \ref{table:large_standard_box_mean_values}.
 
 % put here a table that shows delta X: 1671.6 mm delta Y: 1473.2 mm delta Z: 1058.5 mm
+% put here a table that shows X = 152 cm Y = 94 cm Z = 92 cm
 % why is the delta Z smallest when delta Z is in the sensor frame.... is it?
+
+If the standard box is rotated 34 degrees, a geometric calculation using Pythagoras theorem results a correct bounding volume size of 1787 mm x 1875.42 mm x ???
+
 
 
 
