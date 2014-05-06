@@ -778,21 +778,12 @@ A forestry machine load object measurement is a secondary objective that is rese
 
 Log picking work differs from lifting work in a warehouse environment mostly due its productivity constraints. A certain speed of picking logs must be maintained to keep the operation of the log picker truck profitable in business sense. While teleoperating a rotary log picking crane is possible, the speed of a teleoperated crane is much lower than a human operated crane. Teleoperation techniques do enable a single driver operate multiple log picker trucks simultaneously, but currently the work is only productive with drivers on site. 
 
-Research in automatic forestry machines is an ongoing effort that tries to increase productivity in the field with help of teleoperation and automatic machinery. A fully automatic log picker truck that is as fast as a human operated truck would provide the biggest productivity increase, but currently the research is focused more on aiding a single driver increase his or her productivity with help of computers. For example, new augmented reality displays were introduced in the forestry machine cockpits to help the driver understand 
-
-
-
-
-
-
-
-
-
-
-
+Research in automatic forestry machines is an ongoing effort that tries to increase productivity in the field with help of teleoperation and automatic machinery. A fully automatic log picker truck that is as fast as a human operated truck would provide the biggest productivity increase, but currently the research is focused more on aiding a single driver increase his or her productivity with help of computers. For example, new augmented reality displays are being introduced in the forestry machine cockpits to help the driver get information that helps with the work. 
 
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
+
+The secondary objective of this thesis is to be able to compute the dimensions of a picked up log with the help of a machine vision system. Further processing of the measurement information and the details of teleoperation applications are outside of the scope of this thesis.
 
 Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. A camera based solution price is up to 2000 USD depending on the setup, while a laser based system cost may exceed a whopping 50000 USD.
 
