@@ -838,6 +838,10 @@ Next, different machine vision sensor options will be presented that could provi
 \section{Machine Vision Perception Sensors}
 \label{section:perception_sensors}
 
+Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
+
+
+
 + active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
@@ -1043,7 +1047,14 @@ todo: corresponding histograms of two test images, and their cumulative distribu
 \chapter{Stereoscopic Machine Vision System}
 \label{chapter:stereographic_machine_vision_system}
 % stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
-Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision  is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. Similarly, if two monocular cameras are used in a binocular setup it is possible to not perceive, but quantifiably measure scene depth using a calibrated camera system. %reference?
+Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. A binocular vision system in humans is constructed out of two monocular vision eyes that are used in a binocular setup. The same depth perception can be programmed to a computer, but instead of eyes, cameras are used. Moreover, instead of brains, algorithms are used to mathematically compute depth information from the image data.
+
+While humans perceive and estimate object sizes with the help of their previous knowledge of the world and their implicit stereo vision calibration by the brains, a machine vision system utilising two cameras must be carefully calibrated with the help of a calibration target, after which it can quantifiably output metric measures of physical objects. After capturing a pair of images and processing them, it is possible to request a 3d coordinate value for almost any feature found in one of the images. In this way, by selecting two points from the 2d image that span the width of the wanted load object, it is possible to request a 3d vector whose length reports the actual length of the projected load object in the 2d image. Thus, moving from 2d feature projection to a partial 3d feature model is important since the measurement is done using a virtual 3d ruler.
+
+
+
+
+
 
 Such a calibrated two-camera system is most often called a \emph{stereo vision system}, or \emph{3d vision system}. In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery from 2d images using knowledge about the camera setup geometry and the image content.\cite{Sonka07}
 
