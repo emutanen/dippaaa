@@ -794,55 +794,48 @@ An energy-saving, semi-automatic, safe process crane working area is the desired
 
 % person lifter
 
-
-
-%===============================================================================================================================
-\chapter{Industry Applications}
-\label{chapter:industry_applications}
-
-Industry applications for machine vision systems can be found from very different fields ranging from space exploration to agriculture, and from mobile robotics to quality control on a manufacturing site. The use of machine vision brings the speed of the computer to many errands that are dangerous or impossible for a human to do, for example quality control in high speed manufacturing line processes in a paper factory, or  
-
-+ Environment sensing is needed for robotization of spaces
-+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
-
-
+%Industry applications for machine vision systems can be found from very different fields ranging from space exploration to agriculture, and from mobile robotics to quality control on a manufacturing site. The use of machine vision brings the speed of the computer to many errands that are dangerous or impossible for a human to do, for example quality control in high speed manufacturing line processes in a paper factory, or  
+%+ Environment sensing is needed for robotization of spaces
+%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
 
 % stereoscopic teleoperation
 
 %Teoriaa ja teknologioita. Pituus noin 20 sivua.
 %Applications that can benefit from accurate positioning and tracking of a load object
 
-\section{Existing Positioning And Tracking Applications}
-\label{section:existing_positioning_and_tracking_applications}}
+%\section{Existing Positioning And Tracking Applications}
+%\label{section:existing_positioning_and_tracking_applications}}
 
+%\section{Safety Applications}
+%\label{section:safety_applications}
 
+%Traditional and new safety applications can utilize load positioning information for added functionality.
 
+%A traditional safety application stops the crane process if a human is detected in a dangerous work zone \cite{Raula11}. Alternatively, an adaptive safety scheme can be utilised to restrict the operation range of the crane, but not halt it. If we are able to reliably detect a location for the moving load
 
-\section{Safety Applications}
-\label{section:safety_applications}
+%The work area of the crane can be modelled with state-of-the-art sensing of the environment enabling for example pre-collision avoidance.
 
-Traditional and new safety applications can utilize load positioning information for added functionality.
+%Adaptive safety techniques can be realised with the improved
 
-A traditional safety application stops the crane process if a human is detected in a dangerous work zone \cite{Raula11}. Alternatively, an adaptive safety scheme can be utilised to restrict the operation range of the crane, but not halt it. If we are able to reliably detect a location for the moving load
-
-The work area of the crane can be modelled with state-of-the-art sensing of the environment enabling for example pre-collision avoidance.
-
-Adaptive safety techniques can be realised with the improved
-
-\section{Mapping Applications}
-\label{section:mapping_applications}
+%\section{Mapping Applications}
+%\label{section:mapping_applications}
 % application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
 
+%\section{Selected Use Cases}
+%\label{section:selected_use_cases}
 
-\section{Selected Use Cases}
-\label{section:selected_use_cases}
+\chapter{Perception Sensors And Model Acquisition}
+\label{chapter:perception_sensors_and_model_acquisition}
 
+Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision projects, and the design of the machine vision system is highly affected by the selected sensor, and the digital format of the information that is output.
 
-%===============================================================================================================================
-\chapter{Perception Sensors And Environment Representations}
-\label{chapter:perception_sensors_and_environment_representations}
+The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
 
-\section{Perception Sensors}
+Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
+
+Next, different machine vision sensor options will be presented that could provide data input to the envisioned load object geometry measurement system.
+
+\section{Machine Vision Perception Sensors}
 \label{section:perception_sensors}
 
 + active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
