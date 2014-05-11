@@ -842,7 +842,7 @@ An energy-saving, semi-automatic, safe process crane working area is the desired
 \chapter{Perception Sensors And Model Acquisition}
 \label{chapter:perception_sensors_and_model_acquisition}
 
-Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision works, and the design of the machine vision system is highly affected by the selection of the sensor, and the digital format of the information that is output from the sensor.
+Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
 The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
 
@@ -864,13 +864,13 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 \subsection{Stereo Cameras}
 \label{subsection:stereo_cameras}
 
-\subsubsection{Optics and Photometrics}
+\subsubsection{Optics}
 \label{subsubsection:optics_and_photometrics}
 
 % todo add teledyne white paper to optics
 %\ref{teledyne_whitepaper}
 
-The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal lenght, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
+The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
 
 The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
 
@@ -879,37 +879,18 @@ The aperture of the camera lens system controls the depth of field (DOF) perceiv
 % resolution of the sensor array,
 %camera dynamic range
 %electromagnetic spectrum range 
+%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+%Irradiance is a measure of power of light cast on a unit surface are of an object.
+%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
 
+%\begin{equation}
+%\label{equation:radiance}
+%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+%\end{equation}
 
-Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
-Irradiance is a measure of power of light cast on a unit surface are of an object.
-The relation between an object's surface that radiates onto the camera sensor array can be formulated as
-
-\begin{equation}
-\label{equation:radiance}
-E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
-\end{equation}
-
-where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
 
 %weather conditions
-
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12}. 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
-
     
 \subsection{Lidars And Radars And Sonars}
 \label{subsection:lidars_and_radars_and_sonars}
@@ -1074,19 +1055,17 @@ todo: corresponding histograms of two test images, and their cumulative distribu
 \chapter{Stereoscopic Machine Vision System}
 \label{chapter:stereographic_machine_vision_system}
 % stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
-Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. A binocular vision system in humans is constructed out of two monocular vision eyes that are used in a binocular setup. The same depth perception can be programmed to a computer, but instead of eyes, cameras are used. Moreover, instead of brains, algorithms are used to mathematically compute depth information from the image data.
+Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision is based on stereopsis effect, which means perceiving depth in a scene using binocular vision. A binocular vision system in humans is constructed out of two monocular vision eyes that are used in a binocular setup. The same depth perception can be programmed to a computer, but instead of eyes, cameras are used. Moreover, instead of brains, algorithms are used to mathematically compute depth information from the image data. Such a calibrated two-camera system is most often called a \emph{stereo vision system}, or a \emph{3d vision system}.
 
 While humans perceive and estimate object sizes with the help of their previous knowledge of the world and their implicit stereo vision calibration by the brains, a machine vision system utilising two cameras must be carefully calibrated with the help of a calibration target, after which it can quantifiably output metric measures of physical objects. After capturing a pair of images and processing them, it is possible to request a 3d coordinate value for almost any feature found in one of the images. In this way, by selecting two points from the 2d image that span the width of the wanted load object, it is possible to request a 3d vector whose length reports the actual length of the projected load object in the 2d image. Thus, moving from 2d feature projection to a partial 3d feature model is important since the measurement is done using a virtual 3d ruler.
 
 \section{From 2d to 3d}
 \label{section:from_2d_to_3d}
+%Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques}. 
 
-A calibrated two-camera system is most often called a \emph{stereo vision system}, or \emph{3d vision system}. In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery from 2d images using knowledge about the camera setup geometry and the image content.\cite{Sonka07} 
+In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery using knowledge about the camera setup geometry and the imaged content.\cite{Sonka07} 
 
-
-Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques}. 
-
-A three-dimensional object-centered representation is suggested favourable to a pixel-based intensity image representation to improve description of objects. Sonka suggests that this can be achieved in three steps where
+A three-dimensional object-centered representation is suggested favourable to a pixel-based intensity image representation to improve description of objects. It is suggested that this can be achieved in three steps where
 
 \begin{itemize}
 \label{list:objectcenteredmodeling}
@@ -1098,18 +1077,32 @@ A three-dimensional object-centered representation is suggested favourable to a 
 
 \cite{Sonka07}
 
+In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no surface perimeter knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
 
-1. From pixels to surface representation
-2. From surface representation to surface orientation model
-3. From surface orientation model to a full three-dimensional description
 
-2D => primal sketch => 2.5D sketch => full 3D
 
-The primal sketch is an edge image where physical edges are not incurred. The idea is to extract information about physical features of different scales using filtering and second-order zero crossings. First, the original image is filtered with different radii Gaussian filters and after that a Laplacian operator is used to locate second-order zero crossings \cite{Sonka07}. 
 
-The next step constructs the 2.5D image, or a depth map, with bottom-up machine vision techniques. Since bottom-up techniques are used, this step of depth map computing is applicable for all applications and no additional domain-speficic information is needed. 
 
-The final transformation from the depth map to a full three-dimensional object representation is not presented in the thesis. It is also the most difficult transformation as opposed to well-known mechanisms of primal sketch generation and depth map generation. It is 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 No additional domain-specific information is needed since the 
@@ -1370,9 +1363,27 @@ The real-world object projection on the camera image plane is a lossy transforma
 
 Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
+\section{weather}
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
 \subsection{Pinhole Camera Geometry}
 \label{subsection:pinhole_camera_geometry}
+
+
 
 
 A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
