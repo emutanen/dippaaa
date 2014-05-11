@@ -1150,6 +1150,25 @@ where dx and dy are the tangential distortion vectors
 .\par
 The parameter r seen in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is reportedly short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
 
+The output of the calibration procedure will be a camera matrix K that relates the pixel coordinates in the image reference frame to the distorted projections of the actual objects in the camera reference frame. The camera matrix K is defined as
+
+\begin{equation} K =
+\label{eq:camera_matrix_k}
+\Biggl[ \begin{array}{ccc}
+f_x & \alpha_{c}*f_x & pp_x \\
+0 & f_y & pp_y \\
+0 & 0 & 1 \Biggl] \end{array}
+\end{equation}
+
+and it relates the image reference frame and the camera reference frame so that
+
+
+
+
+
+
+
+
 
 \begin{itemize}
 \label{list:intrinsiccameraparameters}
