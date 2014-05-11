@@ -878,7 +878,17 @@ The machine vision cameras include optical systems that control the amount of li
 
 The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
 
+The aperture of the camera is described by a unitless number that is presented as f over a number
 
+\begin{equation}
+\label{eq:lens_aperture}
+f/# = N = \frac{f}{D}
+\end{equation}
+
+where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
+
+
+% angle of view of the lens???
 
 % resolution of the sensor array,
 %camera dynamic range
@@ -1114,7 +1124,7 @@ Intrinsic camera parameters project points in space from camera reference frame 
 \item Distortion coefficients
 \end{itemize}
 
-Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is reported as 
+Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:projection_to_image_plane}
@@ -1122,7 +1132,7 @@ Focal length is a 2x1 vector that reports the linear focal length components for
 &y_p = f_{y}*y_{d}+pp_{y}
 \end{empheq}
 
-The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI work only a 4th order model was used, meaning the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ was kept zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
+The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure  described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper\ref{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:normalised_distortion_corrected_pinhole_projections}
@@ -1138,10 +1148,7 @@ where dx and dy are the tangential distortion vectors
 & dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
 \end{empheq}
 .\par
-The parameter r seen in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is just short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compund lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. 
-
-
-A more in-depth analysis of the effect of the term may be found in the original publication by Brown \ref{Brown}
+The parameter r seen in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is reportedly short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
 
 
 \begin{itemize}
