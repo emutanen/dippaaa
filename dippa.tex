@@ -1094,6 +1094,154 @@ In this thesis the pixel representation of the real scene is processed simply in
 
 
 
+\section{Camera Calibration}
+\label{subsection:camera_calibration}
+%+ Why do we have to calibrate the cameras?
+A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera.  The extrinsic parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation.
+
+\subsubsection{Intrinsic Camera Parameters}
+\label{subsubsection:intrinsic_camera_parameters}
+
+Intrinsic camera parameters project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. The intrinsic parameters are needed to understand the projection model of the actual camera system. There are in total 5 different intrinsic parameters that are 
+
+\begin{itemize}
+\label{list:intrinsic_parameters}
+\setlength{\itemsep}{0pt}
+\item Focal length
+\item Principal point
+\item Skew coefficient
+\item Distortion coefficients
+\end{itemize}
+
+Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane.
+
+
+
+
+
+
+
+
+\begin{itemize}
+\label{list:intrinsiccameraparameters}
+\setlength{\itemsep}{0pt}
+\item -fa = represents scaling in the $u_a$ axis
+\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
+\item -fc = represents scaling in the $v_a$ axis
+\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
+\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
+\end{itemize}
+
+A camera model parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
+
+The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
+
+If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
+
+
+
+
+
+A calibration technique that is unbiased and optimal is ideal. 
+
+Originally, camera calibration algorithms were used in aerial imaging systems.
+
+
+Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
+
++ Intrinsic camera parameters
+
++ Extrinsic camera parameters
+
+
+
+
+
+
+
+
+
+
+
+Calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions.   
+
+% original reference Zhang99
+
+Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
+
+
+\subsubsection{Extrinsic Camera Parameters}
+\label{subsubsection:extrinsic_camera_parameters}
+
+\subsection{Stereo Assumptions}
+\label{subsection:stereo_assumptions}
+
+Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+
+In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+
+A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+
++ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
++ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
++ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
+    + opaque
+    + ideal diffusion
+    + reclefts light energy in all directions
+
+Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
+Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+
+
+
+\subsubsection{Calibration Targets}
+\label{subsubsection:calibration_targets}
+
+Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
+
+\subsubsection{Calibration Errors}
+\label{subsubsection:calibration_errors}
+
++ Focal length estimation errors
+It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
+
++ Tangential distortion
++ Radial distortion (barrel effect)
+It is important to compensate for lens system radial distortions, because they cause vertical disparity on the edges of the image. \ref{Kyto14}
+
++ Chromatic aberration
+
++ Affine distortion (aspect ratio)
+
++ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
+
++ Calibration target location
+
+\subsection{Stereo Camera Pair Calibration}
+\label{subsection:stereo_camera_calibration}
+
+The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
+A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
+
+The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
+
+
+
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
+
++ toed-in or parallel camera setup
+
+The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
+
+A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
+
++ convergence distance of the stereo system optical axes: approx. 264cm
+
+
+
 
 
 
@@ -1124,7 +1272,6 @@ No additional domain-specific information is needed since the
 
 Interesting problems
 + Feature observability in an image
-+ Marr's theory
 + Perspective projection challenges
 
 Bottom-up reconstruction
@@ -1144,8 +1291,8 @@ Space Carving
 +different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 
-\subsection{Stereo Imaging Techniques}
-\label{subsection:stereo_imaging_techniques}
+\section{Stereo Imaging Techniques}
+\label{section:stereo_imaging_techniques}
 
 One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
 
@@ -1256,53 +1403,6 @@ Using only two cameras instead of multiple cameras helps to avoid occlusion of o
 + 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
 
-\subsubsection{Intrinsic Camera Parameters}
-\label{subsubsection:intrinsic_camera_parameters}
-
-A camera model has a multitude of parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
-
-The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
-
-If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
-
-
-
-
-
-A calibration technique that is unbiased and optimal is ideal. 
-
-Originally, camera calibration algorithms were used in aerial imaging systems.
-
-
-Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
-
-+ Intrinsic camera parameters
-
-+ Extrinsic camera parameters
-
-
-\subsubsection{Extrinsic Camera Parameters}
-\label{subsubsection:extrinsic_camera_parameters}
-
-\subsection{Stereo Assumptions}
-\label{subsection:stereo_assumptions}
-
-Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
-
-In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
-
-A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
-
-+ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
-+ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
-+ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    + opaque
-    + ideal diffusion
-    + reclefts light energy in all directions
-
-Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
-Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
 
 \subsection{Stereo Errors}
 \label{subsection:stereo_errors}
@@ -1487,71 +1587,13 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 
 Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 
-\subsection{Single Camera Calibration}
-\label{subsection:single_camera_calibration}
-
-% original reference Zhang99
-
-+ Why do we have to calibrate the cameras?
-    + correct distortions
-    + rectify images
-        + Why do have to we rectify images?
-    + improve performance of stereo corresponsdence algorithms
-    
-+ How do we calibrate a camera?
-    + Air-glass interfaces in the lens system
-
-Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-\subsubsection{Calibration Targets}
-\label{subsubsection:calibration_targets}
-
-Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
-
-\subsubsection{Calibration Errors}
-\label{subsubsection:calibration_errors}
-
-+ Focal length estimation errors
-It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
-
-+ Tangential distortion
-+ Radial distortion (barrel effect)
-It is important to compensate for lens system radial distortions, because they cause vertical disparity on the edges of the image. \ref{Kyto14}
-
-+ Chromatic aberration
-
-+ Affine distortion (aspect ratio)
-
-+ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
-
-+ Calibration target location
-
-\subsection{Stereo Camera Pair Calibration}
-\label{subsection:stereo_camera_calibration}
-
-The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
-A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
-
-The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
-
-
-
-The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
-%what is negative disparity? => in front of the screen => does this matter in a measurement system
-
-+ toed-in or parallel camera setup
-
-The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
-
-A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
-
-+ convergence distance of the stereo system optical axes: approx. 264cm
-
-
-
 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
+
+    + rectify images
+        + Why do have to we rectify images?
+    + improve performance of stereo corresponsdence algorithms
 
 It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
 In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
@@ -1764,17 +1806,7 @@ K = \Biggl[ \begin{array}{ccc}
 
 We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
 
-Let us list the 5 intrinsic camera parameters in detail. The 5 intrinsic parameters and their associated coefficients of matrix K are 
 
-\begin{itemize}
-\label{list:intrinsiccameraparameters}
-\setlength{\itemsep}{0pt}
-\item -fa = represents scaling in the $u_a$ axis
-\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
-\item -fc = represents scaling in the $v_a$ axis
-\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
-\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
-\end{itemize}
 
 All the units are given in pixels.
 
