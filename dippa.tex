@@ -1068,7 +1068,7 @@ While humans perceive and estimate object sizes with the help of their previous 
 
 In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimisation problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery using knowledge about the camera setup geometry and the imaged content\cite{Sonka07}. 
 
-In this thesis, the machine vision system primarily solves the 3d scene reconstruction problem. Some object properties are computed in the implemented prototype software, and minimisation problems are not encountered. The object-centered 3d representation of the load objecta and other objects is based on Marr's theory, but the implementation only loosely follows his framework. 
+In this thesis, the machine vision system primarily solves the 3d scene reconstruction problem. Some object properties are computed in the implemented prototype software, and minimisation problems are not encountered. The object-centered 3d representation of the load objects and other objects is based on Marr's theory, but the implementation only loosely follows his framework. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1078,7 +1078,7 @@ In this thesis, the machine vision system primarily solves the 3d scene reconstr
   \end{center}
 \end{figure}
 
-According to Marr's theory machine vision systems should achieve a better understanding of the visual system in general, and not just create another vision application suited for a single specific purpose. For example, a three-dimensional object-centered representation is suggested favourable to a pixel-based intensity image representation to improve description of objects. It is suggested that this transformation from intensity-based, viewer-centered description to the feature model based, object-centered description can be achieved in three steps that follow Marr's representational framework shown in Figure \ref{fig:marrs_framework}.
+According to Marr's theory machine vision systems should aim for a better understanding of the visualised environments in general, and not just aim to create another vision application suited for a single specific purpose. For example, to improve description of objects, a three-dimensional object-centered representation is suggested favourable to a pixel-based intensity image representation. It is suggested that this transformation from intensity-based, viewer-centered description to the feature model based, object-centered description can be achieved in three steps that follow Marr's representational framework shown in Figure \ref{fig:marrs_framework}.
 
 \begin{itemize}
 \label{list:objectcenteredmodeling}
@@ -1090,7 +1090,7 @@ According to Marr's theory machine vision systems should achieve a better unders
 
 \cite{Sonka07}
 
-In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no surface perimeter knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
+In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no separate object surface knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
 
 
 
