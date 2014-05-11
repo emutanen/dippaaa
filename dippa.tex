@@ -1117,15 +1117,31 @@ Intrinsic camera parameters project points in space from camera reference frame 
 Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is reported as 
 
 \begin{empheq}[left=\empheqlbrace]{align}
-&x_p = f_{x}\Big(x_{d}(1)+\alpha_{c}*x_{d}(2)\Big)+pp_{x} \\
-&y_p = f_{y}x_{d}(2)+pp_{y}
+\label{eq:projection_to_image_plane}
+&x_p = f_{x}\Big(x_{d}+\alpha_{c}*y_{d}\Big)+pp_{x} \\
+&y_p = f_{y}*y_{d}+pp_{y}
 \end{empheq}
 
-The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure described in \ref{Heikkila97}.
+The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI work only a 4th order model was used, meaning the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ was kept zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
+
+\begin{empheq}[left=\empheqlbrace]{align}
+\label{eq:normalised_distortion_corrected_pinhole_projections}
+&x_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dx
+&y_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dy
+\begin{empheq}
+
+where dx and dy are the tangential distortion vectors
+
+\begin{empheq}[left=\empheqlbrace]{align}
+\label{eq:tangential_distortion_vectors}
+& dx = 2kc_{3}xy+kc_{4}\Big(r^2 + 2x^2\Big)
+& dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
+\end{empheq}
+.\par
+The parameter r seen in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is just short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compund lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. 
 
 
-
-
+A more in-depth analysis of the effect of the term may be found in the original publication by Brown \ref{Brown}
 
 
 \begin{itemize}
