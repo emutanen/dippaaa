@@ -737,13 +737,13 @@ The first step in implementing a collision avoidance technology is to provide so
  
 \section{Applications}
 
-Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. The use of machine vision brings the speed of the computer to many errands that are impossible or dangerous for a human to do, for example 
+Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
+
+If applications of machine vision are strictly limited to overhead cranes, some earlier research may be found and studied. For example, crane control was researched by Peng and Singhose using top-down cameras and a wand controllerin 2009. They used cameras to locate the wand controller and the crane hook with help of reflective materials, and reported that the system greatly increased the operating efficiency of the crane\ref{Peng09}. They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions in their applications.
 
 
 quality control in high speed manufacturing processes e.g. quality control of a multi-layer web forming in a paper factory. Machine vision is extensively used in packaging industry
 
-
-Machine vision has been used in the overhead crane environment in some earlier research. For example, crane control was researched by Peng and Singhose using top-down cameras and a wand controller. They used the cameras to locate the wand controller, and the crane hook with help of reflective materials, and reported that the system greatly increased the operating efficiency of the crane\ref{Peng09}. They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions.
 
 
 
@@ -864,13 +864,22 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 \subsection{Stereo Cameras}
 \label{subsection:stereo_cameras}
 
-\subsubsection{Photometrics}
-\label{subsubsection:photometrics}
+\subsubsection{Optics and Photometrics}
+\label{subsubsection:optics_and_photometrics}
 
-\ref{teledyne_whitepaper}
+% todo add teledyne white paper to optics
+%\ref{teledyne_whitepaper}
+
+The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal lenght, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
+
+The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
 
 
-The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus alike. For a stereo camera depth measurement system, small DOFs, or extended DOFs are used to fully visualize a deep range of a scene in sharp detail. Diffraction limits the size of aperture, and small DOF images may suffer from high variance noise effects and low light conditions.
+
+% resolution of the sensor array,
+%camera dynamic range
+%electromagnetic spectrum range 
+
 
 Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
 Irradiance is a measure of power of light cast on a unit surface are of an object.
