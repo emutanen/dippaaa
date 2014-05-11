@@ -1108,12 +1108,16 @@ In this thesis the pixel representation of the real scene is processed simply in
 \section{Camera Calibration}
 \label{subsection:camera_calibration}
 %+ Why do we have to calibrate the cameras?
-A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera.  The extrinsic parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation.
+Camera calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
 
-\subsubsection{Intrinsic Camera Parameters}
-\label{subsubsection:intrinsic_camera_parameters}
+A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera. Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
 
-Intrinsic camera parameters project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. The intrinsic parameters are needed to understand the projection model of the actual camera system. There are in total 5 different intrinsic parameters that are 
+Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
+
+\subsection{Intrinsic Camera Parameters}
+\label{subsection:intrinsic_camera_parameters}
+
+Intrinsic camera parameters are used to project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. An understanding of each intrinsic parameter is needed to be able to understand the projection model of the actual camera system. There are in total 4 different intrinsic parameters that are 
 
 \begin{itemize}
 \label{list:intrinsic_parameters}
@@ -1148,7 +1152,7 @@ where dx and dy are the tangential distortion vectors
 & dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
 \end{empheq}
 .\par
-The parameter r seen in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is reportedly short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
+The parameter $r$ in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
 
 The output of the calibration procedure will be a camera matrix K that relates the pixel coordinates in the image reference frame to the distorted projections of the actual objects in the camera reference frame. The camera matrix K is defined as
 
@@ -1160,7 +1164,7 @@ f_x & \alpha_{c}*f_x & pp_x \\
 0 & 0 & 1\end{bmatrix}
 \end{equation}
 
-and it relates the image reference frame and the camera reference frame so that
+where $\alpha_{c}*f_x$ is the skew coefficent stating the angle between the u and v pixel axes. K matrix relates the image reference frame and the camera reference frame so that
 
 \begin{equation}
 \label{eq:image_ref_frame_relation_to_camera_ref_frame}
@@ -1172,63 +1176,22 @@ x_{d} \\
 y_{d}\end{bmatrix}
 \end{equation}
 
+Modern cameras do not have all the distortion properties that older cameras had, and some coefficients, such as the skew coefficient (suggesting rectangular pixels), and tangential distortion are normally defaulted to zero. For example, it is not recommended to use the 6th order distortion model for normal field of view cameras, but instead a 4th order polynomial should be used \ref{BouguetRef}. In most cases the principal point of the camera is located in the center of the sensor array, and its estimation is not recommended because it is difficult to estimate correctly.  
+% number of calibration images available affect the selection distortion models
+The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} contain the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the image plane \cite{Sonka07}. If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.  
 
+\subsection{Extrinsic Camera Parameters}
+\label{subsection:extrinsic_camera_parameters}
 
+The extrinsic camera parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation. Basically, the knowledge of the extrinsic parameters is equivalent to knowing the relative positions of 3d points. This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
+    If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
+    
+    %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
 
+\section{Metricity Requirements}
+\label{section:metricity_requirements}
 
-
-
-\begin{itemize}
-\label{list:intrinsiccameraparameters}
-\setlength{\itemsep}{0pt}
-\item -fa = represents scaling in the $u_a$ axis
-\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
-\item -fc = represents scaling in the $v_a$ axis
-\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
-\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
-\end{itemize}
-
-A camera model parameters whose amount depend on the selected camera and lens distortion models, and the number of calibration images used.
-
-The camera model has internal parameters that are called the intrinsic camera parameters. The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} are the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the scene on the image plane $\pi$ \cite{Sonka07}.
-
-If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.
-
-
-
-
-
-A calibration technique that is unbiased and optimal is ideal. 
-
-Originally, camera calibration algorithms were used in aerial imaging systems.
-
-
-Many fast but inaccurate algortihms for parameter estimation have been introduced earlier. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are accurate. Heikkilä \cite{Heikkila00} claims that a subpixel accuracy of 1/50 of a pixel can be realistically achieved with a modern CCD imaging cell if such non-linear calibration is used.
-
-+ Intrinsic camera parameters
-
-+ Extrinsic camera parameters
-
-
-
-
-
-
-
-
-
-
-
-Calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions.   
-
-% original reference Zhang99
-
-Calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-
-
-\subsubsection{Extrinsic Camera Parameters}
-\label{subsubsection:extrinsic_camera_parameters}
+An easy method of calibrating a reconstructed 3d scene is to know the relative positions of 5 or more points in the environment. The metric coordinates of the 5 beacons must be known so that the projectively reconstructed world points $S_b$ may be transformed from projective model to a metric model. The metric model can be further transformed into an Euclidean 3d model with some additional constraints, e.g. orthogonality and parallelism constraints on spatial structures. For example bundle adjustment techniques are suited well for estimating the correct transform that upgrades the projected model to a metric or Euclidean model via global minimisation of the reprojection error \ref{Pollefeys04}. Global minimisation techniques may not find the global minimum easily without heuristics, and the field of global minimum search is a vast research area in its own, thus, it will not be elaborated more.
 
 \subsection{Stereo Assumptions}
 \label{subsection:stereo_assumptions}
@@ -1548,7 +1511,15 @@ Colored markers are sensitive to natural light in outdoor environments \cite{Kaw
 \subsection{Pinhole Camera Geometry}
 \label{subsection:pinhole_camera_geometry}
 
-
+\begin{itemize}
+\label{list:intrinsiccameraparameters}
+\setlength{\itemsep}{0pt}
+\item -fa = represents scaling in the $u_a$ axis
+\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
+\item -fc = represents scaling in the $v_a$ axis
+\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
+\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
+\end{itemize}
 
 
 A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
