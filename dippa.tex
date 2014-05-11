@@ -870,6 +870,9 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 % todo add teledyne white paper to optics
 %\ref{teledyne_whitepaper}
 
+Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
+% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
+
 The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
 
 The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
@@ -1063,7 +1066,9 @@ While humans perceive and estimate object sizes with the help of their previous 
 \label{section:from_2d_to_3d}
 %Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques}. 
 
-In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimization problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery using knowledge about the camera setup geometry and the imaged content\cite{Sonka07}.
+In general, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, and minimisation problems depending on the scientific application at hand. Often a stereo camera setup is used to solve the problem of 3d information recovery using knowledge about the camera setup geometry and the imaged content\cite{Sonka07}. 
+
+In this thesis, the machine vision system primarily solves the 3d scene reconstruction problem. Some object properties are computed in the implemented prototype software, and minimisation problems are not encountered. The object-centered 3d representation of the load objecta and other objects is based on Marr's theory, but the implementation only loosely follows his framework. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1087,7 +1092,7 @@ According to Marr's theory machine vision systems should achieve a better unders
 
 In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no surface perimeter knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
 
-It is further good to acknowledge the other factors that 
+
 
 
 
