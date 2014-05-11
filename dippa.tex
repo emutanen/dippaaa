@@ -735,7 +735,23 @@ From a technical point of view, a perfect tracking of a load object in space and
 % how to implement collision detection
 The first step in implementing a collision avoidance technology is to provide some metric model of the environment, and of all the objects in it. A machine vision system can be used for environment modeling in general, and this thesis  later introduces load object modeling with machine vision techniques. Further design of such a system should be done  after an understanding of how the environment can be modeled to support a collision detection technique. New overhead crane systems do not currently have any collision detection features, but optimized route planning could become a standard feature in the future.
  
-\section{Perception Platform Applications}
+\section{Applications}
+
+Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. The use of machine vision brings the speed of the computer to many errands that are impossible or dangerous for a human to do, for example 
+
+
+quality control in high speed manufacturing processes e.g. quality control of a multi-layer web forming in a paper factory. Machine vision is extensively used in packaging industry
+
+
+Machine vision has been used in the overhead crane environment in some earlier research. For example, crane control was researched by Peng and Singhose using top-down cameras and a wand controller. They used the cameras to locate the wand controller, and the crane hook with help of reflective materials, and reported that the system greatly increased the operating efficiency of the crane\ref{Peng09}. They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions.
+
+
+
+
+
+Previously, machine vision has been  in the overhead crane environment for improved trajectory control using wand controller. 
+
+\ref{}
 
 A machine vision perception platform includes a stereo camera setup that is used to measure object dimensions in the crane working area. The installed cameras can be used for other purposes, too. For example, security camera surveillance can detect trespassers when the factory is shut down. 
 
@@ -758,7 +774,37 @@ The biggest non-safety related features are the optimized route planning (using 
  
  Some other properties can be e.g. warehouse surveillance, operations tracking, quality control etc.
  
+% person lifter
 
+
+%+ Environment sensing is needed for robotization of spaces
+%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
+
+% stereoscopic teleoperation
+
+%Teoriaa ja teknologioita. Pituus noin 20 sivua.
+%Applications that can benefit from accurate positioning and tracking of a load object
+
+%\section{Existing Positioning And Tracking Applications}
+%\label{section:existing_positioning_and_tracking_applications}}
+
+%\section{Safety Applications}
+%\label{section:safety_applications}
+
+%Traditional and new safety applications can utilize load positioning information for added functionality.
+
+%A traditional safety application stops the crane process if a human is detected in a dangerous work zone \cite{Raula11}. Alternatively, an adaptive safety scheme can be utilised to restrict the operation range of the crane, but not halt it. If we are able to reliably detect a location for the moving load
+
+%The work area of the crane can be modelled with state-of-the-art sensing of the environment enabling for example pre-collision avoidance.
+
+%Adaptive safety techniques can be realised with the improved
+
+%\section{Mapping Applications}
+%\label{section:mapping_applications}
+% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
+
+%\section{Selected Use Cases}
+%\label{section:selected_use_cases}
  
 \section{Overhead Cranes}
 \label{section:overhead_cranes}
@@ -793,38 +839,6 @@ Many research efforts report using laser range finders for 3d environment modeli
 
 An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system. Currently, to the knowledge of the author, there are no commercially available systems that can provide a real-time description of an environment that integrates to a crane programmable logic controller (PLC), but it is a grand vision to start out with. The first step in realising such a system is to provide a measurement or a simple model of the load object and start aggregating other descriptions of the environment on top of it. To start with, this thesis uses a perception sensor platform solution that provides geometry knowledge of the process crane working area, and an external computer that generates the best possible geometry description of the load object for the use of the crane PLC computer. 
 
-% person lifter
-
-%Industry applications for machine vision systems can be found from very different fields ranging from space exploration to agriculture, and from mobile robotics to quality control on a manufacturing site. The use of machine vision brings the speed of the computer to many errands that are dangerous or impossible for a human to do, for example quality control in high speed manufacturing line processes in a paper factory, or  
-%+ Environment sensing is needed for robotization of spaces
-%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
-
-% stereoscopic teleoperation
-
-%Teoriaa ja teknologioita. Pituus noin 20 sivua.
-%Applications that can benefit from accurate positioning and tracking of a load object
-
-%\section{Existing Positioning And Tracking Applications}
-%\label{section:existing_positioning_and_tracking_applications}}
-
-%\section{Safety Applications}
-%\label{section:safety_applications}
-
-%Traditional and new safety applications can utilize load positioning information for added functionality.
-
-%A traditional safety application stops the crane process if a human is detected in a dangerous work zone \cite{Raula11}. Alternatively, an adaptive safety scheme can be utilised to restrict the operation range of the crane, but not halt it. If we are able to reliably detect a location for the moving load
-
-%The work area of the crane can be modelled with state-of-the-art sensing of the environment enabling for example pre-collision avoidance.
-
-%Adaptive safety techniques can be realised with the improved
-
-%\section{Mapping Applications}
-%\label{section:mapping_applications}
-% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
-
-%\section{Selected Use Cases}
-%\label{section:selected_use_cases}
-
 \chapter{Perception Sensors And Model Acquisition}
 \label{chapter:perception_sensors_and_model_acquisition}
 
@@ -852,6 +866,9 @@ According to other research, the Kinect sensor cannot observe items cast in dire
 
 \subsubsection{Photometrics}
 \label{subsubsection:photometrics}
+
+\ref{teledyne_whitepaper}
+
 
 The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus alike. For a stereo camera depth measurement system, small DOFs, or extended DOFs are used to fully visualize a deep range of a scene in sharp detail. Diffraction limits the size of aperture, and small DOF images may suffer from high variance noise effects and low light conditions.
 
