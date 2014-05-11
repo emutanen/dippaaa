@@ -1117,7 +1117,7 @@ Intrinsic camera parameters project points in space from camera reference frame 
 Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
 
 \begin{empheq}[left=\empheqlbrace]{align}
-&x_p = f_{x}\Big(x_{d}(1)+\alpha_{c}*x_{d}(2)\Big)+pp_{x}
+&x_p = f_{x}\Big(x_{d}(1)+\alpha_{c}*x_{d}(2)\Big)+pp_{x} \\
 &y_p = f_{y}x_{d}(2)+pp_{y}
 \end{empheq}
 
