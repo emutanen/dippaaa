@@ -1154,20 +1154,20 @@ The output of the calibration procedure will be a camera matrix K that relates t
 
 \begin{equation} K =
 \label{eq:camera_matrix_k}
-\Biggl[ \begin{array}{ccc}
+\begin{bmatrix}
 f_x & \alpha_{c}*f_x & pp_x \\
 0 & f_y & pp_y \\
-0 & 0 & 1 \Biggl] \end{array}
+0 & 0 & 1\end{bmatrix}
 \end{equation}
 
 and it relates the image reference frame and the camera reference frame so that
 
 \begin{equation}
 \label{eq:image_ref_frame_relation_to_camera_ref_frame}
-\begin{bmatrix}[c]
+\begin{bmatrix}
 x_p \\
 y_p \\
-1\end{bmatrix}=K\begin{bmatrix}[c]
+1\end{bmatrix}=K\begin{bmatrix}
 x_{d} \\
 y_{d}\end{bmatrix}
 \end{equation}
