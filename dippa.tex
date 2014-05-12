@@ -1173,7 +1173,8 @@ x_p \\
 y_p \\
 1\end{bmatrix}=K\begin{bmatrix}
 x_{d} \\
-y_{d}\end{bmatrix}
+y_{d} \\
+1\end{bmatrix}
 \end{equation}
 
 Modern cameras do not have all the distortion properties that older cameras had, and some coefficients, such as the skew coefficient (suggesting rectangular pixels), and tangential distortion are normally defaulted to zero. For example, it is not recommended to use the 6th order distortion model for normal field of view cameras, but instead a 4th order polynomial should be used \ref{BouguetRef}. In most cases the principal point of the camera is located in the center of the sensor array, and its estimation is not recommended because it is difficult to estimate correctly.  
