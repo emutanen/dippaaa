@@ -906,22 +906,8 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 
 %weather conditions
     
-\subsection{Lidars And Radars And Sonars}
-\label{subsection:lidars_and_radars_and_sonars}
 
-Automotive radar is a millimeter wavelength radar that can measure ground properties or obstacles in front of a robot or a vehicle. It can measure environmental properties in the range of 1 to 120 meters \cite{Ahtiainen12}.
 
-The advantages that the automotive radar has are weather-independent operation, and direct acquisition of range and velocity measurements \cite{Wenger07}.
-
-The challenges that automotive radar introduces are measurement accuracy in resolution, and electromagnetic emissions on other radio frequencies \cite{Wenger07}. 
-
-The automotive radar operates on a wide band of 5GHz to achieve a resolution of 5 cm \cite{Wenger07}.
-
-In Europe the bands that are reserved for automotive radar operation in traffic applications are approximately 21 GHz to 27 GHz and 77 GHz to 81 GHz \cite{Wenger07}.
-
-A world-wide harmonized channel allocation system for radar widebands has been proposed, but also considered very difficult to achieve due to national regulations \cite{Wenger07}.
-
-Radar is not very widely used for machine perception due to low resolution and high cost. Instead, a stereo camera is often used. Still, automotive radar is an interesting add-on because of its capability of operation in adverse weathe, for example fog. 
 
 
 \section{3d Scene Representations}
@@ -2010,6 +1996,8 @@ HIMMELI sensor platform provides means for creating digital models of the enviro
 The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to the LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation e.g. laser in the environment. Laser scanning can be used to verify the performance of the machine vision system, thus, HIMMELI was a natural choice for perception sensing since it does pack both passive and active ranging technologies.
 
 The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything,  so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
+
+The automotive radar installed in HIMMELI cannot be used to model the environment because of its low accuracy. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so some applications for the radar can be found in outdoor environments e.g. in seaport container crane measurement. A radar can measure environmental properties in the range of 1 to 120 meters, and up to a maximum accuracy of 5 cm on 5GHz bands. \cite{Ahtiainen12}.
 
 %\begin{figure}[ht]
 %  \begin{center}
