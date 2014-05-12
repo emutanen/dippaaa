@@ -2003,14 +2003,11 @@ The cascade of classifiers can be constructed to enable feature scaling and scal
 \section{HIMMELI Sensor Platform}
 \label{section:himmeli_sensor_platform}
 
+HIMMELI sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. HIMMELI sensor platform was used as the perception platform for the work done in this thesis.
 
-HIMMELI sensor platform is a modular sensor rig that was created in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors.
+HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
 
-With installed stereo cameras, HIMMELI sensor platform provides means for creating a digital model of the environment, including the model of the crane load that we wish to measure. This is done using stereo imaging that outputs a range image of the crane working area. The area that the rig can model depends on the tilt of the cameras used, distance from the working area, and many other parameters. 
-
-Two main reasons for choosing machine vision as the medium were the limitations of the crane environment instrumentation possibilities, and the cost-effectiveness of a camera system. With HIMMELI, we have the option to use laser scanning, too, so it was a natural choice as a camera platform for testing and evaluation. 
-
-%The very first problem we had was that the boom in the forestry crane cannot be sensorised. Or so the John Deere representatives say. %The sensor life-time expectancy is low in the vibrating environment, and the space for installing any sensors is very limited.
+The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to the LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive traingulation technique that does not send electromagnetic radiation e.g. laser in the environment. Laser scanning can be used to verify the performance of the machine vision system, thus, HIMMELI was a natural choice for perception sensing since it does pack both passive and active ranging technologies.
 
 The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything,  so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
 
