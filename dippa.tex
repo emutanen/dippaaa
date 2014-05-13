@@ -1983,7 +1983,7 @@ Himmeli sensor platform is a modular sensor rig that was engineered in Aalto uni
   \end{center}
 \end{figure}
 
-The Himmeli platform includes three modules that can be used separately or together. Namely they are the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. Since most overhead cranes have little available space to install anything, only the sensor module was used and installed during overhead crane testing sessions. The largest frame on the backside of the rig is the computation unit including two PC computers and a control cabinet. In front, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU).
+The Himmeli platform includes three modules who are namely the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. 
 
 The automotive radar installed in Himmeli was not used to model the environment because of its low accuracy of 5 cm to 1 m depending on band used\ref{Ahtiainen12}. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances.
 
@@ -2007,6 +2007,14 @@ The camera CMOS mono sensor is manufactured by NIT and has a pixel size of 10 $\
 \end{figure}
 
 
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli.pdf}
+    \caption{Himmeli platform perception sensor schematic\ref{Terho10}.}
+    \label{fig:himmeli}
+  \end{center}
+\end{figure}
+
 \subsection{Installation}
 \label{subsection:installation}
 
@@ -2015,7 +2023,7 @@ The Himmeli platform was installed in two different test environments as describ
 \subsubsection{Overhead Crane Installation}
 \label{subsubsection:overhead_crane_installation}
 
-In the overhead crane environment the Himmeli perception platform was installed modularly so that the sensor module was installed in the overhead crane, and the computation module was used at the operator balcony of the process hall.  For the sensor module, two installation options were available: first option was to install the sensor module to a moving trolley, and the second option was to install the sensor module to the side of the bridge. 
+In the overhead crane environment the Himmeli perception platform was installed modularly so that the sensor module was installed in the overhead crane, and the computation module was used at the operator balcony of the process hall. Since most overhead cranes have little available space to install anything, only the sensor module was installed in the overhead test crane. For the sensor module, two installation options were available: first option was to install the sensor module to a moving trolley, and the second option was to install the sensor module to the side of the bridge. 
 
 In the first installation option the sensor module was attached directly to the moving crane trolley housing so that the camera units were facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor, see figure \ref{fig:himmeli_installation_option_1}. 
 %In option 1 the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (Y axis of the warehouse coordinate system).
@@ -2035,7 +2043,7 @@ The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptibl
 \subsection{Computation Module}
 \label{subsection:computation_module}
 
-The Himmeli platform computation module includes different components that control the power and the data flow of the perception platform. The main components are the integrated PC computers. The other PC controls the camera software that runs in a Windows 7 operating system, and the other runs all the image processing tasks using Robot Operating System in a Linux distribution. The platform runs on 230 volts AC power with an option for 24 volts DC operation. 
+The Himmeli platform computation module includes different components that control the power and the data flow of the perception platform. The integrated computers run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. There is also a Linux distribution PC that runs the sensor fusion software for the captured images. The computing module can be remotely operated via a wireless local area network.
 
 %\begin{itemize}
 % item separation length in a list
@@ -2067,19 +2075,9 @@ The Himmeli platform computation module includes different components that contr
 %\end{tabular} % for really simple tables, you can just use tabular
 %\end{table} % table makes a floating object with a title
 
-The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
-
 The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
 
-The stereo camera setup installed on the rig has two HDR cameras.
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{himmeli.pdf}
-    \caption{HIMMELI Sensor Platform Schematic.}
-    \label{fig:himmeli}
-  \end{center}
-\end{figure}
 
 \subsection{Camera Platform Installations}
 \label{section:platform_installations}
