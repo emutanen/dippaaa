@@ -1971,8 +1971,11 @@ Machine learning techniques can be used in tracking objects from 2d images. A co
 \section{Perception Sensor Platform \emph{Himmeli}}
 \label{section:perception_sensor_platform_himmeli}
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
+The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
 
-Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. %todo reference from Sami
+
+Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit.
+%todo reference from Sami
 
 \begin{figure}[ht]
   \begin{center}
@@ -1982,7 +1985,7 @@ Himmeli sensor platform is a modular sensor rig that was engineered in Aalto uni
   \end{center}
 \end{figure}
 
-The Himmeli platform includes three modules that can be used separately or together. Namely they are the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. Since most overhead cranes have little available space to install anything, only the sensor module was used and installed during overhead crane testing sessions. The largest frame on the backside of the rig is the computation unit including two PC computers and a control cabinet. In front, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, and an automotive ultrasound RADAR.
+The Himmeli platform includes three modules that can be used separately or together. Namely they are the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. Since most overhead cranes have little available space to install anything, only the sensor module was used and installed during overhead crane testing sessions. The largest frame on the backside of the rig is the computation unit including two PC computers and a control cabinet. In front, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU).
 
 The automotive radar installed in Himmeli was not used to model the environment because of its low accuracy of 5 cm to 1 m depending on band used\ref{Ahtiainen12}. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances.
 
@@ -2071,42 +2074,36 @@ is currently readily available for recording stero image data, and is located in
 
 
 
-The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
 
-HIMMELI includes
-
-\begin{itemize}
+%\begin{itemize}
 % item separation length in a list
-\setlength{\itemsep}{0pt}
-\item HDR stereo camera pair
-\item High resolution camera
-\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
-\item Infrared (IR) camera
-\item Automotive radar
-\end{itemize}
-
-Additionally, an IR light source and LED flash are included.
-
-\begin{table}
-\caption{Device and its connector type in HIMMELI sensor rig.}
-\label{table:connectortypes} %lable just after caption
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline % The line on top of the table
-\textbf{Device} & \textbf{Connector Type} \\
-\hline
-High dynamic range camera & Gigabit Ethernet \\
-\hline
-High resolution camera & IEEE 1394b (FireWire) \\
-\hline
-Automotive radar & CAN bus \\
-\hline
-Thermal camera & CVBS (PAL) or serial bus \\
-\hline
-LIDAR laser scanner & LIDAR \\
-\hline
-GNSS receiver & Serial bus 1 \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
+%\setlength{\itemsep}{0pt}
+%\item HDR stereo camera pair
+%\item High resolution camera
+%\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
+%\item Infrared (IR) camera
+%\item Automotive radar
+%\end{itemize}
+%\begin{table}
+%\caption{Device and its connector type in HIMMELI sensor rig.}
+%\label{table:connectortypes} %lable just after caption
+%\begin{tabular}{|p{6cm}|p{5cm}|}
+%\hline % The line on top of the table
+%\textbf{Device} & \textbf{Connector Type} \\
+%\hline
+%High dynamic range camera & Gigabit Ethernet \\
+%\hline
+%High resolution camera & IEEE 1394b (FireWire) \\
+%\hline
+%Automotive radar & CAN bus \\
+%\hline
+%Thermal camera & CVBS (PAL) or serial bus \\
+%\hline
+%LIDAR laser scanner & LIDAR \\
+%\hline
+%GNSS receiver & Serial bus 1 \\ \hline
+%\end{tabular} % for really simple tables, you can just use tabular
+%\end{table} % table makes a floating object with a title
 
 The rig has computing capability with an embedded Linux PC that is mainly used for data routing and sensor fusion. The rig can be remotely operated via a WLAN network.
 
