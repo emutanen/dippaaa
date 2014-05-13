@@ -1974,25 +1974,20 @@ Machine learning techniques can be used in tracking objects from 2d images. A co
 
 Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. %todo reference from Sami
 
-The Himmeli platform includes three modules that can be used separately or together. Namely they are the sensor module, a computation module, and the infrared light source module. Most overhead cranes have little available space to install anything, so only the sensor module was installed in the overhead crane. The largest frame on the backside of the rig is the computation unit visible in Figure \ref{fig:himmeli_platform}, including two PC computers and a control cabinet. In front, the sensor module includes a high definition stereo camera pair, a single high definition camera, a thermal imaging camera, and an automotive ultrasound RADAR.
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli.JPG}
+    \caption{HIMMELI sensor platform prepared for measurement session.}
+    \label{fig:himmelifull}
+  \end{center}
+\end{figure}
 
-The automotive radar installed in HIMMELI cannot be used to model the environment because of its low accuracy. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so some applications for the radar can be found in outdoor environments e.g. in seaport container crane measurement. A radar can measure environmental properties in the range of 1 to 120 meters, and up to a maximum accuracy of 5 cm on 5GHz bands. \cite{Ahtiainen12}.
+The Himmeli platform includes three modules that can be used separately or together. Namely they are the sensor module, a computation module, and an infrared light source module. Since most overhead cranes have little available space to install anything, only the sensor module was used and installed during testing sessions. The largest frame on the backside of the rig is the computation unit visible in Figure \ref{fig:himmeli_platform}, including two PC computers and a control cabinet. In front, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, and an automotive ultrasound RADAR.
+
+The automotive radar installed in Himmeli cannot be used to model the environment because of its low accuracy. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances. A radar can measure environmental properties in the range of 1 to 120 meters, and up to a maximum accuracy of 5 cm on 5GHz bands. \cite{Ahtiainen12}.
 
 \subsection{Installation}
 \label{subsection:installation}
-
-
-
-
-
-
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=\textwidth]{himmeli.JPG}
-%    \caption{HIMMELI sensor platform prepared for measurement session.}
-%    \label{fig:himmelifull}
-%  \end{center}
-%\end{figure}
 
 The HIMMELI platform was installed in two different test environments as described in the use cases. 
 
