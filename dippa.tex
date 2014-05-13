@@ -2022,9 +2022,17 @@ The Himmeli platform was installed in two different test environments as describ
 \subsubsection{Overhead Crane Installation}
 \label{subsubsection:overhead_crane_installation}
 
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{himmeli_installation_12.jpg}
+   \caption{The Himmeli sensor module installation in the overhead crane trolley in a test session.}
+    \label{fig:himmeli_installation_option_1}
+ \end{center}
+\end{figure}
+
 In the overhead crane environment the Himmeli perception platform was installed modularly so that the sensor module was installed in the overhead crane, and the computation module was used at the operator balcony of the process hall. Since most overhead cranes have little available space to install anything, only the sensor module was installed in the overhead test crane. Two installation options were available for the sensor module: first option was to install the sensor module to a moving trolley, and the second option was to install the sensor module to the side of the bridge. 
 
-In the first installation option the sensor module was attached directly to the moving crane trolley housing so that the camera units were facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor, see figure \ref{fig:himmeli_installation_option_1}. 
+In the first installation option the sensor module was attached directly to the moving crane trolley housing so that the camera units were facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor as seen in figure \ref{fig:himmeli_installation_option_1}. 
 %In option 1 the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (Y axis of the warehouse coordinate system).
 
 In the second installation option the sensor module was attached to the side of the moving bridge using a custom made metal frame. In this installation option the camera units were facing towards the crane working area from side and above in a bird's eye view manner. 
@@ -2033,7 +2041,7 @@ In the second installation option the sensor module was attached to the side of 
 \subsubsection{Forestry Crane Installation}
 \label{subsubsection:forestry_crane_installation}
 
-In the forestry crane environment the installation of the Himmeli platform is even more constrained by spatial limitations. In an actual log picker truck the options would include the operator booth rooftop and the base of the rotary crane boom. In testing situation a ground installed rotary crane boom was used and the Himmeli platform was installed first near the base plate of the rotary crane boom, and then on the rooftop of the operator booth.
+In the forestry crane environment the installation of the Himmeli platform is even more constrained by spatial limitations. In an actual log picker truck the installation location options for the camera module would include the operator booth rooftop and the base of the rotary crane boom. In testing situation a ground installed rotary crane boom was used and the Himmeli platform was installed first near the base plate of the rotary crane boom, and then on the rooftop of the operator booth.
 
 In the first installation option the cameras are facing the working area so that the crane boom is slightly visible when it reaches for logs from above. In the second installation option where the cameras are located on the rooftop of the operator booth the crane boom is fully visible. This is a somewhat occluded viewpoint since the crane boom can be blocking the view of the load object.
 
@@ -2041,14 +2049,6 @@ The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptibl
 
 \subsection{Computation Module}
 \label{subsection:computation_module}
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{himmeli_installation_12.jpg}
-   \caption{The Himmeli sensor module installation in the overhead crane trolley in a test session.}
-    \label{fig:himmeli_installation_12}
- \end{center}
-\end{figure}
 
 The Himmeli platform computation module includes different components that control the power and the data flow of the perception platform. The integrated computers run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. There is also a Linux distribution PC that runs the sensor fusion software for the captured images. The computing module can be remotely operated via a wireless local area network. We do not consider the details of the Himmeli platform except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
 
