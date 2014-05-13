@@ -1964,42 +1964,20 @@ In this use case the crane load shape is considered always cylindrical.
 \subsubsection{End Effector Tracker Integration}
 \label{subsubsection:end_effector_tracker_integration}
 
-Haar training is an object detection system that can detect features in a digital image. The first suggestion of using Haar training for feature detection was by Viola et al in 
+Machine learning techniques can be used in tracking objects from 2d images. A common machine learning technique for facial detection in images is Haar training that can be utilised for other purposes, too, for example end effector detection. Haar training was originally introduced by Viola et al., and improved by other researchers with additional ... features. Haar training uses boosting algorithms, which are adaptive parameter learning algorithms. A basic cascade classifier cannot detect scaling of images, but a cascade of classifiers can be constructed that detects features scale-invariably. A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade. Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages \ref{Lienhart03}.
 
-
-There are a number of different boosting algorithms available, 
-+ Discrete Adaboost
-+ Gentle Adaboost 
-+ Real Adaboost
-
-All the mentioned boosting algorithms are identical in classification sense, but they differ in their parameter learning algorithms \cite{Lienhart03}.
-
-A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade.
-
-
-Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages.
-
-\formula{false_alarm_rate}
-
-The cascade of classifiers can be constructed to enable feature scaling and scale-invariant detection. If the test image is re-scaled, the computation still works in constant time since a look-up table can be scaled accordingly and used in the computation. The downside of feature scaling is the loss of accuracy due integer rounding. The algorithm is sensitive to rounding errors and the result can vary severely.
-
-
-+ 20 stages used in \cite{Lienhart03}
-
-\section{HIMMELI Sensor Platform}
+\section{Himmeli Sensor Platform}
 \label{section:himmeli_sensor_platform}
 
-HIMMELI sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. HIMMELI sensor platform was used as the perception platform for the implementation work done in this thesis. %todo reference from Sami
+Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. %todo reference from Sami
 
-The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to the LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation e.g. laser in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct.  
-
-
-
-Laser scanning can be used to verify the performance of the machine vision system, thus, HIMMELI was a natural choice for perception sensing since it does pack both passive and active ranging technologies.
+The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct \ref{You11}. Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
 
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
 
-\subsection{Module Units And Installed Sensors}
+The second installation option was to attach the sensor module directly to the moving crane trolley housing, see figure \ref{fig:himmeli_installation_12}. In this installation option the camera units are facing the crane working area in a top-down manner with a slight angle to the warehouse floor normal. Now, the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (y axis of the warehouse coordinate system).
+
+\subsection{Installation}
 \label{subsection:installed_sensors}
 
 The rig consists of three modules that can be used separately or together. Most cranes have little available space to install anything, so the smaller the installed unit the better. The largest frame on the backside of the rig is the computation unit, including two PC computers and a control cabinet. In front, the upper module includes stereo cameras, HD camera, and other cameras. The lower module has an IR light source.
@@ -2013,6 +1991,20 @@ The automotive radar installed in HIMMELI cannot be used to model the environmen
 %    \label{fig:himmelifull}
 %  \end{center}
 %\end{figure}
+
+The HIMMELI platform was installed in two different test environments as described in the use cases. 
+
+
+\subsubsection{Process Crane Installation}
+\label{subsubsection:process_crane_installation}
+
+The process crane had two options for a HIMMELI sensor platform installation. For both options, the different modules of the platform had to be installed in their own location because of size constraints. Thus, the sensor module and the support frame module were taken apart from the main PC frame for the duration of the process crane installation. 
+
+The first installation option was to attach the sensor module to the side of the moving bridge using a custom made metal frame. In this installation option the camera units are facing towards the crane working area from side and above in a bird's eye view manner. The laser scanner rotation axis points towards the opposite end of the moving bridge, aligning the laser scan lines along the longer length of the warehouse space (x axis of the warehouse coordinate system).
+
+\subsubsection{Forestry Crane Installation}
+\label{subsubsection:forestry_crane_installation}
+
 
 The sensor rig can be powered with a 230 V mains power or alternatively with a 24 V DC source. We do not consider the details of powering up the HIMMELI rig since the power-up sequence and details are irrelevant for the end user.
 
@@ -2136,27 +2128,6 @@ The stereo camera setup installed on the rig has two HDR cameras.
 \subsection{Camera Platform Installations}
 \label{section:platform_installations}
 
-The HIMMELI platform was installed in two different test environments as described in the use cases. 
-
-\subsubsection{Forestry Crane Installation}
-\label{subsubsection:forestry_crane_installation}
-
-\subsubsection{Process Crane Installation}
-\label{subsubsection:process_crane_installation}
-
-The process crane had two options for a HIMMELI sensor platform installation. For both options, the different modules of the platform had to be installed in their own location because of size constraints. Thus, the sensor module and the support frame module were taken apart from the main PC frame for the duration of the process crane installation. 
-
-The first installation option was to attach the sensor module to the side of the moving bridge using a custom made metal frame. In this installation option the camera units are facing towards the crane working area from side and above in a bird's eye view manner. The laser scanner rotation axis points towards the opposite end of the moving bridge, aligning the laser scan lines along the longer length of the warehouse space (x axis of the warehouse coordinate system).
-
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=\textwidth]{himmeli_installation_11.png}
-%   \caption{Sensor platform installation in the moving bridge of a process hall crane in online test session.}
-%    \label{fig:himmeli_installation_11}
-% \end{center}
-%\end{figure}
-
-The second installation option was to attach the sensor module directly to the moving crane trolley housing, see figure \ref{fig:himmeli_installation_12}. In this installation option the camera units are facing the crane working area in a top-down manner with a slight angle to the warehouse floor normal. Now, the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (y axis of the warehouse coordinate system).
 
 \begin{figure}[ht]
   \begin{center}
