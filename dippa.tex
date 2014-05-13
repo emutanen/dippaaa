@@ -1989,20 +1989,25 @@ The automotive radar installed in Himmeli was not used to model the environment 
 \subsection{Installation}
 \label{subsection:installation}
 
-The HIMMELI platform was installed in two different test environments as described in the use cases.
+The Himmeli platform was installed in two different test environments as described in the use cases.
 
 \subsubsection{Overhead Crane Installation}
 \label{subsubsection:overhead_crane_installation}
 
 In the overhead crane environment the Himmeli perception platform was installed modularly so that the sensor module was installed in the overhead crane, and the computation module was used at the operator balcony of the process hall.  For the sensor module, two installation options were available: first option was to install the sensor module to a moving trolley, and the second option was to install the sensor module to the side of the bridge. 
 
-The first installation option was to attach the sensor module directly to the moving crane trolley housing, see figure \ref{fig:himmeli_installation_12}. In this installation option the camera units are facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor. Laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (Y axis of the warehouse coordinate system).
+In the first installation option the sensor module was attached directly to the moving crane trolley housing so that the camera units were facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor, see figure \ref{fig:himmeli_installation_option_1}. 
+%In option 1 the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (Y axis of the warehouse coordinate system).
 
-The second installation option was to attach the sensor module to the side of the moving bridge using a custom made metal frame. In this installation option the camera units are facing towards the crane working area from side and above in a bird's eye view manner. The laser scanner rotation axis points towards the opposite end of the moving bridge, aligning the laser scan lines along the longer length of the warehouse space (X axis of the warehouse coordinate system).
+In the second installation option the sensor module was attached to the side of the moving bridge using a custom made metal frame. In this installation option the camera units were facing towards the crane working area from side and above in a bird's eye view manner. 
+%The laser scanner rotation axis points towards the opposite end of the moving bridge, aligning the laser scan lines along the longer length of the warehouse space (X axis of the warehouse coordinate system).
 
 \subsubsection{Forestry Crane Installation}
 \label{subsubsection:forestry_crane_installation}
 
+In the forestry crane environment the installation of the Himmeli platform is even more constrained by spatial limitations. In an actual log picker truck the options would include the operator booth rooftop and the base of the rotary crane boom. Thus, in testing situation the Himmeli platform was installed in two locations: near the base plate of the rotary crane boom, and on the rooftop of the operator booth.
+
+In the first installation option the cameras are facing the working area so that the crane boom is slightly visible when it reaches for logs from above. In the second installation option where the cameras are located on the rooftop of the operator booth the crane boom is fully visible. This is a somewhat occluded viewpoint since the crane boom can be blocking the view of the load object.
 
 \subsection{Himmeli Stereo Cameras}
 \label{subsection:himmeli_stereo_cameras}
