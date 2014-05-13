@@ -1986,6 +1986,15 @@ The Himmeli platform includes three modules that can be used separately or toget
 
 The automotive radar installed in Himmeli was not used to model the environment because of its low accuracy of 5 cm to 1 m depending on band used\ref{Ahtiainen12}. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances.
 
+\subsection{Stereo Cameras}
+\label{subsection:stereo_cameras}
+
+The Himmeli sensor module includes two high resolution GigE uEye UI-5120 RE HDR cameras with industrial grade casings. The uEye UI-5120 RE HDR camera is a high dynamic range camera with a CMOS (complementary metal oxide semiconductor) sensor array with a PAL resolution of 768 x 576 pixels. The model in use (UI-5120RE-M-GL Rev.2) has a monochrome sensor that transmits intensity images at a maximum of 50 frames per second using Gigabit Ethernet data connection. 
+
+If the 175 gram GigE uEye cameras are installed in a vibrating environment (e.g. a rotary crane boom) the camera's image output quality may suffer, because the optics do not include image stabilisers. Using the stereo pair installed in the Himmeli sensor module may improve the image quality in some environments due to passive damping properties of a larger mass of a sensor module body.
+
+The cameras are installed with lens tube shieldings (class IP65/67) so they can operate even in outdoor winter conditions. The rest of the components of the camera comply to the splashproof and dustproof IP65/65 class so the camera and its casing are well-suited for industrial imaging purposes
+
 \subsection{Installation}
 \label{subsection:installation}
 
@@ -2009,14 +2018,7 @@ In the forestry crane environment the installation of the Himmeli platform is ev
 
 In the first installation option the cameras are facing the working area so that the crane boom is slightly visible when it reaches for logs from above. In the second installation option where the cameras are located on the rooftop of the operator booth the crane boom is fully visible. This is a somewhat occluded viewpoint since the crane boom can be blocking the view of the load object.
 
-\subsection{Stereo Cameras}
-\label{subsection:stereo_cameras}
-
-The Himmeli sensor module includes two high resolution GigE uEye UI-5120 RE HDR cameras with industrial grade casings. The uEye UI-5120 RE HDR camera is a high dynamic range camera with a CMOS (complementary metal oxide semiconductor) sensor array with a PAL resolution of 768 x 576 pixels. The model in use (UI-5120RE-M-GL Rev.2) carries a monochrome sensor that outputs a grey-level image at a maximum of 50 frames per second. 
-
-The camera weights 175 grams, which means it is easy to install in small space, but also the image quality may suffer in vibrating environments due to non-existent passive damping properties of the camera hull. The camera is installed with a shielding IP65/67 lens tube so outdoor operation even in winter condition is not a problem. All the components of the camera comply to the IP65/65 class, so with splashproof and dustproof properties the camera is well-suited for industrial imaging purposes.
-
-The data is transmitted through Gigabit Ethernet with Opto I/O interface.
+The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive dampening is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively quite well, the smaller forestry crane rotary booms do not, which is why the installation location matters. 
 
 \subsubsection{Image Array Details} 
 %remove section
