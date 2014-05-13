@@ -1971,8 +1971,6 @@ Machine learning techniques can be used in tracking objects from 2d images. A co
 \section{Perception Sensor Platform \emph{Himmeli}}
 \label{section:perception_sensor_platform_himmeli}
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
-The HIMMELI sensor rig is used to collect data from the environment. It can sense environment from a distance with the installed cameras, and sense the orientation of the platform with its inertial measurement unit, IMU.
-
 
 Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit.
 %todo reference from Sami
@@ -2034,46 +2032,10 @@ In the first installation option the cameras are facing the working area so that
 
 The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively quite well, the smaller forestry crane rotary booms do not, which is why the the selection of the install location is important. According to Pedro et al. it is not possible to directly install electronic sensors (e.g. encoders, resistive elements) on a log picker truck rotary actuators because they break due roughness of the surrounding environment\ref{Pedro09}. Similarly, a camera would break, or produce low quality images in a vibrating environment if attached to locations that are in direct mechanimal contact with the rotary actuators. Since the log picker truck operator's booth is isolated from the vibrating environment, and may even utilise active vibration damping, it would be beneficial to install any camera system on the rooftop of the driver's booth in an actual log picker truck.
 
-\subsection{HIMMELI Control Cabinet}
-\label{subsection:himmeli_control_cabinet}
+\subsection{Computation Module}
+\label{subsection:computation_module}
 
-The control cabinet includes 11 different components that are listed briefly in table \ref{table:controlcabinet}.
-
-\begin{table}
-\caption{Control cabinet components in the HIMMELI sensor rig.}
-\label{table:controlcabinet}
-\begin{tabular}{|p{6cm}|p{5cm}|}
-\hline
-\textbf{Component} & \textbf{Details} \\
-\hline
-ATX power supply x 2 & One for each embedded PC. \\
-\hline
-Embedded PC 1 & Operating system Windows 7 \\
-\hline
-Embedded PC 2 & Operating system GNU/Linux
-\hline
-Gigabit Ethernet switch & \\
-\hline
-Power supply switch & 230VAC/24VDC \\
-\hline
-Fuse box & \\
-\hline
-Capacitor & For power change-over usage. \\
-\hline
-Wireless module & \\
-\hline
-Power ground box & \\
-\hline
-Selector relay & For power change-over usage. \\ \hline
-\end{tabular}
-\end{table}
-
-in order to provide a flexible sensory platform for research 
-
-is currently readily available for recording stero image data, and is located in Tampere university of technology 
-
-
-
+The Himmeli platform computation module includes different components that control the power and the data flow of the perception platform. The main components are the integrated PC computers. The other PC controls the camera software that runs in a Windows 7 operating system, and the other runs all the image processing tasks using Robot Operating System in a Linux distribution. The platform runs on 230 volts AC power with an option for 24 volts DC operation. 
 
 %\begin{itemize}
 % item separation length in a list
