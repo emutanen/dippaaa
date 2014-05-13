@@ -1991,7 +1991,7 @@ Himmeli sensor platform is a modular sensor rig that was engineered in Aalto uni
   \end{center}
 \end{figure}
 
-The Himmeli platform includes three modules who are namely the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The schematic of all the sensor can be seen in Figure \ref{fig:himmeli_schematic}.
+The Himmeli platform includes three modules who are namely the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The Velodyne HDL-32 can be used to scan the environment geometry with 32 micromirror controlled lasers. The schematic of all the sensors can be seen in Figure \ref{fig:himmeli_schematic}.
 
 The automotive radar installed in Himmeli was not used to model the environment because of its low accuracy of 5 cm to 1 m depending on band used\ref{Ahtiainen12}. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances.
 
@@ -2037,7 +2037,7 @@ In the forestry crane environment the installation of the Himmeli platform is ev
 
 In the first installation option the cameras are facing the working area so that the crane boom is slightly visible when it reaches for logs from above. In the second installation option where the cameras are located on the rooftop of the operator booth the crane boom is fully visible. This is a somewhat occluded viewpoint since the crane boom can be blocking the view of the load object.
 
-The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively quite well, the smaller forestry crane rotary booms do not, which is why the the selection of the install location is important. According to Pedro et al. it is not possible to directly install electronic sensors (e.g. encoders, resistive elements) on a log picker truck rotary actuators because they break due roughness of the surrounding environment\ref{Pedro09}. Similarly, a camera would break, or produce low quality images in a vibrating environment if attached to locations that are in direct mechanimal contact with the rotary actuators. Since the log picker truck operator's booth is isolated from the vibrating environment, and may even utilise active vibration damping, it would be beneficial to install any camera system on the rooftop of the driver's booth in an actual log picker truck.
+The mass of a GigE uEye camera is 0.175 kg, which means the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively, the smaller forestry crane rotary booms do not have mass that would damp vibrations as well, which is why the selection of the install location is important. According to Pedro et al. it is not possible to directly install electronic sensors (e.g. encoders, resistive elements) on a log picker truck rotary actuators because they break due roughness of the surrounding environment\ref{Pedro09}. Similarly, a camera would break, or produce low quality images in a vibrating environment if attached to locations that are in direct mechanimal contact with the rotary actuators. Since the log picker truck operator's booth is isolated from the vibrating environment, and may even have active vibration damping, it could be beneficial to install any camera systems on the rooftop of the driver's booth in an actual log picker truck.
 
 \subsection{Computation Module}
 \label{subsection:computation_module}
@@ -2073,14 +2073,6 @@ The Himmeli platform computation module includes different components that contr
 %GNSS receiver & Serial bus 1 \\ \hline
 %\end{tabular} % for really simple tables, you can just use tabular
 %\end{table} % table makes a floating object with a title
-
-The 3D LIDAR sensor is a Velodyne HDL-32 model that scans the environment with 32 micromirror controlled lasers.
-
-
-
-\subsection{Camera Platform Installations}
-\label{section:platform_installations}
-
 
 \begin{figure}[ht]
   \begin{center}
