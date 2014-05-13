@@ -840,8 +840,8 @@ Many research efforts report using laser range finders for 3d environment modeli
 
 An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system. Currently, to the knowledge of the author, there are no commercially available systems that can provide a real-time description of an environment that integrates to a crane programmable logic controller (PLC), but it is a grand vision to start out with. The first step in realising such a system is to provide a measurement or a simple model of the load object and start aggregating other descriptions of the environment on top of it. To start with, this thesis uses a perception sensor platform solution that provides geometry knowledge of the process crane working area, and an external computer that generates the best possible geometry description of the load object for the use of the crane PLC computer. 
 
-\chapter{Perception Sensors And Model Acquisition}
-\label{chapter:perception_sensors_and_model_acquisition}
+\chapter{Perception Sensors For Environment Model Acquisition}
+\label{chapter:perception_sensors_for_environment_model_acquisition}
 
 Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
@@ -1989,11 +1989,15 @@ The cascade of classifiers can be constructed to enable feature scaling and scal
 \section{HIMMELI Sensor Platform}
 \label{section:himmeli_sensor_platform}
 
-HIMMELI sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. HIMMELI sensor platform was used as the perception platform for the work done in this thesis.
+HIMMELI sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. HIMMELI sensor platform was used as the perception platform for the implementation work done in this thesis. %todo reference from Sami
 
-HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
+The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to the LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation e.g. laser in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct.  
 
-The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to the LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation e.g. laser in the environment. Laser scanning can be used to verify the performance of the machine vision system, thus, HIMMELI was a natural choice for perception sensing since it does pack both passive and active ranging technologies.
+
+
+Laser scanning can be used to verify the performance of the machine vision system, thus, HIMMELI was a natural choice for perception sensing since it does pack both passive and active ranging technologies.
+
+%HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
 
 \subsection{Module Units And Installed Sensors}
 \label{subsection:installed_sensors}
@@ -2425,6 +2429,8 @@ Measured height of the cameras installed from the floor was 545 cm.
 
 \section{Parameter Tuning Evaluation}
 \label{section:parameter_tuning_evaluation}
+
+% reference Kim05 | Jet Propulsion Lab  
 
 \subsection{Disparity Tuning}
 \label{subsection:disparity_tuning}
