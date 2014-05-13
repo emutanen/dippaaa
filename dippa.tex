@@ -285,7 +285,7 @@
 
 % If you have only one instructor, just write one name here
 \newcommand{\INSTRUCTOR}{D.Sc. (Tech.) Sami Terho}
-\newcommand{\FINSTRUCTOR}{Tekniikan tohtori Sami Terho}
+\newcommand{\FINSTRUCTOR}{TkT Sami Terho}
 \newcommand{\SINSTRUCTOR}{Teknologie doktor Sami Terho}
 % If you have two instructors, separate them with \\ to create linefeeds
 % \newcommand{\INSTRUCTOR}{Olli Ohjaaja M.Sc. (Tech.)\\
@@ -689,8 +689,6 @@ XML-RPC & XML Remote Procedure Call \\
 % Place the label just after the caption to make the link work
 %\label{table:courses}
 %\end{table} % table makes a floating object with a title
-
-
 %The multicolumn command takes the following 3 arguments:
 % the number of cells to merge, the cell formatting for the new cell, and the
 % contents of the cell
@@ -698,6 +696,7 @@ XML-RPC & XML Remote Procedure Call \\
 \chapter{Introduction}
 \label{chapter:introduction}
 %Ongelman esittely, johdanto. Pituus noin 5 sivua.
+%A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
 
 In the modern world, products are being manufactured more than ever before, and at the same time the factory workflows should be optimised to guarantee profitable continuity for a business. These new requirements challenge all business owners, including industrial product makers who use overhead cranes in their manufacturing processes. Overhead cranes are found in most warehouses and factories, and they are often used in storage solutions, as part of the manufacturing workflow, and in the initial installation of machinery on the factory floor.
 
@@ -840,7 +839,7 @@ The main reason for choosing machine vision as the medium for the load object me
 % goal with the stereo camera acquisition is that the overall system would be cheap to purchase
 % objective: point cloud processing runs in almost real-time, more often than 5 times per second
 
-An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system. Currently, to the knowledge of the author, there are no commercially available systems that can provide a real-time description of an environment that integrates to a crane programmable logic controller (PLC), but it is a grand vision to start out with. The first step in realising such a system is to provide a measurement or a simple model of the load object and start aggregating other descriptions of the environment on top of it. To start with, this thesis uses a perception sensor platform solution that provides geometry knowledge of the process crane working area, and an external computer that generates the best possible geometry description of the load object for the use of the crane PLC computer. 
+An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system.
 
 \chapter{Perception Sensors For Environment Model Acquisition}
 \label{chapter:perception_sensors_for_environment_model_acquisition}
@@ -912,6 +911,68 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 
 
 
+\section{Geometric Environment Acquisition Techniques}
+\label{section:environment_acquisition_techniques}
+
+In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a dexterous real-world acquisition system. 
+
+\subsection{Object And Environment Modeling}
+
+In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
+
+
+
+Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
+
+If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
+
+All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras.  
+
+\subsection{Triangulation}
+\label{subsection:triangulation}
+
+
+
++ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
++ Mechanical coordinate measuring machine (CMM) (3D modeling)
+    + DCC CMM
+
++ Structured Light Triangulation
+    +laser plane range finder
+
+\subsection{Structure From Motion}
+\label{subsection:structure_from_motion}
+
+Structure from X techniques
++ Shape from shading
++ Structure from motion
+
++ Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
+
+\subsection{Stereo Techniques}
+%omnidirectional cameras
+
+
+Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
+Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
+Photometric Stereo \cite{Woodham80}.
+    + Recovers surface orientation assuming a known reflection function
+    + a Lambertian surface model
+    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
+    + point illumination sources with known intensity and direction
+
+
+% another snippet
+
+A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
+
+Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
+%histogram equalisation
+Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
+
+todo: corresponding histograms of two test images, and their cumulative distribution functions
+
+
 \section{3d Scene Representations}
 \label{section:3d_scene_representations}
 + possible algorithms: clustering, water-filling, and convex hull computations
@@ -968,90 +1029,6 @@ Octomap
     + supports probabilistic information fusing
     + can represent arbitrary shapes in space (elevation map cannot)
 
-\section{Geometric Environment Acquisition Techniques}
-\label{section:environment_acquisition_techniques}
-
-In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a dexterous real-world acquisition system. 
-
-\subsection{Object And Environment Modeling}
-
-In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
-
-
-
-Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
-
-If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
-
-All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras.  
-
-\subsection{Triangulation}
-\label{subsection:triangulation}
-
-
-
-+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
-+ Mechanical coordinate measuring machine (CMM) (3D modeling)
-    + DCC CMM
-
-+ Structured Light Triangulation
-    +laser plane range finder
-
-\subsection{Structure From Motion}
-\label{subsection:structure_from_motion}
-
-Structure from X techniques
-+ Shape from shading
-+ Structure from motion
-
-\subsection{Multiple Perspective Interactive Video}
-
-Multiple perspective interactive video (MPI) method is used to enhance live video with interactivity. The user can adjust camera views, or add digital content in the video. 
-
-Basically, a detection of motion is achieved when each video frame is compared to a background image and the differences are logged. 
-
-The method starts with knowing a priori metric map of the scene, and it requires multiple cameras to work with. The number of cameras connected to the system is in range from 2 to 1000 cameras.
-
-Visible surface model
-+ 2.5D Marr paradigm
-+ Structure recovery method: multibaseline stereo
-+ First make a triangle mesh model 
-
-The real-world coordinates of each backprojected pixel can be computed using the depth and image coordinates given a camera calibration \cite{Rander97}. The resulting set of [x,y,z] coordinates is mainly referred to as a point cloud, depicting a point structure of the computed object.
-
-In MPI method a triangle mesh presentation of the depicted scene is computed with the resulting point cloud. Many software exist that can visualise a point cloud, such as rviz in RoS system, but the suggested textured mesh presentation needs further processing and texture mapping. 
-
-After digital processing we get a digital model of the scene from viewpoint A. When the camera is located exactly in viewpoint A, the presentation is flawless in comparison to the original scene. The report from Rander et al. \cite{Rander97} states that if a virtual camera is moved not far away, the scene can be transformed to another viewpoint B. In viewpoint B the image contains holes where occlusion was present in the original scene.
-
-If the point cloud contains N x N points in the depth map, the computational complexity for triangles is O(N^2) \cite{Rander97}. Furthermore, the modeling of planar surfaces introduce shortcomings in surface tessellation. The surface may be tessellated with 1000 triangles in favor of 2 triangles, which means the computation overhead increases and causes extra calculations in texturing and modeling phases. The number of triangles in an area is described by a measure called mesh resolution that can be controlled in favor of smarter modeling \cite{Johnson96}.
-
-
-
-
-
-
-\subsection{Stereo Techniques}
-%omnidirectional cameras
-
-
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-Photometric Stereo \cite{Woodham80}.
-    + Recovers surface orientation assuming a known reflection function
-    + a Lambertian surface model
-    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    + point illumination sources with known intensity and direction
-
-
-% another snippet
-
-A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
-
-Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
-%histogram equalisation
-Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
-
-todo: corresponding histograms of two test images, and their cumulative distribution functions
 
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision System}
@@ -1090,6 +1067,360 @@ According to Marr's theory machine vision systems should aim for a better unders
 \cite{Sonka07}
 
 In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no separate object surface knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
+
+
+\section{Camera Modeling And Calibration According To A Pinhole Camera Model}
+\label{section:camera_calibration_according_to_pinhole_camera_model}
+
+TODO: different camera models
+1. pinhole camera model
+2. orthographic projection
+3. scaled orthographic projection
+4. paraperspective projection
+5. perspective projection
+%source: NUS CS4243 camera.pdf slide
+
+The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
+
+The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
+
+Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
+
+\section{weather}
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
+
+
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+
+\subsection{Pinhole Camera Geometry}
+\label{subsection:pinhole_camera_geometry}
+
+\begin{itemize}
+\label{list:intrinsiccameraparameters}
+\setlength{\itemsep}{0pt}
+\item -fa = represents scaling in the $u_a$ axis
+\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
+\item -fc = represents scaling in the $v_a$ axis
+\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
+\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
+\end{itemize}
+
+
+A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
+
+Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
+Optical axis.
+Focal point (optical point)
+
+The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
+
+
+
+
+The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
+
+\begin{equation}
+a = \frac{w}{h}
+\end{equation}
+
+We can relate the width of the image sensor with the field of view angle by equation
+
+\begin{equation}
+w = 2f\tan{\frac{\theta_{fov}}{2}}
+\label{equation:width}
+\end{equation}
+
+If we consider a fixed-baseline stereo setup where baseline \emph{b} is kept constant a report by Gallup et al. easily shows how the depth error is related to the depth measurement in quadratic sense by equation
+
+If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
+
+\begin{equation}
+number of pixels = wh = \frac{w^2}{a}
+\end{equation}
+
+Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
+
+\begin{equation}
+nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
+\label{equation:zdepth}
+\end{equation}
+
+As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
+
+The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
+
+When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
+
+The basis for camera modeling begins with the pinhole camera model where image coordinates \emph{u} and \emph{v} are transformed as
+
+\begin{equation}
+\Biggl[ \begin{array}{c}
+\emph{u} \\
+\emph{v} \\
+1 \end{array} \Biggl]
+= \Biggl[ \begin{array}{c}
+\lambda \emph{u} \\
+\lambda \emph{v} \\
+\lambda \end{array} \Biggl]
+= \textbf{F}\Biggl[ \begin{array}{c}
+\emph{X} \\
+\emph{Y} \\
+\emph{Z} \\
+1 \end{array} \Biggl]
+= \textbf{PM} \Biggl[ \begin{array}{c} 
+\emph{X} \\
+\emph{Y} \\
+\emph{Z} \\
+1 \end{array} \Biggl]
+\end{equation}
+
+where a perspective transformation matrix \emph{P} is introduced as
+
+%\begin{equation}
+%\textbf{P} = \Biggl[ \begin{array}{cccc}
+%emph{sf} & 0 & \emph{u_0} & 0 \\
+% & \emph{f} & \emph{v_0} & 0 \\
+% & 0 & 1 & 0 \end{array} \Biggl]
+%\end{equation}
+
+%+ The camera matrix
+
+\begin{equation} K =
+\Biggl[ \begin{array}{ccc}
+Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
+0 & Focal length 2 & Principal point 2 \\
+0 & 0 & 1 \Biggl] \end{array}
+\end{equation}
+
++ Aspect ratio
+
+%\image{lossy_transformation}
+
+Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
+
+\section{Image Coordinate Systems}
+\label{section:image_coordinate_systems}
+
+A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
+
+\subsection{Coordinate Transformations}
+\label{subsection:coordinate_transformations}
+
+The coordinate transformation matrices depicted in this thesis are three-dimensional Cartesian coordinate transformations who use a base coordinate denoted (x,y,z).
+
+A point is a metric location in space that is uniquely defined with a three-dimensional vector in a chosen coordinate system.
+A spatial coordinate has three parameters, namely x, y, and z, that will belong to a coordinate system indicated by a subscript character.
+
+\begin{equation*}
+\Biggl[ \begin{array}{ccc}
+a & b & c \\
+d & e & f \\
+g & h & i \end{array} \Biggl]
+\end{equation*}
+
+The subscript depicts the coordinate space where a point is located. 
+Also the transformation matrix has a subscript: it depicts on which coordinate space point (or vector) the transformation acts upon.
+The transformation matrix has a superscript: it depicts to which coordinate space the point will end up transformed in.
+
+\subsubsection{Geometric projection}
+\label{subsubsection:geometric_projection}
+
+A world point $X_w$ is translated and rotated into the camera coordinate system so that
+
+\begin{equation}
+\textbf{X}_c = \Biggl[ \begin{array}{c}
+x_c \\
+y_c \\
+z_c \end{array} \Biggl] = R(\textbf{X}_w - \textbf{t})
+\end{equation}
+
+The point in the world according to the camera coordinate system now transformed to point
+$X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. 
+Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the projected point can be computed from the similar triangles of image \ref{image:projectedpoint}. 
+
+\begin{equation}
+\label{equation:projectedpointUc}
+\textbf{U}_c = \Biggl[ \begin{array}{c}
+\frac{-fx_c}{z_c} \\
+\frac{-fy_c}{z_c} \\
+-f \end{array} \Biggl]
+\end{equation}
+
+The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication for \ref{equation:projectedpointUc}.
+
+We can represent a homogenous coordinate point in the image plane $\pi$ as 
+
+\begin{equation}
+\label{equation:affinedefinition}
+\tilde{u} = \Biggl[ \begin{array}{c}
+U \\
+V \\
+W \end{array} \Biggl]
+\end{equation}
+
+so that a Euclidean distance representation of point $\tilde{u}$ is 
+
+\begin{equation}
+\textbf{u} = \Biggl[ \begin{array}{c}
+u \\
+v \end{array} \Biggl] = \Biggl[ \begin{array}{c}
+\frac{U}{W} \\
+\frac{V}{W} \end{array} \Biggl]
+\end{equation}
+
+Now we have calculated the projected point \ref{equation:projectedpointUc} and we have determined that the resulting affine transformation results in $\tilde{u}$ in \ref{equation:affinedefinition}. We still need to define a principal point of the image plane $\pi$, which is the point where the optical axis and the image plane $\pi$ intersect. This point defines the homogenous transformation according to the intrinsic camera parameters. The principal point is defined in the affine image coordinate system as
+
+\begin{equation}
+\textbf{U}_{0a} = \Biggl[ \begin{array}{c}
+u_0 \\
+v_0 \\
+0 \end{array} \Biggl]
+\end{equation}
+
+The equation for the affine transformation of projected point $U_c$ is
+
+\begin{equation}
+\tilde{u} = \Biggl[ \begin{array}{c}
+U \\
+V \\
+W \end{array} \Biggl] = \Biggl[ \begin{array}{ccc}
+a & b & -u_0 \\
+0 & c & -v_0 \\
+0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
+\frac{-fx_c}{z_c} \\
+\frac{-fy_c}{z_c} \\
+1 \end{array} \Biggl] 
+\end{equation}
+
+and with reordering the multiplication of $-f$ we obtain
+
+\begin{equation}
+\tilde{u} = \Biggl[ \begin{array}{ccc}
+-fa & -fb & -u_0 \\
+0 & -fc & -v_0 \\
+0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
+\frac{x_c}{z_c} \\
+\frac{y_c}{z_c} \\
+1 \end{array} \Biggl]
+\end{equation}
+
+The obtained $3x3$ transformation matrix is called the camera calibration matrix K where
+
+\begin{equation}
+\label{equation:cameracalibrationmatrix}
+K = \Biggl[ \begin{array}{ccc}
+-fa & -fb & -u_0 \\
+0 & -fc & -v_0 \\
+0 & 0 & 1 \end{array} \Biggl]
+\end{equation}.
+
+We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
+
+
+
+All the units are given in pixels.
+
+
+\subsection{Prototype Transforms and Ordering}
+\label{subsection:prototype_transforms_and_ordering}
+
+Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
+
+\textbf{Translation} of a point is given by a translation transformation matrix
+
+\begin{equation}
+\Biggl[ \begin{array}{c}
+X^* \\
+Y^* \\
+Z^* \end{array} \Biggl]
+= \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & X_0 \\
+0 & 1 & 0 & Y_0 \\
+0 & 0 & 1 & Z_0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
+\end{equation}
+
+Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
+
+\textbf{Scaling} of a point is given by a scaling transformation matrix
+
++ scaling matrix definition here (2.5-8).
+
+When is scaling used?
+
+\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
+
+\begin{equation}
+\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
+1 & 0 & 0 & 0 \\
+0 & \cos \alpha & \sin \alpha & 0 \\
+0 & -\sin \alpha & \cos \alpha & 0 \\
+0 & 0 & 0 & 1 \end{array} \Biggl]
+\end{equation}
+
+Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
+
+It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
+
+If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
+
+\begin{equation}
+P = \Biggl[ \begin{array}{ccccc}
+X_0 & X_1 & X_2 & \dots & X_n \\
+Y_0 & Y_1 & X_2 & \dots & Y_n \\
+Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
+\end{equation}
+
+\subsection{World Coordinate System}
+\label{subsection:world_coordinate_system}
+
+The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
+
+The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
+We acquire the world coordinate system orientation described in a report by Terho in 2010 \cite{Terho10}. Basically, the world x-y-surface can be fitted to the ground plane that is searched from coordinate point space. In this thesis, the absolute world coordinate mapping will be shown only if the information about the position and orientation of the camera platform will be available to use.
+
+The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
+
+
+The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
+
++ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
+
+\subsection{Camera Coordinate System}
+\label{subsection:camera_coordinate_system}
+
+The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
+
+The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
+
+The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
+
+\subsubsection{Camera Image Plane}
+\label{subsubsection:camera_image_plane}
+
+The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
+
+The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
+
+\subsection{Image Affine Coordinate System}
+\label{subsection:image_affine_coordinate_system}
+
+The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
+
+The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
+
+The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
 
 
 
@@ -1463,147 +1794,6 @@ Some methods:
 + object tracks, initiating and terminating
 + 
 
-\section{Camera Modeling And Calibration According To A Pinhole Camera Model}
-\label{section:camera_calibration_according_to_pinhole_camera_model}
-
-TODO: different camera models
-1. pinhole camera model
-2. orthographic projection
-3. scaled orthographic projection
-4. paraperspective projection
-5. perspective projection
-%source: NUS CS4243 camera.pdf slide
-
-The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
-
-The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
-
-Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
-
-\section{weather}
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
-
-\subsection{Pinhole Camera Geometry}
-\label{subsection:pinhole_camera_geometry}
-
-\begin{itemize}
-\label{list:intrinsiccameraparameters}
-\setlength{\itemsep}{0pt}
-\item -fa = represents scaling in the $u_a$ axis
-\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
-\item -fc = represents scaling in the $v_a$ axis
-\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
-\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
-\end{itemize}
-
-
-A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
-
-Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
-Optical axis.
-Focal point (optical point)
-
-The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
-
-
-
-
-The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
-
-\begin{equation}
-a = \frac{w}{h}
-\end{equation}
-
-We can relate the width of the image sensor with the field of view angle by equation
-
-\begin{equation}
-w = 2f\tan{\frac{\theta_{fov}}{2}}
-\label{equation:width}
-\end{equation}
-
-If we consider a fixed-baseline stereo setup where baseline \emph{b} is kept constant a report by Gallup et al. easily shows how the depth error is related to the depth measurement in quadratic sense by equation
-
-If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
-
-\begin{equation}
-number of pixels = wh = \frac{w^2}{a}
-\end{equation}
-
-Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
-
-\begin{equation}
-nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
-\label{equation:zdepth}
-\end{equation}
-
-As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
-
-The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
-
-When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
-
-The basis for camera modeling begins with the pinhole camera model where image coordinates \emph{u} and \emph{v} are transformed as
-
-\begin{equation}
-\Biggl[ \begin{array}{c}
-\emph{u} \\
-\emph{v} \\
-1 \end{array} \Biggl]
-= \Biggl[ \begin{array}{c}
-\lambda \emph{u} \\
-\lambda \emph{v} \\
-\lambda \end{array} \Biggl]
-= \textbf{F}\Biggl[ \begin{array}{c}
-\emph{X} \\
-\emph{Y} \\
-\emph{Z} \\
-1 \end{array} \Biggl]
-= \textbf{PM} \Biggl[ \begin{array}{c} 
-\emph{X} \\
-\emph{Y} \\
-\emph{Z} \\
-1 \end{array} \Biggl]
-\end{equation}
-
-where a perspective transformation matrix \emph{P} is introduced as
-
-%\begin{equation}
-%\textbf{P} = \Biggl[ \begin{array}{cccc}
-%emph{sf} & 0 & \emph{u_0} & 0 \\
-% & \emph{f} & \emph{v_0} & 0 \\
-% & 0 & 1 & 0 \end{array} \Biggl]
-%\end{equation}
-
-%+ The camera matrix
-
-\begin{equation} K =
-\Biggl[ \begin{array}{ccc}
-Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
-0 & Focal length 2 & Principal point 2 \\
-0 & 0 & 1 \Biggl] \end{array}
-\end{equation}
-
-+ Aspect ratio
-
-%\image{lossy_transformation}
-
-Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
-
-
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
 
@@ -1688,240 +1878,6 @@ Countering the varying geometric signal is difficult and a matter of discussion 
 
 Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
-
-%end of chapter 4
-%===============================================================================================================================
-\chapter{Coordinate Systems And Transformations}
-\label{chapter:coordinate_systems_and_transformations}
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{process_crane_load_object.jpg}
-    \caption{The lifted load object in the process crane use case.}
-    \label{fig:process_crane_load_object.jpg}
-  \end{center}
-\end{figure}
-
-\label{chapter:load_object_registration_and_tracking}
-
-\section{Image Coordinate Systems}
-\label{section:image_coordinate_systems}
-
-A widely accepted right-handed coordinate system will be used for describing a three-dimensional coordinate system. The details will be further discussed in the following sections. In general, the positive Z axis points out towards the scene in a two-dimensional image plane.
-
-\subsection{Coordinate Transformations}
-\label{subsection:coordinate_transformations}
-
-The coordinate transformation matrices depicted in this thesis are three-dimensional Cartesian coordinate transformations who use a base coordinate denoted (x,y,z).
-
-A point is a metric location in space that is uniquely defined with a three-dimensional vector in a chosen coordinate system.
-A spatial coordinate has three parameters, namely x, y, and z, that will belong to a coordinate system indicated by a subscript character.
-
-\begin{equation*}
-\Biggl[ \begin{array}{ccc}
-a & b & c \\
-d & e & f \\
-g & h & i \end{array} \Biggl]
-\end{equation*}
-
-The subscript depicts the coordinate space where a point is located. 
-Also the transformation matrix has a subscript: it depicts on which coordinate space point (or vector) the transformation acts upon.
-The transformation matrix has a superscript: it depicts to which coordinate space the point will end up transformed in.
-
-\subsubsection{Geometric projection}
-\label{subsubsection:geometric_projection}
-
-A world point $X_w$ is translated and rotated into the camera coordinate system so that
-
-\begin{equation}
-\textbf{X}_c = \Biggl[ \begin{array}{c}
-x_c \\
-y_c \\
-z_c \end{array} \Biggl] = R(\textbf{X}_w - \textbf{t})
-\end{equation}
-
-The point in the world according to the camera coordinate system now transformed to point
-$X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. 
-Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the projected point can be computed from the similar triangles of image \ref{image:projectedpoint}. 
-
-\begin{equation}
-\label{equation:projectedpointUc}
-\textbf{U}_c = \Biggl[ \begin{array}{c}
-\frac{-fx_c}{z_c} \\
-\frac{-fy_c}{z_c} \\
--f \end{array} \Biggl]
-\end{equation}
-
-The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication for \ref{equation:projectedpointUc}.
-
-We can represent a homogenous coordinate point in the image plane $\pi$ as 
-
-\begin{equation}
-\label{equation:affinedefinition}
-\tilde{u} = \Biggl[ \begin{array}{c}
-U \\
-V \\
-W \end{array} \Biggl]
-\end{equation}
-
-so that a Euclidean distance representation of point $\tilde{u}$ is 
-
-\begin{equation}
-\textbf{u} = \Biggl[ \begin{array}{c}
-u \\
-v \end{array} \Biggl] = \Biggl[ \begin{array}{c}
-\frac{U}{W} \\
-\frac{V}{W} \end{array} \Biggl]
-\end{equation}
-
-Now we have calculated the projected point \ref{equation:projectedpointUc} and we have determined that the resulting affine transformation results in $\tilde{u}$ in \ref{equation:affinedefinition}. We still need to define a principal point of the image plane $\pi$, which is the point where the optical axis and the image plane $\pi$ intersect. This point defines the homogenous transformation according to the intrinsic camera parameters. The principal point is defined in the affine image coordinate system as
-
-\begin{equation}
-\textbf{U}_{0a} = \Biggl[ \begin{array}{c}
-u_0 \\
-v_0 \\
-0 \end{array} \Biggl]
-\end{equation}
-
-The equation for the affine transformation of projected point $U_c$ is
-
-\begin{equation}
-\tilde{u} = \Biggl[ \begin{array}{c}
-U \\
-V \\
-W \end{array} \Biggl] = \Biggl[ \begin{array}{ccc}
-a & b & -u_0 \\
-0 & c & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
-\frac{-fx_c}{z_c} \\
-\frac{-fy_c}{z_c} \\
-1 \end{array} \Biggl] 
-\end{equation}
-
-and with reordering the multiplication of $-f$ we obtain
-
-\begin{equation}
-\tilde{u} = \Biggl[ \begin{array}{ccc}
--fa & -fb & -u_0 \\
-0 & -fc & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
-\frac{x_c}{z_c} \\
-\frac{y_c}{z_c} \\
-1 \end{array} \Biggl]
-\end{equation}
-
-The obtained $3x3$ transformation matrix is called the camera calibration matrix K where
-
-\begin{equation}
-\label{equation:cameracalibrationmatrix}
-K = \Biggl[ \begin{array}{ccc}
--fa & -fb & -u_0 \\
-0 & -fc & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl]
-\end{equation}.
-
-We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
-
-
-
-All the units are given in pixels.
-
-
-\subsection{Prototype Transforms and Ordering}
-\label{subsection:prototype_transforms_and_ordering}
-
-Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
-
-\textbf{Translation} of a point is given by a translation transformation matrix
-
-\begin{equation}
-\Biggl[ \begin{array}{c}
-X^* \\
-Y^* \\
-Z^* \end{array} \Biggl]
-= \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & X_0 \\
-0 & 1 & 0 & Y_0 \\
-0 & 0 & 1 & Z_0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-\end{equation}
-
-Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
-
-\textbf{Scaling} of a point is given by a scaling transformation matrix
-
-+ scaling matrix definition here (2.5-8).
-
-When is scaling used?
-
-\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
-
-\begin{equation}
-\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & 0 \\
-0 & \cos \alpha & \sin \alpha & 0 \\
-0 & -\sin \alpha & \cos \alpha & 0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-\end{equation}
-
-Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
-
-It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
-
-If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
-
-\begin{equation}
-P = \Biggl[ \begin{array}{ccccc}
-X_0 & X_1 & X_2 & \dots & X_n \\
-Y_0 & Y_1 & X_2 & \dots & Y_n \\
-Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
-\end{equation}
-
-\subsection{World Coordinate System}
-\label{subsection:world_coordinate_system}
-
-The world scene that the camera sensors are detecting is called \emph{the world} (or scene interchangeably), which maps to arbitrary world coordinate system with the coordinate convention $(X_w, Y_w, Z_w)$. Thus, the origin of the world coordinate system is the point $O_w$. The subscript $w$ is used with any point that belongs to the world.
-
-The world is a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$.
-We acquire the world coordinate system orientation described in a report by Terho in 2010 \cite{Terho10}. Basically, the world x-y-surface can be fitted to the ground plane that is searched from coordinate point space. In this thesis, the absolute world coordinate mapping will be shown only if the information about the position and orientation of the camera platform will be available to use.
-
-The world coordinate system axes may be referred to as world axes or scene axes. Interchangeably, they may be referred to as extrinsic axes of the camera.
-
-
-The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
-
-+ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
-
-\subsection{Camera Coordinate System}
-\label{subsection:camera_coordinate_system}
-
-The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
-
-The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
-
-The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
-
-\subsubsection{Camera Image Plane}
-\label{subsubsection:camera_image_plane}
-
-The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
-
-The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
-
-\subsection{Image Affine Coordinate System}
-\label{subsection:image_affine_coordinate_system}
-
-The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
-
-The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
-
-The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
-
-
-
-
-%end of chapter 5
-%===============================================================================================================================
 \chapter{Implementation}
 \label{chapter:implementation}
 
@@ -2264,6 +2220,10 @@ but there are many more depending on the estimator technique used. When RANSAC a
 
 While most of the time the RANSAC algorithm finds the ground plane correctly, there are some conditions that must be fulfilled in order to find a correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, such as a large warehouse wall.
 
+\subsection{Cylinder Fitting}
+\label{subsection:cylinder_fitting}
+%+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
+
 \section{Algorithms}
 \label{section:algorithms}
 
@@ -2275,7 +2235,6 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 
 \subsection{Cylinder Growing Algorithm}
 \label{subsection:cylinder_growing_algorithm}
-
 
 \chapter{Evaluation}
 \label{chapter:evaluation}
@@ -2683,21 +2642,6 @@ We lifted a tree trunk with a forestry machine crane and processed the video out
 One problem present in Figure \ref{fig:load_detected2} was that the forestry crane boom belongs to the segmented load object after initial processing. We can see from the third viewport that the load object contains the crane boom, end effector tool, and the load itself. Normally we could assume that the load object is found fully under the end effector tool, but with use cases UCC2-1 and UCC2-2 this is not true. In Riihimäki tests, the tree trunks did easily reach above the end effector tool location when the operator picked them up so that they were tilted. Consequently, the bounding volume does reach above the end effector height, too. We decided to avoid accidental cutting of the load object after segmentation by not making any assumptions of the axis-wise load location other than it is located somewhere near the end effector tool for these 2 use cases. Instead, we opted to fit a cylinder object using RANSAC fitting, giving the approximate position and orientation for the cylindrical load as an output. 
 
 Now, if the user wishes not to use the cylinder coefficients for pose measurements, and a crane-structure cutting AABB-based bounding volume is not a problem, then the AABB shown in Figure \ref{fig:load_detected2} can be used, too. The cylinder fitting implementation did pick up the cylindrical crane boom sometimes in testing, but we implemented a check for the condition that the load is located near the end effector tool location. With a little research, we found out that the cylinder fitting in a forestry crane machine vision system was not engineered previously in Aalto university. The advantage of the cylinder coefficients over the AABB bounding volume is that the oriented cylinder describes the actual volume and orientation of the tree trunk in much more detail compared to an AABB bounding volume, as discussed in chapter \ref{aabb_reference}. 
-
-\section{OpenCV Extras}
-
-The results achieved by image processing technologies have claimed a lot of interest in two major application areas.
-
-First area is the enhancing of graphical content for human interpretation. In scientific image treatment it simply means that a noisy or corrupted original image can be treated in order to remove or diminish the corruption, resulting in useful content for human users to survey.
-
-The second area is enabling autonomous machine perception. A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
- 
-Research effort in image processing technologies continues to result in better and faster algorithms for image enhancing.
-
-\section{Other research}
-+ Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
-
-%+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
 \chapter{References}
 \label{chapter:references}
