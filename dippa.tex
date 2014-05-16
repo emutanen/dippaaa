@@ -944,9 +944,17 @@ All geometric acquisition techniques either use an active perception sensor that
 \subsection{Structure From Motion}
 \label{subsection:structure_from_motion}
 
-Structure from X techniques
-+ Shape from shading
-+ Structure from motion
+Structure from motion (SFM) is a differential technique that uses only a single camera and a sequence of images to reconstruct 3d geometry from a scene. Many different similar techniques exist, for example structure from shading, 
+
+For example, biological visual systems easily infer 3d structure from motion with very little a priori knowledge of the world. 
+
+SFM can extract information from a video source using image sequence properties, such as the motion field. The motion field 
+
+Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map. Thus, the motion field gives a good approximation of the scene only  
+
+A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
+
+
 
 + Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
 
