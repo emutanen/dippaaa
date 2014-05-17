@@ -944,18 +944,17 @@ All geometric acquisition techniques either use an active perception sensor that
 \subsection{Structure From Motion}
 \label{subsection:structure_from_motion}
 
-Structure from motion (SFM) is a differential machine vision technique that uses only a single camera and a sequence of images to reconstruct a 3d geometry from a scene. Many different similar techniques exist, for example structure from shading, 
-For example, biological visual systems easily infer 3d structure from motion with very little a priori knowledge of the world. 
+Structure from motion (SFM) is a machine vision technique that uses only a single camera and a sequence of images to  reconstruct a 3d geometry from a scene. 
+%Many different similar techniques exist, for example structure from shading, 
+Structure from motion is similar to biological visual systems that easily infer 3d structure from motion with very little a priori knowledge of the world. For example, if a person closes one eye, it is possible to understand the 3d geometry of the surrounding environment only by moving in it, and the structure from motion mechanisms in the brain computes the correct geometry without binocular vision.
 
 %Motion field
-The reconstruction of a 3d scene from a sequence of images is based on motion field computation in SFM processing. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+\subsubsection{Motion Field And Optical Flow}
+\label{subsubsection:motion_field_and_optical_flow}
 
-\subsubsection{Optical Flow}
-\label{subsubsection:optical_flow}
+In SFM procerssing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
 
-Optical flow describes the apparent motion of an object in a visual scene. It estimates 
-
-Optical flow is computed using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm\ref{Lucas81, Trucco98}.
+Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \ref{Trucco98}.\ref{Lucas81}
 
 Optical flow may be estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient. The Aperture Problem demoes this phenomenon in more detail.  
 
@@ -975,8 +974,10 @@ A simple structure from motion system is able to reconstruct static scenes with 
 + Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
 
 %bottom line, why not structure from motion?
-
-Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing 3d geometries from aerial images, city streets or landmark items. It is not well-suited for problems where both camera and objects in the scene of the camera are moving, because of the moving object region problem. In the load object geometry problem, it is assumed that the camera moves, and the scene contains multiple moving objects, thus, a rigid 3d motion for reconstructing the scene from an image sequence is not easy with the techniques introduced.
+Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons. 
+First, the load object measurement must be available when the camera is not moving and the load object is not moving. Structure from motion reconstruction will not be available in such an event. 
+Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
+Last, an empty overhead crane hall contains a planar scene, which is difficult to reconstruct correctly in a SFM system. Coplanar points have similar depth in an image sequence, and for example, for a dense 3d motion and structure algorithm it is assumed that local observer motions include large variations in depth, which is not the case in a planar scene\ref{Trucco98}.
 
 \subsection{Stereo Techniques}
 %omnidirectional cameras
