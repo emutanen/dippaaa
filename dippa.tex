@@ -956,14 +956,9 @@ In SFM procerssing, the reconstruction of a 3d scene from a sequence of images i
 
 Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \ref{Trucco98}.\ref{Lucas81}
 
-Optical flow may be estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient. The Aperture Problem demoes this phenomenon in more detail.  
+In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
 
-The optical flow is well estimated using the brightness constancy equation for some cases, and some assumptions must be made  
-
-
-
-
-
+The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
 
 Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map. Thus, the motion field gives a good approximation of the scene only  
 
