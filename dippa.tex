@@ -954,7 +954,7 @@ A simple structure from motion system is able to reconstruct static scenes with 
 \subsubsection{Motion Field And Optical Flow}
 \label{subsubsection:motion_field_and_optical_flow}
 
-In SFM procerssing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
 
 Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \ref{Trucco98}.\ref{Lucas81}
 
@@ -972,29 +972,8 @@ First, the load object measurement must be available when the camera is not movi
 Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
 Last, an empty overhead crane hall contains a planar scene, which is difficult to reconstruct correctly in a SFM system. Coplanar points have similar depth in an image sequence, and for example, for a dense 3d motion and structure algorithm it is assumed that local observer motions include large variations in depth, which is not the case in a planar scene\ref{Trucco98}.
 
-\subsection{Stereo Techniques}
-%omnidirectional cameras
-
-
-Synthetic random dot images can be used for algorithm testing \cite{Zitnick00}.
-Pollard et al introduces a PMF algorithm that is based on three stereo matching constraints. The third constraint, disparity gradient limit, is unique to the PMF algorithm \cite{Sonka07}.
-Photometric Stereo \cite{Woodham80}.
-    + Recovers surface orientation assuming a known reflection function
-    + a Lambertian surface model
-    + requires at least 3 images of the object, one fixed camera view, changing direction of illumination
-    + point illumination sources with known intensity and direction
-
-
 % another snippet
-
-A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
-
-Photometrically, grey-levels of an image are quantized estimates of image irradiance \cite{Sonka07}.
-%histogram equalisation
-Histogram equalization maps the current image intensity response over the full available intensity range. In figure N, the first image depicts image intensities distributed over a limited band of intensities. The second image displays the mapping result of the equalization process. The resulting histogram is calculated with the cumulative distribution function H'(i).
-
-todo: corresponding histograms of two test images, and their cumulative distribution functions
-
+%A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
 
 \section{3d Scene Representations}
 \label{section:3d_scene_representations}
@@ -1950,6 +1929,7 @@ Machine learning techniques can be used in tracking objects from 2d images. A co
 \section{Perception Sensor Platform \emph{Himmeli}}
 \label{section:perception_sensor_platform_himmeli}
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
+%Histogram equalization maps the current image intensity response over the full available intensity range. 
 
 Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit \ref{Karhu13}.
 %todo reference from Sami
