@@ -948,6 +948,8 @@ Structure from motion (SFM) is a machine vision technique that uses only a singl
 %Many different similar techniques exist, for example structure from shading, 
 Structure from motion is similar to biological visual systems that easily infer 3d structure from motion with very little a priori knowledge of the world. For example, if a person closes one eye, it is possible to understand the 3d geometry of the surrounding environment only by moving in it, and the structure from motion mechanisms in the brain computes the correct geometry without binocular vision.
 
+A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
+
 %Motion field
 \subsubsection{Motion Field And Optical Flow}
 \label{subsubsection:motion_field_and_optical_flow}
@@ -960,15 +962,11 @@ In Lucas's method the optical flow is estimated using the image brightness const
 
 The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
 
-Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map. Thus, the motion field gives a good approximation of the scene only  
+Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
 
-A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
+\subsubsection{Structure From Motion Challenges In Crane Environment}
+\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
 
-
-
-+ Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
-
-%bottom line, why not structure from motion?
 Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons. 
 First, the load object measurement must be available when the camera is not moving and the load object is not moving. Structure from motion reconstruction will not be available in such an event. 
 Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
