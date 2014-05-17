@@ -944,11 +944,27 @@ All geometric acquisition techniques either use an active perception sensor that
 \subsection{Structure From Motion}
 \label{subsection:structure_from_motion}
 
-Structure from motion (SFM) is a differential technique that uses only a single camera and a sequence of images to reconstruct 3d geometry from a scene. Many different similar techniques exist, for example structure from shading, 
-
+Structure from motion (SFM) is a differential machine vision technique that uses only a single camera and a sequence of images to reconstruct a 3d geometry from a scene. Many different similar techniques exist, for example structure from shading, 
 For example, biological visual systems easily infer 3d structure from motion with very little a priori knowledge of the world. 
 
-SFM can extract information from a video source using image sequence properties, such as the motion field. The motion field 
+%Motion field
+The reconstruction of a 3d scene from a sequence of images is based on motion field computation in SFM processing. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+
+\subsubsection{Optical Flow}
+\label{subsubsection:optical_flow}
+
+Optical flow describes the apparent motion of an object in a visual scene. It estimates 
+
+Optical flow is computed using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm\ref{Lucas81, Trucco98}.
+
+Optical flow may be estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient. The Aperture Problem demoes this phenomenon in more detail.  
+
+The optical flow is well estimated using the brightness constancy equation for some cases, and some assumptions must be made  
+
+
+
+
+
 
 Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map. Thus, the motion field gives a good approximation of the scene only  
 
@@ -957,6 +973,10 @@ A simple structure from motion system is able to reconstruct static scenes with 
 
 
 + Moving points in an image, and thus, objects, can be detected from photometric consistency in consecutive frames using discriminant analysis and image statistics (in Kanatani13)
+
+%bottom line, why not structure from motion?
+
+Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing 3d geometries from aerial images, city streets or landmark items. It is not well-suited for problems where both camera and objects in the scene of the camera are moving, because of the moving object region problem. In the load object geometry problem, it is assumed that the camera moves, and the scene contains multiple moving objects, thus, a rigid 3d motion for reconstructing the scene from an image sequence is not easy with the techniques introduced.
 
 \subsection{Stereo Techniques}
 %omnidirectional cameras
