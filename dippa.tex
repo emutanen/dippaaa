@@ -963,6 +963,12 @@ One option is to record video from multiple cameras that look at the object from
 
 A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
+\subsection{Point Cloud Representation}
+\label{subsection:point_cloud_representation}
+
+%Challenges
+%(Hornung et al.) a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
+
 \subsection{Range Image Representation}
 \label{subsection:range_image_representation}
 
@@ -993,37 +999,30 @@ limitations: grid resolution, high-resolution grid consumes a lot of memory
 
 Octree is a tree structure whose nodes always have exactly eight child nodes. The octree structure is used to partition 3d data recursively into smaller partitions of space around a point region. The point region and the sub-quadrants of an octree node are symmetrical cubic volumes also known as voxels. In an octree, the size of the voxels change depending on the depth of the tree search at hand according to Figure \ref{fig:octree_partitions}.
 
-Octrees are used in 3d computer graphics applications for nearest neighbour search, efficient collision detection, and set operations (e.g. union, intersection, and difference) among other uses. Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility. Moreover, the octree can support a detection, classification and tracking of moving objects scheme in a 3d environment \citep{Azim12, Ouyang12}.
-
-The nodes can also represent environment properties, such as states of regions of space that are occupied, free, or unknown.
+Octrees are used in 3d computer graphics applications for nearest neighbour search, efficient collision detection, and set operations (e.g. union, intersection, and difference) among other uses. The nodes of the octree include states for the regions of space with a free, occupied, or unknown status. This property makes the octree structure able to support a detection, classification and tracking of moving objects scheme in a 3d environment \citep{Azim12, Ouyang12}.
 
 Octree representation is suitable for fast interactive physics simulation purposes or feedback control, because the memory efficient structure enables a detection of virtual object collisions in just milliseconds \citep{Noborio99}. Using these properties, detection and tracking of dynamic moving objects in a static environment can be done.
 
-Octree structure is a 3d extension to the quadtree, which is a four-pointer binary tree. Originally, the idea to use octrees for spatial representation was introduced by Donald Meagher in 1982 \cite{Meagher82]. Today, many different implementations exist, for example, Octomap 
+%opinion
+Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility.
 
 
+Octree structure is a 3d extension to the quadtree, which is a four-pointer binary tree. Originally, the idea to use octrees for spatial representation was introduced by Donald Meagher in 1982 \cite{Meagher82]. Today, many different implementations exist, for example, a probabilistic occupancy estimation approach of the Octomap library, \citep{Hornung10}.
 
-
-
-
+% how to build an octree
 The octree structure may be computed from non-convex polygonal contours from multiple different viewpoint cameras (structure from silhouette), but up to 5 - 15 different viewpoints are needed to attain good precision \citep{Noborio88}.
 
-Octomap is a new open-source framework for depicting 3D maps that can represent the world in multiple volumetric resolutions. The Octomap framework is based on a probabilistic octree structure using probabilistic occupancy estimation \cite{Hornung10}. 
-
-We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
-
-Octomap differs from a traditional point cloud in some ways. In the original work Hornung et al. claim that a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
-
+%Octomap
 + Octomap can model occupied space, free space, and unknown space all at the same time.
-
-
-+ probabilistic sensor fusion
-
+We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
 Octomap
     + memory-efficiency principle (memory and disk space handling)
     + differentiates unmapped and obstacle-free areas
-    + supports probabilistic information fusing
+    + supports probabilistic sensor fusion
     + can represent arbitrary shapes in space (elevation map cannot)
+    
+Octrees are used in
+    + id Tech 6 game engine
 
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision System}
