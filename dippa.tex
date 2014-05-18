@@ -402,7 +402,7 @@ Geometry measurement of the load object is required to allow for new smarter aut
 
 A 3d machine vision process was selected to produce a load object measurement using a passive stereographic triangulation technique. A perception platform with two high dynamic range cameras was used to acquire data from a real overhead crane environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and robot operating system (ROS). 
 
-This thesis studies two different cases for machine vision -based load object geometry measurement. The first case introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor overhead crane environment. The second case introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor rotary telescopic crane environment.  
+This thesis studies two different applications for machine vision -based load object geometry measurement. The first case introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor overhead crane environment. The second case introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor rotary telescopic crane environment.  
 }
 
 %BADThis thesis will primarily study a machine vision approach that uses stereo vision for the work environment
@@ -434,25 +434,13 @@ This thesis studies two different cases for machine vision -based load object ge
 % Abstract in Finnish
 % ------------------------------------------------------------------
 \thesisabstract{finnish}{
+Valmistusteollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan manuaalisesti tiloissa joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatilat. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella, eikä niissä ole turvaominaisuuksia jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
 
-Kivi on materiaali, joka muodostuu mineraaleista ja luokitellaan
-mineraalisisältönsä mukaan. Kivet luokitellaan yleensä ne muodostaneiden
-prosessien mukaan magmakiviin, sedimenttikiviin ja metamorfisiin kiviin.
-Magmakivet ovat muodostuneet kiteytyneestä magmasta, sedimenttikivet vanhempien
-kivilajien rapautuessa ja muodostaessa iskostuneita yhdisteitä, metamorfiset
-kivet taas kun magma- ja sedimenttikivet joutuvat syvällä maan kuoressa
-lämpötilan ja kovan paineen alaiseksi.
+Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi tehdasympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa, ja helpottaa nosturin operoimista.
 
-Kivi on epäorgaaninen eli elottoman luonnon aine, mikä tarkoittaa ettei se
-sisällä hiiltä tai muita elollisen orgaanisen luonnon aineita. Niinpä kivestä
-tehdyt esineet säilyvät maaperässä tuhansien vuosien ajan mätänemättä. Kun
-orgaaninen materiaali jättää jälkensä kiveen, tulos tunnetaan nimellä fossiili.
+Taakan mittauksen tuottamiseksi valittiin 3d-konenäkömenetelmä, joka käyttää passiivista stereokolmiointimenetelmää. Työn toteutuksessa käytettiin kahta high dynamic range -kameraa, jotka tallensivat kuvadataa oikeasta nosturiympäristöstä. Kuvadata prosessoitiin 3d-pistepilviksi, joista edelleen tuotettiin metrinen koordinaattiakselien myötäinen bounding volume -mittaus Point Cloud Library -kirjaston (PCL) avulla. Mittausohjelmisto toteutettiin C++ -kirjastoilla ja Robot Operating System:llä (ROS).
 
-Suomen peruskallio on suurimmaksi osaksi graniittia, gneissiä ja
-Kaakkois-Suomessa rapakiveä.
-
-Kiveä käytetään teollisuudessa moniin eri tarkoituksiin, kuten keittiötasoihin.
-Kivi on materiaalina kalliimpaa mutta kestävämpää kuin esimerkiksi puu.
+Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nosturin taakan geometrian mittaukselle. Ensimmäinen sovellus esittelee menetelmän koordinaattiakselien suuntaiseen bounding volume -mittaukseen yksinkertaisella nosturin taakan seuraamisella sisätiloissa. Toinen sovellus esittelee menetelmän sylinterimäisten taakkojen mittaukseen parametrisovitusmenetelmän ja 2d-kuvaseurannan avulla ulkotiloissa teleskooppinosturilla.
 }
 % Abstract in Swedish
 % ------------------------------------------------------------------
