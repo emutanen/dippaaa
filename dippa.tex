@@ -306,9 +306,9 @@
 
 % Other stuff
 % ------------------------------------------------------------------
-\newcommand{\PROFESSORSHIP}{Intelligent Robotics}
-\newcommand{\FPROFESSORSHIP}{Älykäs Robotiikka}
-\newcommand{\SPROFESSORSHIP}{Intelligent Robotteknik}
+\newcommand{\PROFESSORSHIP}{Intelligent robotics}
+\newcommand{\FPROFESSORSHIP}{Älykäs robotiikka}
+\newcommand{\SPROFESSORSHIP}{Intelligent robotteknik}
 % Professorship code is the same in all languages
 \newcommand{\PROFCODE}{T-110}
 \newcommand{\KEYWORDS}{stereo vision, crane load object, environment mapping}
@@ -434,7 +434,7 @@ This thesis studies two different applications for machine vision -based load ob
 % Abstract in Finnish
 % ------------------------------------------------------------------
 \thesisabstract{finnish}{
-Valmistusteollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan manuaalisesti tiloissa joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatilat. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella, eikä niissä ole turvaominaisuuksia jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
+Valmistusteollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan manuaalisesti tiloissa joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatiloissa. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella, eikä niissä ole turvaominaisuuksia jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
 
 Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi tehdasympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa, ja helpottaa nosturin operoimista.
 
@@ -917,8 +917,9 @@ All geometric acquisition techniques either use an active perception sensor that
 \subsection{Structure From Motion}
 \label{subsection:structure_from_motion}
 
-Structure from motion (SFM) is a machine vision technique that uses only a single camera and a sequence of images to  reconstruct a 3d geometry from a scene. 
-%Many different similar techniques exist, for example structure from shading, 
+Structure from motion (SFM) is a machine vision technique that uses only a single camera and a sequence of images to  reconstruct a 3d geometry from a scene. Many other similar techniques exist, for example, structure from silhouette
+, and structure from structured light, which are just applications of the SFM technique.
+
 Structure from motion is similar to biological visual systems that easily infer 3d structure from motion with very little a priori knowledge of the world. For example, if a person closes one eye, it is possible to understand the 3d geometry of the surrounding environment only by moving in it, and the structure from motion mechanisms in the brain computes the correct geometry without binocular vision.
 
 A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
@@ -948,12 +949,15 @@ Last, an empty overhead crane hall contains a planar scene, which is difficult t
 % another snippet
 %A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
 
-\section{3d Scene Representations}
-\label{section:3d_scene_representations}
-+ possible algorithms: clustering, water-filling, and convex hull computations
+\section{Environment Models}
+\label{section:3d_environment_representations}
+%+ possible algorithms: clustering, water-filling, and convex hull computations
 
-In the virtual reality (VR) research the modeling of real-world items has been a big problem for many years. 
-It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
+Environment models are different types of digital data representations that describe the environments acquired by a perception sensor. The work implemented in the Chapter \ref{chapter:implementation} uses point cloud representation, which will be presented.
+
+
+
+In the virtual reality research the modeling of real-world objects has been an issue for many years. It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
 
 One option is to record video from multiple cameras that look at the object from different points of view. In order to obtain a digital model we may utilise a multi-camera stereo process and compute range images for further processing. Obviously, this approach is very computationally difficult and results vary depending on the object convexity, lighting environment and the used algorithms.  
 
@@ -985,6 +989,8 @@ limitations: grid resolution, high-resolution grid consumes a lot of memory
 \label{subsection:octree_structure}
 % multi-resolution octree representations
 
+Octree is a tree structure whose nodes always have exactly eight child nodes. The octree structure fits well for representation of acquired 3d geometry
+
 Originally, the idea to use octrees for mapping was introduced by Meagher in 1982 \cite{Meagher82].
 
 Octomap is a new open-source framework for depicting 3D maps that can represent the world in multiple volumetric resolutions. The Octomap framework is based on a probabilistic octree structure using probabilistic occupancy estimation \cite{Hornung10}. 
@@ -1003,6 +1009,9 @@ Octomap
     + differentiates unmapped and obstacle-free areas
     + supports probabilistic information fusing
     + can represent arbitrary shapes in space (elevation map cannot)
+
+
+
 
 
 %end of chapter 3
