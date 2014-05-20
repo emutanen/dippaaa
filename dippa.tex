@@ -997,32 +997,33 @@ The term triangulation was originally used in trigonometry calculus, but in mach
   \begin{center}
     \includegraphics[width=\textwidth]{simple_stereo_geometry.pdf}
     \caption{Simple stereo geometry where distance Z may be solved using similar triangles ($p_l$, $P$, $p_r$) and ($O_l$, $P$, $O_r$). Adapted from \citep{Trucco98}.}
-    \label{fig:marrs_framework}
+    \label{fig:simple_stereo_geometry}
   \end{center}
 \end{figure}
 
 %is a passive range acquisition mechanism that produces a range measurement from the solution of the correspondence problem from two differing images. The difference between the images should be a translational shift along a camera baseline axis, for example a stereo pair using simple stereo geometry will suffice. Tri
 %Often, a stereo camera is used, and the correspondence problem is solved using rectification and block matching techniques.
 
+As soon as the correspondence problem is solved (see section \ref{section:stereo_correspondence_problem} for details) the distance to point P may be calculated using the similar triangles ($p_l$, $P$, $p_r$) and ($O_l$, $P$, $O_r$) in Figure \ref{fig:simple_stereo_geometry}. $\pi_L$ and $\pi_R$ are the image planes for the left and right cameras accordingly, and $p_r$ and $p_l$ are the projections of the point P on the image plane. 
 
-when a corresponding point shift information is known for a feature in a scene. 
+%when a corresponding point shift information is known for a feature in a scene. 
 
-Reconstruction by triangulation is the process of generating a depth map from two camera images e.g. parallel stereo cameras. If both intrinsic and extrinsic parameters of the camera are known, the reconstruction problem can be solved unambiguosly producing absolute coordinates in the world coordinate frame. As a simplification, two other cases would be that only intrinsic parameters are known, a
+%Reconstruction by triangulation is the process of generating a depth map from two camera images e.g. parallel stereo cameras. If both intrinsic and extrinsic parameters of the camera are known, the reconstruction problem can be solved unambiguosly producing absolute coordinates in the world coordinate frame. As a simplification, two other cases would be that only intrinsic parameters are known, a
 
-The results of triangulation mainly depend on the solution of the correspondence problem. 
-
-
-In order to better understand the triangulation technique the simple stereo camera geometry will be introduced next.
+%The results of triangulation mainly depend on the solution of the correspondence problem. 
 
 
+%In order to better understand the triangulation technique the simple stereo camera geometry will be introduced next.
 
 
-+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
-+ Mechanical coordinate measuring machine (CMM) (3D modeling)
-    + DCC CMM
 
-+ Structured Light Triangulation
-    +laser plane range finder
+
+%+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
+%+ Mechanical coordinate measuring machine (CMM) (3D modeling)
+%    + DCC CMM
+
+%+ Structured Light Triangulation
+%    +laser plane range finder
 
 \subsection{Structure From Motion}
 \label{subsection:structure_from_motion}
