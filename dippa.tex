@@ -993,8 +993,13 @@ Triangulation solves a distance to a point by measuring two angles from known po
 
 The term triangulation was originally used in trigonometry calculus, but in machine vision systems it refers to the indirect process of measuring the z-coordinate, or depth, of image features using two sensors, often producing a depth map. Triangulation system that uses two cameras is called a passive triangulation system, and a system that uses a single camera and a light pattern projector is called an active triangulation system. In this thesis only passive triangulation techniques are used, which is why the two camera simple stereo geometry will be introduced next.
 
-
-
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{simple_stereo_geometry.pdf}
+    \caption{Simple stereo geometry where distance Z may be solved using similar triangles ($p_l$, $P$, $p_r$) and ($O_l$, $P$, $O_r$). Adapted from \citep{Trucco98}.}
+    \label{fig:marrs_framework}
+  \end{center}
+\end{figure}
 
 %is a passive range acquisition mechanism that produces a range measurement from the solution of the correspondence problem from two differing images. The difference between the images should be a translational shift along a camera baseline axis, for example a stereo pair using simple stereo geometry will suffice. Tri
 %Often, a stereo camera is used, and the correspondence problem is solved using rectification and block matching techniques.
