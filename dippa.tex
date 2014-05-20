@@ -883,80 +883,6 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
     
 
 
-
-
-\section{Geometric Environment Acquisition Techniques}
-\label{section:environment_acquisition_techniques}
-
-In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a real-world acquisition system. 
-
-\subsection{Object And Environment Modeling}
-
-In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
-
-
-
-Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
-
-If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
-
-All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras.  
-
-\subsection{Triangulation}
-\label{subsection:triangulation}
-
-Triangulation is a passive range acquisition mechanism that produces a range measurement from two cameras when a corresponding point shift information is known for a feature in a scene. Triangulation is the basic mechanism for most 3d acquisition techniques, which is why it is discussed before other techniques are introduced. In order to understand the functioning of a stereo camera based depth mapping technique 
-
-Reconstruction by triangulation is the process of generating a depth map from two stereo camera images. If both intrinsic and extrinsic parameters of the camera are known, the reconstruction problem can be solved unambiguosly producing absolute coordinates in the world coordinate frame. As a simplification, two other cases would be that only intrinsic parameters are known, a
-
-
-
-
-
-
-
-+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
-+ Mechanical coordinate measuring machine (CMM) (3D modeling)
-    + DCC CMM
-
-+ Structured Light Triangulation
-    +laser plane range finder
-
-\subsection{Structure From Motion}
-\label{subsection:structure_from_motion}
-
-Structure from motion (SFM) is a machine vision technique that uses only a single camera and a sequence of images to  reconstruct a 3d geometry from a scene. Many other similar techniques exist, for example, structure from silhouette
-, and structure from structured light, which are just applications of the SFM technique.
-
-Structure from motion is similar to biological visual systems that easily infer 3d structure from motion with very little a priori knowledge of the world. For example, if a person closes one eye, it is possible to understand the 3d geometry of the surrounding environment only by moving in it, and the structure from motion mechanisms in the brain computes the correct geometry without binocular vision.
-
-A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
-
-%Motion field
-\subsubsection{Motion Field And Optical Flow}
-\label{subsubsection:motion_field_and_optical_flow}
-
-In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
-
-Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \ref{Trucco98}.\ref{Lucas81}
-
-In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
-
-The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
-
-Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
-
-\subsubsection{Structure From Motion Challenges In Crane Environment}
-\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
-
-Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons. 
-First, the load object measurement must be available when the camera is not moving and the load object is not moving. Structure from motion reconstruction will not be available in such an event. 
-Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
-Last, an empty overhead crane hall contains a planar scene, which is difficult to reconstruct correctly in a SFM system. Coplanar points have similar depth in an image sequence, and for example, for a dense 3d motion and structure algorithm it is assumed that local observer motions include large variations in depth, which is not the case in a planar scene\ref{Trucco98}.
-
-% another snippet
-%A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
-
 \section{Environment Models}
 \label{section:3d_environment_representations}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
@@ -1040,6 +966,93 @@ Octomap
 Octrees are used in
     + id Tech 6 game engine
 
+
+
+
+\section{Geometric Environment Acquisition Techniques}
+\label{section:environment_acquisition_techniques}
+
+In this work the focus on environmental acquisition is on systems capable of 3d modeling the geometry of surrounding environments. Other environmental variables, such as temperature, wind conditions, humidity or other qualities of the environment are not considered in the context of 3d acquisition, although they could possibly have an effect on the perception sensor parameters in a real-world acquisition system. 
+
+\subsection{Object And Environment Modeling}
+
+In general, an unordered real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \ref{ElHakim98}
+
+
+
+Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
+
+If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
+
+All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras. Triangulation is the basic mechanism that most 3d acquisition techniques are based on, which is why it is discussed before other techniques are introduced.
+
+\subsection{Triangulation}
+\label{subsection:triangulation}
+
+Triangulation solves a distance to a point by measuring two angles from known points that are located at two ends of a fixed baseline. Thus, the known camera viewpoints and the unknown point form a triangle. Before the invention of the Global Positioning System (GPS), mapping of land areas (calculating distances and directions of landmark features) was performed using triangle meshing with the triangulation technique.
+
+The term triangulation was originally used in trigonometry calculus, but in machine vision systems it refers to the indirect process of measuring the z-coordinate, or depth, of image features using two sensor, often producing a depth map. Triangulation system that uses two cameras is called a passive triangulation system, and a system that uses a single camera and a light pattern projector is called an active triangulation system. In this thesis only passive triangulation techniques are used, which is why the two camera simple stereo geometry will be introduced next.
+
+
+
+
+%is a passive range acquisition mechanism that produces a range measurement from the solution of the correspondence problem from two differing images. The difference between the images should be a translational shift along a camera baseline axis, for example a stereo pair using simple stereo geometry will suffice. Tri
+%Often, a stereo camera is used, and the correspondence problem is solved using rectification and block matching techniques.
+
+
+when a corresponding point shift information is known for a feature in a scene. 
+
+Reconstruction by triangulation is the process of generating a depth map from two camera images e.g. parallel stereo cameras. If both intrinsic and extrinsic parameters of the camera are known, the reconstruction problem can be solved unambiguosly producing absolute coordinates in the world coordinate frame. As a simplification, two other cases would be that only intrinsic parameters are known, a
+
+The results of triangulation mainly depend on the solution of the correspondence problem. 
+
+
+In order to better understand the triangulation technique the simple stereo camera geometry will be introduced next.
+
+
+
+
++ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
++ Mechanical coordinate measuring machine (CMM) (3D modeling)
+    + DCC CMM
+
++ Structured Light Triangulation
+    +laser plane range finder
+
+\subsection{Structure From Motion}
+\label{subsection:structure_from_motion}
+
+Structure from motion (SFM) is a machine vision technique that uses only a single camera and a sequence of images to  reconstruct a 3d geometry from a scene. Many other similar techniques exist, for example, structure from silhouette
+, and structure from structured light, which are just applications of the SFM technique.
+
+Structure from motion is similar to biological visual systems that easily infer 3d structure from motion with very little a priori knowledge of the world. For example, if a person closes one eye, it is possible to understand the 3d geometry of the surrounding environment only by moving in it, and the structure from motion mechanisms in the brain computes the correct geometry without binocular vision.
+
+A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene e.g. a busy process hall with a crane load object in the middle is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
+
+%Motion field
+\subsubsection{Motion Field And Optical Flow}
+\label{subsubsection:motion_field_and_optical_flow}
+
+In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+
+Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \ref{Trucco98}.\ref{Lucas81}
+
+In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
+
+The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
+
+Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
+
+\subsubsection{Structure From Motion Challenges In Crane Environment}
+\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
+
+Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons. 
+First, the load object measurement must be available when the camera is not moving and the load object is not moving. Structure from motion reconstruction will not be available in such an event. 
+Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
+Last, an empty overhead crane hall contains a planar scene, which is difficult to reconstruct correctly in a SFM system. Coplanar points have similar depth in an image sequence, and for example, for a dense 3d motion and structure algorithm it is assumed that local observer motions include large variations in depth, which is not the case in a planar scene\ref{Trucco98}.
+
+% another snippet
+%A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision System}
 \label{chapter:stereographic_machine_vision_system}
