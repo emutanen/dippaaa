@@ -1140,28 +1140,30 @@ The pinhole camera model maps the perspective transformation from 3d space to a 
 %\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
 %\end{itemize}
 
-The pinhole camera geometry is introduced in Figure \ref{fig:pinhole_camera}. A 3d object located at a distance of $p$ from the camera lens (pinhole is an approximation of a thin lens system) is imaged upside down on a 2d image plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera}, positive Z direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. The 3d coordinate P on the surface of the object is transformed onto the image plane as image point Q. The ratio of distances $p$ and $q$ is controlled by the lens law 
+The pinhole camera geometry is introduced in Figure \ref{fig:pinhole_camera}. A 3d object located at a distance of $p$ from the camera lens (pinhole) is imaged upside down on a 2d image plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera}, positive Z direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. In a pinhole camera, the object and its real projected image are related by the thin lens equation
 
 \begin{equation}
 \frac{1}{f} = \frac{1}{p} + \frac{1}{q}
 \label{eq:lens_law}
 \end{equation}
 
+where f is the focal length of the thin lens. An upside down imaged is formed on the image plane as long as the 3d object or its image are not nearer than $f$ units from the focal point of the lens. Using similar triangles it can be shown that the point P is projected onto the image plane according to
+
+\begin{equation}
+x = f\frac{X}{Z}, y = f\frac{Y}{Z}
+\label{eq:image_projection}
+\end{equation}
+
+
+
+The ratio of distances $p$ and $q$ is controlled by the lens law 
 
 
 \subsection{Image Formation}
 \label{subsection:image_formation}
 
 In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
-
 %lähde Kuvatekniikan perusteet
-
-are less illuminated on the borders of the image due to the law of cosines.
-
-
-$f$ is the focal length of the camera
-
-The pinhole camera geometry will lead to introduction of a camera model matrix M, 
 
 \begin{figure}[ht]
   \begin{center}
