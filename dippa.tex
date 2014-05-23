@@ -966,8 +966,22 @@ Octomap
 Octrees are used in
     + id Tech 6 game engine
 
+\section{weather}
+Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
+Especially camera systems are affected with possibly inhomogenous degradation in image quality.
+
+Different types of degradation:
+    + lens flare
+    + condensation in humidity changes
+    + changes in illumination
+    + shadowing
+    + occlusion
+    + noise from moving droplets of water e.g.
+
+If a stereo camera is used, inhomogenous degradation in image quality
 
 
+Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
 
 \section{Geometric Environment Acquisition Techniques}
 \label{section:environment_acquisition_techniques}
@@ -1101,42 +1115,53 @@ In this thesis the pixel representation of the real scene is processed simply in
 
 
 \section{The Pinhole Camera Model}
-\label{section:camera_calibration_according_to_pinhole_camera_model}
+\label{section:the_pinhole_camera_model}
 %1. pinhole camera model
 %2. orthographic projection
 %3. scaled orthographic projection
 %4. paraperspective projection
 %5. perspective projection
 %source: NUS CS4243 camera.pdf slide
+%The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
 
-The pinhole camera model maps the perspective transformation from 3d space to 2d image plane using a simple geometry. The performed mapping transforms the three-dimensional object into a two-dimensional projection ($\mathbb{R}^3 \mapsto \mathbb{R}^2$). The depth component Z is lost in the transform, which is natural for any projective camera models. The pinhole camera model is introduced because it is the simplest image formation device model that can be used for stereo photography purposes, and the openCV implementation in chapter \ref{chapter:implementation} uses this model for computation\citep{OpenCVWeb}.
+The pinhole camera model maps the perspective transformation from 3d space to a 2d image plane using simple geometry. The performed mapping transforms the three-dimensional object from real space $\mathbf{R}^3$ into a two-dimensional projection according to $\mathbb{R}^3 \mapsto \mathbb{R}^2$. The depth component Z is lost in the transform, which is natural for any projective camera models. The transform is irreversible, which means that the original 3d coordinates cannot be recovered from a projective 2d image. The pinhole camera model is introduced because it is the simplest approximation that can be used in computer vision applications. Additionally, the openCV implementation in chapter \ref{chapter:implementation} uses a pinhole camera model for computation\citep{Sonka07, OpenCVWeb}.
 
-
-The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
-
-Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
-
-
-
-\section{weather}
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
+%Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
 \subsection{Pinhole Camera Geometry}
 \label{subsection:pinhole_camera_geometry}
+%\begin{itemize}
+%\label{list:intrinsiccameraparameters}
+%\setlength{\itemsep}{0pt}
+%\item -fa = represents scaling in the $u_a$ axis
+%\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
+%\item -fc = represents scaling in the $v_a$ axis
+%\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
+%\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
+%\end{itemize}
+
+The pinhole camera geometry is introduced in Figure \ref{fig:pinhole_camera}. A 3d object located at a distance of $p$ from the camera lens (pinhole is an approximation of a thin lens system) is imaged upside down on a 2d image plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera}, positive Z direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. The 3d coordinate P on the surface of the object is transformed onto the image plane as image point Q. The ratio of distances $p$ and $q$ is controlled by the lens law 
+
+\begin{equation}
+\frac{1}{f} = \frac{1}{p} + \frac{1}{q}
+\label{eq:lens_law}
+\end{equation}
+
+
+
+\subsection{Image Formation}
+\label{subsection:image_formation}
+
+In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
+
+%lähde Kuvatekniikan perusteet
+
+are less illuminated on the borders of the image due to the law of cosines.
+
+
+$f$ is the focal length of the camera
+
+The pinhole camera geometry will lead to introduction of a camera model matrix M, 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1146,18 +1171,9 @@ Colored markers are sensitive to natural light in outdoor environments \cite{Kaw
   \end{center}
 \end{figure}
 
-\begin{itemize}
-\label{list:intrinsiccameraparameters}
-\setlength{\itemsep}{0pt}
-\item -fa = represents scaling in the $u_a$ axis
-\item -fb = shear coefficient that gives the alignment difference of camera coordinate system axis $x_c$ and affine image coordinate system axis $u_a$ at the length of focal length in pixels in the direction of affine image coordinate system axis $v_a$.
-\item -fc = represents scaling in the $v_a$ axis
-\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
-\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
-\end{itemize}
 
 
-A pinhole camera will be the basis of the theoretical camera modeling since it is the simplest approximation that is suitable for a computer vision applications \cite{Sonka07}.
+
 
 Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
 Optical axis.
