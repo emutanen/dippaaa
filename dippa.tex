@@ -1100,18 +1100,17 @@ According to Marr's theory machine vision systems should aim for a better unders
 In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no separate object surface knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
 
 
-\section{Camera Modeling And Calibration According To A Pinhole Camera Model}
+\section{The Pinhole Camera Model}
 \label{section:camera_calibration_according_to_pinhole_camera_model}
-
-TODO: different camera models
-1. pinhole camera model
-2. orthographic projection
-3. scaled orthographic projection
-4. paraperspective projection
-5. perspective projection
+%1. pinhole camera model
+%2. orthographic projection
+%3. scaled orthographic projection
+%4. paraperspective projection
+%5. perspective projection
 %source: NUS CS4243 camera.pdf slide
 
-The camera model maps the transformation between the real-world object and the projection of the camera image plane. The camera model is a set of parameter that define this transformation as realistically as possible. 
+The pinhole camera model maps the perspective transformation from 3d space to 2d image plane using a simple geometry. The performed mapping transforms the three-dimensional object into a two-dimensional projection ($\mathbb{R}^3 \mapsto \mathbb{R}^2$). The depth component Z is lost in the transform, which is natural for any projective camera models. The pinhole camera model is introduced because it is the simplest image formation device model that can be used for stereo photography purposes, and the openCV implementation in chapter \ref{chapter:implementation} uses this model for computation\citep{OpenCVWeb}.
+
 
 The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
 
