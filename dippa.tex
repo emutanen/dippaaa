@@ -1162,16 +1162,16 @@ x = f\frac{X}{Z}, y = f\frac{Y}{Z}
   \end{center}
 \end{figure}
 
-In homogenous form, a projected point Q' = ($x'$,$y'$,$z'$) can be further formulated as
+In homogenous form, a projected point $\tilde{Q}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
 
 \begin{equation}
-x' = f\frac{X}{z'},\~ y' = f\frac{Y}{z'},\~ z' = Z
+\tilde{x} = f\frac{X}{\tilde{z}},\~ \tilde{y} = f\frac{Y}{\tilde{z}},\~ \tilde{z} = Z
 \label{eq:image_projection}
 \end{equation}
 
 where the origin of the homogenous coordinate system is point (0,0,1). This coordinate system can be shown in homogenous matrix form as 
 
-\begin{equation} Q' =
+\begin{equation} \tilde{Q} =
 \label{eq:homogenous_matrix_form}
 \begin{bmatrix}
 f & 0 & 0 \\
@@ -1184,52 +1184,36 @@ Z \\
 \end{bmatrix}
 \end{equation}
 
-Point P can be written in homogenous matrix form as well as $P' = (X,Y,Z,1)$ so that the projection becomes a linear matrix operation
+Point P can be written in homogenous matrix form as well as 
 
-\begin{equation} Q' = 
+\begin{equation*}
+\tilde{P} = (X,Y,Z,1)
+\end{equation}
+
+so that the projection becomes a linear matrix operation
+
+\begin{equation} \tilde{Q} = 
 \label{eq:homogenous_world_point}
 \begin{bmatrix}
 f & 0 & 0 & 0 \\
 0 & f & 0 & 0 \\
 0 & 0 & 1 & 0 \end{bmatrix}
-P'
+\tilde{P}
 \end{equation} 
 
 or
 
 \begin{equation}
 \label{eq:homogenous_projection}
-Q' = CP'
+\tilde{Q} = C\tilde{P}
 \end{equation}
 
-where C is a 3 x 4 matrix called the camera matrix, and Q' and P' are the homogenous image plane projection and 3d object surface point coordinates, respectively.
+where C is a 3 x 4 matrix called the camera matrix, and \tilde{Q} and \tilde{P} are the homogenous image plane projection and 3d object surface point coordinates, respectively.
 
 \subsection{Image Formation}
 \label{subsection:image_formation}
-
-
-
-
-
-
-
-
-In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
+%In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
 %lähde Kuvatekniikan perusteet
-
-
-
-
-
-
-Some basic geometry items. There is an image plane. An optical axis lies perpendicularly to the image plane pointing out from the image plane towards the scene. 
-Optical axis.
-Focal point (optical point)
-
-The pinhole camera includes a thin lens system that can be approximated with ideal formulation. 
-
-
-
 
 The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
 
@@ -1243,8 +1227,6 @@ We can relate the width of the image sensor with the field of view angle by equa
 w = 2f\tan{\frac{\theta_{fov}}{2}}
 \label{equation:width}
 \end{equation}
-
-If we consider a fixed-baseline stereo setup where baseline \emph{b} is kept constant a report by Gallup et al. easily shows how the depth error is related to the depth measurement in quadratic sense by equation
 
 If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
 
@@ -1310,7 +1292,7 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 
 %\image{lossy_transformation}
 
-Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
+
 
 \section{Image Coordinate Systems}
 \label{section:image_coordinate_systems}
@@ -1529,6 +1511,7 @@ The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that 
 
 \section{Camera Calibration}
 \label{subsection:camera_calibration}
+%Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 %+ Why do we have to calibrate the cameras?
 Camera calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
 
