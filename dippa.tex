@@ -1184,9 +1184,35 @@ Z \\
 \end{bmatrix}
 \end{equation}
 
+Point P can be written in homogenous matrix form as well as $P' = (X,Y,Z,1)$ so that the projection becomes a linear matrix operation
+
+\begin{equation} Q' = 
+\label{eq:homogenous_world_point}
+\begin{bmatrix}
+f & 0 & 0 & 0 \\
+0 & f & 0 & 0 \\
+0 & 0 & 1 & 0 \end{bmatrix}
+P'
+\end{equation} 
+
+or
+
+\begin{equation}
+\label{eq:homogenous_projection}
+Q' = CP'
+\end{equation}
+
+where C is a 3 x 4 matrix called the camera matrix, and Q' and P' are the homogenous image plane projection and 3d object surface point coordinates, respectively.
 
 \subsection{Image Formation}
 \label{subsection:image_formation}
+
+
+
+
+
+
+
 
 In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
 %lähde Kuvatekniikan perusteet
