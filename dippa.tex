@@ -1123,6 +1123,8 @@ In this thesis the pixel representation of the real scene is processed simply in
 %5. perspective projection
 %source: NUS CS4243 camera.pdf slide
 %The real-world object projection on the camera image plane is a lossy transformation where a lot of information is lost due transformation. For example, when a cube is projected on the image plane, we cannot compute the texture of all 6 cube faces anymore because the data of all non-visible cube faces is lost in the image plane.
+%In general, a perspective projection, or central projection, is the de facto type of projection for human beings. 
+%In perspective projection objects that are far away appear smaller than objects that are near. This phenomenon is called a perspective. 
 
 The pinhole camera model maps the perspective transformation from 3d space to a 2d image plane using simple geometry. The performed mapping transforms the three-dimensional object from real space $\mathbf{R}^3$ into a two-dimensional projection according to $\mathbb{R}^3 \mapsto \mathbb{R}^2$. The depth component Z is lost in the transform, which is natural for any projective camera models. The transform is irreversible, which means that the original 3d coordinates cannot be recovered from a projective 2d image. The pinhole camera model is introduced because it is the simplest approximation that can be used in computer vision applications. Additionally, the openCV implementation in chapter \ref{chapter:implementation} uses a pinhole camera model for computation\citep{Sonka07, OpenCVWeb}.
 
@@ -1736,24 +1738,6 @@ Space Carving
 One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
 
 Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
-
-\section{Perspective Projection Geometry}
-\label{section:perspective_projection_geometry}
-
-In general, a perspective projection, or central projection, is the de facto type of projection for human beings. We all have a pair of eyes that can be modeled with a pinhole camera model, and the pinhole camera depicts any scene with a perspective projection. In perspective projection objects that are far away appear smaller than objects that are near. This phenomenon is called a perspective. 
-
-The stereo cameras that sense the world with CCD arrays give the user a perspective projection of the world on a 2D image plane. The basics of this projective geometry will be discussed in the case of non-parallel setup of the stereo cameras. That means the optical axes of the cameras are not in parallel, but have a specified angle with which the optical axes coincide. The cameras themselves will be modeled as pinhole cameras with certain lens system errors corrected for.
-
-In computer vision, 
-
-+ homogenous transformation => transforms lines into lines
-
-
-
-The camera geometry model that we use is a single perspective camera model or a pinhole camera model.
-
-
-%As depicted in the \ref{}
 
 \subsection{Epipolar Geometry}
 \label{subsection:epipolar_geometry}
