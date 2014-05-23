@@ -1165,7 +1165,7 @@ x = f\frac{X}{Z}, y = f\frac{Y}{Z}
 In homogenous form, a projected point $\tilde{Q}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
 
 \begin{equation}
-\tilde{x} = f\frac{X}{\tilde{z}},\~ \tilde{y} = f\frac{Y}{\tilde{z}},\~ \tilde{z} = Z
+\tilde{x} = f\frac{X}{\tilde{z}}, \tilde{y} = f\frac{Y}{\tilde{z}}, \tilde{z} = Z
 \label{eq:image_projection}
 \end{equation}
 
@@ -1208,7 +1208,21 @@ or
 \tilde{Q} = C\tilde{P}
 \end{equation}
 
-where C is a 3 x 4 matrix called the camera matrix, and \tilde{Q} and \tilde{P} are the homogenous image plane projection and 3d object surface point coordinates, respectively.
+where C is a 3 x 4 matrix called the camera matrix, and $\tilde{Q}$ and $\tilde{P}$ are the homogenous image plane projection and 3d object surface point coordinates, respectively. The camera matrix can be factored into form
+
+\begin{equation}
+\label{eq:factor_camera_matrix}
+\tilde{Q} = KP_{0}\tilde{P}
+\end{equation}
+
+where K is the camera calibration matrix that contains the intrinsic parameters of the camera, and $P_0$ is the projective matrix of the camera. Since stereo calibration later requires the model for both intrinsic and extrinsic parameters, a general model including both intrinsic and extrinsic parameters can be written on the basis of equation \ref{eq:factor_camera_matrix} as
+
+\begin{equation}
+\label{eq:general_camera_model}
+\tilde{Q} = KP_{0}T_{c}^{-1}\tilde{P}
+\end{equation}
+
+where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 parameters that describe translation and orientation of the camera from the world frame origin. All matrices K, $P_0$, and $T_{c}^{-1}$ can be combined into a single 3 x 4 camera matrix C that performs translation, rotation, scaling, and perspective projection\citep{Corke11}.
 
 \subsection{Image Formation}
 \label{subsection:image_formation}
@@ -1221,7 +1235,7 @@ The image sensor has width \emph{w} and height \emph{h} which relate to each oth
 a = \frac{w}{h}
 \end{equation}
 
-We can relate the width of the image sensor with the field of view angle by equation
+The width of the image sensor can be related with field of view (FOV) angle by
 
 \begin{equation}
 w = 2f\tan{\frac{\theta_{fov}}{2}}
