@@ -1309,6 +1309,91 @@ Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
 %\image{lossy_transformation}
 
 
+\section{Camera Calibration}
+\label{subsection:camera_calibration}
+%Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
+%+ Why do we have to calibrate the cameras?
+Camera calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+
+A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera. Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
+
+Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
+
+\subsection{Intrinsic Camera Parameters}
+\label{subsection:intrinsic_camera_parameters}
+
+Intrinsic camera parameters are used to project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. An understanding of each intrinsic parameter is needed to be able to understand the projection model of the actual camera system. There are in total 4 different intrinsic parameters that are 
+
+\begin{itemize}
+\label{list:intrinsic_parameters}
+\setlength{\itemsep}{0pt}
+\item Focal length
+\item Principal point
+\item Skew coefficient
+\item Distortion coefficients
+\end{itemize}
+
+Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
+
+\begin{empheq}[left=\empheqlbrace]{align}
+\label{eq:projection_to_image_plane}
+&x_p = f_{x}\Big(x_{d}+\alpha_{c}*y_{d}\Big)+pp_{x} \\
+&y_p = f_{y}*y_{d}+pp_{y}
+\end{empheq}
+
+The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure  described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper\ref{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
+
+\begin{empheq}[left=\empheqlbrace]{align}
+\label{eq:normalised_distortion_corrected_pinhole_projections}
+&x_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dx \\
+&y_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dy
+\end{empheq}
+
+where dx and dy are the tangential distortion vectors
+
+\begin{empheq}[left=\empheqlbrace]{align}
+\label{eq:tangential_distortion_vectors}
+& dx = 2kc_{3}xy+kc_{4}\Big(r^2 + 2x^2\Big) \\
+& dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
+\end{empheq}
+.\par
+The parameter $r$ in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
+
+The output of the calibration procedure will be a camera matrix K that relates the pixel coordinates in the image reference frame to the distorted projections of the actual objects in the camera reference frame. The camera matrix K is defined as
+
+\begin{equation} K =
+\label{eq:camera_matrix_k}
+\begin{bmatrix}
+f_x & \alpha_{c}*f_x & pp_x \\
+0 & f_y & pp_y \\
+0 & 0 & 1\end{bmatrix}
+\end{equation}
+
+where $\alpha_{c}*f_x$ is the skew coefficent stating the angle between the u and v pixel axes. K matrix relates the image reference frame and the camera reference frame so that
+
+\begin{equation}
+\label{eq:image_ref_frame_relation_to_camera_ref_frame}
+\begin{bmatrix}
+x_p \\
+y_p \\
+1\end{bmatrix}=K\begin{bmatrix}
+x_{d} \\
+y_{d} \\
+1\end{bmatrix}
+\end{equation}
+
+Modern cameras do not have all the distortion properties that older cameras had, and some coefficients, such as the skew coefficient (suggesting rectangular pixels), and tangential distortion are normally defaulted to zero. For example, it is not recommended to use the 6th order distortion model for normal field of view cameras, but instead a 4th order polynomial should be used \ref{BouguetRef}. In most cases the principal point of the camera is located in the center of the sensor array, and its estimation is not recommended because it is difficult to estimate correctly.  
+% number of calibration images available affect the selection distortion models
+The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} contain the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the image plane \cite{Sonka07}. If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.  
+
+\subsection{Extrinsic Camera Parameters}
+\label{subsection:extrinsic_camera_parameters}
+
+The extrinsic camera parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation. Basically, the knowledge of the extrinsic parameters is equivalent to knowing the relative positions of 3d points. This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
+    If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
+    
+    %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
+
 
 \section{Image Coordinate Systems}
 \label{section:image_coordinate_systems}
@@ -1524,91 +1609,6 @@ The reason to introduce the image affine coordinate system is that pixels are no
 The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
 
 
-
-\section{Camera Calibration}
-\label{subsection:camera_calibration}
-%Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
-%+ Why do we have to calibrate the cameras?
-Camera calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
-
-A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera. Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
-
-Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
-
-\subsection{Intrinsic Camera Parameters}
-\label{subsection:intrinsic_camera_parameters}
-
-Intrinsic camera parameters are used to project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. An understanding of each intrinsic parameter is needed to be able to understand the projection model of the actual camera system. There are in total 4 different intrinsic parameters that are 
-
-\begin{itemize}
-\label{list:intrinsic_parameters}
-\setlength{\itemsep}{0pt}
-\item Focal length
-\item Principal point
-\item Skew coefficient
-\item Distortion coefficients
-\end{itemize}
-
-Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
-
-\begin{empheq}[left=\empheqlbrace]{align}
-\label{eq:projection_to_image_plane}
-&x_p = f_{x}\Big(x_{d}+\alpha_{c}*y_{d}\Big)+pp_{x} \\
-&y_p = f_{y}*y_{d}+pp_{y}
-\end{empheq}
-
-The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure  described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper\ref{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
-
-\begin{empheq}[left=\empheqlbrace]{align}
-\label{eq:normalised_distortion_corrected_pinhole_projections}
-&x_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dx \\
-&y_d = \Big(1 + kc_{1}r^2 + kc_{2}r^4 + kc_{5}r^6\Big)x_{n}+dy
-\end{empheq}
-
-where dx and dy are the tangential distortion vectors
-
-\begin{empheq}[left=\empheqlbrace]{align}
-\label{eq:tangential_distortion_vectors}
-& dx = 2kc_{3}xy+kc_{4}\Big(r^2 + 2x^2\Big) \\
-& dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
-\end{empheq}
-.\par
-The parameter $r$ in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\ref{Brown71}.
-
-The output of the calibration procedure will be a camera matrix K that relates the pixel coordinates in the image reference frame to the distorted projections of the actual objects in the camera reference frame. The camera matrix K is defined as
-
-\begin{equation} K =
-\label{eq:camera_matrix_k}
-\begin{bmatrix}
-f_x & \alpha_{c}*f_x & pp_x \\
-0 & f_y & pp_y \\
-0 & 0 & 1\end{bmatrix}
-\end{equation}
-
-where $\alpha_{c}*f_x$ is the skew coefficent stating the angle between the u and v pixel axes. K matrix relates the image reference frame and the camera reference frame so that
-
-\begin{equation}
-\label{eq:image_ref_frame_relation_to_camera_ref_frame}
-\begin{bmatrix}
-x_p \\
-y_p \\
-1\end{bmatrix}=K\begin{bmatrix}
-x_{d} \\
-y_{d} \\
-1\end{bmatrix}
-\end{equation}
-
-Modern cameras do not have all the distortion properties that older cameras had, and some coefficients, such as the skew coefficient (suggesting rectangular pixels), and tangential distortion are normally defaulted to zero. For example, it is not recommended to use the 6th order distortion model for normal field of view cameras, but instead a 4th order polynomial should be used \ref{BouguetRef}. In most cases the principal point of the camera is located in the center of the sensor array, and its estimation is not recommended because it is difficult to estimate correctly.  
-% number of calibration images available affect the selection distortion models
-The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} contain the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the image plane \cite{Sonka07}. If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.  
-
-\subsection{Extrinsic Camera Parameters}
-\label{subsection:extrinsic_camera_parameters}
-
-The extrinsic camera parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation. Basically, the knowledge of the extrinsic parameters is equivalent to knowing the relative positions of 3d points. This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
-    If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
-    
-    %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
 
 \section{Metricity Requirements}
 \label{section:metricity_requirements}
