@@ -1117,6 +1117,8 @@ The real-world object projection on the camera image plane is a lossy transforma
 
 Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
+
+
 \section{weather}
 Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
 Especially camera systems are affected with possibly inhomogenous degradation in image quality.
@@ -1136,6 +1138,14 @@ Colored markers are sensitive to natural light in outdoor environments \cite{Kaw
 
 \subsection{Pinhole Camera Geometry}
 \label{subsection:pinhole_camera_geometry}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{pinhole_camera.pdf}
+    \caption{A simple pinhole camera projects imaged objects upside down on an image plane. The image formation is based on similar triangles between the optical axis $I_o$ and the red light ray (hypothenus).}
+    \label{fig:pinhole_camera}
+  \end{center}
+\end{figure}
 
 \begin{itemize}
 \label{list:intrinsiccameraparameters}
