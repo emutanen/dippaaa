@@ -1364,13 +1364,13 @@ We have followed the definition of Sonka et al. \cite{Sonka07} so that the resul
 All the units are given in pixels.
 
 
-\section{Camera Calibration}
-\label{subsection:camera_calibration}
+\section{Monocular Camera Calibration}
+\label{subsection:monocular_camera_calibration}
 %Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 %+ Why do we have to calibrate the cameras?
-Camera calibration is the means of linking the three-dimensional object and its two-dimensional projected representation in a scientific way. By modeling the image capture and projection with a camera, a camera model is presented. A camera model consist of multiple unknown parameters that need to be solved for a complete representation of the imaging sequence.
+Monocular camera calibration is the process of finding unknown camera model parameters e.g. the focal lenght components for a single camera system. Using the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}, the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step.
 
-A camera that views the external three-dimensional world records a two-dimensional image, thus, one dimension is reduced in the process of camera capture. Camera calibration is needed in order to extract the third dimension that was lost in the recording process. The goal of the calibration is to estimate two sets of parameters: the intrinsic parameters and the extrinsic parameters of the camera. Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
+Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
 
 Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
 
