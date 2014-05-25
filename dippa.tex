@@ -1222,7 +1222,7 @@ where C is a 3 x 4 matrix called the camera matrix, and $\tilde{Q}$ and $\tilde{
 \tilde{Q} = KP_{0}\tilde{P}
 \end{equation}
 
-where K is the camera calibration matrix that contains the intrinsic parameters of the camera, and $P_0$ is the projective matrix of the camera. Since stereo calibration later requires the model for both intrinsic and extrinsic parameters, a general model including both intrinsic and extrinsic parameters can be written on the basis of equation \ref{eq:factor_camera_matrix} as
+where K is the camera calibration matrix that contains the intrinsic parameters of the camera, and $P_0$ is the projective matrix of the camera model. Since stereo calibration later requires the model for both intrinsic and extrinsic parameters, a general model including both intrinsic and extrinsic parameters can be written on the basis of equation \ref{eq:factor_camera_matrix} as
 
 \begin{equation}
 \label{eq:general_camera_model}
@@ -1231,42 +1231,43 @@ where K is the camera calibration matrix that contains the intrinsic parameters 
 
 where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 parameters that describe translation and orientation of the camera from the world frame origin. All matrices K, $P_0$, and $T_{c}^{-1}$ can be combined into a single 3 x 4 camera matrix C that performs translation, rotation, scaling, and perspective projection\citep{Corke11}.
 
-\subsection{Image Formation}
-\label{subsection:image_formation}
-%In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
-%lähde Kuvatekniikan perusteet
+\subsection{Extension To Pixel Frame}
+\label{subsection:extension_to_pixel_frame}
 
-The image sensor has width \emph{w} and height \emph{h} which relate to each other with aspect ratio \emph{a} so that
+The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90\deg. The pixel coordinates are by convention in a non-negative $(u,v)$ coordinate frame whose origin is located at the top left corner of the image plane, and whose value is $(0,0)$. 
 
-\begin{equation}
-a = \frac{w}{h}
-\end{equation}
 
-The width of the image sensor can be related with field of view (FOV) angle by
 
-\begin{equation}
-w = 2f\tan{\frac{\theta_{fov}}{2}}
-\label{equation:width}
-\end{equation}
 
-If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
 
-\begin{equation}
-number of pixels = wh = \frac{w^2}{a}
-\end{equation}
 
-Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
 
-\begin{equation}
-nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
-\label{equation:zdepth}
-\end{equation}
 
-As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
+%The width of the image sensor can be related with field of view (FOV) angle by
 
-The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
+%\begin{equation}
+%w = 2f\tan{\frac{\theta_{fov}}{2}}
+%\label{equation:width}
+%\end{equation}
 
-When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
+%If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
+
+%\begin{equation}
+%number of pixels = wh = \frac{w^2}{a}
+%\end{equation}
+
+%Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
+
+%\begin{equation}
+%nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
+%\label{equation:zdepth}
+%\end{equation}
+
+%As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
+
+%The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
+
+%When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
 
 The basis for camera modeling begins with the pinhole camera model where image coordinates \emph{u} and \emph{v} are transformed as
 
@@ -1649,6 +1650,9 @@ Planar calibration grids are the most common calibration method for a stereo cam
 
 \subsubsection{Calibration Errors}
 \label{subsubsection:calibration_errors}
+%In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
+%lähde Kuvatekniikan perusteet
+
 
 + Focal length estimation errors
 It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
