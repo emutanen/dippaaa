@@ -1368,27 +1368,25 @@ All the units are given in pixels.
 \label{subsection:monocular_camera_calibration}
 %Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 %+ Why do we have to calibrate the cameras?
-Monocular camera calibration is the process of finding unknown camera model parameters e.g. the focal lenght components for a single camera system. Using the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}, the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step.
+%Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
+%\begin{itemize}
+%\label{list:intrinsic_parameters}
+%\setlength{\itemsep}{0pt}
+%\item Focal length
+%\item Principal point
+%\item Skew coefficient
+%\item Distortion coefficients
+%\end{itemize}
+%Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
 
-Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. The calibration corrects image distortions produced by lenses, such as barrel or pincushion distortions. 
+Monocular camera calibration is the process of finding unknown camera model intrinsic parameters e.g. the focal lenght components for a single camera system. Using the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}, the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step. 
 
-Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
+Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. If a lens distortion model is added to the calibration stage, the calibration corrects image distortions produced by a real lens system, such as barrel and pincushion distortions, too. A MATLAB Camera Calibration toolbox will be introduced next, which was used to calibrate the stereo camera heads.
 
-\subsection{Intrinsic Camera Parameters}
-\label{subsection:intrinsic_camera_parameters}
+\subsection{Intrinsic Camera Calibration}
+\label{subsection:intrinsic_camera_calibration}
 
-Intrinsic camera parameters are used to project points in space from camera reference frame to the image plane taking distortion models and the qualities of the sensor array into account. An understanding of each intrinsic parameter is needed to be able to understand the projection model of the actual camera system. There are in total 4 different intrinsic parameters that are 
-
-\begin{itemize}
-\label{list:intrinsic_parameters}
-\setlength{\itemsep}{0pt}
-\item Focal length
-\item Principal point
-\item Skew coefficient
-\item Distortion coefficients
-\end{itemize}
-
-Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
+The intrinsic camera calibration step will further extend the pinhole camera model introduced in section \ref{the_pinhole_camera_model} with a simple lens distortion model. A model is required to correct for lens distortions so that the image rectification step does not fail due to distortions. First, the perspective projection according to equation \ref{} would be written open as
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:projection_to_image_plane}
@@ -1396,7 +1394,7 @@ Focal length is a 2x1 vector that reports the linear focal length components for
 &y_p = f_{y}*y_{d}+pp_{y}
 \end{empheq}
 
-The intrinsic calibration parameters were computed using the Camera Calibration Toolbox for MATLAB by Jean-Yves Bouguet. The calibration of the HIMMELI cameras follow the notation and the workflow of the calibration procedure  described in \ref{Heikkila97}, and the camera calibration toolbox provides the actual implementation of the paper\ref{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ are
+where the distortion model is calculated for $x_d$ and $y_d$ following the calibration procedure described in \ref{Heikkila97}. The intrinsic calibration parameters were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The calibration of the HIMMELI cameras follow the notation and the workflow of Heikkilä's paper, and the camera calibration toolbox provides its implementation\ref{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:normalised_distortion_corrected_pinhole_projections}
