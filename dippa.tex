@@ -1141,6 +1141,23 @@ The pinhole camera model maps 3d objects onto a 2d image plane using simple pinh
 %\item $u_0$ = u coordinate for the optical axis intersection on the image plane on the $u_a$ axis
 %\item $v_0$ = v coordinate for the optical axis intersection on the image plane on the $v_a$ axis
 %\end{itemize}
+%The width of the image sensor can be related with field of view (FOV) angle by
+%\begin{equation}
+%w = 2f\tan{\frac{\theta_{fov}}{2}}
+%\label{equation:width}
+%\end{equation}
+%If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
+%\begin{equation}
+%number of pixels = wh = \frac{w^2}{a}
+%\end{equation}
+%Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
+%\begin{equation}
+%nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
+%\label{equation:zdepth}
+%\end{equation}
+%As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${u_{0},v_{0}z$_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
+%The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
+%When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
 
 The pinhole camera is a simple box that has an ideal pinhole aperture on one of its sides, see Figure \ref{fig:pinhole_camera}. The camera forms an upside down image of a 3d object located at a distance of $p$ from the camera lens (pinhole) on its imaging plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera}, positive Z direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. In a pinhole camera, the object and its real projected image are related by the thin lens equation
 
@@ -1234,85 +1251,21 @@ where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 par
 \subsection{Extension To Pixel Frame}
 \label{subsection:extension_to_pixel_frame}
 
-The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90$\textdegree$. The pixel coordinates are by convention in a non-negative $(u,v)$ coordinate frame whose origin is located at the top left corner of the image plane, and whose value is $(0,0)$. 
+The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90$\textdegree$. The pixel coordinates are by convention in a non-negative $(u,v)$ coordinate frame whose origin is located at the top left corner of the image plane (value $(0,0)$). 
 
-
-
-
-
-
-
-
-%The width of the image sensor can be related with field of view (FOV) angle by
-
-%\begin{equation}
-%w = 2f\tan{\frac{\theta_{fov}}{2}}
-%\label{equation:width}
-%\end{equation}
-
-%If we consider the effect of resolution on the disparity computing, or depth value computing, we can start with the number of pixels in the image sensor by equation
-
-%\begin{equation}
-%number of pixels = wh = \frac{w^2}{a}
-%\end{equation}
-
-%Furthermore, we can substitute width \emph{w} from \ref{equation:width} getting the equation for the number of pixels as in \cite{Gallup08}:
-
-%\begin{equation}
-%nop = \frac{{z_{far}}^4}{{\epsilon_z}^2} \frac{4\tan^2{\frac{\theta_{fov}}{2}}}{b^2 a}
-%\label{equation:zdepth}
-%\end{equation}
-
-%As we can see from equation \ref{equation:zepth} the increase in pixel resolution to match a specified accuracy also must match the depth resolution proportionally to ${z_{far}}^4$. Consequently, the required increase in resolution may be impossible due to engineering limitations of new hardware or computations limits of increased overheard due to increase in number of pixels.
-
-%The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
-
-%When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
-
-The basis for camera modeling begins with the pinhole camera model where image coordinates \emph{u} and \emph{v} are transformed as
-
-\begin{equation}
-\Biggl[ \begin{array}{c}
-\emph{u} \\
-\emph{v} \\
-1 \end{array} \Biggl]
-= \Biggl[ \begin{array}{c}
-\lambda \emph{u} \\
-\lambda \emph{v} \\
-\lambda \end{array} \Biggl]
-= \textbf{F}\Biggl[ \begin{array}{c}
-\emph{X} \\
-\emph{Y} \\
-\emph{Z} \\
-1 \end{array} \Biggl]
-= \textbf{PM} \Biggl[ \begin{array}{c} 
-\emph{X} \\
-\emph{Y} \\
-\emph{Z} \\
-1 \end{array} \Biggl]
-\end{equation}
-
-where a perspective transformation matrix \emph{P} is introduced as
-
-%\begin{equation}
-%\textbf{P} = \Biggl[ \begin{array}{cccc}
-%emph{sf} & 0 & \emph{u_0} & 0 \\
-% & \emph{f} & \emph{v_0} & 0 \\
-% & 0 & 1 & 0 \end{array} \Biggl]
-%\end{equation}
-
-%+ The camera matrix
+The principal point of the image sensor is the center of the sensor array where the principal ray enters the camera through the pinhole aperture perpendicularly to the image plane. If the principal point is shifted due to lens alignment error, then the shift can be adjusted by shifting the principal point $(u_{0},v_{0})$ using the intrinsic camera calibration matrix K. A camera calibration matrix that can adjust for lens alignment error and take pixel skew into account is written so that
 
 \begin{equation} K =
-\Biggl[ \begin{array}{ccc}
-Focal length 1 & Aspect ratio * Focal length 1 & Principal point 1 \\
-0 & Focal length 2 & Principal point 2 \\
-0 & 0 & 1 \Biggl] \end{array}
+\label{eq:extended_camera_calibration_matrix}
+\begin{bmatrix}
+f_x & 0 & u_{0} \\
+0 & f_y & v_{0} \\
+0 & 0 & 1
+\end{bmatrix}
 \end{equation}
 
-+ Aspect ratio
-
-%\image{lossy_transformation}
+where $f_x$ and $f_y$ are the orthogonal focal length components, and $u_{0}$ and 
+$v_{0}$ are the principal points for the camera. The K matrix can be written with a pixel skew correction value in component K(1,2), but with moden precise semiconductor technologies the u and v axes are very precisely orthogonal, which is why in Equation \ref{eq:extended_camera_calibration_matrix} the skew term is left zero\citep{Corke11}.
 
 
 \section{Camera Calibration}
