@@ -1402,11 +1402,9 @@ Bouguet's camera calibration toolbox provides lens distortion models up to a 6th
   \end{center}
 \end{figure}
 
-% Table on the results of the left camera calibration
-
 \begin{table}\centering
 \ra{1.3}
-\caption{Results from MATLAB Camera Calibration Toolbox.}
+\caption{Results for the left GigE $\mu$eye camera from MATLAB Camera Calibration Toolbox calibration.}
 \begin{tabular}{@{}lcclc@{}}\toprule
 Left camera calibration results\\
 \midrule
@@ -1429,6 +1427,36 @@ Distortion coefficients uncertainty & $\delta k_{c}$ & [0.003655672859666; \\
 &  &  0.003249915713652; \\
 &  &  0.000992528547384; \\
 &  &  0.000950170391783; \\
+&  &  0.000000000000000] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}\centering
+\ra{1.3}
+\caption{Results for the right GigE $\mu$eye camera from MATLAB Camera Calibration Toolbox calibration.}
+\begin{tabular}{@{}lcclc@{}}\toprule
+Right camera calibration results\\
+\midrule
+Focal length &  $f_x$ & 483.971280001076536 \\
+ & $f_y$ & 483.271035972874131 \\
+Principal point & $u_0$ & 379.593549872983715 \\
+ & $v_0$ & 308.868868269393147 \\
+Skew coefficient & $\alpha$ & 0.000000000000000 \\
+Distortion coefficients (5x1 vector) & $k_{c}$ & [-0.000205610973032; \\
+&  & 0.018152928553306; \\
+&  &  0.004792843185362; \\
+&  &  0.000051370094457; \\
+&  &  0.000000000000000] \\
+Focal length uncertainty & $\delta f_x$ & 2.938569299488302 \\
+ & $\delta f_y$ & 2.865562274787014 \\
+Principal point uncertainty & $\delta u_0$ & 2.060568863512944 \\
+ & $\delta v_0$ & 2.078319498413819 \\
+ Skew coefficient uncertainty & $\delta \alpha$ & 0.000000000000000 \\
+Distortion coefficients uncertainty & $\delta k_{c}$ & [0.003684674550123; \\
+&  &  0.002636282917465; \\
+&  &  0.001073704145219; \\
+&  &  0.001045998483709; \\
 &  &  0.000000000000000] \\
 \bottomrule
 \end{tabular}
