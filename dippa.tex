@@ -2341,19 +2341,31 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 The Point Cloud Library cylinder fitting process outputs a parameter set pcl::ModelCoefficients that contains 7 parameters: 6 of them cover the coordinates of two random points on the main cylinder axis, and the final parameter reports the radius of the cylinder. Thus, the starting point and the ending point of the cylinder are not computed at all by the RANSAC computation. To solve the issue of missing cylinder length, an algorithm was written that solves the cylinder length. The algorithm projects points on the main cylinder axis using standard dot product computation, and grows the cylinder length until all the points in the cylinder data are iterated through. The working of the algorithm is as follows:
 
 \begin{algorithm}[H]
- \KwData{this text}
- \KwResult{how to write algorithm with \LaTeX2e }
- initialization\;
- \While{not at end of this document}{
-  read current\;
-  \eIf{understand}{
-   go to next section\;
-   current section becomes this one\;
+ \KwData{Load Object Cylinder Segmented Data From RANSAC}
+ \KwResult{Cylinder length coordinates}
+ compute N units long vector along the main cylinder axis so that all data points project on it\;
+ compute closest data point to centroid of data\;
+ initialise a start point at the closest data point from centroid projected on the main cylinder axis
+ initialise two subcylinders who represent distance along the cylinder main axis starting from start point to the end points in two opposing directions\;
+ \While{data points left}{
+  iterate to next point cloud data entry\;
+  compute projection on cylinder main axis using dot product\;
+  \eIF{projection is in negative coefficient vector direction}{
+       eIF{check if distance to start point greater than current subcylinder 1 height value}{
+        set projection point as the new end coordinate for subcylinder 1\;
+        }{
+        continue\;
+        }
    }{
-   go back to the beginning of current section\;
-  }
- }
- \caption{How to write algorithms}
+       eIF{check if distance to start point greater than current subcylinder 2 height value}{
+        set projection point as the new end coordinate for subcylinder 2\;
+        }{
+        continue\;
+        }
+   } 
+} 
+return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
+\caption{Cylinder growing algorithm}
 \end{algorithm}
 
 \chapter{Evaluation}
