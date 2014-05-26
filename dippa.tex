@@ -1368,14 +1368,16 @@ All the units are given in pixels.
 %\item Distortion coefficients
 %\end{itemize}
 %Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
+%follow the notation and the workflow of Heikkilä's paper, and the camera calibration toolbox provides its implementation\citep{Fetic12}. 
 
-Intrinsic camera calibration is the process of estimating unknown camera model parameters, for example the coefficients of the camera calibration matrix K (\ref{eq:extended_camera_calibration_matrix}). Ideally, the calibration technique should estimate the camera parameters in an unbiased manner. Currently used calibration methods assume unbiased estimation, which is not true for most techniques, but the results can still be good. In this thesis, a MATLAB Camera Calibration Toolbox by Jean-Yves Bouguet was used to calibrate the stereo camera heads individually. The calibration model in the MATLAB toolbox further extends the pinhole camera model introduced in section \ref{the_pinhole_camera_model} with a simple lens distortion model, which is first introduced.
+Intrinsic camera calibration is the process of estimating unknown camera model parameters, for example the coefficients of the camera calibration matrix K (\ref{eq:extended_camera_calibration_matrix}). Ideally, the calibration technique should estimate the camera parameters in an unbiased manner. Currently used calibration methods assume unbiased estimation, which is not true for most techniques, but the results can still be good. In this thesis, a MATLAB Camera Calibration Toolbox by Jean-Yves Bouguet was used to calibrate the stereo camera heads individually. The camera calibration toolbox includes a simple polynomial lens distortion model that extends the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}.
 
-\subsection{Lens Distortion Model}
+\subsection{MATLAB Camera Calibration Toolbox}
+\label{matlab_camera_calibration_toolbox}
 
-The camera calibration toolbox includes a simple polynomial lens distortion model that extends the pinhole camera model. When a real imperfect camera lens system is used for image capture, lens distortions must be compensated by software to enable successful stereo block matching after image rectification. Distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. Geometric distortions hinder the performance of machine vision processes most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. 
+The intrinsic calibration parameters for the Himmeli platform were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The camera calibration toolbox uses internal camera model described by Heikkilä and Silven \citep{Heikkila97}, which supports the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}. The toolbox uses rectangular or circular calibration grids for calibration. A rectangular standard 9x6 crossings calibration grid was used to 
 
-Next, a 6th order polynomial lens distortion model is introduced, which can be used with the perspective projection
+When a real imperfect camera lens system is used for image capture, lens distortions must be compensated by software to enable successful stereo block matching after image rectification. Lens distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. Geometric distortions hinder the performance of machine vision processes most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. The lens distortion model is added to the perspective projection 
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:projection_to_image_plane}
@@ -1383,7 +1385,18 @@ Next, a 6th order polynomial lens distortion model is introduced, which can be u
 &y_p = f_{y}*y_{d}+pp_{y}
 \end{empheq}
 
-and added to normalised image coordinate compomenents $x_d$ and $y_d$ following the calibration procedure described in \citep{Heikkila97}. The intrinsic calibration parameters were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The calibration of the HIMMELI cameras follow the notation and the workflow of Heikkilä's paper, and the camera calibration toolbox provides its implementation\citep{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
+and added to normalised image coordinate compomenents $x_d$ and $y_d$ following the calibration procedure described in \citep{Heikkila97}. 
+
+
+Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{extrinsic_parameters_left_cam.pdf}
+    \caption{Left camera locations seen in a calibration grid centered world frame.}
+    \label{fig:extrinsic_parameters_left_cam}
+  \end{center}
+\end{figure}
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:normalised_distortion_corrected_pinhole_projections}
