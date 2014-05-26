@@ -1354,8 +1354,8 @@ We have followed the definition of Sonka et al. \cite{Sonka07} so that the resul
 All the units are given in pixels.
 
 
-\section{Monocular Camera Calibration}
-\label{subsection:monocular_camera_calibration}
+\section{Intrinsic Camera Calibration}
+\label{subsection:intrinsic_camera_calibration}
 %Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 %+ Why do we have to calibrate the cameras?
 %Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
@@ -1369,14 +1369,17 @@ All the units are given in pixels.
 %\end{itemize}
 %Focal length is a 2x1 vector that reports the linear focal length components for projection of the final pixel coordinates $x_p$ and $y_p$ onto the image plane. Principal point is a 2x1 vector that reports the intersecting point of the optical axis and the image plane. After a distortion model is applied using the 5x1 vector to a normalised pinhole image projection an equation for the distortion corrected projection is
 
-Monocular camera calibration is the process of finding unknown camera model intrinsic parameters e.g. the focal lenght components for a single camera system. Using the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}, the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step. 
+Intrinsic camera calibration is the process of estimating unknown camera model parameters, for example the coefficients of the camera calibration matrix K (\ref{eq:extended_camera_calibration_matrix}). Ideally, the calibration technique should estimate the camera parameters in an unbiased manner. Currently used calibration methods assume unbiased estimation, which is not true for most techniques, but the results can still be good. In this thesis, a MATLAB Camera Calibration Toolbox by Jean-Yves Bouguet was used to calibrate the stereo camera heads individually. The calibration model in the MATLAB toolbox further extends the pinhole camera model introduced in section \ref{the_pinhole_camera_model} with a simple lens distortion model, which is first introduced.
 
-Ideally, the calibration technique used should estimate the camera parameters in an unbiased manner. If a lens distortion model is added to the calibration stage, the calibration corrects image distortions produced by a real lens system, such as barrel and pincushion distortions, too. A MATLAB Camera Calibration toolbox will be introduced next, which was used to calibrate the stereo camera heads.
+\subsection{Lens Distortion Model}
 
-\subsection{Intrinsic Camera Calibration}
-\label{subsection:intrinsic_camera_calibration}
+A lens distortion model is required to correct for lens distortions in the output image so that the image rectification step later is successful. Distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. In machine vision applications the geometric distortions hinder the performance most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. 
 
-The intrinsic camera calibration step will further extend the pinhole camera model introduced in section \ref{the_pinhole_camera_model} with a simple lens distortion model. A model is required to correct for lens distortions so that the image rectification step does not fail due to distortions. First, the perspective projection according to equation \ref{} would be written open as
+Next, a 6th order polynomial lens distortion model is introduced, which can be used with the perspective projection according to equation \ref{}. 
+
+%Lens systems that correct certain distortions are often specialised
+%radial and tangential distortions.
+%the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step. 
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:projection_to_image_plane}
