@@ -1373,13 +1373,9 @@ Intrinsic camera calibration is the process of estimating unknown camera model p
 
 \subsection{Lens Distortion Model}
 
-A lens distortion model is required to correct for lens distortions in the output image so that the image rectification step later is successful. Distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. In machine vision applications the geometric distortions hinder the performance most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. 
+The camera calibration toolbox includes a simple polynomial lens distortion model that extends the pinhole camera model. When a real imperfect camera lens system is used for image capture, lens distortions must be compensated by software to enable successful stereo block matching after image rectification. Distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. Geometric distortions hinder the performance of machine vision processes most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. 
 
-Next, a 6th order polynomial lens distortion model is introduced, which can be used with the perspective projection according to equation \ref{}. 
-
-%Lens systems that correct certain distortions are often specialised
-%radial and tangential distortions.
-%the unknown model parameters are the coefficients of the camera model matrix K, which will be solved by the calibration step. 
+Next, a 6th order polynomial lens distortion model is introduced, which can be used with the perspective projection
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:projection_to_image_plane}
@@ -1387,7 +1383,7 @@ Next, a 6th order polynomial lens distortion model is introduced, which can be u
 &y_p = f_{y}*y_{d}+pp_{y}
 \end{empheq}
 
-where the distortion model is calculated for $x_d$ and $y_d$ following the calibration procedure described in \citep{Heikkila97}. The intrinsic calibration parameters were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The calibration of the HIMMELI cameras follow the notation and the workflow of Heikkilä's paper, and the camera calibration toolbox provides its implementation\citep{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
+and added to normalised image coordinate compomenents $x_d$ and $y_d$ following the calibration procedure described in \citep{Heikkila97}. The intrinsic calibration parameters were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The calibration of the HIMMELI cameras follow the notation and the workflow of Heikkilä's paper, and the camera calibration toolbox provides its implementation\citep{Fetic12}. Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
 
 \begin{empheq}[left=\empheqlbrace]{align}
 \label{eq:normalised_distortion_corrected_pinhole_projections}
