@@ -707,7 +707,7 @@ Industrial goods e.g. beams, engines, large coils, drums of dangerous goods, and
 Ideally collision avoidance techniques should automatically prevent collision based damage to the warehouse building, and warn the operator of safety hazards and engage safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority.  To realise a working collision avoidance system, the load object model and the environment model should be known. If the load object is carefully tracked and its geometry is known at all times, a collision computation with a known environment model can be used to prevent collisions before they happen. The added value is potentially great, which is why the measurement of the load object is worth researching.
 
 % technical difficulties
-From a technical point of view, spatial tracking of a load object in time (4d tracker) is difficult, but if an understanding of the object model and its qualities is formed, then an estimate of the current state of the model can be used for decision making at any time. Tracked objects should continuosly provide information about their location, dimensions, and moving speeds at least. With such model information it is possible to implement collision avoidance functionality to a crane working environment. Some trackers that would be suitable for this purpose are object state vector management systems, and Kalman filter based trackers, but they are out of scope of this thesis. \citep{Leibe07} \citep{Corke11} 
+From a technical point of view, spatial tracking of a load object in time (4d tracker) is difficult, but if an understanding of the object model and its qualities is formed, then an estimate of the current state of the model can be used for decision making at any time. Tracked objects should continuosly provide information about their location, dimensions, and moving speeds at least. With such model information it is possible to implement collision avoidance functionality to a crane working environment. Some trackers that would be suitable for this purpose are object state vector management systems, and Kalman filter based trackers, but they are out of scope of this thesis. \citep{Leibe07} \citep{Corke11} \citep{Miller12}
 
 % how to implement collision detection
 The first step in implementing a collision avoidance technology is to provide a metric model of the environment, and segment all the objects that reside in it. A machine vision system can be used for environment modeling in general, and this thesis later introduces load object modeling with machine vision techniques. Further design of such a system should be done after an understanding of how the environment can be modeled to support a collision detection technique. New overhead crane systems do not currently have any collision detection features, but optimized route planning could become a standard feature in the future.
@@ -2282,6 +2282,10 @@ Unfortunately, the current version of ROS Groovy does not include the moment of 
 % the used scale of the point cloud point entries does have an effect on the computation time
 % a computation processed using meters is much faster than computation on the same point cloud represented in micrometers, a million times larger values
 
+Object segmentation is the first operation done for the point cloud after initial preprocessing is finished. The current implementation uses k-means clustering that clusters N-dimensional data points into k different spatial clusters using the PCL Euclidean Cluster Extraction class. For three-dimensional point cloud data, clustering uses $N = 3$ and an Euclidean metric for measuring distance between clusters and data candidates. Following the dissertation by Rusu \citep{Rusu09} the k-means clustering search would be presented algorithmically as
+
+
+
 \subsection{Point Cloud Filtering}
 \label{subsubsection:point_cloud_filtering}
 
@@ -2341,10 +2345,10 @@ The Point Cloud Library cylinder fitting process outputs a parameter set pcl::Mo
 
 \begin{algorithm}[H]
  \KwData{Load Object Cylinder Segmented Data From RANSAC}
- \KwResult{Cylinder length coordinates}
+ \KwResult{Fitter cylinder end point coordinates}
  compute N units long vector along the main cylinder axis so that all data points project on it\;
  compute closest data point to centroid of data\;
- initialise a start point at the closest data point from centroid projected on the main cylinder axis
+ initialise a start point at the closest data point from centroid projected on the main cylinder axis\;
  initialise two subcylinders who represent distance along the cylinder main axis starting from start point to the end points in two opposing directions\;
  \While{data points left}{
   iterate to next point cloud data entry\;
