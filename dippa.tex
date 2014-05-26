@@ -223,6 +223,8 @@
 \usepackage{textcomp}
 % Pretty tables
 \usepackage{booktabs}
+% Algorithm writing
+\usepackage{algorithmic}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
 
 % Hyperref
@@ -2335,6 +2337,24 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 
 \subsection{Cylinder Growing Algorithm}
 \label{subsection:cylinder_growing_algorithm}
+
+The Point Cloud Library cylinder fitting process outputs a parameter set pcl::ModelCoefficients that contains 7 parameters: 6 of them cover the coordinates of two random points on the main cylinder axis, and the final parameter reports the radius of the cylinder. Thus, the starting point and the ending point of the cylinder are not computed at all by the RANSAC computation. To solve the issue of missing cylinder length, an algorithm was written that solves the cylinder length. The algorithm projects points on the main cylinder axis using standard dot product computation, and grows the cylinder length until all the points in the cylinder data are iterated through. The working of the algorithm is as follows:
+
+\begin{algorithm}[H]
+ \KwData{this text}
+ \KwResult{how to write algorithm with \LaTeX2e }
+ initialization\;
+ \While{not at end of this document}{
+  read current\;
+  \eIf{understand}{
+   go to next section\;
+   current section becomes this one\;
+   }{
+   go back to the beginning of current section\;
+  }
+ }
+ \caption{How to write algorithms}
+\end{algorithm}
 
 \chapter{Evaluation}
 \label{chapter:evaluation}
