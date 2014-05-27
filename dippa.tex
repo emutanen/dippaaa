@@ -226,6 +226,9 @@
 % Algorithm writing
 \usepackage[]{algorithm2e}
 \newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+% Subfigure environment
+\usepackage{caption}
+\usepackage{subcaption}
 
 % Hyperref
 % ------------------------------------------------------------------
@@ -975,7 +978,7 @@ Octrees are used in
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{velodyne_octree.jpg}
-    \caption{An octree whose leaf nodes are visualised with a coarse resolution. The red object represents a large standard box (see section \ref{subsubsection:analysis_overheadcrane}) lifted with an overhead crane. The green object represents a crane operating person near the load object.}
+    \caption{An octree whose leaf nodes are visualised with a coarse resolution. The red object represents a large standard box (see section \ref{subsubsection:analysis_overheadcrane}) lifted with an overhead crane. The green object represents a crane operating person near the load object. Data from Velodyne HDL-32e LIDAR scanner.}
     \label{fig:velodyne_octree}
   \end{center}
 \end{figure}
@@ -1906,7 +1909,25 @@ Some methods:
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
 
-    + rectify images
+\begin{figure}
+\centering
+\begin{subfigure}
+    \centering
+    \includegraphics[width=.4\linewidth]{harris_feature_detector_left.jpg}
+    \caption{Left camera Harris corner detector result.}
+    \label{fig:harris_features_left}
+\end{subfigure}
+\begin{subfigure}
+    \centering
+    \includegraphics[width=.4\linewidth]{harris_feature_detector_right.jpg}
+    \caption{Right camera Harris corner detector result.}
+    \label{fig:harris_features_right}
+\end{subfigure}
+\caption{Harris corner detection can be used to solve the stereo correspondence problem in a stereo setup.}
+\label{fig:harris_features}
+\end{figure}
+
++ rectify images
         + Why do have to we rectify images?
     + improve performance of stereo corresponsdence algorithms
 
