@@ -1909,6 +1909,24 @@ Some methods:
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
 
+The correspondence problem is a general multiple camera system problem that answers whether multiple images contain a same 2d feature or not. 
+On one hand, in figures \ref{fig:harris_features_left} and \ref{fig:harris_features_right} it is easily seen that the same lifted box is seen from different viewpoints, but on the other hand, the machine vision system does not understand this unless some feature descriptors are formulated.
+
+A feature descriptor measures the shape of a segmented image region. 
+
+
+A good feature descriptor response is invariant to changes in scale, orientation, and viewpoint in images. 
+
+
+Basically, it describes the shape of the feature 2d projection
+
+
+
+ject found in two pictures, should be reliably found from two differing viewpoint images.
+
+
+features should be described unambiguosly so that it can be found in different viewpoints of the scene. A descriptor should be formulated so that the detection of the feature is invariant to scale change, perspective change, and camera-specific changes such as white balance, exposure, and illumination changes (specular reflections, shadows etc.).
+
 \begin{figure}
 \centering
 \begin{subfigure}
