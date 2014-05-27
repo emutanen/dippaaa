@@ -713,6 +713,7 @@ From a technical point of view, spatial tracking of a load object in time (4d tr
 The first step in implementing a collision avoidance technology is to provide a metric model of the environment, and segment all the objects that reside in it. A machine vision system can be used for environment modeling in general, and this thesis later introduces load object modeling with machine vision techniques. Further design of such a system should be done after an understanding of how the environment can be modeled to support a collision detection technique. New overhead crane systems do not currently have any collision detection features, but optimized route planning could become a standard feature in the future.
  
 \section{Applications}
+%+ visual odometry
 
 Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
 
@@ -970,6 +971,14 @@ Octomap
     
 Octrees are used in
     + id Tech 6 game engine
+    
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{velodyne_octree.jpg}
+    \caption{An octree whose leaf nodes are visualised with a coarse resolution. The red object represents a large standard box (see section \ref{subsubsection:analysis_overheadcrane}) lifted with an overhead crane. The green object represents a crane operating person near the load object.}
+    \label{fig:velodyne_octree}
+  \end{center}
+\end{figure}
 
 \section{weather}
 Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
@@ -1980,6 +1989,7 @@ Since we are interested in the load object AABB measurements we are not required
 
 \chapter{Implementation}
 \label{chapter:implementation}
+%test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
 
 The software implementation for the thesis work was prepared with the FAMOUS project team in Generic Intelligent Machines (GIM) research group. The implemented software includes many software nodes, mainly the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information. Additionally, the point cloud data publisher node was implemented that integrates the HIMMELI camera platform hardware as the sensor input platform for the load object measurement tool.\par
 The programming work done for the thesis was carried out from March 2013 to February 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library by WillowGarage Inc. was used for image processing and stereo rectification purposes, Point Cloud Library (PCL) was used for all data intensive point cloud processing, and Boost library was used for all file system operations. All the data networking, runtime configuration, and other online networking solutions were implemented using the Robot Operating System (ROS).  \par
@@ -2661,6 +2671,7 @@ The effect of the fluorescent lighting in the environment was not analysed since
 \end{figure}
 
 \subsubsection{Analysis}
+\label{subsubsection:analysis_overheadcrane}
 
 In order to verify the accuracy of the measurement, the output value of the geometry measurement software must be compared to a value produced by an actual measurement with e.g. measuring tape. In the overhead crane case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
 Figures x and y are screen captures from the data set 1372841000, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
