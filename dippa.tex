@@ -1540,6 +1540,8 @@ The coefficients of the camera calibration matrix K \ref{equation:cameracalibrat
 \section{Extrinsic Camera Parameters}
 \label{section:extrinsic_camera_parameters}
 
+Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
+
 Extrinsic camera parameters describe the position and orientation of all the camera locations in a multiple camera stereo system relative to a world coordinate frame $W$. In stereo vision applications, extrinsic camera parameters are additionally used to describe the relative transformation from the left camera frame origin to the right camera frame origin. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling a depth map computation. If an arbitrary world point $P_w$ is found in a world coordinate frame whose origin $O_w$ is explicitly defined in some world location, the translation and rotation into some camera coordinate system can be formulated as   
 
 \begin{equation}
@@ -1572,12 +1574,7 @@ where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since ro
 
 The scene that the camera sensors are viewing is called \emph{world frame} (or \emph{scene} interchangeably), which uses a standard (x,y,z) right-hand 3d coordinate convention. The origin of the world coordinate system is $O_w$ located at a corner of the overhead crane hall floor, for example. In the works, the origin of the world frame was coincident with the \emph{camera frame} (or \emph{sensor frame}) origin $O_c$ since the load object measurement computation only requires relative coordinates to function properly. Relative coordinates can be used as long as metricity of the scene geometry is guaranteed, which means that the translation of the camera frame to the world frame need not be precisely correct. Thus, the world frame origin and the camera frame origin both are located at the camera sensor array center. Third frame, the \emph{image frame}, is needed to convert between metric camera frame locations and the pixel array values of the image. 
 
-The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or crane end effector position services. GPS signal is not very good for an indoor application with the accuracy of 1-10 meters, and as such the crane positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in Himmeli platform. In this thesis, the world frame transformation was not solved since it was needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software, and a common coordinate frame must be used.
-
-
-The extrinsic parameters of the camera can be computed from the interaction between the camera coordinate system and the world coordinate system. Since the camera lies in some arbitrary world coordinates, and the detected scene changes according to the camera orientation, we can easily see that the extrinsic camera parameters change when the camera pose changes in the world coordinate system. The relation between the world coordinate system and the camera coordinate system can be computed with an Euclidean transformation consisting of a translation and rotation. 
-
-+ Additionally, the world lighting conditions and weather affect the extrinsic parameters to some extent.?
+The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or crane end effector position services. GPS signal is not very good for an indoor application with the accuracy of 1-10 meters, and as such the crane positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in the camera platform. In this thesis, the world frame transformation was not solved since it was needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software and a common coordinate frame is required.
 
 \subsection{Camera Coordinate System}
 \label{subsection:camera_coordinate_system}
@@ -1594,17 +1591,6 @@ The camera coordinate system axes may be referred to as camera axes. Interchange
 The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
 
 The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
-
-\subsection{Image Affine Coordinate System}
-\label{subsection:image_affine_coordinate_system}
-
-The affine coordinate system represents the shear (skew) and rescale aspects of the image Euclidean coordinate system \cite{Sonka07}. Shear and rescale options are usually called the aspect ratio of the image.  
-
-The reason to introduce the image affine coordinate system is that pixels are not necessarily perfectly perpendicular. The correction for pixel dimension distortion is needed for applications that need high accuracy in measurements.
-
-The image affine coordinate system introduces axes $u_i$, $v_i$, and $w_i$ that are not orthogonal. Axes v and w coincide with the camera coordinate system axes Y and Z, but axis u does not coincide with axis X, but is tilted. 
-
-
 
 \section{Metricity Requirements}
 \label{section:metricity_requirements}
