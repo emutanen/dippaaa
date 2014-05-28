@@ -1580,8 +1580,8 @@ The camera sensor array defines the first two orthogonal dimensions of the camer
 
 The image frame is the 2d projection plane where the three-dimensional point of the imaged scene is transformed with perspective transformation and pixelation process. The plane of the image frame is fully coincident with the camera frame image. The origin of the image frame is in the upper left corner of the sensor array, thus, having only non-negative integer values that map pixel intensity values to the pixel grid of the sensor array.
 
-\subsection{Epipolar Geometry}
-\label{subsection:epipolar_geometry}
+\section{Epipolar Geometry}
+\label{section:epipolar_geometry}
 
 %+ reference to the optical centers C and C', and baseline of the camera setup
 
@@ -1888,21 +1888,10 @@ Image feature detection is a large field on its own, which is why only a few gen
 
 In the implementation of the prototype software the correspondence problem is solved using the epipolar geometry property that enables a 1-dimensional correspondence search space using image rectification. If the geometry of the stereo setup is unambiguosly known, the extrinsic calibration knowledge makes image rectification possible. 
 
-\subsection{Image Rectification}
 
-Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space.
-
-
-
-
-It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
+(UNEDITED)It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
 In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
 The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
-
-    
-\image{disparity_space_from_zitnick_report}
-
-+ Uniqueness and continuity assumptions
 
 % correspondence problem
 + the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
@@ -1919,14 +1908,16 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
 
 + specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
 
-Now, the point $U_c$ in equation \ref{equation:projectedpoint} can be represented in homogenous coordinate system as 
+\subsection{Image Rectification}
 
-\begin{equation}
-\tilde{U_c} = \Biggl[\begin{array}{c}
-U \\
-V \\
-W \end{array} \Biggl]
-\end{equation}
+Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space. This property of the epipolar geometry reduces computation time a lot for the correspondence search implementation.
+
+
+
+
+
+
+
 
 \subsection{Block Matching Techniques}
 \label{subsection:block_matching_techniques}
@@ -1974,11 +1965,8 @@ The fourth use case configuration UCC 2-2 had a small telescopic crane installed
 
 In this use case the crane load shape is considered always cylindrical.
 
-\subsection{Online Software}
-\label{subsection:online_software}
-
-\subsection{Offline Software}
-\label{subsection:offline_software}
+\subsection{Prototype Software}
+\label{subsection:prototype_software}
 
 \subsubsection{End Effector Tracker Integration}
 \label{subsubsection:end_effector_tracker_integration}
@@ -2138,11 +2126,7 @@ ROS also includes a multitude of tools that can be used for data traffic verific
 
 For the networked data approach, ROS was considered as the number one framework choice in terms of cross-platform communications for the load object measurement system. Other options considered were an own implementation of the UDP communication protocol, some other real-time operating system, such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not as readily available for a full-fledged PC network in an industrial LAN setting as ROS was, thus, ROS was selected for use in the software development effort.
 
-\subsection{ROS I/O}
-\label{subsection:ros_io}
-
 \subsection{ROS Naming Conventions}
-
 
 The current naming convention is meant to protect from colliding topic, node, and parameter names. 
 
@@ -2407,6 +2391,8 @@ Measured height of the cameras installed from the floor was 545 cm.
 \label{subsection:disparity_tuning}
 
 The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. The tool was made for what you see is what you get (WYSIWYG) operation, and the resulting disparity image is displayed instantaneously next to the sliders.
+    
+\image{disparity_space_from_zitnick_report}
 
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
