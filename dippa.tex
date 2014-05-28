@@ -1538,7 +1538,7 @@ y_c \\
 z_c\end{bmatrix} = R(P_w - t)
 \end{equation}
 
-where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed into camera frame C. The homogenous coordinate frame transformation is formulated similarly
+where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed into a camera frame C. The homogenous coordinate frame transformation is formulated similarly
 
 \begin{equation}
 \tilde{P_c} = \begin{bmatrix}
@@ -1549,11 +1549,10 @@ where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed int
 \label{eq:homogenous_transformation}
 \end{equation}
 
-where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial. All combinations of Euler angle rotations are presented in more detail in a book Introduction to Robotics by Craig \citep{Craig05}.
-
-This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
-    If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
-    
+where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial. All combinations of Euler angle rotations are presented in more detail in a book Introduction to Robotics by Craig in Appendix B \emph{The 24 angle-set conventions} \citep{Craig05}.
+%If only the extrinsic parameters of a multiple camera system are known and no intrinsic parameter knowledge is available, 3d reconstruction of the scene is possible with some limitations. In case of a two camera system, the scene 3d geometry can be recovered only up to a scale, 
+%at least 5 cameras must be used to reconstruct a scene  
+    %If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
     %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
 
 \subsection{Prototype Transforms and Ordering}
