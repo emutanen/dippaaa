@@ -1576,14 +1576,7 @@ The scene that the camera sensors are viewing is called \emph{world frame} (or \
 
 The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or crane end effector position services. GPS signal is not very good for an indoor application with the accuracy of 1-10 meters, and as such the crane positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in the camera platform. In this thesis, the world frame transformation was not solved since it was needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software and a common coordinate frame is required.
 
-\subsection{Camera Coordinate System}
-\label{subsection:camera_coordinate_system}
-
-The camera sensor array dimensions define the first two orthogonal dimensions of the camera coordinate system. The camera coordinate x-y-plane lies on the camera image array, and the z-axis points out from the image plane towards the camera lens system along the optical axis. The camera coordinate system z-axis coincides with the optical axis of the camera in an ideal situation.
-
-The focal point of the camera defines the origin of the camera coordinate system, namely the focal point $O_c$. The subscript $c$ is used with any point that belongs to the camera coordinate system, mainly the physical points of the imaging array.
-
-The camera coordinate system axes may be referred to as camera axes. Interchangeably, they may be referred to as intrinsic axes of the camera.
+The camera sensor array defines the first two orthogonal dimensions of the camera coordinate system: x-y- axis plane is parallel to the camera image array, and the positive Z-axis points out from the image plane perpendicularly towards the lens system of the camera. The camera frame positive Z-axis is the optical axis of the camera by definition. The origin $O_c$ of the camera frame is located in the focal point of the camera, that is the point through which all the light rays reflected through the lens system go.
 
 \subsubsection{Camera Image Plane}
 \label{subsubsection:camera_image_plane}
