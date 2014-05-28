@@ -1580,146 +1580,12 @@ The camera sensor array defines the first two orthogonal dimensions of the camer
 
 The image frame is the 2d projection plane where the three-dimensional point of the imaged scene is transformed with perspective transformation and pixelation process. The plane of the image frame is fully coincident with the camera frame image. The origin of the image frame is in the upper left corner of the sensor array, thus, having only non-negative integer values that map pixel intensity values to the pixel grid of the sensor array.
 
-\section{Metricity Requirements}
-\label{section:metricity_requirements}
-
-An easy method of calibrating a reconstructed 3d scene is to know the relative positions of 5 or more points in the environment. The metric coordinates of the 5 beacons must be known so that the projectively reconstructed world points $S_b$ may be transformed from projective model to a metric model. The metric model can be further transformed into an Euclidean 3d model with some additional constraints, e.g. orthogonality and parallelism constraints on spatial structures. For example bundle adjustment techniques are suited well for estimating the correct transform that upgrades the projected model to a metric or Euclidean model via global minimisation of the reprojection error \ref{Pollefeys04}. Global minimisation techniques may not find the global minimum easily without heuristics, and the field of global minimum search is a vast research area in its own, thus, it will not be elaborated more.
-
-\subsection{Stereo Assumptions}
-\label{subsection:stereo_assumptions}
-
-Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
-
-In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
-
-A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
-
-+ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
-+ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
-+ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    + opaque
-    + ideal diffusion
-    + reclefts light energy in all directions
-
-Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
-Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
-
-
-
-\subsubsection{Calibration Targets}
-\label{subsubsection:calibration_targets}
-
-Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
-
-\subsubsection{Calibration Errors}
-\label{subsubsection:calibration_errors}
-%In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
-%lähde Kuvatekniikan perusteet
-
-
-+ Focal length estimation errors
-It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
-
-+ Tangential distortion
-+ Radial distortion (barrel effect)
-It is important to compensate for lens system radial distortions, because they cause vertical disparity on the edges of the image. \ref{Kyto14}
-
-+ Chromatic aberration
-
-+ Affine distortion (aspect ratio)
-
-+ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
-
-+ Calibration target location
-
-\subsection{Stereo Camera Pair Calibration}
-\label{subsection:stereo_camera_calibration}
-
-The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
-A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
-
-The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
-
-
-
-The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
-%what is negative disparity? => in front of the screen => does this matter in a measurement system
-
-+ toed-in or parallel camera setup
-
-The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
-
-A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
-
-+ convergence distance of the stereo system optical axes: approx. 264cm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-No additional domain-specific information is needed since the 
-
-Interesting problems
-+ Feature observability in an image
-+ Perspective projection challenges
-
-Bottom-up reconstruction
-    + from multiple image construct range images
-
-Top-down recognition
-    + CAD model recognition especially
-
-Space Carving
-    + volumetric representation
-
-
-+ object surface parameters
-    + reflectivity e.g.
-    
-    
-+different approaches: top-down (model-based) or bottom-up (reconstruction)
-
-
-\section{Stereo Imaging Techniques}
-\label{section:stereo_imaging_techniques}
-
-One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
-
-Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
-
 \subsection{Epipolar Geometry}
 \label{subsection:epipolar_geometry}
 
-Next we will introduce a two-camera epipolar geometry setup that is used for the depth mapping of the image features.
+%+ reference to the optical centers C and C', and baseline of the camera setup
 
-+ here put an image of the stereo geometry setup
-
-+ reference to the optical centers C and C', and baseline of the camera setup
+Epipolar geometry is a two-view camera geometry where the corresponding image point locations are restricted by the epipolar plane.  
 
 By definition, an epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. The epipolar plane intersects the image planes $\pi$ and $\pi'$ at epipolar lines. A feature of the epipolar line is that any projected point X must lie on this epipolar line on the image plane, a fact which greatly reduces the search space for matching image features.
 
@@ -1798,6 +1664,140 @@ Using only two cameras instead of multiple cameras helps to avoid occlusion of o
 
 + 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
+
+
+\section{Metricity Requirements}
+\label{section:metricity_requirements}
+
+An easy method of calibrating a reconstructed 3d scene is to know the relative positions of 5 or more points in the environment. The metric coordinates of the 5 beacons must be known so that the projectively reconstructed world points $S_b$ may be transformed from projective model to a metric model. The metric model can be further transformed into an Euclidean 3d model with some additional constraints, e.g. orthogonality and parallelism constraints on spatial structures. For example bundle adjustment techniques are suited well for estimating the correct transform that upgrades the projected model to a metric or Euclidean model via global minimisation of the reprojection error \ref{Pollefeys04}. Global minimisation techniques may not find the global minimum easily without heuristics, and the field of global minimum search is a vast research area in its own, thus, it will not be elaborated more.
+
+\subsection{Stereo Assumptions}
+\label{subsection:stereo_assumptions}
+
+Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+
+In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+
+A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+
++ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
++ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
++ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
++ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
+    + opaque
+    + ideal diffusion
+    + reclefts light energy in all directions
+
+Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
+Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+
+
+
+\subsubsection{Calibration Targets}
+\label{subsubsection:calibration_targets}
+
+Planar calibration grids are the most common calibration method for a stereo camera setup. Mainly checkerboard patterns and rectangular grid patterns are used for calibration purposes.
+
+\subsubsection{Calibration Errors}
+\label{subsubsection:calibration_errors}
+%In most cameras the scenes are projected on a planar image plane. For perspective projection cameras the borders of the image are less illuminated due to light refraction in the lens due the law of cosines. 
+%lähde Kuvatekniikan perusteet
+
+
++ Focal length estimation errors
+It was found out in study by Kytö that the focal length affects the depth threshold of a stereo setup more dominantly than the baseline separation of the cameras. %what is really depth threshold 
+
++ Tangential distortion
++ Radial distortion (barrel effect)
+It is important to compensate for lens system radial distortions, because they cause vertical disparity on the edges of the image. \ref{Kyto14}
+
++ Chromatic aberration
+
++ Affine distortion (aspect ratio)
+
++ Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
+
++ Calibration target location
+
+\section{Stereo Camera Pair Calibration}
+\label{section:stereo_camera_calibration}
+
+The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
+A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
+
+The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
+
+
+
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
+
++ toed-in or parallel camera setup
+
+The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
+
+A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
+
++ convergence distance of the stereo system optical axes: approx. 264cm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+No additional domain-specific information is needed since the 
+
+Interesting problems
++ Feature observability in an image
++ Perspective projection challenges
+
+Bottom-up reconstruction
+    + from multiple image construct range images
+
+Top-down recognition
+    + CAD model recognition especially
+
+Space Carving
+    + volumetric representation
+
+
++ object surface parameters
+    + reflectivity e.g.
+    
+    
++different approaches: top-down (model-based) or bottom-up (reconstruction)
+
+
+\section{Stereo Imaging Techniques}
+\label{section:stereo_imaging_techniques}
+
+One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
+
+Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
+
 
 
 \subsection{Stereo Errors}
@@ -1890,6 +1890,11 @@ In the implementation of the prototype software the correspondence problem is so
 
 \subsection{Image Rectification}
 
+Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space.
+
+
+
+
 It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
 In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
 The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
@@ -1932,36 +1937,6 @@ W \end{array} \Biggl]
 After the image rectification is done for a stereo image pair captured by the calibrated stereo camera setup, then the 3d point cloud generation becomes a problem of extracting the estimate of the disparity map (d(x,y).
 
 Q is the reprojection matrix that encodes information about the stereo camera setup. Q matrix will provide information about camera optical axis convergence (parallel or cross-eyed), image plane principal points, and the stereo setup baseline width b.
-
-
-\section{Load Object Modeling Quality}
-\label{section:load_object_modeling_quality}
-
-%fix passive
-We are not required to fully model the load object in order to find its position and a bounding volume. 
-
-Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
-
-If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
-
-An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
-
-It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
-
-
-using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
-
-
-statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
-
-
-The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
-
-Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
-
-
-
-Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
 \chapter{Implementation}
 \label{chapter:implementation}
@@ -2702,6 +2677,20 @@ Some improvements to the implemented system may be instantly thought of. For exa
 %Write down the most important findings from your work.
 %Like the introduction, this chapter is not very long.
 %Two to four pages might be a good limit.
+
+\section{Load Object Modeling Quality}
+\label{section:load_object_modeling_quality}
+%fix passive
+%We are not required to fully model the load object in order to find its position and a bounding volume. 
+%Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
+%If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
+%An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
+%It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
+%using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
+%statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
+%The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
+%Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
+%Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
 \section{Machine Learning Extras}
 
