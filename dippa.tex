@@ -1263,7 +1263,7 @@ where K is the camera calibration matrix that contains the intrinsic parameters 
 \tilde{Q} = KP_{0}T_{c}^{-1}\tilde{P}
 \end{equation}
 
-where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 parameters that describe translation and orientation of the camera from the world frame origin. All matrices K, $P_0$, and $T_{c}^{-1}$ can be combined into a single 3 x 4 camera matrix C that performs translation, rotation, scaling, and perspective projection\citep{Corke11}.
+where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 parameters that describe translation and orientation of the camera from the world frame origin. All matrices K, $P_0$, and $T_{c}^{-1}$ can be combined into a single 3 x 4 camera matrix C that performs translation, rotation, scaling, and perspective projection\citep{Corke11}. 
 
 \subsection{Extension To Pixel Frame}
 \label{subsection:extension_to_pixel_frame}
@@ -1369,6 +1369,17 @@ We have followed the definition of Sonka et al. \cite{Sonka07} so that the resul
 
 
 All the units are given in pixels.
+
+It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
+
+If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
+
+\begin{equation}
+P = \Biggl[ \begin{array}{ccccc}
+X_0 & X_1 & X_2 & \dots & X_n \\
+Y_0 & Y_1 & X_2 & \dots & Y_n \\
+Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
+\end{equation}
 
 
 \section{Intrinsic Camera Calibration}
@@ -1549,61 +1560,12 @@ where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed int
 \label{eq:homogenous_transformation}
 \end{equation}
 
-where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial. All combinations of Euler angle rotations are presented in more detail in a book Introduction to Robotics by Craig in Appendix B \emph{The 24 angle-set conventions} \citep{Craig05}.
+where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial unless the matrices are commutative. Commutativity is not a common property in transformation matrices, thus, the order of applying of rotation matrices changes the orientation outcome accordingly. The combinations of Euler angle rotations are presented in detail in Introduction to Robotics by Craig in Appendix B \emph{The 24 angle-set conventions} \citep{Craig05}. 
+
 %If only the extrinsic parameters of a multiple camera system are known and no intrinsic parameter knowledge is available, 3d reconstruction of the scene is possible with some limitations. In case of a two camera system, the scene 3d geometry can be recovered only up to a scale, 
 %at least 5 cameras must be used to reconstruct a scene  
     %If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
     %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
-
-\subsection{Prototype Transforms and Ordering}
-\label{subsection:prototype_transforms_and_ordering}
-
-Most of the matrix transformations are computed using three simple prototype transformations: translation, scaling, and rotation.
-
-\textbf{Translation} of a point is given by a translation transformation matrix
-
-\begin{equation}
-\Biggl[ \begin{array}{c}
-X^* \\
-Y^* \\
-Z^* \end{array} \Biggl]
-= \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & X_0 \\
-0 & 1 & 0 & Y_0 \\
-0 & 0 & 1 & Z_0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-\end{equation}
-
-Using of square matrix is enforced here to enable multiple sequential transformations computation into a single transformation matrix. Additionally, a square matrix representation simplifies the notation a lot.
-
-\textbf{Scaling} of a point is given by a scaling transformation matrix
-
-+ scaling matrix definition here (2.5-8).
-
-When is scaling used?
-
-\textbf{Rotation} of a point is given by a rotation transformation matrix. A simple rotation matrix operates on a single axis at a time, and rotation about multiple axes is achieved with sequential single rotations about different axes of the three-dimensional image space. The outcome of multiple rotations depends on the order of selected axis rotations.
-
-\begin{equation}
-\textbf{R}_\alpha = \Biggl[ \begin{array}{cccc}
-1 & 0 & 0 & 0 \\
-0 & \cos \alpha & \sin \alpha & 0 \\
-0 & -\sin \alpha & \cos \alpha & 0 \\
-0 & 0 & 0 & 1 \end{array} \Biggl]
-\end{equation}
-
-Concatenating multiple transformations into a single $4 x 4$ matrix can achieve a simultaneous translation, rotation, and scaling. The ordering of the transformations depend on the matrix commutability, which in general is not a common property in transformation matrices, thus, the correct order of the transformations is crucial. 
-
-It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
-
-If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
-
-\begin{equation}
-P = \Biggl[ \begin{array}{ccccc}
-X_0 & X_1 & X_2 & \dots & X_n \\
-Y_0 & Y_1 & X_2 & \dots & Y_n \\
-Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
-\end{equation}
 
 \subsection{World Coordinate System}
 \label{subsection:world_coordinate_system}
