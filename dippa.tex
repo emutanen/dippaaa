@@ -1526,17 +1526,20 @@ Modern cameras do not have all the distortion properties that older cameras had,
 % number of calibration images available affect the selection distortion models
 The coefficients of the camera calibration matrix K \ref{equation:cameracalibrationmatrix} contain the intrinsic camera parameters. If the coefficients of K are known, it is possible to extract metric values from the image plane \cite{Sonka07}. If a more complex camera model is used, the matrix K may have larger dimensions, but the intrinsic parameters still are the coefficients of K.  
 
-\subsection{Extrinsic Camera Parameters}
-\label{subsection:extrinsic_camera_parameters}
+\section{Extrinsic Camera Parameters}
+\label{section:extrinsic_camera_parameters}
 
-A world point $X_w$ is translated and rotated into the camera coordinate system so that
+Extrinsic camera parameters describe the position and orientation of all the camera locations in a multiple camera stereo system relative to a world coordinate frame $W$. In stereo vision applications, extrinsic camera parameters are additionally used to describe the relative transformation from the left camera frame origin to the right camera frame origin. Thus, if an arbitrary world point $P_w$ is found in a world coordinate frame whose origin $O_w$ is explicitly defined in some world location, the translation and rotation into a camera coordinate system can be formulated as   
 
 \begin{equation}
-\textbf{X}_c = \Biggl[ \begin{array}{c}
+\textbf{P}_c = \begin{bmatrix}
 x_c \\
 y_c \\
-z_c \end{array} \Biggl] = R(\textbf{X}_w - \textbf{t})
+z_c\end{bmatrix} = \textbf{R}(P_w - t)
 \end{equation}
+
+where $x_c$, $y_c$, and $z_c$ are the 
+
 
 The extrinsic camera parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation. Basically, the knowledge of the extrinsic parameters is equivalent to knowing the relative positions of 3d points. This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
     If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
