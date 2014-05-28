@@ -1529,19 +1529,29 @@ The coefficients of the camera calibration matrix K \ref{equation:cameracalibrat
 \section{Extrinsic Camera Parameters}
 \label{section:extrinsic_camera_parameters}
 
-Extrinsic camera parameters describe the position and orientation of all the camera locations in a multiple camera stereo system relative to a world coordinate frame $W$. In stereo vision applications, extrinsic camera parameters are additionally used to describe the relative transformation from the left camera frame origin to the right camera frame origin. Thus, if an arbitrary world point $P_w$ is found in a world coordinate frame whose origin $O_w$ is explicitly defined in some world location, the translation and rotation into a camera coordinate system can be formulated as   
+Extrinsic camera parameters describe the position and orientation of all the camera locations in a multiple camera stereo system relative to a world coordinate frame $W$. In stereo vision applications, extrinsic camera parameters are additionally used to describe the relative transformation from the left camera frame origin to the right camera frame origin. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling a depth map computation. If an arbitrary world point $P_w$ is found in a world coordinate frame whose origin $O_w$ is explicitly defined in some world location, the translation and rotation into some camera coordinate system can be formulated as   
 
 \begin{equation}
-\textbf{P}_c = \begin{bmatrix}
+P_c = \begin{bmatrix}
 x_c \\
 y_c \\
-z_c\end{bmatrix} = \textbf{R}(P_w - t)
+z_c\end{bmatrix} = R(P_w - t)
 \end{equation}
 
-where $x_c$, $y_c$, and $z_c$ are the 
+where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed into camera frame C. The homogenous coordinate frame transformation is formulated similarly
 
+\begin{equation}
+\tilde{P_c} = \begin{bmatrix}
+\tilde{x_c} \\
+\tilde{y_c} \\
+\tilde{z_c} \\
+1 \end{bmatrix} = \tilde{R}(\tilde{P_w} - \tilde{t})
+\label{eq:homogenous_transformation}
+\end{equation}
 
-The extrinsic camera parameters relate two different reference frames to each other with a transformation that contains a translation and a rotation. The extrinsic parameters are used to represent a point in space measured by the second camera in the first camera's reference frame coordinates. Thus, the extrinsic parameters can relate two viewpoints of the stereo camera setup to each other enabling the depth map computation. Basically, the knowledge of the extrinsic parameters is equivalent to knowing the relative positions of 3d points. This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
+where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial. All combinations of Euler angle rotations are presented in more detail in a book Introduction to Robotics by Craig \citep{Craig05}.
+
+This knowledge may be used to compute a metric reconstruction if 5 extrinsic camera viewpoint positions and orientations are known. If the intrinsic parameters, that were introduced in section \ref{subsection:intrinsic_camera_parameters}, are known, then a different approach can be used.
     If the intrinsic parameters are known, then a metric reconstruction may be obtained using a set of calibration points. The very minimum amount of points in a two viewpoint stereo setup is 5 points, but usually stereo calibration objects, such as calibration grids, contain more points. There is a risk  of acquiring multiple solutions using 5 points (the very minimum).
     
     %TODO Tähän metrisiä rekonstruktio tekniikoita niin perkeleesti
