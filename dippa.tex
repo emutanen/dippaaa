@@ -1576,14 +1576,9 @@ The scene that the camera sensors are viewing is called \emph{world frame} (or \
 
 The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or crane end effector position services. GPS signal is not very good for an indoor application with the accuracy of 1-10 meters, and as such the crane positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in the camera platform. In this thesis, the world frame transformation was not solved since it was needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software and a common coordinate frame is required.
 
-The camera sensor array defines the first two orthogonal dimensions of the camera coordinate system: x-y- axis plane is parallel to the camera image array, and the positive Z-axis points out from the image plane perpendicularly towards the lens system of the camera. The camera frame positive Z-axis is the optical axis of the camera by definition. The origin $O_c$ of the camera frame is located in the focal point of the camera, that is the point through which all the light rays reflected through the lens system go.
+The camera sensor array defines the first two orthogonal dimensions of the camera coordinate frame: x-y- axis plane is parallel to the camera image array, and the positive Z-axis points out from the image plane perpendicularly towards the lens system of the camera. The camera frame positive Z-axis is the optical axis of the camera by definition. The origin $O_c$ of the camera frame is located in the focal point of the camera, that is the point through which all the light rays reflected through the lens system go.
 
-\subsubsection{Camera Image Plane}
-\label{subsubsection:camera_image_plane}
-
-The camera image plane is the projection plane where the three-dimensional point of the imaged scene is transformed with a non-linear transformation. The camera image plane is a two-dimensional plane that is orthogonally coincident with the optical axis of the lens. 
-
-The camera image plane has its own coordinate system, namely $(x_i,y_i,z_i)$ coordinate system. We shall call the coordinate system a 
+The image frame is the 2d projection plane where the three-dimensional point of the imaged scene is transformed with perspective transformation and pixelation process. The plane of the image frame is fully coincident with the camera frame image. The origin of the image frame is in the upper left corner of the sensor array, thus, having only non-negative integer values that map pixel intensity values to the pixel grid of the sensor array.
 
 \section{Metricity Requirements}
 \label{section:metricity_requirements}
