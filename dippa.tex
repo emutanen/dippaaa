@@ -517,8 +517,8 @@ Thank you, and keep up the good work!
 % Example acronyms are placed in a separate file, acronyms.tex
 % \input{acronyms}
 
-\addcontentsline{toc}{chapter}{Abbreviations and Acronyms}
-\chapter*{Abbreviations and Acronyms}
+\addcontentsline{toc}{chapter}{Abbreviations}
+\chapter*{Abbreviations}
 
 % The longtable environment should break the table properly to multiple pages,
 % if needed
@@ -596,7 +596,7 @@ XML-RPC & XML Remote Procedure Call \\
 
 
 %===========================================================================================================
-\chapter*{Notation and Symbols}
+\chapter*{Symbols}
 
 %\footnote{http://owl.english.purdue.edu/owl/resource/574/02/} of
 %Purdue University or Strunk's Elements of
@@ -1596,7 +1596,7 @@ The image frame is the 2d projection plane where the three-dimensional point of 
 
 Epipolar geometry is a two-view camera geometry where the corresponding image point locations are restricted by an epipolar plane. In figure \ref{fig:epipolar_geometry} the epipolar plane is the plane spanned by both camera focal points (camera frame origins $O_{c_{1}}$ and $O_{c_{2}}$) and an arbitrary world point P. The epipolar plane $PO_{c_{1}}O_{c_{2}}$ intersects the image planes $\pi_L$ and $\pi_R$ at epipolar lines (see red lines in figure \ref{fig:epipolar_geometry}). A single point P is projected as points $p1$ and $p_2$ in two different camera frames. These projected points are called conjugate points that are found for all points P visible in both cameras. The most important feature of the epipolar geometry is that the conjugates of a point P in the camera frame must lie on corresponding epipolar lines, a fact which reduces the correspondence search space from 2d to 1d in block matching processing (see the correspondence problem in section \ref{section:stereo_correspondence_problem}).
 
-In figure \ref{fig:epipolar_geometry} the epipoles $e_1$ and $e_2$ are located along the epipolar line, marked in red dots. An epipole is always found on the stereo camera pair baseline, thus, by definition the epipolar line and the camera baseline intersect at an epipole. In a parallel stereo camera configuration the epipoles lie ideally at infinity, because the image plane is parallel to the stereo baseline, and the lines never intersect. In reality, the epipoles may be found at finite distance outside the image projection plane, but for simplicity of describing the concept of the epipolar geometry the figure \ref{fig:epipolar_geometry} shows a a verged (toed-in) stereo setup where the camera baseline and the epipolar lines in the image planes intersect inside the imaging area. If the epipole is formed inside the image plane, then the other camera optical center, thus the camera, must be visible in the picture.
+In figure \ref{fig:epipolar_geometry} the epipoles $e_1$ and $e_2$ are located along the epipolar line, marked in red dots. An epipole is always found on the stereo camera pair baseline (see Figure \ref{fig:simple_stereo_geometry}), thus, by definition the epipolar line and the camera baseline intersect at an epipole. In a parallel stereo camera configuration the epipoles lie ideally at infinity, because the image plane is parallel to the stereo baseline, and the lines never intersect. In reality, the epipoles may be found at finite distance outside the image projection plane, but for simplicity of describing the concept of the epipolar geometry the figure \ref{fig:epipolar_geometry} shows a a verged (toed-in) stereo setup where the camera baseline and the epipolar lines in the image planes intersect inside the imaging area. If the epipole is formed inside the image plane, then the other camera optical center, thus the camera, must be visible in the picture.
 
 A stereo camera setup where the camera optical axes are in parallel is called a canonical configuration. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features taken with a canonical stereo pair setup. For true disparity effect the camera must only shift along a single coordinate axis of a camera frame. Since the cameras project the world in a perspective projection on the image plane, the disparity effect follows the rules of perspective projection, for example, the object further away from the camera optical center shift less in pixels than objects in the near field of the camera. Any stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing as long as the camera images overlap. 
 
@@ -1874,7 +1874,10 @@ where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is t
   \end{center}
 \end{figure}
 
-Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object thus resulting in the original object surface in a stereo image A that is not visible in the stereo image B. The object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object, which means that a surface that is visible in the left camera image is not visible in the right camera image. The correspondence search should not return a corresponding point for an occluded surface, but in real machine vision systems occlusion tends to generate erroneous correspondence matches. An object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
+
+In figure \ref{fig:occlusion_pollefeys} an example of an occluded part of wall is shown on the left side. The right side depicts a correspondence search space along epipolar lines with an ideal correspondence correlation path for the occluded scene. It can easily be seen from figure \ref{fig:occlusion_pollefeys} that when on occlusion is found in the scene, the correct corresponding image point is found further away from the optimal path\citep{}.
+
 
 Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
 Some methods:
