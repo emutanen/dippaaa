@@ -1384,6 +1384,8 @@ Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
 
 \section{Intrinsic Camera Calibration}
 \label{subsection:intrinsic_camera_calibration}
+
+% T. Briggs article on autocalibration of a moving camera...?
 %Camera calibration can be weak or strong. If strong camera parameters are known it is possible to calculate image scene Euclidian metrics. If weak camera parameters are known, only a pixel to pixel transformation from one image to another is possible, for example, an epipolar projection transformation can be done with weak parameters \cite{Rander97}.
 %+ Why do we have to calibrate the cameras?
 %Many fast but inaccurate algortihms for calibration parameter estimation have been introduced in the literature. The increase in processing power of computing platforms helps to develop new non-linear camera calibration methods that are more accurate. A subpixel accuracy of 1/50 of a pixel can be achieved with a modern CCD imaging cell if such non-linear calibration is used\ref{Heikkila00}.
@@ -1605,19 +1607,24 @@ A precise relationship between a conjugate pair $p_1$ and $p_2$ is expressed usi
 \label{eq:fundamental_matrix}
 \end{equation}
 
-where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected (conjugate) points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_1$ is 
+where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected (conjugate) points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_2$ is a function of point $\tilde{p1}$ 
 
 \begin{equation}
-l_1 = F \tilde{p_1}
+\tilde{l_2} = F \tilde{p_1}
 \label{eq:epipolar_line_1}
 \end{equation}
 
-and the epipolar line $l_2$ is 
+and accordingly 
 
 \begin{equation}
-l_2 = F \tilde{p_2}
+\tilde{l_1} = F^T \tilde{p_2}
 \label{eq:epipolar_line_2}
 \end{equation}
+
+A lot of different techniques have been discovered by different researchers of how to recover the fundamental matrix $F$. If the camera intrinsic parameters are known, then the camera calibration matrix $K$ may be used to recover $F$. If no calibration is available, then $F$ can be recovered using equation \ref{eq;fundamental_matrix} with a calibration technique, such as the normalised 8-point algorithm, or other methods\citep{Salvi01}. Since $F$ is a $3 x 3$ matrix that is defined only up to a scale, it must have 8 degrees of freedom. Thus, the 8-point algorithm will provide a minimum of 8 linear equations that will solve the coefficients of the matrix. Other methods of estimating the fundamental matrix include the 7-point algorithm and random sample consensus based parameter estimators (RANSAC, MSAC, PROSAC)\citep{Carro12}.
+
+
+
 
 
 The depth of a measured feature can be computed if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth measurement value $Z_m$ is calculated using equation \ref{equation:disparity_eq},
@@ -2187,15 +2194,6 @@ byte[] & base64 & Base64-encoded byte array \\ \hline
 \end{table}
 
 Setting parameters in the ROS parameter server is done using an XML launch file when launching a ROS node. All the variables are evaluated before launching any nodes, and all information is uploaded to the parameter server before launching the nodes. We can force certain data types for the parameters if the data types are not unambiguos. Supported types in the launch file are \emph{str}, \emph{int}, \emph{double}, and \emph{bool}. Additionally, we may set parameters in child namespaces or fully upload the contents of a parameter file to the parameter server as text or binary.
-
-\subsection{Other Features}
-\label{subsection:other_features}
-
-+ dynamic_reconfigure
-+ rxlogger
-
-\section{Camera Calibration Toolbox}
-\label{section:camera_calibration_toolbox}
 
 \chapter{Computation}
 \label{chapter:algorithms}
