@@ -1589,6 +1589,14 @@ Epipolar geometry is a two-view camera geometry where the corresponding image po
 
 By definition, an epipolar plane is the planar surface that spans between vectors $\vec{CX}$ and $\vec{C'X}$. The epipolar plane intersects the image planes $\pi$ and $\pi'$ at epipolar lines. A feature of the epipolar line is that any projected point X must lie on this epipolar line on the image plane, a fact which greatly reduces the search space for matching image features.
 
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{epipolar_geometry.pdf}
+    \caption{Epipolar geometry. The image planes are non-parallel so that the epipoles $e_1$ and $e_2$ stay inside the projective image area. In a parallel configuration, the epipoles are ideally located at infinity. Adapted from \citep{Corke11}.}
+    \label{fig:epipolar_geometry}
+  \end{center}
+\end{figure}
+
 Next, we introduce the epipole, which is the line intersection of an epipolar line and the baseline of the stereo camera configuration. By definition, epipoles always lie on the baseline.
 
 A canonical configuration is a stereo camera setup where the camera optical axes are in parallel. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features in a picture taken in another world coordinate. For a real disparity effect the camera must shift only along a single coordinate axis.
