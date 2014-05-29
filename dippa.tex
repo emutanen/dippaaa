@@ -1876,20 +1876,9 @@ where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is t
 
 Occlusion means partial or full loss of line of sight of an object in an image. In stereo matching, an object may be partially occluded by another object, which means that a surface that is visible in the left camera image is not visible in the right camera image. The correspondence search should not return a corresponding point for an occluded surface, but in real machine vision systems occlusion tends to generate erroneous correspondence matches. An object may be occluded in only left or right stereo image, or partially occluded in both. In both cases, the other image has visible object surface that cannot be matched in the other image.
 
-In figure \ref{fig:occlusion_pollefeys} an example of an occluded part of wall is shown on the left side. The right side depicts a correspondence search space along epipolar lines with an ideal correspondence correlation path for the occluded scene. It can easily be seen from figure \ref{fig:occlusion_pollefeys} that when on occlusion is found in the scene, the correct corresponding image point is found further away from the optimal path\citep{}.
+In figure \ref{fig:occlusion_pollefeys} an example of an occluded part of wall is shown on the left side. The right side depicts a correspondence search space along epipolar lines with an ideal correspondence correlation path for the rectified occluded scene. It can easily be seen from figure \ref{fig:occlusion_pollefeys} that when on occlusion is found in the scene, the correct corresponding image point is found further away from the optimal path. Furthermore, the correspondence search space is restricted along the epipolar lines with certain disparity difference limit (bandwidth) because the depth range of the imaged features is limited\citep{Pollefeys04}. 
 
-
-Occlusion is a big problem in stereo matching process. Most solutions do not explicitly detect these occluded regions 
-Some methods:
-+ multiple cameras and camera masking
-+ bidirectional matching
-+ 
-
-+ occluding boundary is the surface of object that slides in the horizon so that the tangent of the surface is towards the viewer.
-
-+ merging and splitting situations \cite{tikkanen13}
-+ object tracks, initiating and terminating
-+ 
+Most solutions do not explicitly detect occluded regions, thus errors may be found in the disparity output of block matching if bidirectional matching is not enforced. Bidirectional matching searches corresponding surface points from both images, thus, occluded regions may be identified if there is certain surface areas are detected as missing. Also, an occluding boundary is found on the perimeter of objects, for example, a cylinder surface will curve until the other camera view becomes occluded. Thus, on the edge of objects that curve out of view there is always some occlusion in the scene. Occlusion induces errors in disparity map estimation, which can be improved if occlusion detection systems are used in the block matching process. Occlusion detection is out of scope of this thesis, but basically the occlusion can be detected using energy functions that optimise the correspondence search path, for example Kolmogorov et al. describe such a technique that uses graph cuts\citep{Kolmogorov01, Woo-Seok11}. 
 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
