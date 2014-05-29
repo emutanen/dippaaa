@@ -1621,10 +1621,78 @@ and accordingly
 \label{eq:epipolar_line_2}
 \end{equation}
 
-A lot of different techniques have been discovered by different researchers of how to recover the fundamental matrix $F$. If the camera intrinsic parameters are known, then the camera calibration matrix $K$ may be used to recover $F$. If no calibration is available, then $F$ can be recovered using equation \ref{eq;fundamental_matrix} with a calibration technique, such as the normalised 8-point algorithm, or other methods\citep{Salvi01}. Since $F$ is a $3 x 3$ matrix that is defined only up to a scale, it must have 8 degrees of freedom. Thus, the 8-point algorithm will provide a minimum of 8 linear equations that will solve the coefficients of the matrix. Other methods of estimating the fundamental matrix include the 7-point algorithm and random sample consensus based parameter estimators (RANSAC, MSAC, PROSAC)\citep{Carro12}.
+A lot of different techniques have been discovered by different researchers of how to recover the fundamental matrix $F$. If the camera intrinsic parameters are known, then the camera calibration matrix $K$ may be used to recover $F$. If no calibration is available, then $F$ can be recovered using equation \ref{eq;fundamental_matrix} with a calibration technique, such as the normalised 8-point algorithm, or other methods\citep{Salvi01}. Since $F$ is a $3 x 3$ matrix that is defined only up to a scale, it must have 8 degrees of freedom. Thus, the 8-point algorithm will provide a minimum of 8 linear equations that will solve the coefficients of the matrix. Other methods of estimating the fundamental matrix include the 7-point algorithm and random sample consensus based parameter estimators, such as RANSAC, MSAC, and PROSAC\citep{Carro12}.
+
+\section{Stereo Camera Calibration}
+\label{section:stereo_camera_calibration}
+
+The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
+A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
+
+The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
 
 
 
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
+
++ toed-in or parallel camera setup
+
+The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
+
+A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
+
++ convergence distance of the stereo system optical axes: approx. 264cm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+No additional domain-specific information is needed since the 
+
+Interesting problems
++ Feature observability in an image
++ Perspective projection challenges
+
+Bottom-up reconstruction
+    + from multiple image construct range images
+
+Top-down recognition
+    + CAD model recognition especially
+
+Space Carving
+    + volumetric representation
+
+
++ object surface parameters
+    + reflectivity e.g.
+    
+    
++different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 
 The depth of a measured feature can be computed if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth measurement value $Z_m$ is calculated using equation \ref{equation:disparity_eq},
@@ -1751,76 +1819,6 @@ It is important to compensate for lens system radial distortions, because they c
 
 + Calibration target location
 
-\section{Stereo Camera Pair Calibration}
-\label{section:stereo_camera_calibration}
-
-The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
-A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
-
-The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
-
-
-
-The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
-%what is negative disparity? => in front of the screen => does this matter in a measurement system
-
-+ toed-in or parallel camera setup
-
-The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
-
-A parallel optical axes alignment is preferred to avoid vertical disparity caused by keystone distortion correction. The toed-in camera setup also induces depth plane curvature, which is an unwanted warping phenomenon of the image.\ref{Kyto14}    
-
-+ convergence distance of the stereo system optical axes: approx. 264cm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-No additional domain-specific information is needed since the 
-
-Interesting problems
-+ Feature observability in an image
-+ Perspective projection challenges
-
-Bottom-up reconstruction
-    + from multiple image construct range images
-
-Top-down recognition
-    + CAD model recognition especially
-
-Space Carving
-    + volumetric representation
-
-
-+ object surface parameters
-    + reflectivity e.g.
-    
-    
-+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 
 \section{Stereo Imaging Techniques}
