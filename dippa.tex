@@ -1601,21 +1601,21 @@ A stereo camera setup where the camera optical axes are in parallel is called a 
 A precise relationship between a conjugate pair $p_1$ and $p_2$ is expressed using $3 x 3$ fundamental matrix $F$ 
 
 \begin{equation}
-\textbf{\tilde{p_1}^T} \textbf{F} \textbf{\tilde{p_2}} = 0
+\tilde{p_1}^T F \tilde{p_2} = 0
 \label{eq:fundamental_matrix}
 \end{equation}
 
-where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected image points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_1$ is 
+where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected (conjugate) points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_1$ is 
 
 \begin{equation}
-l_1 = \textbf{F} \textbf{\tilde{p_1}}
+l_1 = F \tilde{p_1}
 \label{eq:epipolar_line_1}
 \end{equation}
 
 and the epipolar line $l_2$ is 
 
 \begin{equation}
-l_2 = \textbf{F} \textbf{\tilde{p_2}}
+l_2 = F \tilde{p_2}
 \label{eq:epipolar_line_2}
 \end{equation}
 
