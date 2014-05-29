@@ -1598,6 +1598,26 @@ In figure \ref{fig:epipolar_geometry} the epipoles $e_1$ and $e_2$ are located a
 
 A stereo camera setup where the camera optical axes are in parallel is called a canonical configuration. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features taken with a canonical stereo pair setup. For true disparity effect the camera must only shift along a single coordinate axis of a camera frame. Since the cameras project the world in a perspective projection on the image plane, the disparity effect follows the rules of perspective projection, for example, the object further away from the camera optical center shift less in pixels than objects in the near field of the camera. Any stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing as long as the camera images overlap. 
 
+A precise relationship between a conjugate pair $p_1$ and $p_2$ is expressed using $3 x 3$ fundamental matrix $F$ 
+
+\begin{equation}
+\textbf{\tilde{p_1}^T} \textbf{F} \textbf{\tilde{p_2}} = 0
+\label{eq:fundamental_matrix}
+\end{equation}
+
+where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected image points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_1$ is 
+
+\begin{equation}
+l_1 = \textbf{F} \textbf{\tilde{p_1}}
+\label{eq:epipolar_line_1}
+\end{equation}
+
+and the epipolar line $l_2$ is 
+
+\begin{equation}
+l_2 = \textbf{F} \textbf{\tilde{p_2}}
+\label{eq:epipolar_line_2}
+\end{equation}
 
 
 The depth of a measured feature can be computed if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth measurement value $Z_m$ is calculated using equation \ref{equation:disparity_eq},
@@ -2379,7 +2399,6 @@ The machine vision process generated a point cloud that illustrated the 3d real-
     \label{fig:riegl_reference}
   \end{center}
 \end{figure}
-
 
 Accuracy of the point cloud representation can be quantified using point cloud data quality indicators. Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping etc. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis. The need for different quality indicators depends on the application at hand, but the constructed industrial environment encourages to try spatial structure analysis for indoor crane environment, too. Positioning analysis was not done in this thesis since multiple view registration was not used\ref{Feng08}.\par
 In literature, also reverse engineering of shape primitives from point cloud response have been used for point cloud data quality verification in industrial settings. In industrial environments, a lot of box-shaped or cylinder-shaped objects can be found and be used for verification. Also, for any primitive geometric shapes it is fairly simple to quantify a goodness of fit value using geometric fitting schemes via least squares error minimization\ref{Fidera04}.
