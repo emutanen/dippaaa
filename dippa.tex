@@ -1949,11 +1949,19 @@ Image rectification is the process of virtual optical axis parallelisation done 
 
 
 
-\subsection{Block Matching Techniques}
-\label{subsection:block_matching_techniques}
+\subsection{Block Matching}
+\label{subsection:block_matching}
 
-\section{Depth Map Generation}
-\label{section:depth_map_generation}
+\section{Depth From Disparity Map}
+\label{section:depth_from_disparity_map}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{disparity.jpg}
+    \caption{A disparity image. Near field objects are bright, and far field objects are darker. The image has only one intensity channel with 256 different brightness levels.}
+    \label{fig:disparity}
+  \end{cente}
+\end{figure}
 
 After the image rectification is done for a stereo image pair captured by the calibrated stereo camera setup, then the 3d point cloud generation becomes a problem of extracting the estimate of the disparity map (d(x,y).
 
