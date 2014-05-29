@@ -1592,7 +1592,7 @@ The image frame is the 2d projection plane where the three-dimensional point of 
   \end{center}
 \end{figure}
 
-Epipolar geometry is a two-view camera geometry where the corresponding image point locations are restricted by an epipolar plane. In figure \ref{fig:epipolar_geometry} the epipolar plane is the plane spanned by both camera focal points (camera frame origins $O_{c_{1}}$ and $O_{c_{2}}$) and an arbitrary world point P. The epipolar plane $PO_{c_{1}}O_{c_{2}}$ intersects the image planes $\pi_L$ and $\pi_R$ at epipolar lines (see red lines in figure \ref{fig:epipolar_geometry}). A single point P is projected as points $p1$ and $p_2$ in two different camera frames. These projected points are called conjugate points, that are found for all points P visible in both cameras. The most important feature of the epipolar geometry is that the conjugates of a point P in the camera frame must lie on corresponding epipolar lines, a fact which reduces the correspondence search space from 2d to 1d in block matching processing (see the correspondence problem in section \ref{section:stereo_correspondence_problem}).
+Epipolar geometry is a two-view camera geometry where the corresponding image point locations are restricted by an epipolar plane. In figure \ref{fig:epipolar_geometry} the epipolar plane is the plane spanned by both camera focal points (camera frame origins $O_{c_{1}}$ and $O_{c_{2}}$) and an arbitrary world point P. The epipolar plane $PO_{c_{1}}O_{c_{2}}$ intersects the image planes $\pi_L$ and $\pi_R$ at epipolar lines (see red lines in figure \ref{fig:epipolar_geometry}). A single point P is projected as points $p1$ and $p_2$ in two different camera frames. These projected points are called conjugate points that are found for all points P visible in both cameras. The most important feature of the epipolar geometry is that the conjugates of a point P in the camera frame must lie on corresponding epipolar lines, a fact which reduces the correspondence search space from 2d to 1d in block matching processing (see the correspondence problem in section \ref{section:stereo_correspondence_problem}).
 
 In figure \ref{fig:epipolar_geometry} the epipoles $e_1$ and $e_2$ are located along the epipolar line, marked in red dots. An epipole is always found on the stereo camera pair baseline, thus, by definition the epipolar line and the camera baseline intersect at an epipole. In a parallel stereo camera configuration the epipoles lie ideally at infinity, because the image plane is parallel to the stereo baseline, and the lines never intersect. In reality, the epipoles may be found at finite distance outside the image projection plane, but for simplicity of describing the concept of the epipolar geometry the figure \ref{fig:epipolar_geometry} shows a a verged (toed-in) stereo setup where the camera baseline and the epipolar lines in the image planes intersect inside the imaging area. If the epipole is formed inside the image plane, then the other camera optical center, thus the camera, must be visible in the picture.
 
@@ -2371,6 +2371,14 @@ The machine vision process generated a point cloud that illustrated the 3d real-
 \item Speckle regions, misinterpreted Z depth regions, and artefacts of any kind
 \item Number of finite data point entries
 \end{itemize}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics{riegl_reference.jpg}
+    \caption{A point cloud of the forestry crane boom environment taken with an industrial Riegl terrestial laser scanner.}
+    \label{fig:riegl_reference}
+  \end{center}
+\end{figure}
 
 Accuracy of the point cloud representation can be quantified using point cloud data quality indicators. Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping etc. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis. The need for different quality indicators depends on the application at hand, but the constructed industrial environment encourages to try spatial structure analysis for indoor crane environment, too. Positioning analysis was not done in this thesis since multiple view registration was not used\ref{Feng08}.\par
 In literature, also reverse engineering of shape primitives from point cloud response have been used for point cloud data quality verification in industrial settings. In industrial environments, a lot of box-shaped or cylinder-shaped objects can be found and be used for verification. Also, for any primitive geometric shapes it is fairly simple to quantify a goodness of fit value using geometric fitting schemes via least squares error minimization\ref{Fidera04}.
