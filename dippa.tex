@@ -1891,21 +1891,33 @@ A feature descriptor measures the shape of a segmented image region using invari
 
 Image feature detection is a large field on its own, which is why only a few general feature descriptos are introduced that can be used to solve the correspondence problem. Some full-fledged feature descriptor techniques include scale-invariant feature transform (SIFT), speeded up robust features detector (SURF), and histogram of oriented gradients (HOG). Also blob detectors, such as the maximally stable extremal regions (MSER) could be used to solve a general correspondence problem. The Harris corner detector (see Figure \ref{fig:harris_features_left}), and Shi and Tomasi corner detector are useful for tracking the corners of a lifted load objects as part of the measurement software. Moreover, the features returned by a corner detector could be used as control points in the point cloud verification process introduced in section \ref{section:data_quality_in_the_machine_vision_process}.
 
-\begin{figure}
-\centering
-\begin{subfigure}{.5\textwidth}
+\begin{figure}%
     \centering
-    \includegraphics[width=.3\linewidth]{harris_feature_detector_left.jpg}
-    \caption{\tiny Left rectified image.}
-    \label{fig:harris_features_left}
-\end{subfigure}%
-\begin{subfigure}{.5\textwidth}
-    \centering
+    \parbox{3cm}{\includegraphics[width=.3\linewidth]{harris_feature_detector_left.jpg}}%
+    \qquad
+    \begin{minipage}{3cm}%
     \includegraphics[width=0.3\linewidth]{harris_feature_detector_right.jpg}
-    \caption{\tiny Right rectified image.}
-    \label{fig:harris_features_right}
-\end{subfigure}
+    \end{minipage}%
+    \caption{A rectified image pair.}
+    \label{fig:rectified_image_pair}
 \end{figure}
+
+
+%\begin{figure}
+%\centering
+%\begin{subfigure}{.5\textwidth}
+%    \centering
+%    \includegraphics[width=.3\linewidth]{harris_feature_detector_left.jpg}
+%    \caption{\tiny Left rectified image.}
+%    \label{fig:harris_features_left}
+%\end{subfigure}%
+%\begin{subfigure}{.5\textwidth}
+%    \centering
+%    \includegraphics[width=0.3\linewidth]{harris_feature_detector_right.jpg}
+%    \caption{\tiny Right rectified image.}
+%    \label{fig:harris_features_right}
+%\end{subfigure}
+%\end{figure}
 
 In the implementation of the prototype software the correspondence problem is solved using the epipolar geometry property that enables a 1-dimensional correspondence search space using image rectification. If the geometry of the stereo setup is unambiguosly known, the extrinsic calibration knowledge makes image rectification possible. 
 
