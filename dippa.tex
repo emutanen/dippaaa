@@ -1945,11 +1945,11 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
     \label{fig:rectified_image_pair}
 \end{figure}
 
-Image rectification (stratification) is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. An epipolar-aligned image pair enforces parallel optical axis between the cameras. Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised.
+Planar image rectification (stratification) is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries.\citep{Pollefeys99}
 
-A stereo camera pair sensors can never be fully parallel due to limits in mechanical alignment of the lens system and the construction of the sensor array. Software rectification compensates for such errors, thus, a very accurate positioning of the cameras is often not necessary. 
+Rectification of an image pair requires an estimated fundamental matrix $F$ and a set of corresponding feature point coordinates found from both images. Using F and the corresponding points the epipolar line equations will be computed according to equations \ref{eq:epipolar_line_1} and \ref{eq:epipolar_line_2}. Using these equations and X the original non-rectified image is warped to an epipolar-aligned image. Since the corresponding coordinate points are mapped in new coordinate values and all the pixels on the epipolar line are 
 
-A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single dimension between the two images. 
+A stereo camera pair sensors can never be fully parallel due to limits in mechanical alignment of the lens system and the construction of the sensor array. Software rectification compensates for such errors, thus, a very accurate positioning of the cameras is often not necessary. A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single dimension between the two images.
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
