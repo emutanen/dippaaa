@@ -1891,16 +1891,6 @@ A feature descriptor measures the shape of a segmented image region using invari
 
 Image feature detection is a large field on its own, which is why only a few general feature descriptos are introduced that can be used to solve the correspondence problem. Some full-fledged feature descriptor techniques include scale-invariant feature transform (SIFT), speeded up robust features detector (SURF), and histogram of oriented gradients (HOG). Also blob detectors, such as the maximally stable extremal regions (MSER) could be used to solve a general correspondence problem. The Harris corner detector (see Figure \ref{fig:harris_features_left}), and Shi and Tomasi corner detector are useful for tracking the corners of a lifted load objects as part of the measurement software. Moreover, the features returned by a corner detector could be used as control points in the point cloud verification process introduced in section \ref{section:data_quality_in_the_machine_vision_process}.
 
-\begin{figure}%
-    \centering
-    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
-    \qquad
-    \begin{minipage}{5cm}%
-    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
-    \end{minipage}%
-    \caption{A rectified image pair. Red dots represent the Harris corner detector output of 200 feature points.}
-    \label{fig:rectified_image_pair}
-\end{figure}
 
 
 %\begin{figure}
@@ -1942,15 +1932,24 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
 + specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
 
 \subsection{Image Rectification}
+%The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. 
 
-Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space. This property of the epipolar geometry reduces computation time a lot for the correspondence search implementation.
+\begin{figure}%
+    \centering
+    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
+    \qquad
+    \begin{minipage}{5cm}%
+    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
+    \end{minipage}%
+    \caption{A rectified image pair where the epipolar lines are horizontal. Red dots represent the Harris corner detector output of 200 feature points.}
+    \label{fig:rectified_image_pair}
+\end{figure}
 
+Image rectification (stratification) is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. An epipolar-aligned image pair enforces parallel optical axis between the cameras. Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised.
 
+A stereo camera pair sensors can never be fully parallel due to limits in mechanical alignment of the lens system and the construction of the sensor array. Software rectification compensates for such errors, thus, a very accurate positioning of the cameras is often not necessary. 
 
-
-
-
-
+A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single dimension between the two images. 
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
