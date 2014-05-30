@@ -1956,14 +1956,13 @@ A stereo camera pair can never be fully parallel due to limits in mechanical ali
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=\textwidth]{bad_calibration.jpg}
+    \includegraphics[width=0.5\textwidth]{bad_calibration.jpg}
     \caption{A rectified image output with unsuccessful stereo camera calibration.}
     \label{fig:bad_calibration}
   \end{cente}
 \end{figure}
 
-A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. A rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
-
+A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. For comparison, a rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
