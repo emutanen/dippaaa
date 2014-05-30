@@ -1893,19 +1893,18 @@ Image feature detection is a large field on its own, which is why only a few gen
 
 \begin{figure}
 \centering
-\begin{subfigure}
+\begin{subfigure}{.5\textwidth}
     \centering
-    \includegraphics[width=0.3\linewidth]{harris_feature_detector_left.jpg}
+    \includegraphics[width=.3\linewidth]{harris_feature_detector_left.jpg}
     \caption{\tiny Left rectified image.}
     \label{fig:harris_features_left}
 \end{subfigure}%
-\begin{subfigure}
+\begin{subfigure}{.5\textwidth}
     \centering
     \includegraphics[width=0.3\linewidth]{harris_feature_detector_right.jpg}
     \caption{\tiny Right rectified image.}
     \label{fig:harris_features_right}
 \end{subfigure}
-\label{fig:harris_features}
 \end{figure}
 
 In the implementation of the prototype software the correspondence problem is solved using the epipolar geometry property that enables a 1-dimensional correspondence search space using image rectification. If the geometry of the stereo setup is unambiguosly known, the extrinsic calibration knowledge makes image rectification possible. 
