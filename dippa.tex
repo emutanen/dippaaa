@@ -1623,15 +1623,25 @@ and accordingly
 
 A lot of different techniques have been discovered by different researchers of how to recover the fundamental matrix $F$. If the camera intrinsic parameters are known, then the camera calibration matrix $K$ may be used to recover $F$. If no calibration is available, then $F$ can be recovered using equation \ref{eq;fundamental_matrix} with a calibration technique, such as the normalised 8-point algorithm, or other methods\citep{Salvi01}. Since $F$ is a $3 x 3$ matrix that is defined only up to a scale, it must have 8 degrees of freedom. Thus, the 8-point algorithm will provide a minimum of 8 linear equations that will solve the coefficients of the matrix. Other methods of estimating the fundamental matrix include the 7-point algorithm and random sample consensus based parameter estimators, such as RANSAC, MSAC, and PROSAC\citep{Carro12}.
 
-\section{Stereo Camera Calibration}
-\label{section:stereo_camera_calibration}
+\section{Stereo Calibration}
+\label{section:stereo_calibration}
 
-The stereo camera pair calibration computes the rotation and translation between a stereo camera pair. This is also known as the extrinsic calibration of the stereo pair cameras. The calibration results in a trans-rotational matrix that describes the origin and direction of the optical axis of the camera in the other camera's sensor coordinate system.\par
-A known calibration for each single camera is required if metricity data needs to be produced using the stereo pair calibration. This section will focus on stereo calibration where the intrinsic parameters of each camera are known. The stereo calibration with these parameters can be done most simply using a stereo image pair and the 8-point algorithm that solves the correspondence problem between two different viewpoints. 8-point algorithm computation from two images is simple and straightforward, but in order to obtain better results, many more linear correspondence equations must be added to the problem.\par
+A stereo calibration computes an extrinsic calibration that relates two camera viewpoints of a stereo camera pair to each other. The calibration output is a rotation matrix $R$ and a translation matrix $T$ according to equation \ref{eq:homogenous_transformation}, and the combined transformation $T$ can be seen in figure \ref{fig:epipolar_geometry}. Stereo calibration techniques are based on fundamental matrix estimation techniques that use epipolar geometry and constraints (see section \ref{section:epipolar_geometry}). 
+
+If the stereo camera pair is used to produce metric data output, then both single camera intrinsic calibration parameters are required as an input to the stereo calibration. The same algorithms that are used to estimate the fundamental matrix in section \ref{section:epipolar_geometry} can be used to solve for the stereo calibration including the 7-point algorithm, the 8-point algorithm, and random sample consensus based parameter estimators methods. The stereo calibration used in the prototype software that was implemented in this thesis work uses the OpenCV stereo calibration workflow, which will be introduced next.
+
+\subsection{OpenCV Stereo Calibration Workflow}
+\label{subsection:opencv_stereo_calibration_workflow}
 
 The OpenCV stereo calibration uses the same implementation used by the MATLAB Camera Calibration Toolbox by Bouquet. Bouquet's implementation mixes multiple techniques from other camera calibration original research including papers from Zhang, Heikkilä, Silven, and Tsai \ref{BouquetRef}. Basically, the technique used estimates the fundamental and essential matrices between two stereo images who contain calibration chessboard patterns. The calibration is based on the knowledge of chessboard crossing locations in high accuracy.\par
 
-
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{stereo_calibration.jpg}
+    \caption{A $9 x 6$ crossings standard chessboard laser printout is being detected simultaneously in both camera images by the OpenCV calibration function.}
+    \label{fig:stereo_calibration}
+  \end{center}
+\end{figure}
 
 The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
 %what is negative disparity? => in front of the screen => does this matter in a measurement system
@@ -1952,7 +1962,7 @@ Image rectification is the process of virtual optical axis parallelisation done 
     \includegraphics[width=\textwidth]{disparity.jpg}
     \caption{A disparity image. Near field objects are bright, and far field objects are darker. The image has only one intensity channel with 256 different brightness levels.}
     \label{fig:disparity}
-  \end{cente}
+  \end{center}
 \end{figure}
 
 After the image rectification is done for a stereo image pair captured by the calibrated stereo camera setup, then the 3d point cloud generation becomes a problem of extracting the estimate of the disparity map (d(x,y).
@@ -1979,7 +1989,7 @@ During the implementation period, new versions of most of the libraries became a
     \includegraphics[width=\textwidth]{software_architecture.pdf}
     \caption{Software architecture for the load object measurement workflow using robot operating system ROS.}
     \label{fig:software_architecture}
-  \end{cente}
+  \end{center}
 \end{figure}
 
 
