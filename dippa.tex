@@ -801,8 +801,8 @@ The focus of this work is on measuring the dimensions of industrial goods being 
     Objects that are considered as load objects in this thesis cover a range of custom manufactured products whose size is unknown prior to the lifting operation. Since each item moved with the crane is unique, non-standard size object, an understanding of the load object size would be valuable to a software system that operates autonomously.
     In heavy process industry, it is not often meaningful to measure load objects or containers whose size is standard and known prior to the lifting operation. For practical reasons, all testing on overhead cranes have been done using a company test site installation that was capable of lifting medium to heavy objects up to 15 tonnes. All the objects lifted with the overhead crane were smaller than 2 meters for all dimensions, which is quite a normal size for a pallet. Only the volume of the object affects its geometry measurement.
 
-\section{Forestry Machine Load Object Measurement}
-\label{section:forestry_machines_cranes}
+\section{Forestry Machine Application}
+\label{section:forestry_machine_application}
 
 A forestry machine load object measurement is a secondary objective that is researched in this thesis. Forestry machines that include a rotary telescopic crane are included as research targets, mainly log picker trucks. In tree felling work, little automation is used currently, and to increase the level of automation, a load object measurement system has been suggested. A lot of research has been done in the area of stereographic 3d teleoperation of log picker trucks, but without a better spatial understanding of the truck environment and computer aided end effector tool control it has been deemed not feasible with current teleoperation technologies. A machine vision system can provide a geometry measurement of a log picker load object, which in turn could be further used to provide a better spatial description of the forestry crane working area for the teleoperator. 
 
@@ -1083,9 +1083,12 @@ Motion field of an SFM system is similar to a disparity map in a stereo vision s
 \subsubsection{Structure From Motion Challenges In Crane Environment}
 \label{subsubsection:structure_from_motion_challenges_in_crane_environment}
 
-Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons. 
+Structure from motion is a mathematically challenging approach to reconstruct a 3d geometry using a single camera, mostly suited for applications of reconstructing static 3d geometries from aerial images, city streets or landmark items. It is not well-suited to solve the problem of load object measurement in an overhead crane environment for three main reasons.
+
 First, the load object measurement must be available when the camera is not moving and the load object is not moving. Structure from motion reconstruction will not be available in such an event. 
+
 Secondly, the overhead crane environment is dynamic containing multiple moving objects, and a camera platform that moves relative to the objects. In such dynamic cases, a simple SFM process described earlier cannot solve a rigid transformation between consecutive frames since the environment is morphing between frames. A general multibody structure from motion solution has yet not been formulated, but theoretical approaches and requirements for a system that can process dynamic multibody environments using SFM have been researched\ref{Ozden10}.
+
 Last, an empty overhead crane hall contains a planar scene, which is difficult to reconstruct correctly in a SFM system. Coplanar points have similar depth in an image sequence, and for example, for a dense 3d motion and structure algorithm it is assumed that local observer motions include large variations in depth, which is not the case in a planar scene\ref{Trucco98}.
 
 % another snippet
@@ -1225,7 +1228,7 @@ Z \\
 \end{bmatrix}
 \end{equation}
 
-Point P can be written in homogenous matrix form as well as 
+Point P can be written in homogenous matrix form as
 
 \begin{equation*}
 \tilde{P} = (X,Y,Z,1)
@@ -1509,7 +1512,8 @@ where dx and dy are the tangential distortion vectors
 & dx = 2kc_{3}xy+kc_{4}\Big(r^2 + 2x^2\Big) \\
 & dy = kc_{3}\Big(r^2 + 2y^2\Big)+2kc_{4}xy
 \end{empheq}
-.\par
+.
+
 The parameter $r$ in equation \ref{eq:normalised_distortion_corrected_pinhole_projections} is short for $r^2 = x^2 + y^2$. The tangential distortion coefficients calibrate decentering of the image and other defects in compound lens structure. The radial distortion coefficients corrects a barrel or pincushion distortion depending whether a telephoto lens system or wide angle lens system is used. A more in-depth analysis of the distortion modeling of radial and tangential distortions may be found in the original publication by Brown\citep{Brown71}.
 
 The output of the calibration procedure will be a camera matrix K that relates the pixel coordinates in the image reference frame to the distorted projections of the actual objects in the camera reference frame. The camera matrix K is defined as
@@ -1901,25 +1905,7 @@ A feature descriptor measures the shape of a segmented image region using invari
 
 Image feature detection is a large field on its own, which is why only a few general feature descriptos are introduced that can be used to solve the correspondence problem. Some full-fledged feature descriptor techniques include scale-invariant feature transform (SIFT), speeded up robust features detector (SURF), and histogram of oriented gradients (HOG). Also blob detectors, such as the maximally stable extremal regions (MSER) could be used to solve a general correspondence problem. The Harris corner detector (see Figure \ref{fig:harris_features_left}), and Shi and Tomasi corner detector are useful for tracking the corners of a lifted load objects as part of the measurement software. Moreover, the features returned by a corner detector could be used as control points in the point cloud verification process introduced in section \ref{section:data_quality_in_the_machine_vision_process}.
 
-\begin{figure}
-\centering
-\begin{subfigure}
-    \centering
-    \includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}
-    \caption{Left camera Harris corner detector result.}
-    \label{fig:harris_features_left}
-\end{subfigure}%
-\begin{subfigure}
-    \centering
-    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
-    \caption{Right camera Harris corner detector result.}
-    \label{fig:harris_features_right}
-\end{subfigure}
-\label{fig:harris_features}
-\end{figure}
-
 In the implementation of the prototype software the correspondence problem is solved using the epipolar geometry property that enables a 1-dimensional correspondence search space using image rectification. If the geometry of the stereo setup is unambiguosly known, the extrinsic calibration knowledge makes image rectification possible. 
-
 
 (UNEDITED)It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
 In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
@@ -1998,9 +1984,12 @@ Q is the reprojection matrix that encodes information about the stereo camera se
 \label{chapter:implementation}
 %test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
 
-The software implementation for the thesis work was prepared with the FAMOUS project team in Generic Intelligent Machines (GIM) research group. The implemented software includes many software nodes, mainly the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information. Additionally, the point cloud data publisher node was implemented that integrates the HIMMELI camera platform hardware as the sensor input platform for the load object measurement tool.\par
-The programming work done for the thesis was carried out from March 2013 to February 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library by WillowGarage Inc. was used for image processing and stereo rectification purposes, Point Cloud Library (PCL) was used for all data intensive point cloud processing, and Boost library was used for all file system operations. All the data networking, runtime configuration, and other online networking solutions were implemented using the Robot Operating System (ROS).  \par
-The design of the software was finished in December 2013 after successful compatibility testing between library functionalities and proofing of concepts with offline data sets. The final version of the load object measurement system that supports online perception sensors in the ROS network was finished in May 2014.\par
+The software implementation for the thesis work was prepared with the FAMOUS project team in Generic Intelligent Machines (GIM) research group. The implemented software includes many software nodes, mainly the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information. Additionally, the point cloud data publisher node was implemented that integrates the HIMMELI camera platform hardware as the sensor input platform for the load object measurement tool.
+
+The programming work done for the thesis was carried out from March 2013 to February 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library by WillowGarage Inc. was used for image processing and stereo rectification purposes, Point Cloud Library (PCL) was used for all data intensive point cloud processing, and Boost library was used for all file system operations. All the data networking, runtime configuration, and other online networking solutions were implemented using the Robot Operating System (ROS).
+
+The design of the software was finished in December 2013 after successful compatibility testing between library functionalities and proofing of concepts with offline data sets. The final version of the load object measurement system that supports online perception sensors in the ROS network was finished in May 2014.
+
 During the implementation period, new versions of most of the libraries became available, but the implementation uses latest currently stable versions: ROS Groovy and PCL 1.6 (compatible with ROS Groovy). If the software would be upgraded, then a newer version of ROS (Hydro) can only be used with the next version of PCL (1.7). PCL 1.7 does simplify some things, for example PCL visualization camera controls, and brings some extended features that could benefit the load object measurement system (for example, the new moment of inertia and eccentricity based descriptors functionality). Other than that, the old versions have all the functionality that the system needs, and they are successfully used to run the software at the time of writing this.
 
 \section{Overall System Design}
