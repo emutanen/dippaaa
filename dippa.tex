@@ -2476,33 +2476,25 @@ For each use case, multiple tuning sets were designed, which can be visually ins
 Over time, the quality of the bounding volume measurement depends on many things: primarily the amount of noise in the point cloud object over time, and secondarily on the orientation of the object over time. 
 
 \begin{table}
-\caption{List of block matching parameters in a BM state object.}
-\label{table:block_matching_state_parameters} %label just after caption
-\begin{tabular}{|p{4cm}|l|l|p{4cm}|}
-\hline % The line on top of the table
-\textbf{Parameter Name} & \textbf{Min.} & \textbf{Max.} & \textbf{Requirements} \\
-\hline
-Pre-Filter Size & 5 & 21 & Odd Number \\
-\hline
-Pre-Filter Cap & 1 & 63 & - \\
-\hline
-SAD Window Size & 5 & 255 & Odd Number \\
-\hline
-Min. Disparity & -100 & 100 & - \\
-\hline
-No. Of Disparities & 16 & 256 & Divisable By 16 \\
-\hline
-Texture Threshold & 0 & no upper limit & - \\ 
-\hline
-Uniqueness Ratio & 0 & 255 & - \\
-\hline
-Speckle Window Size & 0 & 100 & - \\
-\hline
-Speckle Range & 0 & 100 & - \\
-\hline
-Disp12MaxDiff & 0 & no upper limit & - \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
+\centering
+\ra{1.3}
+\caption{List of parameters in a block matching state object and their value ranges and requirements in OpenCV C++ image processing library.}
+\begin{tabular}{@{}llll@{}}\toprule
+\textbf{Parameter name} & \textbf{Minimum} & \textbf{Maximum} & \textbf{Other} \\
+Pre-filter size & 5 & 21 & Odd number \\
+Pre-filter cap & 1 & 63 & \\
+SAD window size & 5 & 255 & Odd number \\
+Minimum disparity & -100 & 100 & \\
+Number of disparities & 16 & 256 & Divisable by 16 \\
+Texture threshold & 0 & no upper limit & \\ 
+Uniqueness ratio & 0 & 255 & \\
+Speckle window size & 0 & 100 & \\
+Speckle Range & 0 & 100 & \\
+Disp12MaxDiff & 0 & no upper limit & \\
+\bottomrule
+\end{tabular}
+\label{table:bm_state_parameters}
+\end{table}
 
 The tuning effort resulted in best possible BM parameters for each use case. The process hall crane parameters are listed in table \ref{table:bm_parameters_overhead}.
 
@@ -2747,27 +2739,27 @@ Now, if the user wishes not to use the cylinder coefficients for pose measuremen
 % Appendices go here
 % ------------------------------------------------------------------
 % If you do not have appendices, comment out the following lines
-\appendix
+%\appendix
 % \input{appendices.tex}
 
-\chapter{First appendix}
-\label{chapter:first-appendix}
+%\chapter{First appendix}
+%\label{chapter:first-appendix}
 
-This is the first appendix. You could put some test images or verbose data in an
-appendix, if there is too much data to fit in the actual text nicely.
+%This is the first appendix. You could put some test images or verbose data in an
+%appendix, if there is too much data to fit in the actual text nicely.
 
-For now, the Aalto logo variants are shown in Figure~\ref{fig:aaltologo}.
+%For now, the Aalto logo variants are shown in Figure~\ref{fig:aaltologo}.
 
 
-\begin{figure}
-\begin{center}
-\subfigure[In English]{\includegraphics[width=.8\textwidth]{aalto-logo-en}}
-\subfigure[Suomeksi]{\includegraphics[width=.8\textwidth]{aalto-logo-fi}}
-\subfigure[Pä svenska]{\includegraphics[width=.8\textwidth]{aalto-logo-se}}
-\caption{Aalto logo variants}
-\label{fig:aaltologo}
-\end{center}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\subfigure[In English]{\includegraphics[width=.8\textwidth]{aalto-logo-en}}
+%\subfigure[Suomeksi]{\includegraphics[width=.8\textwidth]{aalto-logo-fi}}
+%\subfigure[Pä svenska]{\includegraphics[width=.8\textwidth]{aalto-logo-se}}
+%\caption{Aalto logo variants}
+%\label{fig:aaltologo}
+%\end{center}
+%\end{figure}
 
 
 % End of document!
