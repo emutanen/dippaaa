@@ -2481,6 +2481,7 @@ Over time, the quality of the bounding volume measurement depends on many things
 \caption{List of parameters in a block matching state object and their value ranges and requirements in OpenCV C++ image processing library.}
 \begin{tabular}{@{}llll@{}}\toprule
 \textbf{Parameter name} & \textbf{Minimum} & \textbf{Maximum} & \textbf{Other} \\
+\midrule
 Pre-filter size & 5 & 21 & Odd number \\
 Pre-filter cap & 1 & 63 & \\
 SAD window size & 5 & 255 & Odd number \\
@@ -2503,7 +2504,7 @@ The tuning effort resulted in best possible BM parameters for each use case. The
 \ra{1.3}
 \caption{Block matching parameters (OpenCV) used in the overhead process crane case. Parameters reported from early development phase and not currently associated with any dataset.}
 \begin{tabular}{@{}ll@{}}\toprule
-Block matching parameter & Value \\
+\textbf{Block matching parameter} & \textbf{Value} \\
 \midrule
 Pre-filter size & 9 \\
 Pre-filter cap & 63 \\
@@ -2525,7 +2526,7 @@ Disp12MaxDiff & 10 \\
 \ra{1.3}
 \caption{Block matching parameters (OpenCV) used in the forestry crane case. Parameters reported from a forest case dataset 1377169118 on February 25th 2014.}
 \begin{tabular}{@{}ll@{}}\toprule
-Block matching parameter & Value\\
+\textbf{Block matching parameter} & \textbf{Value} \\
 \midrule
 Pre-filter size & 9 \\
 Pre-filter cap & 63 \\
