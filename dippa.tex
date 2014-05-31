@@ -2015,6 +2015,20 @@ In this use case the crane load shape is considered always cylindrical.
 
 Machine learning techniques can be used in tracking objects from 2d images. A common machine learning technique for facial detection in images is Haar training that can be utilised for other purposes, too, for example end effector detection. Haar training was originally introduced by Viola et al., and improved by other researchers with additional ... features. Haar training uses boosting algorithms, which are adaptive parameter learning algorithms. A basic cascade classifier cannot detect scaling of images, but a cascade of classifiers can be constructed that detects features scale-invariably. A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade. Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages \ref{Lienhart03}.
 
+Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
++ machine learning
+    + neural nets
+    + genetic algorithms
+    + fuzzy systems
+
+%machine learning
+A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+
+In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
+
+The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
+
 \section{Perception Sensor Platform \emph{Himmeli}}
 \label{section:perception_sensor_platform_himmeli}
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
@@ -2490,57 +2504,50 @@ Disp12MaxDiff & 0 & no upper limit & - \\ \hline
 \end{tabular} % for really simple tables, you can just use tabular
 \end{table} % table makes a floating object with a title
 
-The tuning effort resulted in best possible BM parameters for each use case. The process hall crane parameters are listed in table \ref{table:process_hall_crane_bm_parameters}
+The tuning effort resulted in best possible BM parameters for each use case. The process hall crane parameters are listed in table \ref{table:bm_parameters_overhead}
 
 \begin{table}
-\caption{Best BM parameter tuning set in process hall crane case.}
-\label{table:process_hall_crane_bm_parameters} %label just after caption
-\begin{tabular}[c]{|p{4cm}|l|}
-\hline % The line on top of the table
-\textbf{Parameter Name} & \textbf{Value} \\
-\hline
-Pre-Filter Size & 9 \\
-\hline
-Pre-Filter Cap & 63 \\
-\hline
-SAD Window Size & 5 \\
-\hline
-Min. Disparity & 0 \\
-\hline
-No. Of Disparities & 96 \\
-\hline
-Texture Threshold & 270 \\ 
-\hline
-Uniqueness Ratio & 20 \\
-\hline
-Speckle Window Size & 42 \\
-\hline
-Speckle Range & 10 \\
-\hline
+\centering
+\ra{1.3}
+\caption{Block matching parameters used in the overhead process crane case. Parameters reported from ?.}
+\begin{tabular}{@{}ll@{}}\toprule
+Block matching parameter & Value
+\midrule
+Pre-filter size & 9 \\
+Pre-filter cap & 63 \\
+SAD window size & 5 \\
+Minimum disparity & 0 \\
+Number of disparities & 96 \\
+Texture threshold & 270 \\ 
+Uniqueness ratio & 20 \\
+Speckle window size & 42 \\
+Speckle range & 10 \\
 Disp12MaxDiff & 10 \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
+\bottomrule
+\end{tabular}
+\label{table:bm_parameters_overhead} %label just after caption
+\end{table}
 
 \begin{table}
 \centering
 \ra{1.3}
 \caption{Block matching parameters used in the forestry crane case. Parameters reported from a forest case dataset 1377169118 on February 25th 2014.}
 \begin{tabular}{@{}ll@{}}\toprule
-Block matching parameter Name & Value\\
+Block matching parameter & Value\\
 \midrule
-Pre-Filter Size & 9 \\
-Pre-Filter Cap & 63 \\
-SAD Window Size & 5 \\
-Min. Disparity & 0 \\
-No. Of Disparities & 144 \\
-Texture Threshold & 30 \\ 
-Uniqueness Ratio & 1 \\
-Speckle Window Size & 42 \\
-Speckle Range & 14 \\
+Pre-filter size & 9 \\
+Pre-filter cap & 63 \\
+SAD window size & 5 \\
+Minimum disparity & 0 \\
+Number of disparities & 144 \\
+Texture threshold & 30 \\ 
+Uniqueness ratio & 1 \\
+Speckle window size & 42 \\
+Speckle range & 14 \\
 Disp12MaxDiff & 1 \\
 \bottomrule
 \end{tabular}
-\label{table:block_matching_parameters}
+\label{table:bm_parameters_forestry}
 \end{table}
 
 %\begin{table}
@@ -2703,43 +2710,6 @@ Some improvements to the implemented system may be instantly thought of. For exa
 %Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
 %Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
-\section{Machine Learning Extras}
-
-Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
-
-+ classification principle
-    * statistical classifier
-    
-+ knowledge representations
-    + syntactic pattern recognition
-        + relations and description language
-+ machine learning
-    + neural nets
-    + genetic algorithms
-    
-+ graph matching
-
-+ fuzzy systems
-
-%machine learning
-A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
-
-A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
-
-In 2002, Lienhart and Maydt \cite{Lienhart02} proposed improvements upon the original work of the authors of Haar training classifiers. The Intel labs research team added a rotated feature classifier, which improves upon the performance of the original simple feature classifiers. One year later, they analysed different boosting algorithms in Haar training and concluded that Gentle Adaboost method performed the best in the training. 
-
-The feature search space in Haar training is large in an image. The computational complexity depends on the image resolution, and on the chosen prototype of a feature.  For example, the number of features for a small window size of 24x24 is reported to total up to 117,941 features\cite{Lienhart03}. 
-
-The computation of a single feature can be fast. The journal by... states that it can be done in constant time.
-
-complexity for a single feature is constant. 
-
-Currently, the 
-
-+ 14 Haar-like features
-+ 4 edge features, 8 line features, 2 center-surround features, 1 line diagonal feature
-+ 
-
 A lot of time was used for working on the ROS implementation of the load detection software. The software has a simple backbone implementation thanks to the well-documented readily available OpenCV and PCL libraries. Some of the code runs advanced algorithms underneath, such as RANSAC model iteration, but these are not visible for the user. It would have been possible to implement better algorithms for higher level functions, such as load detection computation and load geometric measurement computation, than what we are currently running on. Due to limited resources we decided to keep the algorithms simple and instead realised a concept software that will run with a supported camera setup. This way we got a working platform that can be used as a testbench for future upgrades and as a framework for implementing more advanced algorithms.  
 
 \begin{figure}[ht]
@@ -2765,9 +2735,8 @@ One problem present in Figure \ref{fig:load_detected2} was that the forestry cra
 
 Now, if the user wishes not to use the cylinder coefficients for pose measurements, and a crane-structure cutting AABB-based bounding volume is not a problem, then the AABB shown in Figure \ref{fig:load_detected2} can be used, too. The cylinder fitting implementation did pick up the cylindrical crane boom sometimes in testing, but we implemented a check for the condition that the load is located near the end effector tool location. With a little research, we found out that the cylinder fitting in a forestry crane machine vision system was not engineered previously in Aalto university. The advantage of the cylinder coefficients over the AABB bounding volume is that the oriented cylinder describes the actual volume and orientation of the tree trunk in much more detail compared to an AABB bounding volume, as discussed in chapter \ref{aabb_reference}. 
 
-\chapter{References}
-\label{chapter:references}
-
+%end of the work
+% Next up : references
 % Load the bibliographic references
 % ------------------------------------------------------------------
 % You can use several .bib files:
