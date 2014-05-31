@@ -2269,10 +2269,6 @@ Next, the point cloud is downsampled using the voxel grid filtering scheme avail
 
 All data points that coincide in the same voxel grid voxel are downsampled into a single data point that is then output as the voxel grid cell result. Two different approaches are used in the approximation: the voxel cell can simply output its center coordinate as the result, or a more often used center of gravity (centroid) of the original point set can be used as the output result. In this work, the computationally more expensive centroid of the points approximation is used. The resulting downsampled point cloud will thereby consist of a set of centroids computed from the original point cloud that was divided in voxel grid cells.
 
-% tähän voxel grid filtering kuva
-
-+ Outlier Removal
-
 \subsection{Ground Plane Estimation}
 \label{subsubsection:ground_plane_estimation}
 
@@ -2388,10 +2384,10 @@ The machine vision process generated a point cloud that illustrated the 3d real-
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item Location accuracy of the surface 
-\item Surface noisiness
-\item Speckle regions, misinterpreted Z depth regions, and artefacts of any kind
-\item Number of finite data point entries
+\item location accuracy of the surface 
+\item surface noisiness
+\item speckle regions, misinterpreted Z depth regions, and artefacts of any kind
+\item number of finite data point entries
 \end{itemize}
 
 \begin{figure}[ht]
@@ -2439,9 +2435,9 @@ The feature matching works in three steps:
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item Pre-filtering to normalize image brightness
-\item Correspondence search with SAD window along the epipolar lines 
-\item Post-filtering to remove bad matches
+\item pre-filtering to normalize image brightness
+\item correspondence search with SAD window along the epipolar lines 
+\item post-filtering to remove bad matches
 \end{itemize}
 
 The tuning of the BM parameters was done against offline data collected from both selected use cases. The forestry crane data was preferred in the tuning effort since more objects can be seen in the images, thus, the saliency content of the captured video is higher compared to the process hall crane area. High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud. For example, the texture rate of change for a matt painted warehouse floor is small, and in the process hall crane case the collected data had minimal floor feature matching response for some BM tuning sets.
@@ -2526,36 +2522,37 @@ Disp12MaxDiff & 10 \\ \hline
 \end{table} % table makes a floating object with a title
 
 \begin{table}
-\caption{Best BM parameter tuning set in forestry crane case.}
-\label{table:forestry_crane_bm_parameters} %label just after caption
-\begin{tabular}[c]{|p{4cm}|l|}
-\hline % The line on top of the table
-\textbf{Parameter Name} & \textbf{Value} \\
-\hline
+\centering
+\ra{1.3}
+\caption{Block matching parameters used in the forestry crane case. Parameters reported from a forest case dataset 1377169118 on February 25th 2014.}
+\begin{tabular}{@{}ll@{}}\toprule
+Block matching parameter Name & Value\\
+\midrule
 Pre-Filter Size & 9 \\
-\hline
-Pre-Filter Cap & 43 \\
-\hline
-SAD Window Size & 13 \\
-\hline
+Pre-Filter Cap & 63 \\
+SAD Window Size & 5 \\
 Min. Disparity & 0 \\
-\hline
-No. Of Disparities & 160 \\
-\hline
-Texture Threshold & 0 \\ 
-\hline
-Uniqueness Ratio & 21 \\
-\hline
-Speckle Window Size & 44 \\
-\hline
-Speckle Range & 17 \\
-\hline
-Disp12MaxDiff & 1 \\ \hline
-\end{tabular} % for really simple tables, you can just use tabular
-\end{table} % table makes a floating object with a title
+No. Of Disparities & 144 \\
+Texture Threshold & 30 \\ 
+Uniqueness Ratio & 1 \\
+Speckle Window Size & 42 \\
+Speckle Range & 14 \\
+Disp12MaxDiff & 1 \\
+\bottomrule
+\end{tabular}
+\label{table:block_matching_parameters}
+\end{table}
 
-\subsection{Segmentation Tuning}
-\label{subsection:segmentation_tuning}
+%\begin{table}
+%\caption{Best BM parameter tuning set in forestry crane case.}
+%\label{table:forestry_crane_bm_parameters} %label just after caption
+%\begin{tabular}[c]{|p{4cm}|l|}
+%\hline % The line on top of the table
+%\textbf{Parameter Name} & \textbf{Value} \\
+%\hline
+
+%\end{tabular} % for really simple tables, you can just use tabular
+%end{table} % table makes a floating object with a title
 
 \section{Experiments}
 \label{section:experiments}
