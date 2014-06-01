@@ -1137,7 +1137,7 @@ In this work, the implementation of the 3d reconstruction skips primal sketching
 %In general, a perspective projection, or central projection, is the de facto type of projection for human beings. 
 %In perspective projection objects that are far away appear smaller than objects that are near. This phenomenon is called a perspective. 
 
-The pinhole camera model maps 3d objects onto a 2d image plane using simple pinhole camera geometry. A three-dimensional object in real space $\mathbf{R}^3$ is mapped into a two-dimensional projection in the subspace $\mathbf{R}^2$ according to $\mathbb{R}^3 \mapsto \mathbb{R}^2$, also known as a perspective projection. The depth component z of a 3d coordinate is lost in the transform, which is natural for any projective camera models. The transform is irreversible, which means that the original 3d coordinates cannot be recovered from a projective 2d image. The pinhole camera model is introduced because it is the simplest approximation that can be used in computer vision applications. Additionally, a pinhole camera model is used in the implementation of some openCV computation in Chapter \ref{chapter:implementation} \citep{Sonka07, OpenCVWeb}.
+The pinhole camera model maps 3d objects onto a 2d image plane using simple pinhole camera geometry. A three-dimensional object in real space $\mathbf{R}^3$ is mapped into a two-dimensional projection in the subspace $\mathbf{R}^2$ according to $\mathbb{R}^3 \mapsto \mathbb{R}^2$, also known as a perspective projection. The depth component z of a 3d coordinate is lost in the transform, which is natural for any projective camera models. The transform is irreversible, which means that the original 3d coordinates cannot be recovered from a projective 2d image. The pinhole camera model is introduced because it is the model used in OpenCV implementation (in chapter \ref{chapter:implementation}) and it is the simplest approximation that can be used to describe the mathematics behind a real camera image formation.\citep{Sonka07, OpenCVWeb}.
 
 %Typical camera model is usually based on ortographic projection or perspective projection models. In 3D imaging a suitable camera model would be the perspective projection model with lens distortion modeling included. The selection really depends on the applications and its accuracy requirements for model accuracy, but in simple computer vision applications the linear ortographic model would be appropriate. 
 
@@ -1170,14 +1170,16 @@ The pinhole camera model maps 3d objects onto a 2d image plane using simple pinh
 %The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
 %When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
 
-The pinhole camera is a simple box that has an ideal pinhole aperture on one of its sides, see Figure \ref{fig:pinhole_camera}. The camera forms an upside down image of a 3d object located at a distance of $p$ from the camera lens (pinhole) on its imaging plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera}, positive Z direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. In a pinhole camera, the object and its real projected image are related by the thin lens equation
+The pinhole camera is a simple box that has an ideal pinhole aperture on one of its sides, see Figure \ref{fig:pinhole_camera}. The camera forms an upside down image of a 3d object located at a distance of $f$ from the ideal camera focal point (pinhole) on its imaging plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera} that is in the positive Z axis direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. 
+
+Figure \ref{fig:central_projection} shows a \emph{central projection model} that is often used to simplify formulation of the mathematics in the pinhole camera image formation. In a pinhole camera, distance between the ideal lens and the image projection is $-f$, and the projection is behind the focal point, whereas the central projection model forms the image in front of the focal point, which is a center of projection. The only difference between the models is that the pinhole camera model forms a real image that is upside down, and the central projection model forms a virtual image in front of the lens. Using the simpler central projection model, the object and its projected image are related by a thin lens equation
 
 \begin{equation}
 \frac{1}{f} = \frac{1}{p} + \frac{1}{q}
 \label{eq:lens_law}
 \end{equation}
 
-where f is the focal length of the thin lens. The upside down image is formed on the image plane as long as the 3d object or its image are not nearer than $f$ units from the focal point of the lens. Using similar triangles it can be shown that the point P coordinates are projected onto the image plane point Q according to
+where f is the focal length of the thin lens. The upside down image is formed on the image plane as long as the 3d object or its image are not nearer than $f$ units from the focal point of the lens. Using similar triangles it can be shown that the point $P$ coordinates are projected onto the image plane point $p$ according to
 
 \begin{equation}
 x = f\frac{X}{Z}
@@ -1194,6 +1196,14 @@ y = f\frac{Y}{Z}
     \includegraphics[width=\textwidth]{pinhole_camera.pdf}
     \caption{A simple pinhole camera projects imaged objects upside down on an image plane. The image formation is based on similar triangles between the optical axis $I_o$ and the red light ray (hypothenus).}
     \label{fig:pinhole_camera}
+  \end{center}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{central_projection.pdf}
+    \caption{A central projection model equivalent of a simple pinhole camera image formation. The model projects imaged objects on an image plane $\pi$ in front of the focal point (center of projection).}
+    \label{fig:central_projection}
   \end{center}
 \end{figure}
 
