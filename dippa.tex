@@ -1170,26 +1170,7 @@ The pinhole camera model maps 3d objects onto a 2d image plane using simple pinh
 %The increase in stereo processing computation overhead is tightly coupled with the selected image resolution and depth error. According to \cite{Gallup08} the number of pixel comparisons needed is in the growth range of $ \Omega({z_{far}}^6 {\epsilon_z}^-3)$. For example, if we wish to extend the depth range by a factor of 3 the required number of comparisons would be $3^6 = 729$ times more computationally expensive.
 %When faced with this kind of image computation problem that should ideally be run in real-time the design of the imaging system must be carefully planned. It should be noted that increase in image resolution seems not to solve a stereo correspondence problem, but it may severely increase the computation time. 
 
-The pinhole camera is a simple box that has an ideal pinhole aperture on one of its sides, see Figure \ref{fig:pinhole_camera}. The camera forms an upside down image of a 3d object located at a distance of $f$ from the ideal camera focal point (pinhole) on its imaging plane $\pi$. An optical axis $I_o$ (dashed line in Figure \ref{fig:pinhole_camera} that is in the positive Z axis direction in the camera frame $O_c$) lies perpendicularly to the image plane pointing towards the object. 
-
-Figure \ref{fig:central_projection} shows a \emph{central projection model} that is often used to simplify formulation of the mathematics in the pinhole camera image formation. In a pinhole camera, distance between the ideal lens and the image projection is $-f$, and the projection is behind the focal point, whereas the central projection model forms the image in front of the focal point, which is a center of projection. The only difference between the models is that the pinhole camera model forms a real image that is upside down, and the central projection model forms a virtual image in front of the lens. Using the simpler central projection model, the object and its projected image are related by a thin lens equation
-
-\begin{equation}
-\frac{1}{f} = \frac{1}{p} + \frac{1}{q}
-\label{eq:lens_law}
-\end{equation}
-
-where f is the focal length of the thin lens. The upside down image is formed on the image plane as long as the 3d object or its image are not nearer than $f$ units from the focal point of the lens. Using similar triangles it can be shown that the point $P$ coordinates are projected onto the image plane point $p$ according to
-
-\begin{equation}
-x = f\frac{X}{Z}
-\label{eq:image_projection}
-\end{equation}
-
-\begin{equation}
-y = f\frac{Y}{Z}
-\label{eq:image_projection2}
-\end{equation}
+The pinhole camera is a simple box that has an ideal pinhole aperture on one of its sides, see Figure \ref{fig:pinhole_camera}. The camera forms an upside down image of an object on the imaging plane $\pi$ on the opposite side of the aperture. All objects located at a distance further than $f$ units away from the pinhole will be imaged sharp. The positive z axis of the camera frame $O_c$ ideally coincides with the camera optical axis $I_o$ (figure \ref{fig:pinhole_camera dashed line}) so that the optical axis is perpendicular to the image plane and pointing towards the scene. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -1207,16 +1188,36 @@ y = f\frac{Y}{Z}
   \end{center}
 \end{figure}
 
-In homogenous form, a projected point $\tilde{Q}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
+Figure \ref{fig:central_projection} shows a \emph{central projection model} that is often used to simplify formulation of the mathematics in the pinhole camera image formation. In a pinhole camera, the real image is formed behind the lens system (pinhole in this case) at $z = -f$, whereas in the central projection model, the focal point is used as the center of projection and the virtual image is formed in front of the lens system at $z = +f$. Using the simpler central projection model, the object and its projected image are related by a thin lens equation
+
+\begin{equation}
+\frac{1}{f} = \frac{1}{p} + \frac{1}{q}
+\label{eq:lens_law}
+\end{equation}
+
+where f is the focal length of the thin lens. The image is formed on the image plane in sharp detail as long as the 3d object is not nearer than $f$ units from the focal point of the lens. Using similar triangles it can be shown that the point $P$ coordinates are projected onto the image plane point as $p$ according to
+
+\begin{equation}
+x = f\frac{X}{Z}
+\label{eq:image_projection}
+\end{equation}
+
+\begin{equation}
+y = f\frac{Y}{Z}
+\label{eq:image_projection2}
+\end{equation}
+
+
+In homogenous form, a projected point $\tilde{p}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
 
 \begin{equation}
 \tilde{x} = f\frac{X}{\tilde{z}}, \tilde{y} = f\frac{Y}{\tilde{z}}, \tilde{z} = Z
 \label{eq:image_projection}
 \end{equation}
 
-where the origin of the homogenous coordinate system is point (0,0,1). This coordinate system can be shown in homogenous matrix form as 
+where the origin of the homogenous coordinate system is point $\tilde{O_c} = [0 0 1]^T$. This coordinate system can be shown in homogenous matrix form as 
 
-\begin{equation} \tilde{Q} =
+\begin{equation} \tilde{p} =
 \label{eq:homogenous_matrix_form}
 \begin{bmatrix}
 f & 0 & 0 \\
@@ -1237,7 +1238,7 @@ Point P can be written in homogenous matrix form as
 
 so that the projection becomes a linear matrix operation
 
-\begin{equation} \tilde{Q} = 
+\begin{equation} \tilde{p} = 
 \label{eq:homogenous_world_point}
 \begin{bmatrix}
 f & 0 & 0 & 0 \\
@@ -1250,21 +1251,21 @@ or
 
 \begin{equation}
 \label{eq:homogenous_projection}
-\tilde{Q} = C\tilde{P}
+\tilde{p} = C\tilde{P}
 \end{equation}
 
-where C is a 3 x 4 matrix called the camera matrix, and $\tilde{Q}$ and $\tilde{P}$ are the homogenous image plane projection and 3d object surface point coordinates, respectively. The camera matrix can be factored into form
+where C is a 3 x 4 matrix called the camera matrix, and $\tilde{p}$ and $\tilde{P}$ are the homogenous image plane projection and 3d object surface point coordinates, respectively. The camera matrix can be factored into form
 
 \begin{equation}
 \label{eq:factor_camera_matrix}
-\tilde{Q} = KP_{0}\tilde{P}
+\tilde{p} = KP_{0}\tilde{P}
 \end{equation}
 
 where K is the camera calibration matrix that contains the intrinsic parameters of the camera, and $P_0$ is the projective matrix of the camera model. Since stereo calibration later requires the model for both intrinsic and extrinsic parameters, a general model including both intrinsic and extrinsic parameters can be written on the basis of equation \ref{eq:factor_camera_matrix} as
 
 \begin{equation}
 \label{eq:general_camera_model}
-\tilde{Q} = KP_{0}T_{c}^{-1}\tilde{P}
+\tilde{p} = KP_{0}T_{c}^{-1}\tilde{P}
 \end{equation}
 
 where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 parameters that describe translation and orientation of the camera from the world frame origin. All matrices K, $P_0$, and $T_{c}^{-1}$ can be combined into a single 3 x 4 camera matrix C that performs translation, rotation, scaling, and perspective projection\citep{Corke11}. 
