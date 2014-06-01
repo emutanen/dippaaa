@@ -1107,32 +1107,23 @@ After capturing a pair of images and processing them, it is possible to request 
 \label{section:from_2d_to_3d}
 %Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques}. 
 
-Depending on the scientific application at hand, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, or minimisation problems. In this thesis, a calibrated stereo camera setup is used to solve the problem of a 3d scene reconstruction, which is a very typical machine vision application suited for solving the load object geometry measurement problem. \citep{Sonka07}
+Depending on the scientific application at hand, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, or minimisation problems. In this thesis, a calibrated stereo camera setup is used to solve the problem of a 3d scene reconstruction, which is a very typical machine vision application suited for solving the load object geometry measurement problem \citep{Sonka07}. The two other 3d vision problem domains, understanding of object properties, and minimisation computation are briefly visited in sections \ref{section:point_cloud_library_operations} and \ref{section:bounding_volume_computation}.
 
-The two other 3d vision problem domains, understanding of object properties, and minimisation computation are briefly visited in sections \ref{section:bounding_volume_computation} and \ref{section:point_cloud_library_operations}. Theory for representing models in 2d and 3d can be found in Marr's theory, but the implementation of the prototype software follows the framework only to some extent. 
+The theory of understanding 3d objects out of a 2d image and processing them into representable information was first described by Marr in 1982 in his work \emph{Vision}. Marr ideated a description framework for creating 3d models from 2d data, which this thesis loosely supports. The field of machine vision has advanced a lot since 1982, which is why parts of Marr's theoretical approach are less relevant today. Still, the ideas of a description framework are valid even today.
+
+According to Marr's theory, machine vision systems should aim for a more general representation of the visualised environments in general, and not just create another vision application suited for a single specific purpose. In his work it is suggested that representation of objects will improve when a pixel-based viewer centered intensity image description is transformed into a feature-based object centered description. Figure \ref{fig:marrs_framework} presents the transformation steps.
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{marrs_framework.jpg}
-    \caption{Marr's representational framework according to\ref{Marr82}.}
+    \caption{Marr's representational framework. Image from \citep{Marr82}.}
     \label{fig:marrs_framework}
   \end{center}
 \end{figure}
 
-According to Marr's theory machine vision systems should aim for a better understanding of the visualised environments in general, and not just aim to create another vision application suited for a single specific purpose. For example, to improve description of objects, a three-dimensional object-centered representation is suggested favourable to a pixel-based intensity image representation. It is suggested that this transformation from intensity-based, viewer-centered description to the feature model based, object-centered description can be achieved in three steps that follow Marr's representational framework shown in Figure \ref{fig:marrs_framework}.
+There are 3 transformation steps in Marr's framework. The first step transforms the pixel representation of a 2d image into a surface representation called primal sketch. The second step transforms the primal sketch into an oriented surface model that maps depths of visible surfaces in a 2.5-dimensional description. The third and final step transforms the surface orientation model into a full feature based 3d model. \cite{Sonka07}
 
-\begin{itemize}
-\label{list:objectcenteredmodeling}
-\setlength{\itemsep}{0pt}
-\item 1. Pixel representation is processed into a surface representation (primal sketch)
-\item 2. Surface representation is processed into an oriented surface model (2.5d - depth map of visible surfaces)
-\item 3. Surface orientation model is processed into a 3d description (3d model)
-\end{itemize}
-
-\cite{Sonka07}
-
-In this thesis the pixel representation of the real scene is processed simply into a disparity map, which can not be regarded as a primal sketch since no separate object surface knowledge is available. The disparity map is then reprojected into a full 3d model with the existing depth information. No object models, or feature surfaces are known, thus, the machine vision process only produces 3d data, and does not track 2d image features. The described object-centered representation is partially implemented with point cloud operations, which are introduced later in section \ref{section:point_cloud_library_operations}.
-
+In this work, the implementation of the 3d reconstruction skips primal sketching, and processes the pixel-based description straightforwardly into a disparity depth map, and to a partial 3d model. In a primal sketch, some separate surface object knowledge should be available, but this is not the case in the implementation. The 3d data is reprojected into a point cloud as a single entity, and only processed after modeling. No object models, or feature surfaces are known during the reconstruction, thus, the machine vision process only produces 3d data, and does not track 2d image features. The object-centered description of the reconstructed scene described in Marr's framework is partially implemented later in section \ref{section:point_cloud_library_operations}.
 
 \section{The Pinhole Camera Model}
 \label{section:the_pinhole_camera_model}
