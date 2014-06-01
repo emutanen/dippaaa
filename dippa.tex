@@ -1020,9 +1020,9 @@ All geometric acquisition techniques either use an active perception sensor that
 \subsection{Triangulation}
 \label{subsection:triangulation}
 
-Triangulation solves a distance to a point by measuring two angles from known points that are located at two ends of a fixed baseline. Thus, the known camera viewpoints and the unknown point form a triangle. Before the invention of the Global Positioning System (GPS), mapping of land areas (calculating distances and directions of landmark features) was performed using triangle meshing with the triangulation technique.
+Triangulation solves distance z to a point by measuring two angles from known points that are located at two ends of a fixed baseline. Thus, the known camera viewpoints and the unknown point form a triangle. Before the invention of the Global Positioning System (GPS), mapping of land areas (calculating distances and directions of landmark features) was performed using triangle meshing with the triangulation technique.
 
-The term triangulation was originally used in trigonometry calculus, but in machine vision systems it refers to the indirect process of measuring the z-coordinate, or depth, of image features using two sensors, often producing a depth map. Triangulation system that uses two cameras is called a passive triangulation system, and a system that uses a single camera and a light pattern projector is called an active triangulation system. In this thesis only passive triangulation techniques are used, which is why the two camera simple stereo geometry will be introduced next.
+The term triangulation was originally used in trigonometry calculus, but in machine vision systems it refers to the indirect process of measuring image feature depths using two sensors. Triangulation system that uses two cameras is called a passive triangulation system, and a system that uses a single camera and a light pattern projector is called an active triangulation system. In this thesis only passive triangulation techniques are used, which is why the two camera simple stereo geometry will be introduced next.
 
 \begin{figure}[ht]
   \begin{center}
@@ -1035,30 +1035,52 @@ The term triangulation was originally used in trigonometry calculus, but in mach
 %is a passive range acquisition mechanism that produces a range measurement from the solution of the correspondence problem from two differing images. The difference between the images should be a translational shift along a camera baseline axis, for example a stereo pair using simple stereo geometry will suffice. Tri
 %Often, a stereo camera is used, and the correspondence problem is solved using rectification and block matching techniques.
 
-As soon as the correspondence problem is solved (see section \ref{section:stereo_correspondence_problem} for details) the distance to point P may be calculated using similar triangles according to figure \ref{fig:simple_stereo_geometry}. $\pi_L$ and $\pi_R$ are the image planes for the left and right cameras accordingly, and $p_r$ and $p_l$ are the projections of the point P on the image plane. 
+Triangulation is highly dependent on the outcome of the correspondence problem solution (see section \ref{section:stereo_correspondence_problem} for details). Assuming that the correspondence problem is solved, the distance to a point P may be calculated using a two-camera geometry according to figure \ref{fig:simple_stereo_geometry}. $\pi_L$ and $\pi_R$ are the image planes for the left and right cameras accordingly, and $p_r$ and $p_l$ are the projections of the point P on the image plane. 
 
-Figure \ref{fig:simple_stereo_geometry} shows two similar triangles whose hypothenuses are vectors ($O_l$, $p_l$) and ($O_l$, $P$). The z coordinate of the point $P$ is related according to the similar triangles so that
+Figure \ref{fig:simple_stereo_geometry} shows two similar triangles on the left camera geometry whose hypothenuses are vectors ($O_l$, $p_l$) and ($O_l$, $P$). The z coordinate of the point $P$ is related according to the similar triangles so that
 
 \begin{equation}
-\frac{\frac{1}{2}b}{Z} = \frac{x_{L}}{f} 
-\label{eq:similar_triangles}
+\frac{\frac{1}{2}b-x}{Z} = \frac{x_L}{f} 
+\label{eq:similar_triangles1}
 \end{equation}
 
-where $b$ is the baseline between camera focal points, and $x_L$ is the shift of the $x$ coordinate of projected point $p_l$ from principal projection point $c_l$. By definition, disparity is the shift of the image feature in the $x$ coordinate direction, which can be written
+\begin{equation*}
+x_L = p_l - c_l
+\end{equation}
+
+where $b$ is the baseline between camera focal points, and $x_L$ is the distance of the projection $p_l$ from principal projection point $c_l$. Similarly, the right camera geometry will give a relation
 
 \begin{equation}
-d = (c_r - p_r) + (p_l - c_l) = \Delta x_l + \Delta x_r
+\frac{\frac{1}{2}b+x}{Z} = \frac{x_R}{f} 
+\label{eq:similar_triangles2}
+\end{equation}
+
+\begin{equation*}
+x_R = c_r - p_l
+\end{equation}
+
+By definition, disparity is the shift of the image feature in the $x$ coordinate direction, which can be written
+
+\begin{equation}
+d = x_R - x_L
 \label{eq:disparity_shift}
 \end{equation}.
 
-Now equation \ref{eq:similar_triangles} can be written in the form
+according to \citep{Sonka07}. Now combining equations \ref{eq_similar_triangles1} and \ref{eq_similar_triangles2} and eliminating x gives
 
 \begin{equation}
-z = \frac{fb}{d}
-\label{eq:depth_solution}
+z(x_R - x_L) = bf
+\label{eq:depth_solution1}
 \end{equation}
 
-where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images.
+and taking equation \ref{eq:disparity_shift} into account gives
+
+\begin{equation}
+z = \frac{bf}{d}
+\label{eq:depth_solution2}
+\end{equation}
+
+where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images. As seen from the result \ref{eq:depth_solution2} when disparity is zero, the depth output is at infinity ($z = \inf$), and there is virtually no shift visible in the image between the viewpoints.
 
 %when a corresponding point shift information is known for a feature in a scene. 
 
