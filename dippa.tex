@@ -1027,7 +1027,7 @@ The term triangulation was originally used in trigonometry calculus, but in mach
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{simple_stereo_geometry.pdf}
-    \caption{Simple stereo geometry shown in a central projective model. Distance z to an arbitrary point P may be solved using similar triangles whose hypothenuses are the vectors ($O_l$, $p_l$) and ($O_l$, $P$). Image adapted from Trucco and Verri in \citep{Trucco98}.}
+    \caption{Simple stereo geometry shown in a central projective model. Distance z to an arbitrary point P may be solved using similar triangles. Image adapted from Trucco and Verri \citep{Trucco98}.}
     \label{fig:simple_stereo_geometry}
   \end{center}
 \end{figure}
@@ -1080,7 +1080,7 @@ z = \frac{bf}{d}
 \label{eq:depth_solution2}
 \end{equation}
 
-where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images. As seen from the result \ref{eq:depth_solution2} when disparity is zero, the depth output is at infinity ($z = \inf$), and there is virtually no shift visible in the image between the viewpoints.
+where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images. The result \ref{eq:depth_solution2} suggests that when disparity is zero, the depth z will be at infinity. According to this model, disparity cannot increase when distance to the measured point P increases. This is a simplification, since for example when a converging camera setup is used, the disparity property behaves so that the disparity is zero at the optical axes convergence point, and as the distance from the convergence point increases, the disparity increases.
 
 %when a corresponding point shift information is known for a feature in a scene. 
 
@@ -1914,10 +1914,33 @@ Stereo imaging is divided into two different categories by the used algorithm. T
 
 
 
-\subsection{Stereo Errors}
-\label{subsection:stereo_errors}
+\section{Stereo Errors And Accuracy}
+\label{section:stereo_errors_and_accuracy}
 
-+Embedded geometric and radiometric difficulties
+A stereo 3d reconstruction system accuracy is limited, which means that any geometry output will include additional noise and errors in the discrete point entries. If only uncertainty in the measured disparity is regarded, an uncertainty model can be formulated using partial derivative of $d$. Starting with equation \ref{eq:depth_solution2} a partial derivative of $z$ over $d$ gives
+
+\begin{equation}
+\frac{\partial z}{\partial d} = -\frac{fb}{d^2}
+\label{eq:disparity_uncertainty}
+\end{equation}.
+
+A depth uncertainty $\Delta{z}$ can be approximated as
+
+\begin{equation}
+\Delta{z} \simeq \frac{\partial z}{\partial d}\Delta{d}
+label{eq:uncertainty_approximation}
+\end{equation}
+
+and combining equations \ref{eq:disparity_uncertainty} and \ref{eq:uncertainty_approximation} yields
+
+\begin{equation}
+\Delta{z} \simeq -\frac{fb \Delta{d}}{d^2}
+\label{eq:triangulation_uncertainty}
+end{equation}
+
+where \Delta{d} is the resolution of the disparity difference detection in the block matching, down to e.g. 0.1 pixels.
+
+
 
 In this work the machine vision system is used as means of extracting coordinate data from a pictured scene. Full recovery of the spatial 3d scene is not possible, because the stereo cameras only see the surface parts that project onto the 2d image plane.
 In our case, a full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
