@@ -1027,7 +1027,7 @@ The term triangulation was originally used in trigonometry calculus, but in mach
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{simple_stereo_geometry.pdf}
-    \caption{Simple stereo geometry where distance Z may be solved using similar triangles ($p_l$, $P$, $p_r$) and ($O_l$, $P$, $O_r$). Adapted from \citep{Trucco98}.}
+    \caption{Simple stereo geometry shown in a central projective model. Distance z to an arbitrary point P may be solved using similar triangles whose hypothenuses are the vectors ($O_l$, $p_l$) and ($O_l$, $P$). Image adapted from Trucco and Verri in \citep{Trucco98}.}
     \label{fig:simple_stereo_geometry}
   \end{center}
 \end{figure}
@@ -1035,7 +1035,30 @@ The term triangulation was originally used in trigonometry calculus, but in mach
 %is a passive range acquisition mechanism that produces a range measurement from the solution of the correspondence problem from two differing images. The difference between the images should be a translational shift along a camera baseline axis, for example a stereo pair using simple stereo geometry will suffice. Tri
 %Often, a stereo camera is used, and the correspondence problem is solved using rectification and block matching techniques.
 
-As soon as the correspondence problem is solved (see section \ref{section:stereo_correspondence_problem} for details) the distance to point P may be calculated using the similar triangles ($p_l$, $P$, $p_r$) and ($O_l$, $P$, $O_r$) in Figure \ref{fig:simple_stereo_geometry}. $\pi_L$ and $\pi_R$ are the image planes for the left and right cameras accordingly, and $p_r$ and $p_l$ are the projections of the point P on the image plane. 
+As soon as the correspondence problem is solved (see section \ref{section:stereo_correspondence_problem} for details) the distance to point P may be calculated using similar triangles according to figure \ref{fig:simple_stereo_geometry}. $\pi_L$ and $\pi_R$ are the image planes for the left and right cameras accordingly, and $p_r$ and $p_l$ are the projections of the point P on the image plane. 
+
+Figure \ref{fig:simple_stereo_geometry} shows two similar triangles whose hypothenuses are vectors ($O_l$, $p_l$) and ($O_l$, $P$). The z coordinate of the point $P$ is related according to the similar triangles so that
+
+\begin{equation}
+\frac{\frac{1}{2}b}{Z} = \frac{x_{L}}{f} 
+\label{eq:similar_triangles}
+\end{equation}
+
+where $b$ is the baseline between camera focal points, and $x_L$ is the shift of the $x$ coordinate of projected point $p_l$ from principal projection point $c_l$. By definition, disparity is the shift of the image feature in the $x$ coordinate direction, which can be written
+
+\begin{equation}
+d = (c_r - p_r) + (p_l - c_l) = \Delta x_l + \Delta x_r
+\label{eq:disparity_shift}
+\end{equation}.
+
+Now equation \ref{eq:similar_triangles} can be written in the form
+
+\begin{equation}
+z = \frac{fb}{d}
+\label{eq:depth_solution}
+\end{equation}
+
+where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images.
 
 %when a corresponding point shift information is known for a feature in a scene. 
 
@@ -1215,7 +1238,17 @@ In homogenous form, a projected point $\tilde{p}$ = ($\tilde{x}$,$\tilde{y}$,$\t
 \label{eq:image_projection}
 \end{equation}
 
-where the origin of the homogenous coordinate system is point $\tilde{O_c} = [0 0 1]^T$. This coordinate system can be shown in homogenous matrix form as 
+where the origin of the homogenous coordinate system is point 
+
+\begin{equation*}
+$\tilde{O_c} = \begin{bmatrix}
+0 \\
+0 \\
+1 \end{bmatrix}
+\end{equation*}
+.
+
+This coordinate system can be shown in homogenous matrix form as 
 
 \begin{equation} \tilde{p} =
 \label{eq:homogenous_matrix_form}
@@ -1273,9 +1306,18 @@ where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 par
 \subsection{Extension To Pixel Frame}
 \label{subsection:extension_to_pixel_frame}
 
-The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90$\textdegree$. The pixel coordinates are by convention in a non-negative $(u,v)$ coordinate frame whose origin is located at the top left corner of the image plane (value $(0,0)$). 
+After formulating the perspective projection $\tilde{p} = C\tilde{P}$ in equation \ref{eq:homogenous_projection} the projected image point $\tilde{p}$ must be related to the pixel frame grid that the digital sensor array contains. The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90 degrees. The pixel coordinates are by convention in a non-negative $u- v-$ coordinate frame whose origin is located at the site of the top left corner pixel of the imaging array. This coordinate frame is titled the \emph{image frame} and it is coinciding with the planar image projection plane $\pi$.
 
-The principal point of the image sensor is the center of the sensor array where the principal ray enters the camera through the pinhole aperture perpendicularly to the image plane. If the principal point is shifted due to lens alignment error, then the shift can be adjusted by shifting the principal point $(u_{0},v_{0})$ using the intrinsic camera calibration matrix K. A camera calibration matrix that can adjust for lens alignment error and take pixel skew into account is written so that
+The principal point $(u_{0},v_{0})$ of the image sensor is the center of the sensor array where the principal ray enters the camera through the pinhole aperture perpendicularly to the image plane. If the principal point is shifted due to lens alignment error, then the shift can be adjusted by shifting the principal point so that the new principal point site is at 
+
+\begin{equation}
+\label{eq:principal_point_u}
+u_0 = 
+\end{equation}
+
+
+
+using the intrinsic camera calibration matrix K. A camera calibration matrix that can adjust for lens alignment error and take pixel skew into account is written so that
 
 \begin{equation} K =
 \label{eq:extended_camera_calibration_matrix}
@@ -1293,13 +1335,23 @@ The point in the world according to the camera coordinate system now transformed
 $X_c$. Next, the point will be projected onto the image plane $\pi$ according to the pinhole camera model. 
 Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the projected point can be computed from the similar triangles of image \ref{image:projectedpoint}. 
 
-\begin{equation}
-\label{equation:projectedpointUc}
-\textbf{U}_c = \Biggl[ \begin{array}{c}
-\frac{-fx_c}{z_c} \\
-\frac{-fy_c}{z_c} \\
--f \end{array} \Biggl]
-\end{equation}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication for \ref{equation:projectedpointUc}.
 
@@ -1359,17 +1411,11 @@ and with reordering the multiplication of $-f$ we obtain
 1 \end{array} \Biggl]
 \end{equation}
 
-The obtained $3x3$ transformation matrix is called the camera calibration matrix K where
+% We have followed the definition of Sonka et al. \cite{Sonka07} so that 
 
-\begin{equation}
-\label{equation:cameracalibrationmatrix}
-K = \Biggl[ \begin{array}{ccc}
--fa & -fb & -u_0 \\
-0 & -fc & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl]
-\end{equation}.
+The resulting camera calibration matrix is an upper triangle matrix that contains the camera intrinsic parameters. 
 
-We have followed the definition of Sonka et al. \cite{Sonka07} so that the resulting camera calibration matrix is an upper triangle containing three unknown parameters $a$, $b$, and $c$ for shearing and rescaling. If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \cite{CaltechWeb10}.
+If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \citep{CaltechWeb10}.
 
 
 
@@ -1604,7 +1650,7 @@ Epipolar geometry is a two-view camera geometry where the corresponding image po
 
 In figure \ref{fig:epipolar_geometry} the epipoles $e_1$ and $e_2$ are located along the epipolar line, marked in red dots. An epipole is always found on the stereo camera pair baseline (see Figure \ref{fig:simple_stereo_geometry}), thus, by definition the epipolar line and the camera baseline intersect at an epipole. In a parallel stereo camera configuration the epipoles lie ideally at infinity, because the image plane is parallel to the stereo baseline, and the lines never intersect. In reality, the epipoles may be found at finite distance outside the image projection plane, but for simplicity of describing the concept of the epipolar geometry the figure \ref{fig:epipolar_geometry} shows a a verged (toed-in) stereo setup where the camera baseline and the epipolar lines in the image planes intersect inside the imaging area. If the epipole is formed inside the image plane, then the other camera optical center, thus the camera, must be visible in the picture.
 
-A stereo camera setup where the camera optical axes are in parallel is called a canonical configuration. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features taken with a canonical stereo pair setup. For true disparity effect the camera must only shift along a single coordinate axis of a camera frame. Since the cameras project the world in a perspective projection on the image plane, the disparity effect follows the rules of perspective projection, for example, the object further away from the camera optical center shift less in pixels than objects in the near field of the camera. Any stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing as long as the camera images overlap. 
+A stereo camera setup where the camera optical axes are in parallel is called a \emph{canonical configuration}. In the canonical configuration the epipoles move to infinity, and the effect known as disparity can be seen on the two resulting images. Disparity means the shifting property of image features taken with a canonical stereo pair setup. For true disparity effect the camera must only shift along a single coordinate axis of a camera frame. Since the cameras project the world in a perspective projection on the image plane, the disparity effect follows the rules of perspective projection, for example, the object further away from the camera optical center shift less in pixels than objects in the near field of the camera. Any stereo configuration with non-parallel optical axes can be transformed into canonical one by image rectification processing as long as the camera images overlap. 
 
 A precise relationship between a conjugate pair $p_1$ and $p_2$ is expressed using $3 x 3$ fundamental matrix $F$ 
 
@@ -1929,6 +1975,7 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
 + specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
 
 \subsection{Image Rectification}
+% loss of resolution due resampling
 
 %Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space. This property of the epipolar geometry reduces computation time a lot for the correspondence search implementation.
 
