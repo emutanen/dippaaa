@@ -1016,6 +1016,7 @@ All geometric acquisition techniques either use an active perception sensor that
 
 \subsection{Triangulation}
 \label{subsection:triangulation}
+%The lenght of the camera separation in a stereo camera system, also called the baseline width, affects the triangulation accuracy of the depth measurement setup to some extent.
 
 Triangulation solves distance z to a point by measuring two angles from known points that are located at two ends of a fixed baseline. Thus, the known camera viewpoints and the unknown point form a triangle. Before the invention of the Global Positioning System (GPS), mapping of land areas (calculating distances and directions of landmark features) was performed using triangle meshing with the triangulation technique.
 
@@ -1935,7 +1936,20 @@ and combining equations \ref{eq:disparity_uncertainty} and \ref{eq:uncertainty_a
 \label{eq:triangulation_uncertainty}
 \end{equation}
 
-where $\Delta{d}$ is the resolution of the disparity difference detection in the block matching, down to e.g. 0.1 pixels. It can be seen from equation \ref{eq:triangulation_uncertainty} that the accuracy of the z measurement is linearly proportional to the disparity measurement error. Additionally, trade-offs exist between most other factors. On one hand, an increase in the baseline distance between the cameras will increase the measurement error in equation \ref{eq:triangulation_uncertainty}. On the other hand, the disparity will increase, too, and its term in the denominator is quadratic, which will ultimately decrease the error. Increasing the baseline width will in general decrease the error as a function of distance although the change will affect the size of the overlapping image area, and the disparity space. A stereo setup that has a baseline much higher than the human vision system baseline width is called a hyperstereo.
+where $\Delta{d}$ is the resolution of the disparity difference detection in the block matching, down to e.g. 0.1 pixels. It can be seen from equation \ref{eq:triangulation_uncertainty} that the accuracy of the z measurement is linearly proportional to the disparity measurement error. Additionally, trade-offs exist between most other factors. On one hand, an increase in the baseline distance between the cameras will increase the measurement error in equation \ref{eq:triangulation_uncertainty}. On the other hand, the disparity will increase, too, and its term in the denominator is quadratic, which will ultimately decrease the error. In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}. Increasing the baseline width will in general decrease the error as a function of distance although the change will affect the size of the overlapping image area, and the disparity space. With a normal parallel stereo setup it is not possible to 
+
+
+A stereo setup that has a baseline much higher than the human vision system baseline width is called a hyperstereo setup.
+
+\subsection{Hyperstereo Setup}
+\label{subsection:hyperstereo_setup}
+
+A hyperstereo setup makes feature matching much more difficult since the changes between the images are not incremental, but larger changes. A hyperstereo will distort motion of objects, which makes matching of a moving human or a swaying tree very difficult. Moreover, perception of glossiness of materials is distorted, which is why normal image formation according to X is not supported in a hyperstereo setup.
+%=> also crosstalk = image leaks to the area of the other eye => visible ghosting in stereo perception
+
+
+
+
 
 If the cameras are taken far apart, the near-field will lose image coverage, thus, nearby objects can be reconstructed only using converging camera setup. If a converging camera setup is used and the correspondence search space is not adjusted to support negative disparities, the nearby objects will still not be found due disparity space search being limited to only positive values. The effects of the aperture size and the focal length were discussed in more detail in section \ref{subsection:lens_optics}, and the effects on optical axes convergence is discussed in more detail in section \ref{subsection:converging_camera_setup}. 
 
@@ -1943,50 +1957,13 @@ The baseline width can be chosen arbitrarily as long as the two images include e
 
 If the rectified images are supposed to be part of a visualisation that people look at, then the baseline width should be selected according to the human eyes baseline width. Stereographic images viewed from a hyperstereo setup will not fuse nicely using a smaller baseline width system, such as the eyes of a human.
 
+A comprehensive study of the effects of subpixel interpolation, vertical camera misalignment, matching kernel size, focus, maximum disparity, and stereo baseline width on the stereo correspondence can be found in a Jet Propulsion Laboratory article from 2005 \citep{Kim05}. The JPL paper is very applicable to the case in this thesis since the camera resolution is similar with a 1024 x 768 resolution compared to 768 x 576.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-The lenght of the camera separation in a stereo camera system, also called the baseline width, affects the triangulation accuracy of the depth measurement setup to some extent. A common width for comparison is the human eye baseline width of X
-% camera separation or baseline
-+ hyperstereo = baseline much higher then the human vision system baseline
-%=> distorts perception of motion for humans
-%=> distorts perception of glossiness of materials
-%=> also crosstalk = image leaks to the area of the other eye => visible ghosting in stereo perception
-
-
-According to equation \ref{}
-
-
-In standard stereo processing the object measurement error increases with items that are located far away. If a single baseline and resolution is used the error grows quadratically with increasing depth \cite{Gallup08}.
-
-A simple equation for the depth error is introduced in \cite{Gallup08}:
-
-\begin{equation}
-\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
-\end{equation}
-
-where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
-
+%A simple equation for the depth error is introduced in \cite{Gallup08}:
+%\begin{equation}
+%\epsilon_z = \frac{z^2}{bf}\dot \epsilon_d
+%\end{equation}
+%where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is %the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
 
 \subsection{Occlusion}
 \label{subsection:occlusion}
