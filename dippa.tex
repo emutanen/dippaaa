@@ -703,6 +703,9 @@ Manual EOC crane movement may suffer from non-optimized route selection, operato
 
 Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. To improve things, a real-time description of the load object and its environment could be available, so it would be possible to prevent unwanted events from happening using perception sensors and safety software. \citep{Kappi13}
 
+%measuring goods
+Measuring products while they are being moved and processed at the industrial site is the very basis for all quality control in other manufacturing industries: for example, radio frequency identification tags are used to identify and control a batch of products in bulk manufacturing, video systems measure process quality in a paper factory, and a spectral analyzer measures the concentration of foreign substances in a soda bottle washing process. In an overhead crane environment, there is information available only on how large a mass is being lifted and where it is being lifted, but no information on what is being lifted or what volume is the load object. A machine vision perception system can add quality control in the crane environment by providing a feedback link with information on lifted object size, shape, orientation, color, movement, past locations, and visuals.
+
 \section{Interactive Control In A Crane Environment}
 \label{section:collision_control_in_a_crane_environment}
 
@@ -710,38 +713,30 @@ Some industries are not even profitable unless a certain speed of moving goods s
 Industrial goods e.g. beams, engines, large coils, drums of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that are being lifted and transferred inside a warehouse every day. If in collision, a lifted product may get damaged or break other products, which can be prevented by using interactive control. Interactive control suggests duality in control of the overhead crane: while the operator designs the initial hoisting and moving action, a computer interactively smooths and recalculates the trajectory with an optimal control scheme. Moreover, the computer controller can notify the operator of the current state of the crane operation so that the operator may adjust his or her working style with informative feedback.
 
 % törmäyksenesto
-An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties. Ideally a collision avoidance technique simply prevents collision based damage to the working area housings and storaged products by engaging safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe lifting operations can be carried out. 
+An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties. Ideally a collision avoidance technique simply prevents collision based damage to the working area housings and storaged products by engaging safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe lifting operations can be carried out. The interaction with the overhead crane controller may be implemented using traditional control pendants, wireless controllers, or some new approach, for example, a hand motion controller suggested by Peng and Singhose in \ref{Peng12}.
 
 % mitä tarvitaan
-To realise a working collision avoidance system, an understanding of the crane environment and its qualities including all the moving parts must be formed. In general, all the static and moving parts of the crane environment should continuosly provide information about their location, dimensions, and moving speeds to begin with. Using such an extensive information model it would be possible to introduce collision avoidance techniques in overhead crane environments.
-
-% how to implement collision detection
-The first requirement in enabling a collision avoidance system is to acquire an environmental model surrounding the lifted load object. Fortunately, the surrounding environment model is generated as a side product in the load object 3d reconstruction step, on which the thesis work mainly focuses on. A stereo camera pair is an excellent solution to the load object dimension measurment problem since it has the capability of modeling the surrounding environment, too.
+To realise a working collision avoidance system, an understanding of the crane environment and its qualities including all the moving parts must be formed. In general, all the static and moving parts of the crane environment should continuosly provide information about their location, dimensions, and moving speeds to begin with. Using such an extensive information model it would be possible to introduce collision avoidance techniques in overhead crane environments. Fortunately, the surrounding environment model is generated as a side product in the load object 3d reconstruction step, on which the thesis work mainly focuses on. A stereo camera pair seems like an excellent solution regarding the load object dimension measurement problem since it has the capability of modeling the imminent surrounding environment.
 
 % technical difficulties
-From a technical point of view, a discrete-time spatial tracker (4d tracker) needed in interactive collision avoidance system is difficult to realise. Still, estimated states of objects should provide enough information so that decision making processes can operate reliably even in the event of partial data loss. Trackers that would be suitable for this purpose are object state vector management systems, and Kalman filter based trackers, which are oo large topics to be covered in this thesis in more detail\citep{Leibe07}\citep{Corke11}\citep{Miller12}. If the load object is carefully tracked and its geometry is known, a collision computation with a known environment model can be used to prevent collisions before they happen. The added value is potentially great, which is why the measurement of the load object is worth researching.
+From a technical point of view, a discrete-time spatial tracker (4d tracker) needed in interactive collision avoidance system is difficult to realise. Still, estimated states of objects should provide enough information so that decision making processes can operate reliably even in the event of partial data loss. Trackers that would be suitable for this purpose are object state vector management systems, and Kalman filter based trackers, which are oo large topics to be covered in this thesis in more detail. If the load object is carefully tracked and its geometry is known, a collision computation with a known environment model can be used to prevent collisions before they happen. The added value is potentially great, which is why the measurement of the load object is worth researching. \citep{Leibe07, Corke11, Miller12}
 
 %New overhead crane systems do not currently have any collision detection features, but optimized route planning could become a standard feature in the future.
 
 \section{Applications}
+% According to Yong-Seok03 vision systems in container cranes are difficult to maintenance and have high costs
+%They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions in their applications. REF = Peng09
+
 %+ visual odometry
-Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
-%measuring goods
-Measuring products while they are being moved and processed at the industrial site is the very basis for all quality control in other manufacturing industries: for example, radio frequency identification tags are used to identify and control a batch of products in bulk manufacturing, video systems measure process quality in a paper factory, and a spectral analyzer measures the concentration of foreign substances in a soda bottle washing process. In an overhead crane environment, there is information available only on how large a mass is being lifted and where it is being lifted, but no information on what is being lifted or what volume is the load object. A machine vision perception system can add quality control in the crane environment by providing a feedback link with information on lifted object size, shape, orientation, color, movement, past locations, and visuals.
+%The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
+Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Different applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. Typically, applications of machine vision solve problems of ranging, quality control, object detection and tracking etc.
 
-If applications of machine vision are strictly limited to overhead cranes, some earlier research may be found and studied. For example, crane control was researched by Peng and Singhose using top-down cameras and a wand controllerin 2009. They used cameras to locate the wand controller and the crane hook with help of reflective materials, and reported that the system greatly increased the operating efficiency of the crane\ref{Peng09}. They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions in their applications.
+Strictly overhead crane machine vision applications include for example visual servoing\citep{Lun-Hui14}, real-time trajectory planning\citep{Kaneshige05}, wand controller following\citep{Peng09}, intelligent fault detection\citep{Rahmani10}, obstacle avoidance\citep{Nagai11}, and load object tracking and control\citep{Yoshida06} applications. 
 
-
-quality control in high speed manufacturing processes e.g. quality control of a multi-layer web forming in a paper factory. Machine vision is extensively used in packaging industry
+Other machine vision applications in crane environments include remote localisation of the end effector \citep{Hainsworth04} and 
 
 
-
-
-
-
-Previously, machine vision has been  in the overhead crane environment for improved trajectory control using wand controller. 
-
-\ref{}
+--
 
 A machine vision perception platform includes a stereo camera setup that is used to measure object dimensions in the crane working area. The installed cameras can be used for other purposes, too. For example, security camera surveillance can detect trespassers when the factory is shut down. 
 
