@@ -773,8 +773,7 @@ An overhead crane is typically manually operated by a technical worker who is ma
 
     Different types of overhead crane installations exist depending on the manufacturer and on the design of the crane and its supposed application. Figure \ref{fig:double_girder_eot} shows a heavier design with double girder installation used for medium to heavy lifting in industrial manufacturing and process industries. For example, in steel mills, heavy lifting is needed when cylinders of molten steel or other metal products are carried to the next process station. In heavy industry, the capacity of the crane and standard compliance is important, and the crane must operate reliably in hazardous environments. Efficient and safe usage patterns depend on the application at hand. In all applications, most important factors usually are time-wise efficient movement of the crane, safe operation of the crane, and easiness of operation.
     
-% thesis focus on overhead cranes 
-    Objects that are considered as load objects in this thesis cover a range of custom manufactured products whose size is unknown prior to the lifting operation. Since each item moved with the crane is unique, non-standard size object, an understanding of the load object size would be valuable to a software system that operates autonomously.
+    
     In heavy process industry, it is not often meaningful to measure load objects or containers whose size is standard and known prior to the lifting operation. For practical reasons, all testing on overhead cranes have been done using a company test site installation that was capable of lifting medium to heavy objects up to 15 tonnes. All the objects lifted with the overhead crane were smaller than 2 meters for all dimensions, which is quite a normal size for a pallet. Only the volume of the object affects its geometry measurement.
 
 \section{Forestry Machine Application}
@@ -991,6 +990,11 @@ Since the used HIMMELI platform based solution that is used in this work enables
 If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
 
 All geometric acquisition techniques either use an active perception sensor that emits energy in the environment, or use a passive perception sensor that only detects energy reflected or radiated from the environment. Next, some techniques that are used to acquire geometric environment depth maps are introduced. Triangulation and structure from motion (SFM) are techniques that uses passive sensing of the environment with cameras. Laser scanning and structured light patterns use active sensing of the environment using light sources and cameras. Triangulation is the basic mechanism that most 3d acquisition techniques are based on, which is why it is discussed before other techniques are introduced.
+
+--
+
+% thesis focus on overhead cranes 
+    Objects that are considered as load objects in this thesis cover a range of custom manufactured products whose size is unknown prior to the lifting operation. Since each item moved with the crane is unique, non-standard size object, an understanding of the load object size would be valuable to a software system that operates autonomously.
 
 \subsection{Triangulation}
 \label{subsection:triangulation}
