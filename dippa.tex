@@ -712,6 +712,10 @@ Measuring products while they are being moved and processed at the industrial si
 % käyttökokemus
 Industrial goods e.g. beams, engines, large coils, drums of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that are being lifted and transferred inside a warehouse every day. If in collision, a lifted product may get damaged or break other products, which can be prevented by using interactive control. Interactive control suggests duality in control of the overhead crane: while the operator designs the initial hoisting and moving action, a computer interactively smooths and recalculates the trajectory with an optimal control scheme. Moreover, the computer controller can notify the operator of the current state of the crane operation so that the operator may adjust his or her working style with informative feedback.
 
+% operointi
+A human operator is better able to move load objects through narrow passages and execute difficult spatial tracks than a computer, but he or she cannot minimise the used energy to perform a certain movement or minimise daily wear of moving parts. A computer control can positively improve the crane life cycle and minimise maintenance breaks. 
+Some automatic overhead cranes have been built, but usually they move bulk items, such as sand, steel, or other process-like material that is moved in environments where people are not allowed to be working simultaneously.
+
 % törmäyksenesto
 An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties. Ideally a collision avoidance technique simply prevents collision based damage to the working area housings and storaged products by engaging safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe lifting operations can be carried out. The interaction with the overhead crane controller may be implemented using traditional control pendants, wireless controllers, or some new approach, for example, a hand motion controller suggested by Peng and Singhose in \ref{Peng12}.
 
@@ -726,55 +730,22 @@ From a technical point of view, a discrete-time spatial tracker (4d tracker) nee
 \section{Applications}
 % According to Yong-Seok03 vision systems in container cranes are difficult to maintenance and have high costs
 %They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions in their applications. REF = Peng09
-
-%+ visual odometry
 %The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
-Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Different applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. Typically, applications of machine vision solve problems of ranging, quality control, object detection and tracking etc.
+%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
+%+ Environment sensing is needed for robotization of spaces
+
+Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Different applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. Typically, applications of machine vision solve problems of ranging, quality control, visual odometry, object detection, tracking etc.
 
 Strictly overhead crane machine vision applications include for example visual servoing\citep{Lun-Hui14}, real-time trajectory planning\citep{Kaneshige05}, wand controller following\citep{Peng09}, intelligent fault detection\citep{Rahmani10}, obstacle avoidance\citep{Nagai11}, and load object tracking and control\citep{Yoshida06} applications. 
 
-Other machine vision applications in crane environments include remote localisation of the end effector \citep{Hainsworth04} and 
+Other machine vision applications in crane environments include remote localisation of the end effector \citep{Hainsworth04}, stereoscopic teleoperation of forestry cranes\citep{Westerberg08}, 
 
+The installation of a stereo camera pair in an overhead crane trolley may also be used for other purposes, such as warehouse surveillance, recording of lifting operations, operations tracking, and quality control. For example, training videos can be recorded for new operators or additional information can be recovered in case of accidents.
 
---
-
-A machine vision perception platform includes a stereo camera setup that is used to measure object dimensions in the crane working area. The installed cameras can be used for other purposes, too. For example, security camera surveillance can detect trespassers when the factory is shut down. 
-
-recordings of states of the environment, provide video feed of accidents for insurance companies, and enable teaching material for new users as records of events. 
+The load object measurement statistics could be used to keep track of the crane usage and possibly lead to improvements in warehouse layout, or help a factory manager decide upon investing in a larger manufacturing floor if the capacity is at a limit.
 
 
 
-Size and weight statistics can help track the crane usage and lead to improvements in warehouse layout, or help a factory manager decide upon investing in a larger manufacturing floor if the capacity is at a limit.
-
-% operointi
-A human operator is better able to move load objects through narrow passages and execute difficult spatial tracks than a computer, but he or she can not minimise the used energy to perform a certain movement or minimise daily wear of moving parts. A computer control can positively improve the product life cycle and minimise maintenance breaks. 
-Some automatic overhead cranes have been built, but usually they move bulk items, such as sand, steel, or other process-like material that is moved in environments where people are not working.
-
-
-
-
-The biggest non-safety related features are the optimized route planning (using knowledge of geometric dimensions) and automatic moving of loads using a computer planner. During the life cycle of the crane installation such features can reduce vast amounts of used energy, possibly increase movement speeds, and sometimes increase service intervals.
- 
- 
- 
- Some other properties can be e.g. warehouse surveillance, operations tracking, quality control etc.
- 
-% person lifter
-
-
-%+ Environment sensing is needed for robotization of spaces
-%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
-
-% stereoscopic teleoperation
-
-%Teoriaa ja teknologioita. Pituus noin 20 sivua.
-%Applications that can benefit from accurate positioning and tracking of a load object
-
-%\section{Existing Positioning And Tracking Applications}
-%\label{section:existing_positioning_and_tracking_applications}}
-
-%\section{Safety Applications}
-%\label{section:safety_applications}
 
 %Traditional and new safety applications can utilize load positioning information for added functionality.
 
