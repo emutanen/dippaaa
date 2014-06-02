@@ -835,8 +835,8 @@ Besides machine vision, also other perception sensors exist that can be used to 
 
 Next, different machine vision sensor options will be presented that could provide data input to the envisioned load object geometry measurement system.
 
-\section{Machine Vision Perception Sensors}
-\label{section:perception_sensors}
+\section{Stereo Cameras}
+\label{section:stereo_cameras}
 
 Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
 
@@ -846,11 +846,8 @@ Camera based vision sensing can be active or passive depending on the technology
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
-\subsection{Stereo Cameras}
-\label{subsection:stereo_cameras}
-
-\subsubsection{Optics}
-\label{subsubsection:optics_and_photometrics}
+\subsection{Lens Optics}
+\label{subsection:lens_optics}
 
 % todo add teledyne white paper to optics
 %\ref{teledyne_whitepaper}
@@ -1938,15 +1935,36 @@ and combining equations \ref{eq:disparity_uncertainty} and \ref{eq:uncertainty_a
 \label{eq:triangulation_uncertainty}
 \end{equation}
 
-where $\Delta{d}$ is the resolution of the disparity difference detection in the block matching, down to e.g. 0.1 pixels.
+where $\Delta{d}$ is the resolution of the disparity difference detection in the block matching, down to e.g. 0.1 pixels. It can be seen from equation \ref{eq:triangulation_uncertainty} that the accuracy of the z measurement is linearly proportional to the disparity measurement error. Additionally, trade-offs exist between most other factors. On one hand, an increase in the baseline distance between the cameras will increase the measurement error in equation \ref{eq:triangulation_uncertainty}. On the other hand, the disparity will increase, too, and its term in the denominator is quadratic, which will ultimately decrease the error. Increasing the baseline width will in general decrease the error as a function of distance although the change will affect the size of the overlapping image area, and the disparity space. A stereo setup that has a baseline much higher than the human vision system baseline width is called a hyperstereo.
+
+If the cameras are taken far apart, the near-field will lose image coverage, thus, nearby objects can be reconstructed only using converging camera setup. If a converging camera setup is used and the correspondence search space is not adjusted to support negative disparities, the nearby objects will still not be found due disparity space search being limited to only positive values. The effects of the aperture size and the focal length were discussed in more detail in section \ref{subsection:lens_optics}, and the effects on optical axes convergence is discussed in more detail in section \ref{subsection:converging_camera_setup}. 
+
+The baseline width can be chosen arbitrarily as long as the two images include enough overlapping image area so that the correspondence problem can be solved. The stereo solution resolution depends on the overlapping image area, which is why a large baseline is not usually favorable. As the baseline increases, the overlapping image area becomes smaller, thus, the rectified image becomes smaller, thus, the resolution of the stereo solution becomes smaller. Although the accuracy might increase with a large baseline, the effective ROI in the rectified image becomes so small that it is not useful in applications that use the full field of view of the camera. For far-field distance measurement applications a large baseline is obviously favourable.
+
+If the rectified images are supposed to be part of a visualisation that people look at, then the baseline width should be selected according to the human eyes baseline width. Stereographic images viewed from a hyperstereo setup will not fuse nicely using a smaller baseline width system, such as the eyes of a human.
 
 
 
-In this work the machine vision system is used as means of extracting coordinate data from a pictured scene. Full recovery of the spatial 3d scene is not possible, because the stereo cameras only see the surface parts that project onto the 2d image plane.
-In our case, a full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement. As a result of depth mapping, a point cloud will provide coordinate data for the visible surface, which we can mask three-dimensionally and process further.
 
 
-It can be seen from \ref{equation:disparity_limit} that the accuracy of such a stereo system is linearly proportional to the disparity measurement error, and there are trade-offs for most factors, such as focal length, camera separation, optical axes convergence, and aperture selection.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 The lenght of the camera separation in a stereo camera system, also called the baseline width, affects the triangulation accuracy of the depth measurement setup to some extent. A common width for comparison is the human eye baseline width of X
 % camera separation or baseline
@@ -1970,10 +1988,15 @@ A simple equation for the depth error is introduced in \cite{Gallup08}:
 where \emph{z} is the depth value, \emph{b} is the baseline value, \emph{f} is the focal length, and \epsilon_d is the disparity matching error (in pixels). The resulting depth error $\epsilon_z$ 
 
 
-\subsubsection{Occlusion}
-\label{subsubsection:occlusion}
+\subsection{Occlusion}
+\label{subsection:occlusion}
+
+Occlusion is another error source in the reconstructed geometry. Surfaces that lie inside the camera 3d frustum, but are not visible in the projected 2d image, are called occluded objects. Occlusion 
+
+%The stereo cameras will reconstruct all surfaces whose image is projected onto the 2d image plane, but surfaces that are not visible in the image, for example: behind other surfaces are not recorded: these are called occluded objects or surfaces. In practice, all visible objects will cast shadows behind them, and only a partial 
 
 \begin{figure}[ht]
+
   \begin{center}
     \includegraphics[width=\textwidth]{occlusion_pollefeys.pdf}
     \caption{An occlusion front is seen in scenes with depth differences and planar features. Image from \citep{Pollefeys04}.}
@@ -1986,6 +2009,9 @@ Occlusion means partial or full loss of line of sight of an object in an image. 
 In figure \ref{fig:occlusion_pollefeys} an example of an occluded part of wall is shown on the left side. The right side depicts a correspondence search space along epipolar lines with an ideal correspondence correlation path for the rectified occluded scene. It can easily be seen from figure \ref{fig:occlusion_pollefeys} that when on occlusion is found in the scene, the correct corresponding image point is found further away from the optimal path. Furthermore, the correspondence search space is restricted along the epipolar lines with certain disparity difference limit (bandwidth) because the depth range of the imaged features is limited\citep{Pollefeys04}. 
 
 Most solutions do not explicitly detect occluded regions, thus errors may be found in the disparity output of block matching if bidirectional matching is not enforced. Bidirectional matching searches corresponding surface points from both images, thus, occluded regions may be identified if there is certain surface areas are detected as missing. Also, an occluding boundary is found on the perimeter of objects, for example, a cylinder surface will curve until the other camera view becomes occluded. Thus, on the edge of objects that curve out of view there is always some occlusion in the scene. Occlusion induces errors in disparity map estimation, which can be improved if occlusion detection systems are used in the block matching process. Occlusion detection is out of scope of this thesis, but basically the occlusion can be detected using energy functions that optimise the correspondence search path, for example Kolmogorov et al. describe such a technique that uses graph cuts\citep{Kolmogorov01, Woo-Seok11}. 
+
+\subsection{Converging Camera Setup}
+\label{subsection:converging_camera_setup}
 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
@@ -2127,6 +2153,8 @@ In this use case the crane load shape is considered always cylindrical.
 
 \subsection{Prototype Software}
 \label{subsection:prototype_software}
+
+A full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement.
 
 \subsubsection{End Effector Tracker Integration}
 \label{subsubsection:end_effector_tracker_integration}
