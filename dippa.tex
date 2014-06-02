@@ -749,7 +749,9 @@ Finally, a load object measurement should be used to add functionality to safety
 A glimpse in the not so distant history reveals a development of the overhead crane, a hoisting system more commonly known as the bridge crane or the process crane. First mass manufactured overhead crane systems were commissioned in 1876 in England, and they were powered by steam engines in the beginning of the industrial revolution. Today, the overhead crane is electrically powered and widely used for service duties and efficient process lifting in heavy industries and in industrial custom manufacturing.
 
 % tällä hetkellä overhead cranes
-An overhead crane is typically manually operated by a technical worker who is making the decision whether the lifted product can be moved in any direction. Usually, a control pendant, or a wireless hand-held controller is used to move the load object to a desired location in the 3d crane working space. Supposedly, other workers are going about their daily work in the same factory floor where the overhead crane operates. With current generation manual overhead cranes it is possible to collide a load object with other objects that lie on the factory floor or on the shelves of a warehouse. Overhead cranes have automation systems that help manual operation, such as load anti-sway systems, single motor hoisting mechanisms, and wireless remote controllers. While they add value for the crane operator and improve safety and speed of the overhead crane operation, the manual systems cannot warn the operator automatically of any hazards. 
+An overhead crane is typically manually operated by a technical worker who is making the decision whether the lifted product can be moved in any direction. Usually, a control pendant, or a wireless hand-held controller is used to move the load object to a desired location in the 3d crane working space. Supposedly, other workers are going about their daily work in the same factory floor where the overhead crane operates. With current generation manual overhead cranes it is possible to collide a load object with other objects that lie on the factory floor or on the shelves of a warehouse. 
+
+Overhead cranes have automation systems that help manual operation, such as load anti-sway systems, single motor hoisting mechanisms, and wireless remote controllers. While they add value for the crane operator and improve safety and speed of the overhead crane operation, the manual systems cannot warn the operator automatically of any hazards. 
 
 \begin{figure}[ht]
   \begin{center}
@@ -787,18 +789,18 @@ Research in automatic forestry machines is an ongoing effort that tries to incre
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
 
-The focus of this work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using an overhead crane.
+%Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
 
-The secondary objective of this thesis is to be able to compute the dimensions of a picked up log with the help of a machine vision system. Further processing of the measurement information and the details of teleoperation applications are outside of the scope of this thesis.
-
-Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
-
-The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct \ref{You11}. Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
+%The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct \ref{You11}. Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
 
 % goal with the stereo camera acquisition is that the overall system would be cheap to purchase
 % objective: point cloud processing runs in almost real-time, more often than 5 times per second
 
-An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system.
+%An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system.
+
+The focus of this work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using an overhead crane.
+
+The secondary objective of this thesis is to be able to compute the dimensions of a picked up log with the help of a machine vision system. Further processing of the measurement information and the details of teleoperation applications are outside of the scope of this thesis.
 
 \chapter{Perception Sensors For Environment Model Acquisition}
 \label{chapter:perception_sensors_for_environment_model_acquisition}
