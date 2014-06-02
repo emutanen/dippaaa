@@ -986,7 +986,6 @@ In general, an unordered real-world scene is difficult to model using perception
 
 
 
-Since the used HIMMELI platform based solution that is used in this work enables only a single viewpoint stereo camera produced depth map at a single timestep, the model of the acquired environment is limited to a sparse point cloud presentation. Thus, the output 3d geometry will not resemble any realistic scene, but it does contain keypoints coordinate information that enables Euclidean dimension measurements. Additionally, a single-channel black and white high definition range image is available for e.g. object classification purposes. More in depth specifications of the HIMMELI platform are presented in chapter \ref{section:himmeli_sensor_platform}.
 
 If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images.  \ref{Chen91}
 
@@ -1459,7 +1458,7 @@ Intrinsic camera calibration is the process of estimating the unknown coefficien
 \subsection{MATLAB Camera Calibration Toolbox}
 \label{matlab_camera_calibration_toolbox}
 
-The intrinsic calibration parameters for the Himmeli platform were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The camera calibration toolbox uses internal camera model described by Heikkilä and Silven \citep{Heikkila97}, which supports the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}. The toolbox uses rectangular or circular calibration grids for calibration. A rectangular standard 9x6 crossings calibration grid was used to 
+The intrinsic calibration parameters for the stereo cameras used were computed using Jean-Yves Bouguet's Camera Calibration Toolbox for MATLAB. The camera calibration toolbox uses internal camera model described by Heikkilä and Silven \citep{Heikkila97}, which supports the pinhole camera model introduced in section \ref{section:the_pinhole_camera_model}. The toolbox uses rectangular or circular calibration grids for calibration. A rectangular standard 9x6 crossings calibration grid was used to 
 
 When a real imperfect camera lens system is used for image capture, lens distortions must be compensated by software to enable successful stereo block matching after image rectification. Lens distortions may include geometric distortions, such as tangential and radial distortions, and other imperfections, such as optical aberrations (chromatic aberration, spherical aberration, coma) and astigmatism. Geometric distortions hinder the performance of machine vision processes most, which is why the distortion model mainly corrects for the geometric qualities of the image. The need for different distortion model components depends on the used lens system, and it is probable that a low-quality webcam calibration requires a more complex lens distortion correction model than a high-quality built camera. The lens distortion model is added to the perspective projection 
 
@@ -1472,7 +1471,7 @@ When a real imperfect camera lens system is used for image capture, lens distort
 and added to normalised image coordinate compomenents $x_d$ and $y_d$ following the calibration procedure described in \citep{Heikkila97}. 
 
 
-Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of HIMMELI only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
+Bouguet's camera calibration toolbox provides lens distortion models up to a 6th order polynomial, but in the calibration of the stereo pair in the \emph{Himmeli} platform (see section \ref{section:perception_sensor_platform_himmeli}) only a 4th order model was needed, leaving the 5th distortion coefficient in the 5x1 distortion coefficient vector $kc$ zero. Thus, the distortion corrected normalised point coordinates $x_{d}$ and $y_{d}$ follow:
 
 \begin{figure}[ht]
   \begin{center}
