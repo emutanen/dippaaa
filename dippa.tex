@@ -2688,7 +2688,7 @@ From dataset 1372842312 it was found out that objects suffer from enlarging effe
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=\textwidth]{enlarging_effect.jpg}
+    \includegraphics[width=0.5\textwidth]{enlarging_effect.jpg}
     \caption{Enlarging effect seen in dataset 1372842312. The operators are separated with a gap between each other, but the segmented object view shows the two objects fused as one object due to disparity enlarging effect.}
     \label{fig:enlarging_effect}
   \end{center}
@@ -2698,43 +2698,38 @@ From dataset 1372842312 it was found out that objects suffer from enlarging effe
 \label{subsubsection:dataset_1372842573_findings}
 
 From dataset 1372842573 it was noticed that the small end effector hook used in this dataset gives a small point response of approximately 60-80 data points when the end effector is near the factory floor. The end effector response is so small that it is discarded from the segmented data as noise induced error with the current segmentation tuning. If the end effector is raised near the ceiling, the response becomes larger. The end effector response could be tracked with an extended Kalman filter if the end effector location signal is not readily available as a service. The end effector response signal is consistent similar to the load object response.
-    The dataset also shows that the operator and the load object will merge as a single object when the operator stands near the load object or touches it. In the event of the operator and the load object fusing, the bounding volume will become too large accordingly. Any moving objects will merge to nearby objects when the Euclidean distance between two objects becomes smaller than the selected segmentation threshold value.
-    Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the factory floor seen in the images. If no floor is seen in the images, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets.
+
+The dataset also shows that the operator and the load object will merge as a single object when the operator stands near the load object or touches it. In the event of the operator and the load object fusing, the bounding volume will become too large accordingly. Any moving objects will merge to nearby objects when the Euclidean distance between two objects becomes smaller than the selected segmentation threshold value.
+
+Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the factory floor seen in the images. If no floor is seen in the images, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets.
 
 \subsubsection{Dataset 1372842898 Findings}
 \label{subsubsection:dataset_1372842898_findings}
+%\item The reprojection issues while the platform is moving depict the floor both too far away and too close in turns. This suggests that the HIMMELI platform shutters do not exposure images in the same left to right, or right to left order, but the order changes randomly due to network lag or other sync issues.
 
-In dataset 1372842898 the overhead crane was moving while stereo images were captured, which introduced problems with the quality of the scene geometry. It was noticed that the floor plane geometry showed large deviations in the reprojected depth value between the frames. It was also concluded that the perception platform moves between the left and right camera shutter exposures, which causes the reprojection error of the ground plane. The \emph{Himmeli} platform software camera shutter synchronization introduces random delays between camera exposures since the deviations in ground plane level showed randomly too little and too large values.
+In dataset 1372842898 the overhead crane was moving while stereo images were captured, which introduced problems in the estimation of ground plane depth correctly. It was noticed that the ground plane geometry showed large depth projection errors in frames where the overhead crane was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, the platform has time to move before the second camera shutter is activated. This results in an increase or decrease in the stereo baseline width $b$ randomly between the frames. The changing baseline will result erroneous depth values for all motion field vectors when the depth computation assumes a constant baseline width. This also implies that only the moving parts of the image are affected, for example, the ground floor. The load object measurement is not affected since the image of the load object is not moving between the frames (except for possible sway and rotation).
 
-\item The scene reprojection introduced large errors when the platform was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, a moving platform will introduce a disparity map generation that does not match with the pre-defined camera baseline since the other camera is moving before it records the image. To counteract such inaccuracy, the platform should not move while measuring objects, or the shutter behaviour should be strictly enforced. For normal operation where the object is measured as it is lifted up, this is not problematic.
+To counteract moving platform inaccuracy, the platform should not move while the environment is being modeled, or the shutter behaviour should be synchronised with a clock generator signal. The ground plane depth estimation error does not affect the load object measurement at all.
 
-%\begin{itemize}
-% item separation length in a list
-%\setlength{\itemsep}{0pt}
-% 1372841000
-%\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in the other used viewpoint (bird's eye).
-%\item Nearby objects, such as the upper balcony, can be detected by the machine vision system.
-%\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right. A smaller image ROI could possibly remove such artefacts from the end result. 
-%\item A horizontal striped tape present in the data sets resulted in erroneous depth reprojection, and left a visible artefact under the floor level in the point cloud.
-%1372842312
-%\item Nearby objects are grouped together as single objects by the segmentation algorithm.
-%1372842573
-%\item Empty end effector gives such a small point response that it is discarded as not an object. It was not possible to track with the current system.
-%\item People near the load object merge into the load object and enlarge the reported bounding volume.
-%\item If the load object was lifted very high, it occluded most of the floor space in the image. If all the floor space is occluded by the load object, the floor removal will fail. Such an event was never encountered in testing.
-%1372842898
+\subsubsection{Dataset 1372843166 Findings}
+\label{subsubsection:dataset_1372843166_findings}
 
-%1372843166
-\item If people walk exactly under the top-down camera, their point response is so small that the response is discarded as an error in the point cloud data. This suggests that the lower limit of the point cloud object size should have been even smaller than the used value.
-% 1372843682
-\item If scene reprojection issues are present when the platform is moving, a lifted load object does not suffer from much inaccuracy because its image is not moving when the platform does. The errors introduced in the load object measurement while the platform is moving are negligible.
-% 1372851661
-\item The reprojection issues while the platform is moving depict the floor both too far away and too close in turns. This suggests that the HIMMELI platform shutters do not exposure images in the same left to right, or right to left order, but the order changes randomly due to network lag or other sync issues.
-% 1372851907
-\item In the bird's eye viewpoint the load being lifted in the background of the process hall results in a smaller point response than in the top-down view.
-\item In the bird's eye viewpoint, the load object point cloud merges with the back wall point cloud when the load is near the wall. The load object could not be measured if it merged with the back wall. Merging is easily seen in the background because more noise is in features that are further away from the cameras. 
-\item In the bird's eye viewpoint, the load object is self-occluded, and its bounding volume does not contain its backside. Thus, the bounding volume computation is not correct from this viewpoint for e.g. the large standard box.
-\item In the bird's eye viewpoint, the hoisting wires are clearly visible in the point cloud output and the location is correctly reprojected in 3d.
+It was noticed in dataset 1370843166 that when people walk exactly under the camera view in a top-down camera setup, the point response will become so small that the person object response is discarded as noise error in the point cloud data. On one hand, this result suggests that the limit of the point cloud object size should be made smaller than the currently used value 100 points to be able to detect small targets. On the other hand, making the limit smaller will allow small disparity speckles clutter the 3d data as objects as well, which may not be too problematic.
+
+\subsubsection{Dataset 1372851907 Findings}
+\label{subsubsection:dataset_1372851907_findings}
+
+A bird's eye viewpoint is introduced in the dataset 1372851907. It was found out that the load object being lifted near the opposite side wall of the process hall results in a smaller point response than the load object in the same spot using the top-down image. Additionally, the back wall of the process hall is included in the image. Thus, the back wall is modeled with a large number of points, which will slow the computation down compared to the top-down view. It is also very likely that a load object situated near the opposite wall will fuse with the wall. The load object could not be measured if it merged with the back wall. The more distance to the cameras, the more easily merging of objects happens since the measurement error increases, and point entries will easily deviate from their actual values and cause merging. The distance to the opposite wall was quite large, even 10 meters, which caused less accurate depth estimation and object merging.
+
+Another problem with the bird's eye viewpoint was the effect of oriented self-occlusion. From this viewpoint, the backside of the load object was not visible at all, thus, it was not fully enclosed by the bounding volume. 
+
+Finally, the hoisting wires output a clearly visible point cloud response, which means they will be included in the load object bounding volume. Inclusion of the hoisting wires is not preferable, and should be counteracted using heuristics. From the bird's eye viewpoint, it is possible to model the hoisting wires correctly.
+
+\subsubsection{Dataset 1372852148 Findings}
+\label{subsubsection:dataset_1372852148_findings}
+
+
+
 %1372852148
 \item In the bird's eye viewpoint, more points are generated to the 3d point cloud mainly because of the visible back wall. Increased number of points increased computation times.
 \item In the bird's eye viewpoint, the distant objects introduced increasing noise and measurement error.
