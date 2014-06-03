@@ -2664,26 +2664,25 @@ Disp12MaxDiff & 1 \\
 \section{Experiments}
 \label{section:experiments}
 
-\subsection{Overhead Crane Case}
-\label{subsection:overhead_crane_case}
+\subsection{Overhead Crane Measurement Findings}
+\label{subsection:overhead_crane_measurement_findings}
 
 The following overhead crane image data sets were captured in August 2013 in a real overhead crane environment. A total of 13 data sets were captured that contain different kinds of tests aimed at revealing how the dimension measurement of the load object can function in different scenarios. The lighting conditions did not change during daytime in the overhead crane environment, so there was no need to test at different times of day, or different times of year because of possible changes in the environmental conditions. 
 
-\subsubsection{Findings}
+In the overhead crane data sets, a manual load selection approach was used to select an object as the target to measure. This was done when the end effector location was not available for more accurate selection process. Essentially, a load object was selected from near proximity of a pre-defined coordinate. Most of the time, the manual selection coordinate was set in the center of the image, where a load object would probably appear in e.g. the top-down camera configuration. Since no heuristics were used in the overhead crane load selection process, the test design introduced a lot of erroneous load object matches, such as people walking nearby the center of the image, or new objects selected as they came in the view as the platform moved in the process hall. These may be easily seen in the data set visualisations.
 
-In the overhead crane data sets, a manual load selection approach was used to select an object as the target to measure. This was done when the end effector location was not available for more accurate selection process. Essentially, a load object was selected from near proximity of a pre-defined coordinate. Most of the time, the manual selection coordinate was set in the center of the image, where a load object would probably appear in e.g. the top-down camera configuration. Since no heuristics were used in the overhead crane load selection process, the test design introduced a lot of erroneous load object matches, such as people walking nearby the center of the image, or new objects selected as they came in the view as the platform moved in the process hall. These may be easily seen in the data set visualisations.\par
-The decision to select the load object from a pre-defined 3d region of space was far from perfect, but it worked as a load selection condition without knowledge about the end effector location. In essence, it was guessed that a load object would be found near the center of the image, which was not always true. For example, for some data sets where the camera was located in the side of the overhead crane bridge, the load object was found in the bottom part of the image. A visual indicator for the manual load selection coordinate was added in the visualization tool to help set the manual selection center in a better location.\par
-The data set coordinate system was not transformed to the world coordinate frame, but kept in the sensor frame at all times during data processing. The reason to do processing in the sensor frame was that the sensor frame implicitly encoded the moving platform signal in the data. An end effector location signal would have been needed if the processing was to be done in the world coordinate frame. Now, because such a signal was not available, the data was kept in the sensor frame, and as a result, a static coordinate depicted a point moving in space with the sensor platform. Also, this way the static camera implicitly encoded the platform movement, thus, no camera viewpoint signal was needed to construct. While the data in the sensor frame was not normalized, it did not introduce singularities or any mathematical problems that very large numbers tend to introduce in some complex algorithms. If the computation was done in the world frame, normalization would possibly be needed to prevent computational singularities if the origin of the framework was set far away from the actual overhead crane hall.\par
+The decision to select the load object from a pre-defined 3d region of space was far from perfect, but it worked as a load selection condition without knowledge about the end effector location. In essence, it was guessed that a load object would be found near the center of the image, which was not always true. For example, for some data sets where the camera was located in the side of the overhead crane bridge, the load object was found in the bottom part of the image. A visual indicator for the manual load selection coordinate was added in the visualization tool to help set the manual selection center in a better location.
 
-\subsubsection{Dataset 1372841000 Findings}
-\label{subsubsection:dataset_1372841000_findings}
+The data set coordinate system was not transformed to the world coordinate frame, but kept in the sensor frame at all times during data processing. The reason to do processing in the sensor frame was that the sensor frame implicitly encoded the moving platform signal in the data. An end effector location signal would have been needed if the processing was to be done in the world coordinate frame. Now, because such a signal was not available, the data was kept in the sensor frame, and as a result, a static coordinate depicted a point moving in space with the sensor platform. Also, this way the static camera implicitly encoded the platform movement, thus, no camera viewpoint signal was needed to construct. While the data in the sensor frame was not normalized, it did not introduce singularities or any mathematical problems that very large numbers tend to introduce in some complex algorithms. If the computation was done in the world frame, normalization would possibly be needed to prevent computational singularities if the origin of the framework was set far away from the actual overhead crane hall.
 
+\subsubsection{Findings From Top-down Viewpoint Datasets}
+\label{subsubsection:findings_from_topdown_viewpoint_datasets}
+
+%1372841000
 From dataset 1372841000 it was found out that the items residing in the process crane hall are segmented in good detail as separate object entities. The geometries of items are well-preserverd in the top-down camera setup. Accordingly, the objects in the near field of the camera, such as the upper balcony, are surface reconstructed in fine detail by the stereo vision system. Finally, the disparity map includes some artefacts that generate erroneous 3d constructs in the point cloud data. The best example of an artefact is the large grey bar that can be seen on the right side of the disparity map. The grey bar is reprojected as a curved tall beam-like feature and it can be seen on the right side of the original 3d data point cloud output. This artefact could be effectively removed via using a smaller region of interest that is reprojected into 3d data.
     Another issue found in the geometry reconstruction was caused by a horizontally aligned striped black and yellow tape, which resulted in an erroneous correspondence matching resulting a depth measurement error. Although the tape was part of the factory floor and should be removed from the 3d data in the process, it remained in the data as a separate object seen below the floor level because of the erroneous depth measurement.
 
-\subsubsection{Dataset 1372842312 Findings}
-\label{subsubsection:dataset_1372842312_findings}
-
+%1372842312
 From dataset 1372842312 it was found out that objects suffer from enlarging effect that will enlarge objects due to disparity map processing. The enlarging effect will affect groups of objects placed near each other the most, causing fusing of objects into single object entities. 
 
 \begin{figure}[ht]
@@ -2694,46 +2693,39 @@ From dataset 1372842312 it was found out that objects suffer from enlarging effe
   \end{center}
 \end{figure}
 
-\subsubsection{Dataset 1372842573 Findings}
-\label{subsubsection:dataset_1372842573_findings}
-
+%1372842573
 From dataset 1372842573 it was noticed that the small end effector hook used in this dataset gives a small point response of approximately 60-80 data points when the end effector is near the factory floor. The end effector response is so small that it is discarded from the segmented data as noise induced error with the current segmentation tuning. If the end effector is raised near the ceiling, the response becomes larger. The end effector response could be tracked with an extended Kalman filter if the end effector location signal is not readily available as a service. The end effector response signal is consistent similar to the load object response.
 
 The dataset also shows that the operator and the load object will merge as a single object when the operator stands near the load object or touches it. In the event of the operator and the load object fusing, the bounding volume will become too large accordingly. Any moving objects will merge to nearby objects when the Euclidean distance between two objects becomes smaller than the selected segmentation threshold value.
 
 Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the factory floor seen in the images. If no floor is seen in the images, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets.
 
-\subsubsection{Dataset 1372842898 Findings}
-\label{subsubsection:dataset_1372842898_findings}
+%1372842898
 %\item The reprojection issues while the platform is moving depict the floor both too far away and too close in turns. This suggests that the HIMMELI platform shutters do not exposure images in the same left to right, or right to left order, but the order changes randomly due to network lag or other sync issues.
 
 In dataset 1372842898 the overhead crane was moving while stereo images were captured, which introduced problems in the estimation of ground plane depth correctly. It was noticed that the ground plane geometry showed large depth projection errors in frames where the overhead crane was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, the platform has time to move before the second camera shutter is activated. This results in an increase or decrease in the stereo baseline width $b$ randomly between the frames. The changing baseline will result erroneous depth values for all motion field vectors when the depth computation assumes a constant baseline width. This also implies that only the moving parts of the image are affected, for example, the ground floor. The load object measurement is not affected since the image of the load object is not moving between the frames (except for possible sway and rotation).
 
 To counteract moving platform inaccuracy, the platform should not move while the environment is being modeled, or the shutter behaviour should be synchronised with a clock generator signal. The ground plane depth estimation error does not affect the load object measurement at all.
 
-\subsubsection{Dataset 1372843166 Findings}
-\label{subsubsection:dataset_1372843166_findings}
-
+%1372843166
 It was noticed in dataset 1370843166 that when people walk exactly under the camera view in a top-down camera setup, the point response will become so small that the person object response is discarded as noise error in the point cloud data. On one hand, this result suggests that the limit of the point cloud object size should be made smaller than the currently used value 100 points to be able to detect small targets. On the other hand, making the limit smaller will allow small disparity speckles clutter the 3d data as objects as well, which may not be too problematic.
 
-\subsubsection{Dataset 1372851907 Findings}
-\label{subsubsection:dataset_1372851907_findings}
+\subsubsection{Findings From Bird's Eye Viewpoint Datasets}
+\label{subsubsection:findings_from_birdseye_viewpoint_datasets}
 
+%1372851907
 A bird's eye viewpoint is introduced in the dataset 1372851907. It was found out that the load object being lifted near the opposite side wall of the process hall results in a smaller point response than the load object in the same spot using the top-down image. Additionally, the back wall of the process hall is included in the image. It is also very likely that a load object situated near the opposite wall will fuse with the wall. The load object could not be measured if it merged with the back wall. The more distance to the cameras, the more easily merging of objects happens since the measurement error increases, and point entries will easily deviate from their actual values and cause merging. The distance to the opposite wall was quite large, even 10 meters, which caused less accurate depth estimation and object merging.
 
 Another problem with the bird's eye viewpoint was the effect of oriented self-occlusion. From this viewpoint, the backside of the load object was not visible at all, thus, it was not fully enclosed by the bounding volume. 
 
 Finally, the hoisting wires output a clearly visible point cloud response, which means they will be included in the load object bounding volume. The extra reported volume could be removed using knowledge about the end effector location and heuristics. Inclusion of the hoisting wires in the load object is not preferable. It must be noted that from this viewpoint the 3d modeling of the hoisting wires works correctly although they suffer from quite large enlarging effect.  
 
-\subsubsection{Dataset 1372852148 Findings}
-\label{subsubsection:dataset_1372852148_findings}
+%1372852148
 % todo: computation time increase as a function of data points in the model in forestry case!
 It was found out in dataset 1372852148 that the 3d model of the imaged scene is much larger taken from a bird's eye viewpoint compared to a top-down viewpoint. This result is due the back wall that is visible in the bird's eye view. The visible part of the wall generates a large number of data points, which increases computation times considerably. 
 %\item In the bird's eye viewpoint, the distant objects introduced increasing noise and measurement error.
 
-\subsubsection{Dataset 1372852419 Findings}
-\label{subsubsection:dataset_1372852419_findings}
-
+%1372852419
 In dataset 1372852419 the ground plane was not fully removed by the RANSAC estimation procedure at the furthest process crane hall location. The cause of this is mainly induced by the disparity mapping in the interface of the floor and the wall where a sharp 90 degree turn is not well modeled. In reality, the disparity map can only approximate sharp turns with smooth trajectories, thus the floor seems to curve up and continue as a wall section. The modeling gets less accurate as the distance from the stereo cameras increase, and at 10 meters distance the smooth curving effect is so large that the ground plane estimation does not fully remove the ground plane. Still, the ground plane estimation works flawlessly, and the curving effect does not cripple the used estimator.
 
 Figure \ref{fig:rigth01372852616451} shows that the problematic curving of the opposite wall is generated by image regions in the lower part of the image. According to figure \ref{fig:distortion_model_right_cam} the lens distortion has little effect on the geometry, which means that the effect is mostly caused by the disparity mapping smoothing property. Section \ref{section:depth_from_disparity} details disparity mapping and its trade-offs more in depth.
@@ -2755,19 +2747,15 @@ It was also found out that of the load object is located near the opposite wall,
 
 Finally, when the load object was lifted near the cameras, the visible surface model of the load object was recovered very accurately.
 
-\subsubsection{Dataset 1372853387 Findings}
-\label{subsubsection:dataset_1372853387_findings}
-
+%1372853387
 In dataset 1372853387 some partially see-through objects were registered. It was found out that partially see-through items cannot be stereo matched, thus, they are invisible to the machine vision system implemented. Additionally, shiny metallic material may have an effect on visibility in the images.
 
 Another remark was that upright pole-shaped objects can be easily modeled from the bird's eye view used. Top-down cameras have difficulty on modeling other than the top part of a standing pole. Such objects include road construction cones e.g.
 
-\subsubsection{Dataset 1372853605 Findings}
-\label{subsubsection:dataset_1372853605_findings}
-
+%1372853605
 Non-reflective large markers were added on the see-through lifted load object in dataset 1372853605. The load object then generated a visible point response in the point cloud. Still, measuring a geometry of an object that is spanned between two marker point responses is not supported by the current software used in the thesis. 
 
---
+%end of overhead crane datasets
 
 The effect of the fluorescent lighting in the environment was not analysed since the lighting conditions could not be controlled. The findings of this chapter were done in normal lighting conditions that may be found in a lot of warehouse environments. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR cameras tune the image with the prevalent lighting conditions present in the data sets. The accurate effect of the lighting conditions to machine vision image quality are a vast research topic of their own.
 
