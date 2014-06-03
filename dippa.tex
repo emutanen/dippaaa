@@ -2688,7 +2688,7 @@ From dataset 1372842312 it was found out that objects suffer from enlarging effe
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{enlarging_effect.jpg}
+    \includegraphics[width=0.3\textwidth]{enlarging_effect.jpg}
     \caption{Enlarging effect seen in dataset 1372842312. The operators are separated with a gap between each other, but the segmented object view shows the two objects fused as one object due to disparity enlarging effect.}
     \label{fig:enlarging_effect}
   \end{center}
@@ -2719,35 +2719,55 @@ It was noticed in dataset 1370843166 that when people walk exactly under the cam
 \subsubsection{Dataset 1372851907 Findings}
 \label{subsubsection:dataset_1372851907_findings}
 
-A bird's eye viewpoint is introduced in the dataset 1372851907. It was found out that the load object being lifted near the opposite side wall of the process hall results in a smaller point response than the load object in the same spot using the top-down image. Additionally, the back wall of the process hall is included in the image. Thus, the back wall is modeled with a large number of points, which will slow the computation down compared to the top-down view. It is also very likely that a load object situated near the opposite wall will fuse with the wall. The load object could not be measured if it merged with the back wall. The more distance to the cameras, the more easily merging of objects happens since the measurement error increases, and point entries will easily deviate from their actual values and cause merging. The distance to the opposite wall was quite large, even 10 meters, which caused less accurate depth estimation and object merging.
+A bird's eye viewpoint is introduced in the dataset 1372851907. It was found out that the load object being lifted near the opposite side wall of the process hall results in a smaller point response than the load object in the same spot using the top-down image. Additionally, the back wall of the process hall is included in the image. It is also very likely that a load object situated near the opposite wall will fuse with the wall. The load object could not be measured if it merged with the back wall. The more distance to the cameras, the more easily merging of objects happens since the measurement error increases, and point entries will easily deviate from their actual values and cause merging. The distance to the opposite wall was quite large, even 10 meters, which caused less accurate depth estimation and object merging.
 
 Another problem with the bird's eye viewpoint was the effect of oriented self-occlusion. From this viewpoint, the backside of the load object was not visible at all, thus, it was not fully enclosed by the bounding volume. 
 
-Finally, the hoisting wires output a clearly visible point cloud response, which means they will be included in the load object bounding volume. Inclusion of the hoisting wires is not preferable, and should be counteracted using heuristics. From the bird's eye viewpoint, it is possible to model the hoisting wires correctly.
+Finally, the hoisting wires output a clearly visible point cloud response, which means they will be included in the load object bounding volume. The extra reported volume could be removed using knowledge about the end effector location and heuristics. Inclusion of the hoisting wires in the load object is not preferable. It must be noted that from this viewpoint the 3d modeling of the hoisting wires works correctly although they suffer from quite large enlarging effect.  
 
 \subsubsection{Dataset 1372852148 Findings}
 \label{subsubsection:dataset_1372852148_findings}
+% todo: computation time increase as a function of data points in the model in forestry case!
+It was found out in dataset 1372852148 that the 3d model of the imaged scene is much larger taken from a bird's eye viewpoint compared to a top-down viewpoint. This result is due the back wall that is visible in the bird's eye view. The visible part of the wall generates a large number of data points, which increases computation times considerably. 
+%\item In the bird's eye viewpoint, the distant objects introduced increasing noise and measurement error.
 
+\subsubsection{Dataset 1372852419 Findings}
+\label{subsubsection:dataset_1372852419_findings}
 
+In dataset 1372852419 the ground plane was not fully removed by the RANSAC estimation procedure at the furthest process crane hall location. The cause of this is mainly induced by the disparity mapping in the interface of the floor and the wall where a sharp 90 degree turn is not well modeled. In reality, the disparity map can only approximate sharp turns with smooth trajectories, thus the floor seems to curve up and continue as a wall section. The modeling gets less accurate as the distance from the stereo cameras increase, and at 10 meters distance the smooth curving effect is so large that the ground plane estimation does not fully remove the ground plane. Still, the ground plane estimation works flawlessly, and the curving effect does not cripple the used estimator.
 
-%1372852148
-\item In the bird's eye viewpoint, more points are generated to the 3d point cloud mainly because of the visible back wall. Increased number of points increased computation times.
-\item In the bird's eye viewpoint, the distant objects introduced increasing noise and measurement error.
-%1372852419
-\item In the bird's eye viewpoint, the bounding volume will contain the hoisting wires that are attached to the actual load object. The hoisting wires will enlarge the bounding volume unnecessarily. The extra reported volume could be removed using knowledge about the end effector location and heuristics.
-\item In the bird's eye viewpoint, the floor is not fully removed by the RANSAC search, because in the distance the noise spreads the floor's point response a lot. In data set 1372852419 the floor seems to curve up (objects may be seen above the floor level), which may be a result from calibration issues.
-\item In the bird's eye viewpoint, the back wall is curved, which possibly is a result of a calibration issue near the image border region.
-%1372852802
-\item In the bird's eye view, the load object can be lifted out of the picture near the walls.
-\item In the bird's eye view, the load object merges with the floor even though it is already lifted (near the opposite wall).
-\item In the bird's eye view, the geometry of items near the camera are extracted accurately.
-%1372853387
-\item Partially see-through items are not registered (not seen) by the machine vision system because the block matching is not working in such an image region.
-\item Shiny (e.g. metallic) items are difficult to block match.
-\item Upright pole-shaped objects can be seen from the bird's eye viewpoint, but not very well from top-down cameras(for example, road construction markers).
-%1372853605
-\item See-through or shiny objects may be measured if non-reflective large markers are added on them so that they generate a visible point response in the point cloud. Still, the measurement on such an object is not possible with the currently implemented system used in this thesis. 
-\end{itemize}
+Figure \ref{fig:rigth01372852616451} shows that the problematic curving of the opposite wall is generated by image regions in the lower part of the image. According to figure \ref{fig:distortion_model_right_cam} the lens distortion has little effect on the geometry, which means that the effect is mostly caused by the disparity mapping smoothing property. Section \ref{section:depth_from_disparity} details disparity mapping and its trade-offs more in depth.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{rigth01372852616451.bmp}
+    \caption{Right camera rectified image from dataset 1372852419. Photographed on June 3rd, 2014 in a test overhead  crane environment.}
+    \label{fig:rigth01372852616451}
+  \end{center}
+\end{figure}
+
+\subsubsection{Dataset 1372852802 Findings}
+\label{subsubsection:dataset_1372852802_findings}
+
+Dataset 1372852802 proves that it is possible to lift the load object fully out of the stereo camera image if the load object is located next to either wall. Especially on the opposite wall direction, the load object can be fully out of the image.
+
+It was also found out that of the load object is located near the opposite wall, the load object will easily merge with the remaining floor section even though it is lifted high in the air. 
+
+Finally, when the load object was lifted near the cameras, the visible surface model of the load object was recovered very accurately.
+
+\subsubsection{Dataset 1372853387 Findings}
+\label{subsubsection:dataset_1372853387_findings}
+
+In dataset 1372853387 some partially see-through objects were registered. It was found out that partially see-through items cannot be stereo matched, thus, they are invisible to the machine vision system implemented. Additionally, shiny metallic material may have an effect on visibility in the images.
+
+Another remark was that upright pole-shaped objects can be easily modeled from the bird's eye view used. Top-down cameras have difficulty on modeling other than the top part of a standing pole. Such objects include road construction cones e.g.
+
+\subsubsection{Dataset 1372853605 Findings}
+\label{subsubsection:dataset_1372853605_findings}
+
+Non-reflective large markers were added on the see-through lifted load object in dataset 1372853605. The load object then generated a visible point response in the point cloud. Still, measuring a geometry of an object that is spanned between two marker point responses is not supported by the current software used in the thesis. 
+
+--
 
 The effect of the fluorescent lighting in the environment was not analysed since the lighting conditions could not be controlled. The findings of this chapter were done in normal lighting conditions that may be found in a lot of warehouse environments. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR cameras tune the image with the prevalent lighting conditions present in the data sets. The accurate effect of the lighting conditions to machine vision image quality are a vast research topic of their own.
 
