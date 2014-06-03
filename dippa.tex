@@ -2675,6 +2675,8 @@ The manual selection coordinate was set in the center of the captured image, whe
 
 The coordinate system was not transformed to the world coordinate frame in any data sets, but kept in the sensor frame at all times during data processing. The sensor frame was used for processing because the sensor frame implicitly encodes the moving platform signal as part of the data. An external end effector location signal and a camera viewpoint signal are needed if the transformation to the world coordinate frame is done. The data in the sensor frame did not introduce any singularities or other mathematical problems, thus, no normalisation was done to the point cloud data before processing. If the data is transformed in the world coordinate frame, care must be taken to normalise the data if any computational singularities are introduced because of a coordinate origin change.
 
+The effect of the fluorescent lighting in the environment was not analysed since the lighting conditions could not be controlled. The tests were done in 50 Hz fluorescent lighting conditions that may be found in an most warehouses. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR cameras tune the image, thus, modeling would be difficult without better knowledge of the HDR camera image formation. The accurate effect of lighting in machine vision image quality are a vast research topic on their own.
+
 \subsubsection{Findings From Top-down Viewpoint Datasets}
 \label{subsubsection:findings_from_topdown_viewpoint_datasets}
 
@@ -2739,18 +2741,14 @@ Figure \ref{fig:rigth01372852616451} shows that the problematic curving of the o
 \end{figure}
 
 %1372852802
-Dataset 1372852802 proves that it is possible to lift the load object fully out of the stereo camera image if the load object is located far away enough. The minimum visibility of the load object is a function of world frame coordinate axis $Y$. It was also found out that if the load object is located near the opposite wall, the load object will easily merge with the curving floor section even though the load object is already lifted high in the air. Finally, when the load object was lifted near the cameras, the visible surface model of the load object was recovered accurately with quite high resolution. The accuracy of the stereo reconstruction depends on the distance to the load object and its effective image size.
+Dataset 1372852802 proves that it is possible to lift the load object fully out of the stereo camera image if the load object is located far away enough. The minimum visibility of the load object is a function of world frame coordinate axis $Y$. It was also found out that if the load object is located near the opposite wall, the load object will easily merge with the curving floor section even though the load object is already lifted high in the air. Finally, when the load object was lifted near the cameras, the visible surface model of the load object was recovered accurately with high resolution. The accuracy of the stereo reconstruction depends on the distance to the load object and its effective image size.
 
 %1372853387
 In dataset 1372853387 some partially see-through objects were registered. It was found out that partially see-through items cannot be stereo matched, thus, they are invisible to the machine vision system implemented. Also shiny metallic materials may have an effect on visibility in the images, because they violate the assumption of lambertian reflectance model used. Another remark from this dataset was that upright pole-shaped objects can be easily modeled from the bird's eye view used. Top-down cameras have difficulty on modeling other than the top part of a standing pole. Such objects include road construction cones e.g. It is easy to generalise that objects whose main axis is perpendicular to the camera optical axis are better modeled than objects whose main axis is in parallel with the optical axis of the stereo vision system.
 
 %1372853605
 In dataset 1372853605 two non-reflective large markers were added on the see-through load object. The load object then generated two visible point response speckles as output. Still, measuring a geometry of an object that is spanned between two marker point responses is not supported by the current software used in the thesis. 
-
-
 %end of overhead crane datasets
-
-The effect of the fluorescent lighting in the environment was not analysed since the lighting conditions could not be controlled. The findings of this chapter were done in normal lighting conditions that may be found in a lot of warehouse environments. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR cameras tune the image with the prevalent lighting conditions present in the data sets. The accurate effect of the lighting conditions to machine vision image quality are a vast research topic of their own.
 
 \begin{figure}[ht]
   \begin{center}
