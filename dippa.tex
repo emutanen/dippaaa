@@ -2675,22 +2675,55 @@ In the overhead crane data sets, a manual load selection approach was used to se
 The decision to select the load object from a pre-defined 3d region of space was far from perfect, but it worked as a load selection condition without knowledge about the end effector location. In essence, it was guessed that a load object would be found near the center of the image, which was not always true. For example, for some data sets where the camera was located in the side of the overhead crane bridge, the load object was found in the bottom part of the image. A visual indicator for the manual load selection coordinate was added in the visualization tool to help set the manual selection center in a better location.\par
 The data set coordinate system was not transformed to the world coordinate frame, but kept in the sensor frame at all times during data processing. The reason to do processing in the sensor frame was that the sensor frame implicitly encoded the moving platform signal in the data. An end effector location signal would have been needed if the processing was to be done in the world coordinate frame. Now, because such a signal was not available, the data was kept in the sensor frame, and as a result, a static coordinate depicted a point moving in space with the sensor platform. Also, this way the static camera implicitly encoded the platform movement, thus, no camera viewpoint signal was needed to construct. While the data in the sensor frame was not normalized, it did not introduce singularities or any mathematical problems that very large numbers tend to introduce in some complex algorithms. If the computation was done in the world frame, normalization would possibly be needed to prevent computational singularities if the origin of the framework was set far away from the actual overhead crane hall.\par
 
-\begin{itemize}
-% item separation length in a list
-\setlength{\itemsep}{0pt}
-% 1372841000
-\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in the other used viewpoint (bird's eye).
-\item Nearby objects, such as the upper balcony, can be detected by the machine vision system.
-\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right. A smaller image ROI could possibly remove such artefacts from the end result. 
-\item A horizontal striped tape present in the data sets resulted in erroneous depth reprojection, and left a visible artefact under the floor level in the point cloud.
-%1372842312
-\item Nearby objects are grouped together as single objects by the segmentation algorithm.
-%1372842573
-\item Empty end effector gives such a small point response that it is discarded as not an object. It was not possible to track with the current system.
-\item People near the load object merge into the load object and enlarge the reported bounding volume.
-\item If the load object was lifted very high, it occluded most of the floor space in the image. If all the floor space is occluded by the load object, the floor removal will fail. Such an event was never encountered in testing.
-%1372842898
+\subsubsection{Dataset 1372841000 Findings}
+\label{subsubsection:dataset_1372841000_findings}
+
+From dataset 1372841000 it was found out that the items residing in the process crane hall are segmented in good detail as separate object entities. The geometries of items are well-preserverd in the top-down camera setup. Accordingly, the objects in the near field of the camera, such as the upper balcony, are surface reconstructed in fine detail by the stereo vision system. Finally, the disparity map includes some artefacts that generate erroneous 3d constructs in the point cloud data. The best example of an artefact is the large grey bar that can be seen on the right side of the disparity map. The grey bar is reprojected as a curved tall beam-like feature and it can be seen on the right side of the original 3d data point cloud output. This artefact could be effectively removed via using a smaller region of interest that is reprojected into 3d data.
+    Another issue found in the geometry reconstruction was caused by a horizontally aligned striped black and yellow tape, which resulted in an erroneous correspondence matching resulting a depth measurement error. Although the tape was part of the factory floor and should be removed from the 3d data in the process, it remained in the data as a separate object seen below the floor level because of the erroneous depth measurement.
+
+\subsubsection{Dataset 1372842312 Findings}
+\label{subsubsection:dataset_1372842312_findings}
+
+From dataset 1372842312 it was found out that objects suffer from enlarging effect that will enlarge objects due to disparity map processing. The enlarging effect will affect groups of objects placed near each other the most, causing fusing of objects into single object entities. 
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics{enlarging_effect.jpg}
+    \caption{Enlarging effect seen in dataset 1372842312. The operators are separated with a gap between each other, but the segmented object view shows the two objects fused as one object due to disparity enlarging effect.}
+    \label{fig:enlarging_effect}
+  \end{center}
+\end{figure}
+
+\subsubsection{Dataset 1372842573 Findings}
+\label{subsubsection:dataset_1372842573_findings}
+
+From dataset 1372842573 it was noticed that the small end effector hook used in this dataset gives a small point response of approximately 60-80 data points when the end effector is near the factory floor. The end effector response is so small that it is discarded from the segmented data as noise induced error with the current segmentation tuning. If the end effector is raised near the ceiling, the response becomes larger. The end effector response could be tracked with an extended Kalman filter if the end effector location signal is not readily available as a service. The end effector response signal is consistent similar to the load object response.
+    The dataset also shows that the operator and the load object will merge as a single object when the operator stands near the load object or touches it. In the event of the operator and the load object fusing, the bounding volume will become too large accordingly. Any moving objects will merge to nearby objects when the Euclidean distance between two objects becomes smaller than the selected segmentation threshold value.
+    Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the factory floor seen in the images. If no floor is seen in the images, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets.
+
+\subsubsection{Dataset 1372842898 Findings}
+\label{subsubsection:dataset_1372842898_findings}
+
+In dataset 1372842898 the overhead crane was moving while stereo images were captured, which introduced problems with the quality of the scene geometry. It was noticed that the floor plane geometry showed large deviations in the reprojected depth value between the frames. It was also concluded that the perception platform moves between the left and right camera shutter exposures, which causes the reprojection error of the ground plane. The \emph{Himmeli} platform software camera shutter synchronization introduces random delays between camera exposures since the deviations in ground plane level showed randomly too little and too large values.
+
 \item The scene reprojection introduced large errors when the platform was moving. It was concluded that since the stereo camera head shutters are strictly not enforced to expose the scene at the same time, a moving platform will introduce a disparity map generation that does not match with the pre-defined camera baseline since the other camera is moving before it records the image. To counteract such inaccuracy, the platform should not move while measuring objects, or the shutter behaviour should be strictly enforced. For normal operation where the object is measured as it is lifted up, this is not problematic.
+
+%\begin{itemize}
+% item separation length in a list
+%\setlength{\itemsep}{0pt}
+% 1372841000
+%\item Objects in the process hall are segmented in good detail. Geometry is well preserved in top-down camera views, and less well in the other used viewpoint (bird's eye).
+%\item Nearby objects, such as the upper balcony, can be detected by the machine vision system.
+%\item Some artefacts in the disparity map generate erroneous 3d constructs in the point cloud that are not present in the environment. In all the data sets a white bar can be seen on the right side of the disparity map, and its reprojection, which was a curved tall bar-like feature, can be seen in all 3d point cloud images on the right. A smaller image ROI could possibly remove such artefacts from the end result. 
+%\item A horizontal striped tape present in the data sets resulted in erroneous depth reprojection, and left a visible artefact under the floor level in the point cloud.
+%1372842312
+%\item Nearby objects are grouped together as single objects by the segmentation algorithm.
+%1372842573
+%\item Empty end effector gives such a small point response that it is discarded as not an object. It was not possible to track with the current system.
+%\item People near the load object merge into the load object and enlarge the reported bounding volume.
+%\item If the load object was lifted very high, it occluded most of the floor space in the image. If all the floor space is occluded by the load object, the floor removal will fail. Such an event was never encountered in testing.
+%1372842898
+
 %1372843166
 \item If people walk exactly under the top-down camera, their point response is so small that the response is discarded as an error in the point cloud data. This suggests that the lower limit of the point cloud object size should have been even smaller than the used value.
 % 1372843682
