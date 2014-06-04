@@ -804,6 +804,8 @@ The secondary objective of this thesis is to be able to compute the dimensions o
 
 \chapter{Perception Sensors For Environment Model Acquisition}
 \label{chapter:perception_sensors_for_environment_model_acquisition}
+%+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
+%page 473 Sonka07
 
 Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
@@ -870,6 +872,7 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 \section{Environment Models}
 \label{section:3d_environment_representations}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
+%+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 Environment models are different types of digital data representations that describe the environments acquired by a perception sensor. The work implemented in the Chapter \ref{chapter:implementation} uses point cloud representation, which will be presented.
 
@@ -1642,6 +1645,11 @@ where $f$ is the focal length of the parallel stereo camera pair, $b$ is the bas
 \section{Epipolar Geometry}
 \label{section:epipolar_geometry}
 %+ reference to the optical centers C and C', and baseline of the camera setup
+%An interested reader can find the full formulation of the fundamental matrix in Sonka et al. book \cite{Sonka07}. The fundamental matrix F is according to the bilinear relation introduced by Longuet and Higgins
+%Butterworth 97 also 
+%The solution is minimised with least squares (Frobenius norm) effort. 
+%+ at least 8 points for a linear solution in 2 image system \cite{Sonka07}
+%+ at least 7 points for a linear solution in 3 image system (trilinear tensors used)
 
 \begin{figure}[ht]
   \begin{center}
@@ -1699,144 +1707,6 @@ The OpenCV stereo calibration uses the same implementation used by the MATLAB Ca
     \label{fig:stereo_calibration}
   \end{center}
 \end{figure}
-
-The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
-%what is negative disparity? => in front of the screen => does this matter in a measurement system
-
-+ toed-in or parallel camera setup
-
-The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
-
-
-
-+ convergence distance of the stereo system optical axes: approx. 264cm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-No additional domain-specific information is needed since the 
-
-Interesting problems
-+ Feature observability in an image
-+ Perspective projection challenges
-
-Bottom-up reconstruction
-    + from multiple image construct range images
-
-Top-down recognition
-    + CAD model recognition especially
-
-Space Carving
-    + volumetric representation
-
-
-+ object surface parameters
-    + reflectivity e.g.
-    
-    
-+different approaches: top-down (model-based) or bottom-up (reconstruction)
-
-
-The depth of a measured feature can be computed if the geometry of the stereo setup and the intrinsic camera parameters are known. The depth measurement value $Z_m$ is calculated using equation \ref{equation:disparity_eq},
-
-\begin{equation}
-\label{equation:disparity_eq}
-\mathsf{Z_m} = \frac{\mathsf{bf}}{\mathsf{d_x}}
-\end{equation}
-
-where \emph{b} is the baseline width between the principal points of the camera image planes, f is the focal length for both cameras, and $d_x$ is the measured horizontal disparity value in a standard parallel stereo camera configuration. Now, if \ref{equation:disparity_eq} is differentiated with respect to horizontal disparity $d_x$, an equation for the effect of disparity change in the output measurement is achieved. 
-
-\begin{equation}
-\label{equation:disparity_derivative}
-\frac{dZ_m}{dd_x} = \frac{-bf}{d_x^²}
-\end{equation}
-
-Furthermore, we may insert disparity value as $d_x = X_L - X_R$
-
-
-
-
-
-
-Following the constraints that the epipolar plane induces to the stereo matching problem a fundamental matrix is introduced. The co-planar constraint 
-
-\begin{equation}
-\mathbf{X}_{L}^T (\mathbf{t} \times \mathbf{X'}_{L}) = 0
-\end{equation}
-
-is transformed into 
-
-\begin{equation}
-\nathbf{u}^T (K^{-1})^T S(t) R^{-1} (K')^{-1} \mathbf{u'} = 0
-\end
-
-An interested reader can find the full formulation of the fundamental matrix in Sonka et al. book \cite{Sonka07}. The fundamental matrix F is according to the bilinear relation introduced by Longuet and Higgins
-
-\begin{equation}
-\mathbf{u}^T F \mathbf{u'} = 0
-\end{equation}
-
-where the fundamental matrix F is 
-
-\begin{equation}
-F = (K^{-1})^T S(\mathbf{t}) R^{-1} (K')^{-1}
-\end{equation}
-
-The fundamental matrix captures all the available information from a pair of views between two different images.
-The relative motion of the camera scheme is present in the used stereo camera setup, or namely two cameras with known caliberation in space. As we know the camera calibration matrices the normalized measurements can be described with a similar bilinear relation that includes the essential matrix $\mathbf{E}$. E can be estimated from the image measurements and it has a rank of 2 and it can be decomposed with a singular value decomposition (SVD). A normalization must be done in order to solve the epipolar geometry problem so that the solution is numerically stable \cite{Sonka07}.'
-%Butterworth 97 also 
-
-The fact that the essential matrix is a $3x3$ matrix with a rank of 2 means the projection of point X onto the image plane is a lossy transformation. 
-
-Solving the overdetermined linear equation system in epipolar geometry requires a minimum of 6 image points. Noise affects the solution, and real image measurements use an algorithm called eight-point algorithm or a modification of it. The solution is minimised with least squares (Frobenius norm) effort. 
-+ at least 8 points for a linear solution in 2 image system \cite{Sonka07}
-+ at least 7 points for a linear solution in 3 image system (trilinear tensors used)
-
-+ Mismatch errors 
-
-+ 3D similarity reconstruction
-    + X is found up to a scale and not Euclidean
-    
-+ case of unknown intrinsic and extrinsic parameters is not shown here
-    + can do, depth from unknown video source
-
-+ stereopsis => scene reconstruction in Euclidean reconstruction from 2 calibrated cameras
-
-Using only two cameras instead of multiple cameras helps to avoid occlusion of objects and use existing powerful stereo processing tools.
-
-+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
-%page 473 Sonka07
-
-
-\section{Metricity Requirements}
-\label{section:metricity_requirements}
-
-An easy method of calibrating a reconstructed 3d scene is to know the relative positions of 5 or more points in the environment. The metric coordinates of the 5 beacons must be known so that the projectively reconstructed world points $S_b$ may be transformed from projective model to a metric model. The metric model can be further transformed into an Euclidean 3d model with some additional constraints, e.g. orthogonality and parallelism constraints on spatial structures. For example bundle adjustment techniques are suited well for estimating the correct transform that upgrades the projected model to a metric or Euclidean model via global minimisation of the reprojection error \ref{Pollefeys04}. Global minimisation techniques may not find the global minimum easily without heuristics, and the field of global minimum search is a vast research area in its own, thus, it will not be elaborated more.
 
 \subsection{Stereo Assumptions}
 \label{subsection:stereo_assumptions}
@@ -1974,6 +1844,17 @@ Most solutions do not explicitly detect occluded regions, thus errors may be fou
 
 \subsection{Converging Cameras}
 \label{subsection:converging_cameras}
+
+The convergence distance of the stereo system optical axes affects the perceived location of the disparity range. The convergence distance can be computer controlled \ref{Chen et al. 2010 from Kyto14}, but in this work the convergence distance is not approximated accurately since the collected stereo video is not meant to be recorded for human vision system viewing. Increasing the convergence depth will also increase possibility for frame violations for negative disparity values near the edges of the screen. A frame violation would break the 3d perception illusion for a viewer, but for a computer system a violation will result in only an erroneous depth match that is eliminated from the final disparity image.
+%what is negative disparity? => in front of the screen => does this matter in a measurement system
+
++ toed-in or parallel camera setup
+
+The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
+
+
+
++ convergence distance of the stereo system optical axes: approx. 264cm
 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
