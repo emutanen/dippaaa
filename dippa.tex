@@ -1688,6 +1688,43 @@ and accordingly
 
 A lot of different techniques have been discovered by different researchers of how to recover the fundamental matrix $F$. If the camera intrinsic parameters are known, then the camera calibration matrix $K$ may be used to recover $F$. If no calibration is available, then $F$ can be recovered using equation \ref{eq;fundamental_matrix} with a calibration technique, such as the normalised 8-point algorithm, or other methods\citep{Salvi01}. Since $F$ is a $3 x 3$ matrix that is defined only up to a scale, it must have 8 degrees of freedom. Thus, the 8-point algorithm will provide a minimum of 8 linear equations that will solve the coefficients of the matrix. Other methods of estimating the fundamental matrix include the 7-point algorithm and random sample consensus based parameter estimators, such as RANSAC, MSAC, and PROSAC\citep{Carro12}.
 
+\subsection{Image Rectification}
+% loss of resolution due resampling
+
+%Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space. This property of the epipolar geometry reduces computation time a lot for the correspondence search implementation.
+
+%The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. 
+
+Planar image rectification (or stratification) is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines (more information on epipolar geometry in section \ref{section:epipolar_geometry}). Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries.\citep{Pollefeys99}
+
+\begin{figure}%
+    \centering
+    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
+    \qquad
+    \begin{minipage}{5cm}%
+    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
+    \end{minipage}%
+    \caption{A rectified image pair where the epipolar lines are horizontal. Red dots represent the Harris corner detector output of 200 feature points.}
+    \label{fig:rectified_image_pair}
+\end{figure}
+
+Rectification of an image pair requires an estimated fundamental matrix $F$ and a set of corresponding feature point coordinates found from both images. Using $F$ and the corresponding points the epipolar line equations will be computed according to equations \ref{eq:epipolar_line_1} and \ref{eq:epipolar_line_2}. The original non-rectified image is warped to an epipolar-aligned destination image where the pixels that do not receive a mapped value are interpolated using a bilinear interpolation \citep{OpenCVRemap}. The effects of the image synthesis in the destination image depend on the used interpolation method, and more information on different interpolation methods can be found in Grevera's study on interpolation techniques used in medical imaging \citep{Grevera98}.
+
+% interpolation methods available:
+% nearest-neighbour interpolation, a bilinear interpolation (default), inter-area interpolation, a bicubic interpolation over a 4x4 kernel, a Lanczos interpolation over 8x8 kernel
+
+A stereo camera pair can never be fully parallel due to limits in mechanical alignment of the lens systems and the construction of the stereo pair. Software rectification compensates for such errors, thus, a very accurate positioning of the cameras is often not necessary. If one of the horizontal stereo pair cameras shifts vertically, then some vertical disparity is introduced in the image features, which usually has only minor effect on the image rectification. If one of the horizontal stereo pair cameras tilt around the camera frame X-axis so that principal rays' nearest interdistance becomes large, the rectification corrects the tilt but the usable image area (ROI) in the rectified image will become smaller. Also, the more the keystone correction is needed, the more interpolation will affect the quality of the output rectified image. Furthermore, if the load object features in the rectified image are located on the border of the image, the lens distortions will have a larger effect on the stereo matching. In general, the performance of rectification processing is better with as parallel stereo setup as possible.  
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{bad_calibration.jpg}
+    \caption{A rectified image output with unsuccessful stereo camera calibration.}
+    \label{fig:bad_calibration}
+  \end{cente}
+\end{figure}
+
+A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. For comparison, a rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
+
 \section{Stereo Calibration}
 \label{section:stereo_calibration}
 
@@ -1755,17 +1792,6 @@ It is important to compensate for lens system radial distortions, because they c
 + Camera electronics, light intensity changes affect the phase locked loop (PPL) in the electronics => line jitter with sync signal systematic or random noise change
 
 + Calibration target location
-
-
-
-\section{Stereo Imaging Techniques}
-\label{section:stereo_imaging_techniques}
-
-One of the fundamental issues in computer vision is how to display a solid shape \cite{Sonka07}. 
-
-Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched unambiguosly \cite{Terho10}.
-
-
 
 \section{Stereo Errors And Accuracy}
 \label{section:stereo_errors_and_accuracy}
@@ -1852,12 +1878,12 @@ The convergence distance of the stereo system optical axes affects the perceived
 
 The stereo cameras can be physically rotated towards each other, or they can be fixed in parallel configuration so that the optical axes intersect at infinity.
 
-
-
 + convergence distance of the stereo system optical axes: approx. 264cm
 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
+
+Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched\cite{Terho10}.
 
 The correspondence problem is a general multiple camera system problem regarding whether multiple images contain a same 2d feature or not. A feature is an understanding of some feature that has a visible shape response in its 2d projection on the image according to natural image formation in a camera. A simplification of the shape may be a result of image segmentation using histogram or color based thresholding, k-means clustering, a water-filling algorithm, region growing algorithm or some other segmentation method.
 
@@ -1887,43 +1913,6 @@ photometric compatibility (little intensity differences)
 uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
 
 + specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
-
-\subsection{Image Rectification}
-% loss of resolution due resampling
-
-%Image rectification is the process of virtual optical axis parallelisation done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines. The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. After a successful image rectification, the corresponding feature points are found on the same vertical lines, and the correspondence search space is reduced to 1-d search space instead of heavier 2-d search space. This property of the epipolar geometry reduces computation time a lot for the correspondence search implementation.
-
-%The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. 
-
-Planar image rectification (stratification) is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines (more information on epipolar geometry in section \ref{section:epipolar_geometry}). Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries.\citep{Pollefeys99}
-
-\begin{figure}%
-    \centering
-    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
-    \qquad
-    \begin{minipage}{5cm}%
-    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
-    \end{minipage}%
-    \caption{A rectified image pair where the epipolar lines are horizontal. Red dots represent the Harris corner detector output of 200 feature points.}
-    \label{fig:rectified_image_pair}
-\end{figure}
-
-Rectification of an image pair requires an estimated fundamental matrix $F$ and a set of corresponding feature point coordinates found from both images. Using $F$ and the corresponding points the epipolar line equations will be computed according to equations \ref{eq:epipolar_line_1} and \ref{eq:epipolar_line_2}. The original non-rectified image is warped to an epipolar-aligned destination image where the pixels that do not receive a mapped value are interpolated using a bilinear interpolation \citep{OpenCVRemap}. The effects of the image synthesis in the destination image depend on the used interpolation method, and more information on different interpolation methods can be found in Grevera's study on interpolation techniques used in medical imaging \citep{Grevera98}.
-
-% interpolation methods available:
-% nearest-neighbour interpolation, a bilinear interpolation (default), inter-area interpolation, a bicubic interpolation over a 4x4 kernel, a Lanczos interpolation over 8x8 kernel
-
-A stereo camera pair can never be fully parallel due to limits in mechanical alignment of the lens systems and the construction of the stereo pair. Software rectification compensates for such errors, thus, a very accurate positioning of the cameras is often not necessary. If one of the horizontal stereo pair cameras shifts vertically, then some vertical disparity is introduced in the image features, which usually has only minor effect on the image rectification. If one of the horizontal stereo pair cameras tilt around the camera frame X-axis so that principal rays' nearest interdistance becomes large, the rectification corrects the tilt but the usable image area (ROI) in the rectified image will become smaller. Also, the more the keystone correction is needed, the more interpolation will affect the quality of the output rectified image. Furthermore, if the load object features in the rectified image are located on the border of the image, the lens distortions will have a larger effect on the stereo matching. In general, the performance of rectification processing is better with as parallel stereo setup as possible.  
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{bad_calibration.jpg}
-    \caption{A rectified image output with unsuccessful stereo camera calibration.}
-    \label{fig:bad_calibration}
-  \end{cente}
-\end{figure}
-
-A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. For comparison, a rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
