@@ -802,8 +802,8 @@ The focus of this work is on measuring the dimensions of industrial goods being 
 
 The secondary objective of this thesis is to be able to compute the dimensions of a picked up log with the help of a machine vision system. Further processing of the measurement information and the details of teleoperation applications are outside of the scope of this thesis.
 
-\chapter{Perception Sensors For Environment Model Acquisition}
-\label{chapter:perception_sensors_for_environment_model_acquisition}
+\chapter{Perceiving Environment In 3d}
+\label{chapter:perceiving_environment_in_3d}
 %+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
 
@@ -886,6 +886,12 @@ A study by the Carnegie Mellon university robotics institute call the model acqu
 
 \subsection{Point Cloud Representation}
 \label{subsection:point_cloud_representation}
+
+A point cloud is a set of data entries that typically describe a 3d surface geometry of an object in a coordinate frame. Technically, a point cloud contains simple 3d coordinate data, and it can have a few attributes that depend on its implementation. Point clouds are used for example in stereo 3d reconstruction, robotics applications, multiple camera data registration, 3d data processing, and 3d visualisation purposes.
+
+One of the most significant properties of the point cloud is whether the data contained is ordered or unordered. Ordered point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to set a color value from a 2d image into a corresponding 3d coordinate. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved. 
+
+Some challenges with point clouds include limited suitability for modeling dynamice environments, and high memory consumption when high precision accuracy sensory equipment is used to generate a large point cloud\citep{Hornung10}.
 
 %Challenges
 %(Hornung et al.) a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
