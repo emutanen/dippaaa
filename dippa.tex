@@ -889,9 +889,9 @@ A study by the Carnegie Mellon university robotics institute call the model acqu
 
 A point cloud is a set of data entries that typically describes a 3d surface geometry of an object in a coordinate frame. Technically, a point cloud contains simple 3d coordinate data, and it can have a few implementation dependent attributes. Point clouds are widely used in stereo 3d reconstruction, academic robotics applications, multiple camera data registration, 3d data processing, and 3d visualisation purposes.
 
-One of the most significant properties of the point cloud is whether the data contained is ordered or unordered. Ordered point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. set a colour value from a 2d image into a corresponding 3d coordinate. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved. 
+One of the most significant properties of the point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. set a colour value from a 2d image into a corresponding 3d coordinate. Organised data is used in many robotics applications and machine vision applications. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved.
 
-Some challenges with point clouds include limited suitability for modeling dynamice environments, and high memory consumption when a high precision equipment is used to generate a large point cloud\citep{Hornung10}.
+Point cloud representations enable storing of organised datasets, fast binary data saving, and flexible storing of different primitive data types natively. Some challenges with point clouds include limited suitability for modeling dynamice environments, and high memory consumption when a high precision equipment is used to generate a large point cloud\citep{PCDFormat14, Hornung10}.
 
 %Challenges
 %(Hornung et al.) a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
