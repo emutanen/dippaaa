@@ -891,6 +891,8 @@ A point cloud is a set of data entries that typically describes a 3d surface geo
 
 One of the most significant properties of the point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. set a colour value from a 2d image into a corresponding 3d coordinate. Organised data is used in many robotics applications and machine vision applications. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved.
 
+Point cloud geometry can be easily rendered and inspected, but the data is often not usable in 3d applications without processing. For examepl, point cloud data may be required to be converted into a polygon representation, or a mesh model\ref{Rusinkiewicz00}.
+
 Point cloud representations enable storing of organised datasets, fast binary data saving, and flexible storing of different primitive data types natively. Some challenges with point clouds include limited suitability for modeling dynamice environments, and high memory consumption when a high precision equipment is used to generate a large point cloud\citep{PCDFormat14, Hornung10}.
 
 %Challenges
