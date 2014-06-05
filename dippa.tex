@@ -528,37 +528,56 @@ Thank you, and keep up the good work!
 AABB & Axis-aligned bounding-box \\
 AC & Alternating Current \\
 AI & Artificial Intelligence \\
+API & Application Programming Interface \\
 BM & Block Matching \\
 BVH & Bounding Volume Hierarchies \\
 CCIR & Comité Consultatif International pour la Radio \\
 CMOS & Complementary Metal Oxide Semiconductor \\
+CSM & Complete Surface Model \\
 CUDA & Compute Unified Device Architecture \\
 DC & Direct Current \\
+DOP & Discrete Oriented Polytope \\
+EOT & Electric Overhead Traveling Crane \\
 FLIR & Forward Looking Infra Red \\
+FOV & Field Of View \\
+GIM & Generic Intelligent Machines research group \\
+GPS & Global Positioning System \\
 GPU & Graphics Processing Unit \\
+HOG & Histogram Of Oriented Gradients \\
 HDR & High Dynamic Range \\
 I/O & Input Output\\
+IMU & Inertial Measurement Unit \\
+LAN & Local Area Network \\
+LDP & Location Determination Problem \\
 LIDAR & Light Detecting And Ranging \\
+MLESAC & Maximum Likelihood Estimator Sample Consensus \\
+MSAC & M-estimator Sample And Consensus \\
+MSER & Maximally Stable Extremal Regions \\ 
 OBB & Oriented Bounding Box \\
 PC & Personal Computer \\
 PCL & Point Cloud Library \\
 PLC & Programmable Logic Controller \\
+PROSAC & Progressive Sample Consensus \\
 RADAR & Radio Detecting And Ranging \\
+RANSAC & Random Sample And Consensus \\
 ROI & Region Of Interest \\
 ROS & Robot Operating System \\
 SAD & Sum of Absolute Differences \\
+SFM & Structure From Motion \\
 SGBM & Semi-Global Block Matching \\
+SIFT & Scale-invariant Feature Transformation \\
 SIMD & Single Instruction, Multiple Data \\
 SOM & Self-organizing Map \\
 SONAR & Sound Navigation And Ranging \\
 SSD & Sum of Squared Differences \\
 SSE & Streaming SIMD Extensions \\
-TLD & Tracking, Detection, And Learning \\
-TOF & Time Of Flight \\
-UCC & Use Case Configuration \\
+SURF & Speeded Up Robust Features \\
+TLD & Tracking, Learning, and Detection \\
+TOF & Time-Of-Flight \\
 UDP & User Datagram Protocol \\
+VSM & Visible Surface Model \\
 XML & Extensive Markup Language \\
-XML-RPC & XML Remote Procedure Call \\ 
+XMLRPC & XML Remote Procedure Call \\ 
 \end{longtable}
 
 % List of tables
@@ -2215,7 +2234,7 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 
 Object segmentation is the first operation done for the point cloud after initial preprocessing is finished. The current implementation uses k-means clustering that clusters N-dimensional data points into k different spatial clusters using the PCL Euclidean Cluster Extraction class. For three-dimensional point cloud data, clustering uses $N = 3$ and an Euclidean metric for measuring distance between clusters and data candidates. Following the dissertation by Rusu \citep{Rusu09} the k-means clustering search would be presented algorithmically as
 
-
+The visual indicator that was added in the object segmentation visualisation turned out to be very useful in understanding where the load selection coordinate was, and it was used to move the proximity based selection center using ROS rqt\_reconfigure sliders.
 
 \subsection{Point Cloud Filtering}
 \label{subsubsection:point_cloud_filtering}
@@ -2695,25 +2714,25 @@ It was discovered in dataset M+2 that a partially occluded log only returns the 
 
 \subsection{Software Performance}
 
-In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often in different locations inside the test hall environment than the bird's eye viewpoint.
+In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often in different locations inside the test hall environment than the bird's eye viewpoint. In light of all findings and analysis the top-down camera view is recommended for load object measurement purpose in an overhead crane environment.
 
 The output AABB bounding volume from a top-down camera was usable as is, and only a little extra volume was induced by a slight 6 degree tilt of the sensor frame in tests. In general, the load object measurement output was consistent with the top-down camera configuration, and even though the ground plane was not always fully modeled due to the moving crane and changing lighting conditions, the measurement was not affected at all by such problems.
 
 The bird's eye view suffered from increased distance to objects near the opposite wall causing smaller point responses for the load object (due to effectively smaller image area). Additionally, the bird's eye view suffered from inclusion of hoisting wires in the segmented load object, and merging of objects into the point response of the back wall. A lesser problem with the bird's eye viewpoint was the possibility of lifting the load object out of picture. In comparison, it was not possible to lift the load object out of the picture in a top-down camera configuration. Finally, there was less object occlusion in the top-down camera, because moving objects do not occlude the space between cameras and the load object.
 
-In the overhead crane case, the decision to use a proximity based load object selection from a pre-defined coordinate (instead of a 2d image tracker) was far from perfect, but it worked, and in the end no information about the end effector location was required to select and measure the load object. It was guessed that a load object would be found near the center of the image, which was only approximately true for the top-down view datasets. Often wrong objects were reported as the load object, which can be seen as cluttering in the dataset visualisations. For example, in some bird's eye viewpoint datasets, the load object can be seen in the lower part of the image far away from the center. The visual indicator that was added in the object segmentation visualisation turned out to be very useful in understanding where the load selection coordinate was, and it was used to move the proximity based selection center using ROS rqt\_reconfigure sliders.
+In the overhead crane case, the decision to use a proximity based load object selection from a pre-defined coordinate (instead of a 2d image tracker) was far from perfect, but it worked, and in the end no information about the end effector location was required to select and measure the load object. It was guessed that a load object would be found near the center of the image, which was only approximately true for the top-down view datasets. Often wrong objects were reported as the load object, which can be seen as cluttered dataset visualisations. For example, in some bird's eye viewpoint datasets, the load object can be seen in the lower part of the image far away from the center.
 
 \subsection{3d Geometry Of Load Object And Environment}
 
 3d data geometry was assumed to be correct with a calibrated stereo system, which is an assumption that may or may not be true. 3d data geometry was verified only for load objects by comparing the dimension measurements produced by the load object measurement software and the actual measure taken with a measuring tape. This was not enough to validate any other parts of the geometry in the surrounding environment.
 
-A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, a distorted dimension or a scale change could be detected. The emphasis on the thesis was not environment modeling, thus, the 3d geometry of the environment was not very carefully verified, and as long as the load object reports realistic dimensions, it can be assumed that a correct calibration results in a correct geometry.
+A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, a distorted dimension or a scale change could be detected. Since the emphasis on the thesis was not environment modeling the 3d geometry of the environment was not very carefully verified, and as long as the load object reports realistic dimensions, it can be assumed that a correct calibration results in a correct geometry.
 
-The values produced by the software were not comparable with the actual measurements before the orientation of the sensor frame and rotation of the load object were taken into account. The axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result that can be used in a route planner.
+The values produced by the software were not comparable with the actual measurements before the orientation of the sensor frame and rotation of the load object were taken into account. The axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
 
-It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would take 3-5 seconds of time in total with the used software. The decision of how to interpret the constant flow of load object measurment data in the ROS network is then again left as the responsibility of the software that subscribes to the provided data feed.
+It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would take 3-5 seconds of time in total with the used software. The decision of how to interpret the constant flow of load object measurment data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
 
-Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the perception platform software is the bottleneck on the current used system. Software operations can be sped up by making improvements in the point cloud data processing, or by removing visualisations from the load object measurement client. It was found out that updating the visualisations in the software requires most time, thus, removing visuals will speed up the point cloud processing when there is no need to use time on rendering in 3d. Also, the C++ implementation of the software could support more parallel programming and GPU implementations for selected point cloud computations. Finally, smaller amounts of processed data will result in faster computations, thus, lower resolution cameras can be used, or the image ROI could be limited to only contain the image of the load object.
+Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the perception platform software was the bottleneck on the currently used system. Software operations can be sped up by making improvements in the point cloud data processing, or by removing visualisations from the load object measurement client. It was found out that updating the visualisations in the software requires most time, thus, removing visuals will speed up the point cloud processing when there is no need to use time on on-screen point cloud rendering. Also, the C++ implementation of the software could support more parallel programming and GPU implementations for selected point cloud computations. Finally, lower resolution cameras can be used, or the image ROI could be limited to only contain the image of the load object in order to reduce the amount of data and speed up the computations.
 
 --
 
