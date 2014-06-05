@@ -2690,12 +2690,22 @@ It was discovered in dataset M+2 that a partially occluded log only returns the 
 %Like the introduction, this chapter is not very long.
 %Two to four pages might be a good limit.
 
-% Overhead crane discussion
+\section{Analysis On Overhead Crane Load Object Measurement}
+\label{section:analysis_on_overhead_crane_load_object_measurement}
+
+\subsection{Software Performance}
+
+In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often in different locations inside the test hall environment.
+
+The output AABB bounding volume from a top-down camera was usable as is, and only a little extra volume was induced by a slight 6 degree tilt of the sensor frame in tests. In general, the load object measurement output was consistent with the top-down camera configuration, and even though the ground plane was not always fully modeled due to the moving crane and changing lighting conditions, the measurement was not affected at all.
+
+The bird's eye view suffered from increased distance to objects near the opposite wall causing smaller point responses for the load object (due to effectively smaller image area). Additionally, the bird's eye view suffered from inclusion of hoisting wires in the segmented load object, and merging of objects into the point response of the back wall. A lesser problem with the bird's eye viewpoint was the possibility of lifting the load object out of picture. In comparison, it was not possible to lift the load object out of the picture in a top-down camera configuration. Finally, there was less object occlusion in the top-down camera, because moving objects do not occlude the space between cameras and the load object.
 
 The decision to select the load object from a pre-defined 3d region of space was far from perfect, but it worked as a load selection condition without knowledge about the end effector location. In essence, it was guessed that a load object would be found near the center of the image, which was not always true. For example, for some data sets where the camera was located in the side of the overhead crane bridge, the load object was found in the bottom part of the image. A visual indicator for the manual load selection coordinate was added in the visualization tool to help set the manual selection center in a better location.
 
-\subsubsection{Analysis Overhead Crane}
-\label{subsubsection:analysis_overhead_crane}
+\subsection{3d Data Quality}
+
+
 
 In order to verify the accuracy of the measurement, the output value of the geometry measurement software must be compared to a value produced by an actual measurement with e.g. measuring tape. In the overhead crane case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
 Figures x and y are screen captures from the data set 1372841000, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
@@ -2713,8 +2723,9 @@ In dataset 1372852802 an interesting phenomenon is visible in the visualisation 
 
 % overhead crane discussion ends
 
-\subsubsection{Analysis Forestry Crane}
-\label{subsubsection:analysis_forestry_crane}
+\section{Analysis On Forestry Crane Load Object Measurement}
+\label{section:analysis_on_forestry_crane_load_object_measurement}
+
 
 
 
