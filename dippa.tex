@@ -1975,6 +1975,8 @@ During the implementation period, new versions of most of the libraries became a
 \subsection{Software Architecture}
 \label{subsection:software_architecture}
 
+The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
+
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{software_architecture.pdf}
@@ -1983,22 +1985,12 @@ During the implementation period, new versions of most of the libraries became a
   \end{center}
 \end{figure}
 
-
 \subsection{Use Cases}
 \label{subsection:use_cases}
 
-The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
+Performance of the implemented software is tested with four different use cases. The first use case has an overhead crane setup with a top-down camera viewpoint. The stereo camera rig is attached to the crane trolley with cameras facing down so that the crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the center of the image at all times. Hoisting the load up will enlarge and slightly decenter the image of the load object.
 
-\subsubsection{Use Case Configurations}
-\label{subsubsection:use_case_configurations}
-
-
-Four different use case configurations (UCC) are considered for the evaluation of the machine vision system implemented. Different use case configurations are titled with a paired numbering scheme, e.g. 1-1 or 2-1. The use case configurations will describe the overview of installed hardware, used parameters, and output data. Additionally, each UCC has very different advantages and drawbacks, which will be discussed in brief detail.
-
-The first use case configuration UCC 1-1 had a process crane setup where the stereo camera rig is attached to the crane trolley with cameras facing down. The crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the same location at all times in the image center. Hoisting the load up will not decenter the crane load showing in the output image. Instead, the crane load will be shown enlarged.
-
-The second use case configuration UCC 1-2 had a process crane setup where the stereo camera rig is attached to the extreme end of the crane bridge beam on the left. The cameras are facing the load when the trolley is located near the left end of the crane bridge and the load is hoisted half way. Hoisting the load up will show the load moving towards the upper part of the output image. Hoisting movement does not enlarge the load,  instead driving the crane bridge trolley near the cameras will enlarge the load image in the output image.
-
+The second use case has an overhead crane setup with a bird's eye viewpoint. The stereo camera rig is attached to the traveling beam below the driving rails. The cameras are tilted vertically so that they are facing the load object with some parts of the opposite wall, and most of the floor visible. Hoisting the load up will show the load moving towards the upper part of the image. Hoisting movement does not enlarge the image of the load object, but driving the crane bridge trolley near the cameras will enlarge it.
 
 The third use case configuration UCC 2-1 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras are attached on the right side of the forestry machine chassis. The cameras are facing the load when the load is hoisted off of the ground behind the machine. The working area of the telescopic crane is occluded on the left side of the telescopic boom. Thus, the crane load will be occluded when the boom is actuated to the leftmost visible working area. 
 
