@@ -1992,13 +1992,9 @@ Performance of the implemented software is tested with four different use cases.
 
 The second use case has an overhead crane setup with a bird's eye viewpoint. The stereo camera rig is attached to the traveling beam below the driving rails. The cameras are tilted vertically so that they are facing the load object with some parts of the opposite wall, and most of the floor visible. Hoisting the load up will show the load moving towards the upper part of the image. Hoisting movement does not enlarge the image of the load object, but driving the crane bridge trolley near the cameras will enlarge it.
 
-The third use case configuration UCC 2-1 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras are attached on the right side of the forestry machine chassis. The cameras are facing the load when the load is hoisted off of the ground behind the machine. The working area of the telescopic crane is occluded on the left side of the telescopic boom. Thus, the crane load will be occluded when the boom is actuated to the leftmost visible working area. 
+The third use case has a small telescopic crane installed on a forestry machine with frog perspective camera viewpoint. The cameras are attached on the side of the forestry machine chassis facing the crane working area. The telescopic crane boom may be visible in the camera image. The camera FOV covers most of the working area, but the most extreme parts of the working area are not inside the image frustum. It is assumed that all the load objects include only cylindrical wooden logs whose size must be measured.
 
-In this use case the crane load shape is considered always cylindrical.
-
-The fourth use case configuration UCC 2-2 had a small telescopic crane installed on a forestry machine with a log lifting tool. The cameras were attached on top of the operator cabin slightly to the right side of the telescopic crane boom . The cameras are facing the crane working area, and the crane boom is mostly visible in the output image. The log lifting tool at the end of the boom is mostly visible. The crane load is mostly visible, but partly occluded by the telescopic boom. 
-
-In this use case the crane load shape is considered always cylindrical.
+The fourth use case has a small telescopic crane installed on a forestry machine with bird's eye perspective camera viewpoint. The cameras are attached on top of the operator cabin so that the crane boom is visible in the image on the right or the left side. The cameras are facing down towards the crane working area so that the FOV covers all of the working area. The crane load is mostly visible, but occluded by the telescopic boom on one side of the working area. Once again, it is assumed that the load objects are only cylindrical logs. 
 
 \subsection{Prototype Software}
 \label{subsection:prototype_software}
