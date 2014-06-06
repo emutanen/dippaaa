@@ -2718,35 +2718,36 @@ The bird's eye view suffered from increased distance to objects near the opposit
 
 In the overhead crane case, the decision to use a proximity based load object selection instead of a 2d image tracker was far from perfect, but it worked, and in the end no information about the end effector location was required to select and measure the load object. It was guessed that a load object would be found near the center of the image, which was only approximately true for the top-down view datasets. For example, in some bird's eye viewpoint datasets, the load object can be seen in the lower part of the image far off the center. Because of such assumptions, often wrong objects were reported as the load object, which can be seen as clutter in the dataset visualisations.
 
-\subsection{3d Geometry Verification}
-\label{subsection:3d_geometry_verification}
-
-3d data geometry that was output from the stereo camera process was assumed to be geometrically correct when a calibrated stereo system was used. This assumption may or may have not been true, which is why 3d data geometries of the measured load objects were verified. The verification was done simply by comparing the dimension measurements produced by the load object measurement software and the actual measures of the load object. This was not good enough to validate the geometry of the other parts of the modeled surrounding environment.
-
-A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, an unsuccessful camera calibration or a scale difference could be detected. Since the emphasis on the thesis was not on environment modeling, the surrounding geometry is good enough as long as the load objects report meaningful dimensions. For now, it is assumed that a correct calibration of the stereo cameras results in a correct geometry for the load objects.
-
-\subsection{Load Object Measurement Results}
+\subsection{Overhead Crane Load Object Measurement Results}
 \label{subsection:load_object_measurement_results}
 
-The measurement values produced by the software can be compared with the actual dimensions only after the orientation of the data is taken into account. The computed AABB bounding volume is a function of the orientation of the camera frame relative to the world frame even though the load object actual volume does not change. In top-down camera overhead crane tests the axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
+The measurement values produced by the software could be compared with the actual dimensions only after the orientation of the data was taken into account. The computed AABB bounding volume is a function of the orientation of the camera frame relative to the world frame even though the load object actual volume does not change. In top-down camera overhead crane tests the axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
 
 It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would currently take 3-5 seconds of time. The decision of how to interpret the constant flow of load object measurement data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
 
-\subsection{System Bottlenecks}
-\label{subsection:system_bottlenecks}
+\section{Analysis On Forestry Crane Load Object Measurement}
+\label{section:analysis_on_forestry_crane_load_object_measurement}
+
+In the forestry machine crane case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint and a bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in a forestry machine. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Moreover, the installation of the perception platform may not be possible because of the limited space in the base of the rotary boom crane, and on the vehicle chassis itself. Also the bird's eye viewpoint has its flaws: the crane boom is visible in the image and occludes the load object during normal operation. Since hoisting wires are not used to lift the load object, the segmented load object usually includes the crane boom that is visible in the image. This must be taken into account, and the cylindrical load object must be extracted from the data that contains parts of the crane boom. The bird's eye viewpoint has one major advantage over the frog perspective: if the forestry machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in the chassis installation.
+
+\subsection{Log Measurement Results}
+\label{subsection:log_measurement_results}
+
+Some improvements to the implemented system may be instantly thought of. For example, the heuristic checks that select the correct load object can easily be improved. For example, if the distance between the candidate load object and the end effector is too large, then the candidate should be rejected. An improved heuristics model was not possible to implement during the thesis study due time constraints, thus, it is left as a suggested improvement in the works.
+
+\section{System Bottlenecks}
+\label{section:system_bottlenecks}
 
 Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the perception platform software was one of the major bottlenecks with its capability of transmitting stereo images only at a rate of 4 FPS. Another bottleneck was detected in the client software object segmentation, which randomly takes a lot of time, almost a full second for a single measurement. In general, the time needed for processing 3d data into measurement information was fast, less than 100 milliseconds per measurement not including the slow-downs.
 
 Software operations could be sped up by making improvements in the point cloud data processing, or by removing visualisations from the load object measurement client. It was found out that updating the visualisations in the software requires most time, thus, removing visuals will speed up the point cloud processing when there is no need to use time for on-screen point cloud rendering. Also, the C++ implementation of the software could support more parallel programming and GPU implementations for selected point cloud computations. Finally, lower resolution cameras could be used, or the image ROI could be limited to only contain the image of the load object to reduce the amount of data, which speeds up computation.
 
-\section{Analysis On Forestry Crane Load Object Measurement}
-\label{section:analysis_on_forestry_crane_load_object_measurement}
+\section{3d Geometry Verification}
+\label{section:3d_geometry_verification}
 
+3d data geometry that was output from the stereo camera process was assumed to be geometrically correct when a calibrated stereo system was used. This assumption may or may have not been true, which is why 3d data geometries of the measured load objects were verified. The verification was done simply by comparing the dimension measurements produced by the load object measurement software and the actual measures of the load object. This was not good enough to validate the geometry of the other parts of the modeled surrounding environment.
 
-
-
-
-Some improvements to the implemented system may be instantly thought of. For example, the heuristic checks that select the correct load object can easily be improved. For example, if the distance between the candidate load object and the end effector is too large, then the candidate should be rejected. An improved heuristics model was not possible to implement during the thesis study due time constraints, thus, it is left as a suggested improvement in the works.
+A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, an unsuccessful camera calibration or a scale difference could be detected. Since the emphasis on the thesis was not on environment modeling, the surrounding geometry is good enough as long as the load objects report meaningful dimensions. For now, it is assumed that a correct calibration of the stereo cameras results in a correct geometry for the load objects.
 
 \section{Hardware And Software Architecture}
 
