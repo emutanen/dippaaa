@@ -2704,8 +2704,8 @@ In dataset 1372852802 an interesting phenomenon is visible in the visualisation 
 %Like the introduction, this chapter is not very long.
 %Two to four pages might be a good limit.
 
-\section{Analysis On Overhead Crane Load Object Measurement}
-\label{section:analysis_on_overhead_crane_load_object_measurement}
+\section{Discussion On Overhead Crane Load Object Measurement}
+\label{section:discussion_on_overhead_crane_load_object_measurement}
 
 In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often than the bird's eye viewpoint. From the bird's eye viewpoint, the load object measurement was especially difficult for locations near the opposite wall. In light of all findings and analysis the top-down camera view is recommended for load object measurement purposes in an overhead crane machine vision setup.
 
@@ -2725,11 +2725,19 @@ In the overhead crane case, the decision to use a proximity based load object se
 
 A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, an unsuccessful camera calibration or a scale difference could be detected. Since the emphasis on the thesis was not on environment modeling, the surrounding geometry is good enough as long as the load objects report meaningful dimensions. For now, it is assumed that a correct calibration of the stereo cameras results in a correct geometry for the load objects.
 
-The values produced by the software were not comparable with the actual measurements before the orientation of the sensor frame and rotation of the load object were taken into account. The axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
+\subsection{Load Object Measurement Results}
+\label{subsection:load_object_measurement_results}
 
-It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would take 3-5 seconds of time in total with the used software. The decision of how to interpret the constant flow of load object measurment data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
+The measurement values produced by the software can be compared with the actual dimensions only after the orientation of the data is taken into account. The computed AABB bounding volume is a function of the orientation of the camera frame relative to the world frame even though the load object actual volume does not change. In top-down camera overhead crane tests the axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
 
-Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the perception platform software was the bottleneck on the currently used system. Software operations can be sped up by making improvements in the point cloud data processing, or by removing visualisations from the load object measurement client. It was found out that updating the visualisations in the software requires most time, thus, removing visuals will speed up the point cloud processing when there is no need to use time on on-screen point cloud rendering. Also, the C++ implementation of the software could support more parallel programming and GPU implementations for selected point cloud computations. Finally, lower resolution cameras can be used, or the image ROI could be limited to only contain the image of the load object in order to reduce the amount of data and speed up the computations.
+It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would currently take 3-5 seconds of time. The decision of how to interpret the constant flow of load object measurement data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
+
+\subsection{System Bottlenecks}
+\label{subsection:system_bottlenecks}
+
+Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the perception platform software was one of the major bottlenecks with its capability of transmitting stereo images only at a rate of 4 FPS. Another bottleneck was detected in the client software object segmentation, which randomly takes a lot of time, almost a full second for a single measurement. In general, the time needed for processing 3d data into measurement information was fast, less than 100 milliseconds per measurement not including the slow-downs.
+
+Software operations could be sped up by making improvements in the point cloud data processing, or by removing visualisations from the load object measurement client. It was found out that updating the visualisations in the software requires most time, thus, removing visuals will speed up the point cloud processing when there is no need to use time for on-screen point cloud rendering. Also, the C++ implementation of the software could support more parallel programming and GPU implementations for selected point cloud computations. Finally, lower resolution cameras could be used, or the image ROI could be limited to only contain the image of the load object to reduce the amount of data, which speeds up computation.
 
 \section{Analysis On Forestry Crane Load Object Measurement}
 \label{section:analysis_on_forestry_crane_load_object_measurement}
