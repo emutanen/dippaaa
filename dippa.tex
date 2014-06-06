@@ -808,18 +808,13 @@ Research in automatic forestry machines is an ongoing effort that tries to incre
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
 
-%Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
+The goal of this work is to measure the dimensions of industrial goods being lifted and moved in an industrial crane setting with the help of a stereo camera based machine vision system. The work is carried out and analysed mainly for two different environments: an indoor overhead crane process hall, and an outdoor rotary boom crane on a forestry machine. The tested scenarios are detailed more in Section \ref{subsection:use_cases} "Use Cases".
 
-%The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct \ref{You11}. Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
+The overhead crane load object measurement is the primary objective that will be introduced in this work. The forestry crane load object measurement is a secondary objective that investigates the applicability of the same machine vision system in a log picker truck setting.
 
-% goal with the stereo camera acquisition is that the overall system would be cheap to purchase
-% objective: point cloud processing runs in almost real-time, more often than 5 times per second
+The project affiliated with this master's thesis was the GIM research group's FAMOUS project whose deliverable the actual software client for load object measurement was. As such, another primary objective is to implement the load object measurement software that is easy to integrate into other software solutions and supports Robot Operating System on a network of PCs.
 
-%An energy-saving, semi-automatic, safe process crane working area is the desired final outcome for upgrading a traditional manually operated process crane installation. It is under review whether a detailed, almost real-time description of the environment could provide enough information to realize the envisioned system.
-
-The focus of this work is on measuring the dimensions of industrial goods being lifted and moved in an industrial site using an overhead crane.
-
-The secondary objective of this thesis is to be able to compute the dimensions of a picked up log with the help of a machine vision system. Further processing of the measurement information and the details of teleoperation applications are outside of the scope of this thesis.
+A tertiary objective regarding hardware was to keep the costs of the load object measurement system significantly lower than the price range of a LIDAR based solution. A tertiary objective regarding software was to make the load object measurement output rate nearly in real-time, or at least 5 measurements per second.
 
 \chapter{Perceiving Environment In 3d}
 \label{chapter:perceiving_environment_in_3d}
@@ -830,7 +825,7 @@ Perception sensors in a machine vision system include sensors such as digital ca
 
 The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
 
-Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
+Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered\citep{You11}. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
 
 Next, different machine vision sensor options will be presented that could provide data input to the envisioned load object geometry measurement system.
 
@@ -892,6 +887,8 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 \label{section:3d_environment_representations}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
+
+%Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
 
 Environment models are different types of digital data representations that describe the environments acquired by a perception sensor. The work implemented in the Chapter \ref{chapter:implementation} uses point cloud representation, which will be presented.
 
@@ -2741,6 +2738,10 @@ Since the used stereo cameras can deliver images at a steady rate of 30 FPS, the
 
 
 Some improvements to the implemented system may be instantly thought of. For example, the heuristic checks that select the correct load object can easily be improved. For example, if the distance between the candidate load object and the end effector is too large, then the candidate should be rejected. An improved heuristics model was not possible to implement during the thesis study due time constraints, thus, it is left as a suggested improvement in the works.
+
+\section{Hardware And Software Architecture}
+
+%The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct . Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
 
 
 \section{Load Object Modeling Quality}
