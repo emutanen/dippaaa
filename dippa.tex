@@ -882,14 +882,21 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 
 %weather conditions
     
-
-
 \section{Environment Models}
 \label{section:3d_environment_representations}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 %Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
+
+%If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
+%An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
+%It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
+%using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
+%statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
+%The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
+%Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
+%Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
 Environment models are different types of digital data representations that describe the environments acquired by a perception sensor. The work implemented in the Chapter \ref{chapter:implementation} uses point cloud representation, which will be presented.
 
@@ -2757,12 +2764,12 @@ In the forestry machine crane case, the performance of the load object measureme
 \subsection{Log Measurement Results}
 \label{subsection:log_measurement_results}
 
-Log measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:log_detected}. The orientation of the log was found approximately within a few degrees error when the load object was lifted high in the air, and within a 10 degree error window when the log was located near the ground and the data was cluttered because of other logs. There are no exact statistics on the extracted log orientation error, but  by reviewing Figures \ref{fig:log_detected} and N the results seem quite accurate. The position of the log object includes a translation error in the direction of the cameras that is caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
+Log measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:log_detected}. The orientation of the log was found approximately within a few degrees error when the load object was lifted high in the air, and within a 10 degree error window when the log was located near the ground and the data was cluttered because of other logs. There are no exact statistics on the extracted log orientation error, but the results can be reviewed in Figures \ref{fig:log_detected} and N. The position of the log object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{log_detected.jpg}
-    \caption{Log objected detected using data from BM algorithm in block matching (low quality data).}
+    \caption{Log object detected using data from BM algorithm in block matching (low quality data).}
     \label{fig:log_detected}
   \end{center}
 \end{figure}
@@ -2775,7 +2782,7 @@ Better heuristic checks for correct load object selection are suggested as an im
 \item and to check that the distance between the centroid of the segmented cylinder and the end effector does not exceed a pre-defined threshold.
 \end{itemize}
 
-For example, if the distance between the candidate cylinder and the end effector is too large, then the candidate should be rejected. An improved load selection algorithm would be easy to implement, but due to limited time resources it was not further developed.
+For example, if the distance between the candidate cylinder and the end effector is too large, then the candidate should be rejected. Improvements in the load selection algorithm are easy to implement, but due to limited time the checks were not further developed.
 
 In Figure \ref{fig:log_detected}, the stereo parameters and object segmentation parameters were not optimally tuned. Still, the correct cylinder extraction was quite robust in the presence of missing data, noisy 3d data, and non-optimal parameter tuning. Especially the OpenCV stereo calibration that was described in Section \ref{section:stereo_calibration} did a good job on estimating parameters with little a priori information, which worked a lot towards robustness in the software.
 
@@ -2785,7 +2792,7 @@ A minor problem with measuring logs was introduced when the bird's eye viewpoint
 
 It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The log is often tilted so that the other end of the log is located above the end effector tool. This was verified to be true during the forestry crane testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is actually grabbed by the end effector tool or not.
 
-There are no major improvement suggestions for the log object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the log object (in case a high detail log object model is needed). A model that approximates the log object with segments of cylinders is introduced in Forsman's thesis \citep{Forsman10}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex log object model would significantly slow down the computation, and the effect on the bounding volume is minimal.
+There are no major improvement suggestions for the log object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the log object (in case a high detail log object model is needed). A model that approximates the log object with segments of cylinders is introduced in Forsman's thesis \citep{Forsman10}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex log object model would significantly slow down the computation, and the effect of the accuracy of the model on the bounding volume is minimal.
 
 \section{System Bottlenecks}
 \label{section:system_bottlenecks}
@@ -2818,25 +2825,15 @@ Finally, the perception platform hardware suffered from minor problems, such as 
 
 \section{Prototype Software}
 \label{section:prototype_software}
-%We are not required to fully model the load object in order to find its position and a bounding volume. 
-%Currently the produced point cloud only depicts the visible part of the load object since a normal stereo camera setup cannot generate a full envelop view of the object.
-%If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
-%An interesting idea would be to use an adaptive reconstruction scheme that statistically models the object surface with a self-organizing map as described in de Medeiro's study\cite{Medeiros07}. For such a statistical modeling approach a normalized load object measurement for each discrete timestep would be needed as an input for the SOM model.
-%It would be possible to do surface reconstruction if we can access additional viewpoints and envelop the load object fully 
-%using adaptive iteration techniques in order to model the object in greater detail as we receive more information from other viewpoints, including its backside.
-%statistically estimate and model the object in time using self-organizing maps and adaptive geometric meshing .
-%The greatest challenge in computing the load object measurements and position is the low quality of the point cloud data received from the stereo camera rig. Due to limitations in e.g. block matching algorithm, filtering kernels, and changing environmental variables (such as lighting conditions) we may expect white noise to be present in the data for all discrete timesteps.
-%Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
-%Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
-A lot of time was used in development of the load object measurement software. The software structure follows a standard ROS package implementation, and most of the required computation algorithms were readily available as part of OpenCV and PCL software libraries. The software program runs some advanced algorithms, such as RANSAC computation and k-nearest neighbour search, but these are not visible for the user. It would have been possible to implement some portions of the software better than what is currently implemented, for example, included an end effector tracker in the overhead crane case. Due to limited resources most computations use external libraries, and only some heuristics and a point cloud projections were implemented by the author. 
-%The suggested improvements for the load measurement software were reported in more detail in Chapter \ref{}.
+A lot of time was used in development of the load object measurement software. The software structure followed a standard ROS package implementation, and most of the required computation algorithms were readily available as part of OpenCV and PCL software libraries. The software package ran some advanced algorithms, such as RANSAC computation and k-nearest neighbour search, but they were not visible for the user. It would have been possible to implement some portions of the software better than what is currently implemented, for example, an end effector tracker in the overhead crane case would have been very useful. Due to limited resources most computations use external libraries, and only some heuristics and a point cloud projections were implemented by the author. 
 
-Other reasons for good robustness are the smart handling of uninitialized data in PCL library, and the software architecture that does not differentiate X, Y, and Z directions - no information about orientation of the scene is utilized in 3D segmentation. 
+The PCL library handled uninitialised data well, which resulted in robust functionality of the client software. Moreover, the software architecture did not depend on sensor frame orientation information, which is why the computation works independent of perception platform orientation.
 
-%Kalman filtering
-    Then again, we can generate more accurate information with optimal parameter sets, and the measurements from the load object will change for each timestep unless we use adaptive filtering to fight out the white noise and orientation differences in time. We have considered a Kalman filter that tracks the estimate of the actual bounding volume signal, but is was not implemented for simplicity.
-    
+While the software functionality was verified as functional in an actual overhead crane LAN network, the network can be difficult to configure without good knowledge of the ROS system, and Linux operating system. To make the usage of the software easier, launch files were written for offline and online testing purposes. A launch file name will be given as an argument to the program at startup, which contains configuration parameters that will be used as the software starts.
+
+A software version was branched out that was used to log the load object measurement data in an XML file format for processing into visuals seen in Appendices. Visualisations of the data proved to be invaluable in evaluating whether the load object measurement system works correctly.  
+
 %end of the work
 % Next up : references
 % Load the bibliographic references
