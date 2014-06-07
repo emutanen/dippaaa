@@ -2374,8 +2374,8 @@ return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
 \chapter{Evaluation}
 \label{chapter:evaluation}
 
-\section{Software Design Evaluation}
-\label{section:software_design_evaluation}
+\section{Evaluation Of Software Design}
+\label{section:evaluation_of_software_design}
 
 The design of the load object measurement system evolved a lot during its implementation phase. The original design was a non-linear, component-based design running on a C++ code base. Originally, a network of atomic processing components was designed where data would be sent to all the required processing stages using ROS topics and subscribers. Since the amount of data generated in the stereo cameras was quite large, the design had to be changed to a more linear design where the bandwidth of the ROS networked messages per stereo pair was minimised. The final design included more logical, larger processing components that had many positive effects on the overall performance of the software compared to the first designs: 
 
@@ -2409,8 +2409,8 @@ The only problem in the PCL design was the visualisation introducing quite perio
 
 The evaluation of the load object measurement system was done using offline data sets that were recorded from use cases in real crane environments. The results of the evaluation will be presented in Chapter \ref{chapter:evaluation}. The online implementation was finished but not tested during the time of writing this, and as such the effects of online performance are not included in the review of software architecture.
 
-\section{Data Quality in the Machine Vision Process}
-\label{section:data_quality_in_the_machine_vision_process}
+\section{Evaluation Of 3d Data Quality}
+\label{section:evaluation_of_3d_data_quality}
 
 The point cloud data quality was affected by the overall machine vision process including stereo calibration, disparity tuning, and the hardware setup. The hardware setup and the stereo calibration were used as monolithic initial calibration items. The calibration was done automatically for the hardware setup, and after a good basic point cloud output generation was achieved, no further engineering was done for the hardware or the stereo calibration. After an initial point cloud output was generated, the problem of understanding the data quality could be presented: how accurately did the point cloud data resemble the real world scene?
 
