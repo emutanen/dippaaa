@@ -2749,10 +2749,18 @@ Software operations could be sped up by making improvements in the point cloud d
 
 A suggested improvement for environment 3d modeling is to install 3d spheres as control points in the environment before data capture. Then, the reconstructed geometry can be verified as a function of distance from the cameras by comparing the computed locations of the spheres with their actual locations. If the 3d data locations of the control points do not match their actual locations, an unsuccessful camera calibration or a scale difference could be detected. Since the emphasis on the thesis was not on environment modeling, the surrounding geometry is good enough as long as the load objects report meaningful dimensions. For now, it is assumed that a correct calibration of the stereo cameras results in a correct geometry for the load objects.
 
-\section{Hardware And Software Architecture}
+\section{Perception Platform}
+\label{section:perception_platform}
 
-%The main reason for choosing machine vision as the medium for the load object measurement system was the lower cost of cameras in comparison to LIDAR technology. Other benefits are better load modeling with more data entries in the load object point cloud, and passive triangulation technique that does not send electromagnetic radiation (e.g. laser) in the environment. LIDAR scanner can be used to verify a stereo vision camera calibration so that the load object measurement output is correct . Himmeli was a natural choice for perception platform since the installed active ranging technique could be used to verify the performance of the stereo vision system.
+Using Himmeli perception platform as the medium for stereo camera processing was a successful decision. The platform provided ROS and PCL computing hardware at the ready, and the installed perception sensors were of high quality. The stereo cameras in Himmeli were in a converging camera installation whose property of negative disparity was used to remove hoisting wires from the 3d data in the overhead crane case with top-down viewpoint.
 
+The sturdy metal frame protected the stereo cameras from moving or dislocating during platform installations and transport from test site to another, and the modularity was very useful in installing the cameras in tight spaces. The Himmeli platform was very heavy, which helped passively stabilise the camera images in vibrating environments, but made moving the platform a bit difficult.
+
+The platform handled temperatures below zero well, and the system can be used even in winter conditions if the camera lens casings are installed with heaters and a solution that keeps the optics clear of water, dirt, and snow. In bright daylight, the camera image was very good.
+
+The platform included a LIDAR scanner that was used to collect data for object segmentation testing, which was an invaluable asset in the work. The Velodyne scanner was also a plan B perception sensor if the stereo camera setup would have proved to be not suitable for load object measuring.
+
+Finally, the perception platform hardware suffered from minor problems, for example, one of the PC computers halted during heavy processor loads due to inadequate dissipation of heat from the processor. Another problem was that the left and right camera images were assigned for the cameras randomly, which caused the left camera image to be saved as a right camera image and vice versa. A swapping of left and right images caused failure in generating 3d data from the images. Currently, the only suggestion for improvement is to install a larger heat sink in the overheating processor core. 
 
 \section{Load Object Modeling Quality}
 \label{section:load_object_modeling_quality}
