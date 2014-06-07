@@ -1331,55 +1331,7 @@ v \end{array} \Biggl] = \Biggl[ \begin{array}{c}
 \frac{V}{W} \end{array} \Biggl]
 \end{equation}
 
-Now we have calculated the projected point \ref{equation:projectedpointUc} and we have determined that the resulting affine transformation results in $\tilde{u}$ in \ref{equation:affinedefinition}. We still need to define a principal point of the image plane $\pi$, which is the point where the optical axis and the image plane $\pi$ intersect. This point defines the homogenous transformation according to the intrinsic camera parameters. The principal point is defined in the affine image coordinate system as
-
-\begin{equation}
-\textbf{U}_{0a} = \Biggl[ \begin{array}{c}
-u_0 \\
-v_0 \\
-0 \end{array} \Biggl]
-\end{equation}
-
-The equation for the affine transformation of projected point $U_c$ is
-
-\begin{equation}
-\tilde{u} = \Biggl[ \begin{array}{c}
-U \\
-V \\
-W \end{array} \Biggl] = \Biggl[ \begin{array}{ccc}
-a & b & -u_0 \\
-0 & c & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
-\frac{-fx_c}{z_c} \\
-\frac{-fy_c}{z_c} \\
-1 \end{array} \Biggl] 
-\end{equation}
-
-and with reordering the multiplication of $-f$ we obtain
-
-\begin{equation}
-\tilde{u} = \Biggl[ \begin{array}{ccc}
--fa & -fb & -u_0 \\
-0 & -fc & -v_0 \\
-0 & 0 & 1 \end{array} \Biggl] \Biggl[ \begin{array}{c}
-\frac{x_c}{z_c} \\
-\frac{y_c}{z_c} \\
-1 \end{array} \Biggl]
-\end{equation}
-
-% We have followed the definition of Sonka et al. \cite{Sonka07} so that 
-
-The resulting camera calibration matrix is an upper triangle matrix that contains the camera intrinsic parameters. 
-
-If we study the coefficients of K carefully, we can see that the matrix actually contains the parameters focal length, the principal point, shear coefficient, and the affine distortion coefficients \citep{CaltechWeb10}.
-
-
-
-All the units are given in pixels.
-
-It is obviously desirable to transform multiple coordinate points at a one time. Multiple coordinate point sets are called point clouds, and the transformation for a point cloud can be computed with the same square matrix used for single point transform.
-
-If the point cloud $P$ contains $n$ points, we may structure a matrix P that contains the set of points as column vectors where
+When multiple coordinate points (also known as point clouds) are perspective projected into an image frame the transformations can be computed with the same square matrix used for single point transform. If the point cloud $P$ contains $n$ points, a matrix can be written so that it contains the set of points as column vectors in format
 
 \begin{equation}
 P = \Biggl[ \begin{array}{ccccc}
@@ -1388,6 +1340,7 @@ Y_0 & Y_1 & X_2 & \dots & Y_n \\
 Z_0 & Z_1 & X_2 & \dots & Z_n \end{array} \Biggl]
 \end{equation}
 
+Multiplying point cloud P with the camera projection matrix will result in a 3d point cloud transformed into an image projection. Later chapters in the thesis will introduce how this property is inverted, and 2d points can be reprojected back into 3d coordinates using an inverse process.
 
 \section{Intrinsic Camera Calibration}
 \label{subsection:intrinsic_camera_calibration}
@@ -2414,17 +2367,15 @@ The evaluation of the load object measurement system was done using offline data
 
 The point cloud data quality was affected by the overall machine vision process including stereo calibration, disparity tuning, and the hardware setup. The hardware setup and the stereo calibration were used as monolithic initial calibration items. The calibration was done automatically for the hardware setup using OpenCV as described in Section \ref{subsection:opencv_stereo_calibration_workflow}, and after a good basic point cloud output generation was achieved, no further engineering was done for the hardware or the stereo calibration. After an initial point cloud output was generated, the problem of understanding the data quality could be presented: how accurately does the point cloud data resemble the real world scene?
 
-The generated point cloud resembles the real scene, but some noisy parts or parts that are difficult to model, such as hoisting wires in a crane environment, do not look like their real-life counterparts. It is possible to automatically assess the goodness of 3d data if it is possible to formulate quantifiably quality indicators. The most important indicators in point cloud data quality assessment are
-
-Is it possible to quantify automatically how good the data describing the real scene is? 
+The generated point cloud resembles the real scene, but some noisy parts or parts that are difficult to model, such as hoisting wires in a crane environment, do not look like their real-life counterparts. It is possible to automatically assess the goodness of 3d data if it is possible to formulate quantifiable quality indicators. The most important indicators in point cloud data quality assessment are
 
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item location accuracy of the surface 
-\item surface noisiness
-\item speckle regions, misinterpreted Z depth regions, and artefacts of any kind
-\item number of finite data point entries
+\item location accuracy of the surface, 
+\item surface noisiness,
+\item speckle regions, misinterpreted Z depth regions, and artefacts of any kind,
+\item and number of finite data point entries.
 \end{itemize}
 
 \begin{figure}[ht]
