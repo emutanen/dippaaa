@@ -2255,6 +2255,30 @@ While most of the time the RANSAC algorithm finds the ground plane correctly, th
 \label{subsection:cylinder_fitting}
 %+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
+% Large images of a single cylinder fitting result
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{cylinder_fitting_pt1.jpg}
+    \caption{Cylinder fitting image 1/3 shows the original point cloud data and the bounding volume of the found cylinder in red.}
+    \label{fig:cylinder_fitting_pt1}
+  \end{center}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{cylinder_fitting_pt2.jpg}
+    \caption{Cylinder fitting image 2/3 shows the segmented load objects assigned with colors, and the length of the found cylinder in millimeters.}
+    \label{fig:cylinder_fitting_pt2}
+  \end{center}
+\end{figure}
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{cylinder_fitting_pt3.jpg}
+    \caption{Cylinder fitting image 3/3 shows the selected load object point cloud and the extracted cylinder.}
+    \label{fig:cylinder_fitting_pt3}
+  \end{center}
+\end{figure}
 
 \section{Bounding Volume Computation}
 \label{section:bounding_volume_computation}
@@ -2758,9 +2782,11 @@ The sturdy metal frame protected the stereo cameras from moving or dislocating d
 
 The platform handled temperatures below zero well, and the system can be used even in winter conditions if the camera lens casings are installed with heaters and a solution that keeps the optics clear of water, dirt, and snow. In bright daylight, the camera image was very good.
 
+The stereo camera image capture was limited at 4 FPS, because a higher rate of image capture, even 5 FPS resulted in skipping of frames, which lead to a situation where many frames with different timestamps had the same image content. If a dataset includes such inconsistent content in frame pairs, the stereo calibration fails, and 3d reconstruction assumptions do not hold anymore.  
+
 The platform included a LIDAR scanner that was used to collect data for object segmentation testing, which was an invaluable asset in the work. The Velodyne scanner was also a plan B perception sensor if the stereo camera setup would have proved to be not suitable for load object measuring.
 
-Finally, the perception platform hardware suffered from minor problems, for example, one of the PC computers halted during heavy processor loads due to inadequate dissipation of heat from the processor. Another problem was that the left and right camera images were assigned for the cameras randomly, which caused the left camera image to be saved as a right camera image and vice versa. A swapping of left and right images caused failure in generating 3d data from the images. Currently, the only suggestion for improvement is to install a larger heat sink in the overheating processor core. 
+Finally, the perception platform hardware suffered from minor problems, for example, one of the PC computers halted during heavy processor loads due to inadequate dissipation of heat from the processor. Another problem was encountered when the stereo cameras were initialised, because of problems in left and right camera assigning order. The Himmeli platform always assigned the first camera that finished initialisation as the left camera. In case the right camera finished initialisation first, it was still assigned as the left camera, which effectively swapped the left and the right camera image accordingly. Swapping of the left and the right image caused failure in 3d reconstruction with a calibrated stereo system. Since the initialisation order was random, the problem was resolved by checking the left and right camera content before any recording occurred. In case of swapped left and right cameras, the cameras were restarted. Currently, the only suggestion for hardware improvement is to install a larger heat sink in the overheating processor core. 
 
 \section{Load Object Modeling Quality}
 \label{section:load_object_modeling_quality}
