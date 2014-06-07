@@ -2733,8 +2733,8 @@ In dataset 1372852802 an interesting phenomenon is visible in the visualisation 
 
 In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often than the bird's eye viewpoint. From the bird's eye viewpoint, the load object measurement was especially difficult for locations near the opposite wall. In light of all findings and analysis the top-down camera view is recommended for load object measurement purposes in an overhead crane machine vision setup.
 
-\subsection{Effects Of Selected Viewpoint}
-\label{subsection:effect_of_selected_viewpoint}
+\subsection{Effects Of Selected Viewpoints}
+\label{subsection:effect_of_selected_viewpoints}
 
 The output AABB bounding volume from a top-down camera was usable as is, and only a little extra volume was induced by a slight 6 degree tilt of the sensor frame in tests. In general, the load object measurement output was consistent with the top-down camera configuration, and even though the ground plane was not always fully modeled due to the moving crane and changing lighting conditions, the measurement was not affected at all by such problems.
 
@@ -2780,6 +2780,8 @@ For example, if the distance between the candidate cylinder and the end effector
 In Figure \ref{fig:log_detected}, the stereo parameters and object segmentation parameters were not optimally tuned. Still, the correct cylinder extraction was quite robust in the presence of missing data, noisy 3d data, and non-optimal parameter tuning. Especially the OpenCV stereo calibration that was described in Section \ref{section:stereo_calibration} did a good job on estimating parameters with little a priori information, which worked a lot towards robustness in the software.
 
 The most significant problem in the log object measurement was the grouping of multiple objects in the load object point cloud. While the cylinder extraction does well on selecting and extracting the correct feature, it remains unknown whether the object segmentation step is needed at all in the forestry crane case since objects tend to group as a single large point cloud most of the time. The load object point cloud usually contains the crane boom, the end effector tool, and the picked up log. Sometimes, the load object point cloud additionally contained objects lying on the ground.
+
+A minor problem with measuring logs was introduced when the bird's eye viewpoint was used and the logs were occluded by the crane boom. A log may be seen on both sides of the crane boom, which means that in the 3d data two point clouds are seen that represent partial surfaces of the load object. In these cases where the log object was occluded by the crane boom and divided into multiple point clouds, it was not possible to measure the load object size correctly. 
 
 It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The log is often tilted so that the other end of the log is located above the end effector tool. This was verified to be true during the forestry crane testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is actually grabbed by the end effector tool or not.
 
