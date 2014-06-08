@@ -991,23 +991,6 @@ Octrees are used in
   \end{center}
 \end{figure}
 
-\section{weather}
-Quality of measurements degrade in bad weather, such as fog, mist, rain, or snow \cite{Kawai12} 
-Especially camera systems are affected with possibly inhomogenous degradation in image quality.
-
-Different types of degradation:
-    + lens flare
-    + condensation in humidity changes
-    + changes in illumination
-    + shadowing
-    + occlusion
-    + noise from moving droplets of water e.g.
-
-If a stereo camera is used, inhomogenous degradation in image quality
-
-
-Colored markers are sensitive to natural light in outdoor environments \cite{Kawai12}.
-
 \section{Geometric Environment Acquisition Techniques}
 \label{section:environment_acquisition_techniques}
 
@@ -1018,6 +1001,8 @@ In this work the focus on environmental acquisition is on systems capable of 3d 
 %Objects that are considered as load objects in this thesis cover a range of custom manufactured products whose size is unknown prior to the lifting operation. Since each item moved with the crane is unique, non-standard size object, an understanding of the load object size would be valuable to a software system that operates autonomously.
 
 In general, a real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \citep{ElHakim98}
+
+Quality of modeling may degrade in bad weather, such as fog, mist, rain, or snow. Especially camera systems are affected by inhomogenous degradation in image quality. Different types of degradation in image quality are caused by issues such as lens flare, condensation of water on lens, changes in illumination, shadows, and noise from droplets of water moving on the lens. Weather also affects the surrounding environment by e.g. changing the surface reflectance properties in rainy weather. If colored markers are used for load object tracking, sensitivity to natural light in outdoor environments occur. \citep{Kawai12} 
 
 If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images. \citep{Chen91}
 
