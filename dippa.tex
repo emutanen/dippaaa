@@ -2181,8 +2181,7 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
         \For{every point $p_i \in Q$}{
             search for the set $P^i_k$ of point neighbours of $p_i$ in a sphere with radius r $<$ d\;
             \For{every neighbour $p^i_k \in P^k_i$}{
-                \If{point has been processed}
-                    \lIf{continue}\;
+                \If{point has been processed}{continue}
                     \lElse{Add point $p^i_k$ to $Q$}
             }
         }
