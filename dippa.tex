@@ -2171,14 +2171,14 @@ The voxel grid filtering can be used to compute different lower fidelity levels 
 After the preprocessing of the point cloud, the 3d data is being segmented into separate objects using Euclidean cluster extraction in PCL (pcl::EuclideanClusterExtraction class). The cluster extractor uses k-means clustering that clusters n-dimensional data points into k different spatial clusters. For 3d point cloud data, a Euclidean metric is used in measuring distance between cluster candidates. The extractor uses a k-D -tree search Following the dissertation by Rusu  the k-means clustering search would be presented algorithmically as
 
 \begin{algorithm}
-\KwData{point cloud P}
-\KwResult{object clusters extracted from P}
-1. create a k-D -tree representation of input point cloud P\;
-2. set up empty list of clusters C and empty queue for points to be checked Q\;
-\While{not all points p_i \In P have been processed and are part of list C}{
-    add p_i \in P to a current queue Q
+\KwData{point cloud $P$}
+\KwResult{object clusters $C$ extracted from $P$}
+1. create a k-D -tree representation of input point cloud $P$\;
+2. set up empty list of clusters $C$ and empty queue for points to be checked $Q$\;
+\While{not all points $p_i \In P$ have been processed and are part of list $C$}{
+    add $p_i \in P$ to a current queue $Q$\;
     \For{p_i \in Q}{
-    search set P_{k}^i of point neighbours of p_i in a sphere with radius r $<$ d
+    search set P_{k}^i of point neighbours of p_i in a sphere with radius r $<$ d\;
     \For{for every neighbour p_{k}^i \in P_{i}^k}{
         \If{point has been processed}
             \lIf{then here}\;
