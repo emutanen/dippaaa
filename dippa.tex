@@ -2191,7 +2191,16 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
     }
 }
 
-
+\begin{figure}%
+    \centering
+    \parbox{5cm}{\includegraphics[width=\linewidth]{segmentation_on_velodyne.jpg}}%
+    \qquad
+    \begin{minipage}{5cm}%
+    \includegraphics[width=\linewidth]{velodyne_original.jpg}
+    \end{minipage}%
+    \caption{Results on object segmentation from LIDAR scanner data using PCL nearest neighbour search implementation.}
+    \label{fig:object_segmentation}
+\end{figure}
 
 \caption{Nearest neighbour algorithm that utilises a k-D -tree structure.}
 \label{algorithm:cluster_extraction}
