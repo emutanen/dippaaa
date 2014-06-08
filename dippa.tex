@@ -822,16 +822,16 @@ A tertiary objective regarding hardware was to keep the costs of the load object
 %+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
 
-Perception sensors in a machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
-
 The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
 
 Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered\citep{You11}. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
 
-Next, different machine vision sensor options will be presented that could provide data input to the envisioned load object geometry measurement system.
+\section{Sensors}
 
-\section{Stereo Cameras}
-\label{section:stereo_cameras}
+Perception sensors used in machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
+
+\subsection{Stereo Cameras}
+\label{subsection:stereo_cameras}
 
 Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
 
@@ -841,8 +841,8 @@ Camera based vision sensing can be active or passive depending on the technology
 + time-of-flight cameras (TOF)
 According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
-\subsection{Lens Optics}
-\label{subsection:lens_optics}
+\section{Effects Of Camera Optics In Modeling}
+\label{section:effects_of_camera_optics_in_modeling}
 
 % todo add teledyne white paper to optics
 %\ref{teledyne_whitepaper}
@@ -882,8 +882,8 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 
 %weather conditions
     
-\section{Environment Models}
-\label{section:3d_environment_representations}
+\section{Digital 3d Environment Models}
+\label{section:digital_3d_environment_models}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
@@ -944,11 +944,9 @@ A 3d scene captured with a stereo camera system can be represented with a voxel 
 
 limitations: grid resolution, high-resolution grid consumes a lot of memory
 
-\subsection{Tree Structures}
-\label{subsection:tree_structures}
+\subsection{Octree Representation}
+\label{subsection:octree_representation}
 % multi-resolution octree representations
-
-\subsubsection{Octree Structure}
 
 Octree is a tree structure whose nodes always have exactly eight child nodes. The octree structure is used to partition 3d data recursively into smaller partitions of space around a point region. The point region and the sub-quadrants of an octree node are symmetrical cubic volumes also known as voxels. In an octree, the size of the voxels change depending on the depth of the tree search at hand according to Figure \ref{fig:octree_quadrants}.
 
@@ -2718,8 +2716,8 @@ The measurement values produced by the software could be compared with the actua
 
 It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would currently take 3-5 seconds of time. The decision of how to interpret the constant flow of load object measurement data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
 
-\section{Analysis On Forestry Crane Load Object Measurement}
-\label{section:analysis_on_forestry_crane_load_object_measurement}
+\section{Discussion On Forestry Crane Load Object Measurement}
+\label{section:discussion_on_forestry_crane_load_object_measurement}
 
 In the forestry machine crane case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint and a bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in a forestry machine. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Moreover, the installation of the perception platform may not be possible because of the limited space in the base of the rotary boom crane, and on the vehicle chassis itself. Also the bird's eye viewpoint has its flaws: the crane boom is visible in the image and occludes the load object during normal operation. Since hoisting wires are not used to lift the load object, the segmented load object usually includes the crane boom that is visible in the image. This must be taken into account, and the cylindrical load object must be extracted from the data that contains parts of the crane boom. The bird's eye viewpoint has one major advantage over the frog perspective: if the forestry machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in a forestry machine chassis installation.
 
