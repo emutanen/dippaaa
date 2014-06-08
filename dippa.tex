@@ -2162,7 +2162,15 @@ The used value was found using a slider that changed the cube size in real-time 
 
 A grid of cubic 3d volumes covers all the data, and all points residing in a single voxel cube are replaced by their centroid or the center of the voxel. The current implementation uses the centroid (center of gravity) approach, which is slower than outputting only the center coordinate of the voxel. By using the centroid approach the underlying 3d surface is being represented more accurately. \citep{VoxelGrid14} The voxel grid leaf size is the only parameter in voxel grid filtering that controls the coarseness of the downsampling result besides the selected approximation method.
 
-The voxel grid filtering can be used to compute different lower fidelity levels for the environment representation analogous to the Gaussian image pyramids technique for 2d images. The downsampled cloud that is significantly smaller than the original still contains the geometry data in smoothed detail. The subset of the downsampled point cloud that represents the load object is used to produce the load object measurement.
+The voxel grid filtering can be used to compute different lower fidelity levels for the environment representation analogous to the Gaussian image pyramids technique for 2d images. The downsampled cloud that is significantly smaller than the original still contains the geometry data in smoothed detail as seen in Figure \ref{fig:downsampling}. The subset of the downsampled point cloud that represents the load object is used to produce the load object measurement.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{segmented_objects.jpg}
+    \caption{Downsampling of segmented objects can be seen as reduced number of data points.}
+    \label{fig:downsampling}
+  \end{center}
+\end{figure}
 
 \subsection{Object Segmentation}
 \label{subsection:object_segmentation}
@@ -2201,7 +2209,7 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
     \begin{minipage}{5cm}%
     \includegraphics[width=\linewidth]{segmentation_on_velodyne.jpg}
     \end{minipage}%
-    \caption{a) LIDAR scanner data from overhead crane environment b) Segmentation results using PCL nearest neighbour search.}
+    \caption{a) LIDAR scanner data from overhead crane environment b) Segmented objects output from PCL nearest neighbour search}
     \label{fig:object_segmentation}
 \end{figure}
 
