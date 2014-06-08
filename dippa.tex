@@ -1057,7 +1057,7 @@ Last, an empty overhead crane hall contains a planar scene, which is difficult t
 %A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision}
-\label{chapter:stereographic_machine_vision}
+\label{chapter:stereoscopic_machine_vision}
 % stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
 Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision is based on stereopsis effect, which means perceiving depth in a scene using binocular vision with two monocular vision eyes. The same depth perception can be programmed to a computer, but instead of eyes, cameras are used. Instead of the brain, a PC is used to recover and process depth information from a pair of camera images. A calibrated two-camera system that is capable of extracting depth information from objects in such a way is most often called a \emph{stereo vision system} or a \emph{3d vision system}.
 
@@ -2146,17 +2146,17 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 
 This chapter introduces computation techniques used to recover the load object measurement from the 3d data provided by the stereo cameras. The point cloud data was generated in Chapter \ref{chapter:stereoscopic_machine_vision}, and this chapter presents how the data is processed into a bounding volume measurement with help of Point Cloud Library.
 
-The C++ software source code is not shown in this chapter, because it was done as part of the FAMOUS project, and as such it is not publicly available. Fortunately, an interested reader can find the same functionality from the PCL tutorials available at \citep{PCLTutorials14}.
+The C++ software source code is not shown, because it was done as part of the FAMOUS project, and as such it is not publicly available. An interested reader can find a large part of the used code from the PCL tutorials available at pointclouds.org website\citep{PCLTutorials14}.
 
 \section{Point Cloud Library Operations}
 \label{section:point_cloud_library_operations}
 
-\subsection{Point Cloud Preprocessing}
-\label{subsubsection:point_cloud_preprocessing}
+\subsection{Filtering And Downsampling}
+\label{subsubsection:filtering_and_downsampling}
 
-PCL provides many filter implementations in its filter module for pre-processing the point cloud data. Since ROS transportation layer required an organised point cloud for the ROS message, the point cloud arrived at the client software including invalid values, namely NaN (not a number) values or InF values in the cells that were not assigned a value in the point cloud generation step. All invalid values were removed using NaN removal filter (pcl::removeNaNFromPointCloud) and an InF value filter. The Inf value filter was implemented in the work by iterating through all data points and removing all points marked as infinity (std::numeric\_limits<float>::infinity()).
+ROS message transportation layer required an organised point cloud to be used in a ROS message, which is why the point cloud arriving at the client software includes a 768 x 576 grid array containing 442368 coordinate values. A valid value cannot be generated for all grid array cells, which is why the  original point cloud data will contain NaN values (not a number) and InF values (infinity). All invalid values were removed using NaN removal filter (pcl::removeNaNFromPointCloud) and an InF value filter. The Inf value filter was implemented in the work by iterating through all data points and removing all points marked as infinity (std::numeric\_limits<float>::infinity()).
 
-After using the NaN removal filter, the data becomes unorganised, which drops the number of points needed to process from 442368 points to a lower number of approximately 250000 valid points. Furthermore, the point cloud is being downsampled using the PCL voxel grid filter (in pcl::VoxelGrid class) so that the number of output points stay in a range of 2-20\% of the original number of data points. The range was found out by testing different values of the voxel grid leaf size parameter. In the implemented software a value of 120 millimeters was selected as the voxel cube length value, which produced a point cloud downsampled down to a 2.2\% size of the original point cloud.
+After using the NaN removal filter, the data becomes unorganised, which drops the number of points needed to process from 442368 points to a lower number of approximately 250000 valid points. The point cloud is further downsampled using the PCL voxel grid filter so that the number of output points stay in a range of 2-20\% of the original number of valid data points. The range was found out by testing different values of the voxel grid leaf size parameter. In the implemented software a value of 12 centimeters was selected as the voxel cube length value, which produced a point cloud downsampled down to a 2.2\% size of the original point cloud.
 
 The used value in the work was 120 millimeters, which was found using a slider that changed the value in real time in the software system. The voxel grid leaf size has an effect on the object segmentation process, too, which is why it was compulsory to visually inspect the parameter effect on the output object segmentation. 
 
