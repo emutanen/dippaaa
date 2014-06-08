@@ -1910,8 +1910,8 @@ The design of the software was finished in December 2013 after successful compat
 
 During the implementation period, new versions of most of the libraries became available, but the implementation uses latest currently stable versions: ROS Groovy and PCL 1.6 (compatible with ROS Groovy). If the software would be upgraded, then a newer version of ROS (Hydro) can only be used with the next version of PCL (1.7). PCL 1.7 does simplify some things, for example PCL visualization camera controls, and brings some extended features that could benefit the load object measurement system (for example, the new moment of inertia and eccentricity based descriptors functionality). Other than that, the old versions have all the functionality that the system needs, and they are successfully used to run the software at the time of writing this.
 
-\section{Overall System Design}
-\label{section:overall_system_design}
+\section{System Design}
+\label{section:system_design}
 
 \subsection{Software Architecture}
 \label{subsection:software_architecture}
@@ -1937,25 +1937,19 @@ The third use case has a small telescopic crane installed on a forestry machine 
 
 The fourth use case has a small telescopic crane installed on a forestry machine with bird's eye perspective camera viewpoint. The cameras are attached on top of the operator cabin so that the crane boom is visible in the image on the right or the left side. The cameras are facing down towards the crane working area so that the FOV covers all of the working area. The crane load is mostly visible, but occluded by the telescopic boom on one side of the working area. Once again, it is assumed that the load objects are only cylindrical logs. 
 
-\subsection{Prototype Software}
-\label{subsection:prototype_software}
-
-A full recovery of a 3d object model is not needed to solve the problem of load positioning and dimensional measurement.
-
-\subsubsection{End Effector Tracker Integration}
-\label{subsubsection:end_effector_tracker_integration}
-
+%\subsubsection{End Effector Tracker Integration}
+%\label{subsubsection:end_effector_tracker_integration}
 %Machine learning techniques can be used in tracking objects from 2d images. A common machine learning technique for facial detection in images is Haar training that can be utilised for other purposes, too, for example end effector detection. Haar training was originally introduced by Viola et al., and improved by other researchers with additional ... features. Haar training uses boosting algorithms, which are adaptive parameter learning algorithms. A basic cascade classifier cannot detect scaling of images, but a cascade of classifiers can be constructed that detects features scale-invariably. A cascade of classifiers is a decision tree structure which is constructed out of simple classifiers called stage classifiers. The cascade of classifiers results in a positive detection of a feature if the test image can pass all the stages of the cascade. Accordingly, we may estimate the probability for a false alarm rate given the probability of a single weak classifier detection and the number of stages \ref{Lienhart03}.
 
-Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
-+ machine learning
-    + neural nets
-    + genetic algorithms
-    + fuzzy systems
+%Object recognition works on a classification principle: a classifier detects attributes in an object and works out into which object class it belongs to.
+%+ machine learning
+%    + neural nets
+%    + genetic algorithms
+%    + fuzzy systems
 
 %machine learning
-A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
-A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
+%A classifier is a concept of machine learning that is utilized in Haar training. A single classifier itself is a weak member of a more powerful committee of cascaded classifiers \cite{Freund96}. 
+%A number of simple, computationally light classifiers seem to outperform strong classifiers such as neural networks in principle \cite{Lienhart03}. 
 
 \section{Perception Sensor Platform \emph{Himmeli}}
 \label{section:perception_sensor_platform_himmeli}
