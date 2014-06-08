@@ -1902,21 +1902,15 @@ Q is the reprojection matrix that encodes information about the stereo camera se
 \label{chapter:implementation}
 %test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
 
-The software implementation for the thesis work was prepared with the FAMOUS project team in Generic Intelligent Machines (GIM) research group. The implemented software includes many software nodes, mainly the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information. Additionally, the point cloud data publisher node was implemented that integrates the HIMMELI camera platform hardware as the sensor input platform for the load object measurement tool.
+The load object measurement implementation was realised as part of the FAMOUS project in Generic Intelligent Machines (GIM) research group. The implemented software included e.g. the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information, and a point cloud data publisher that generates data using the Himmeli stereo camera platform.
 
-The programming work done for the thesis was carried out from March 2013 to February 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library by WillowGarage Inc. was used for image processing and stereo rectification purposes, Point Cloud Library (PCL) was used for all data intensive point cloud processing, and Boost library was used for all file system operations. All the data networking, runtime configuration, and other online networking solutions were implemented using the Robot Operating System (ROS).
+The programming work was carried out between March 2013 and May 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library was used for image processing and stereo rectification purposes, and Point Cloud Library (PCL) was used for all data intensive point cloud processing. Boost library was used for all file system operations. All the data networking, runtime configurations, and other networking solutions were implemented using the Robot Operating System (ROS).
 
-The design of the software was finished in December 2013 after successful compatibility testing between library functionalities and proofing of concepts with offline data sets. The final version of the load object measurement system that supports online perception sensors in the ROS network was finished in May 2014.
 
 During the implementation period, new versions of most of the libraries became available, but the implementation uses latest currently stable versions: ROS Groovy and PCL 1.6 (compatible with ROS Groovy). If the software would be upgraded, then a newer version of ROS (Hydro) can only be used with the next version of PCL (1.7). PCL 1.7 does simplify some things, for example PCL visualization camera controls, and brings some extended features that could benefit the load object measurement system (for example, the new moment of inertia and eccentricity based descriptors functionality). Other than that, the old versions have all the functionality that the system needs, and they are successfully used to run the software at the time of writing this.
 
-\section{System Design}
-\label{section:system_design}
-
-\subsection{Software Architecture}
-\label{subsection:software_architecture}
-
-The software component design in this thesis was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design will consist of many sequential components, some of which will be designed and implemented by other researchers in the FAMOUS research project.
+\section{Software Architecture}
+\label{section:software_architecture}
 
 \begin{figure}[ht]
   \begin{center}
@@ -1926,8 +1920,10 @@ The software component design in this thesis was planned modular so that differe
   \end{center}
 \end{figure}
 
-\subsection{Use Cases}
-\label{subsection:use_cases}
+The software component design was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design would consist of many sequential components, some of which would be designed and implemented by other researchers in the FAMOUS research project. The design of the software was finished in December 2013, and the final version of the that supported ROS networking was finished in May 2014.
+
+\section{Use Cases}
+\label{section:use_cases}
 
 Performance of the implemented software is tested with four different use cases. The first use case has an overhead crane setup with a top-down camera viewpoint. The stereo camera rig is attached to the crane trolley with cameras facing down so that the crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the center of the image at all times. Hoisting the load up will enlarge and slightly decenter the image of the load object.
 
