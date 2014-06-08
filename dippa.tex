@@ -2180,10 +2180,10 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
     add $p_i$ to the current queue $Q$\;
         \For{every point $p_i \in Q$}{
             search for the set $P^i_k$ of point neighbours of $p_i$ in a sphere with radius r $<$ d\;
-            \For{for every neighbour $p^i_k \in P^k_i$}{
+            \For{every neighbour $p^i_k \in P^k_i$}{
                 \If{point has been processed}
-                    \lIf{then here}\;
-                    \lElse{else here\;}
+                    \lIf{continue}\;
+                    \lElse{Add point $p^i_k$ to $Q$}
             }
         }
     }
