@@ -2144,13 +2144,38 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 \chapter{Computation}
 \label{chapter:algorithms}
 
+This chapter introduces computation techniques used to recover the load object measurement from the 3d data provided by the stereo cameras. The data generated according to Chapter \ref{chapter:stereoscopic_machine_vision} is processed using Point Cloud Library and into a 3d bounding volume measurement.
 
 \section{Point Cloud Library Operations}
 \label{section:point_cloud_library_operations}
 
+\subsection{Point Cloud Preprocessing}
+\label{subsubsection:point_cloud_preprocessing}
+
+PCL provides many filter implementations in its filter module for pre-processing the point cloud data. Since ROS transportation layer required an organised point cloud for the ROS message, the point cloud arrived at the client software including invalid values, namely NaN (not a number) values or InF values in the cells that were not assigned a value in the point cloud generation step. All invalid values were removed using NaN removal filter (pcl::removeNaNFromPointCloud) and a InF value filter. The Inf value filter was implemented in the work by iterating through all data points and removing all points marked as infinity (std::numeric_limits<float>::infinity()).
+
+After using the NaN removal filter, the data becomes unorganised, which drops the number of points needed to process from 442368 points to a lower number of approximately 250000 points. Furthermore, the point cloud is being downsampled to approximately 2.2\% size of the original number of valid points using the PCL voxel grid filter (in pcl::VoxelGrid class). 
+
+The voxel grid filter outputs a downsampled point cloud by approximating multiple data points in a region with their centroid. The filter computes a grid of voxels, and all points residing in a single voxel are replaced by their centroid or the center of the voxel. The implementation uses the centroid approach, which is slower than the voxel center approach, but this way the underlying 3d surface is being represented more accurately. \citep{VoxelGrid14}
+
+The voxel cube size parameter controls the amount of downsampling in the voxel grid filter. The used value in the work was 120.0 (units in millimeters), and it was found using a slider that changed the value in real-time in the software system. The voxel grid leaf size has an effect on the object segmentation process, which is why the parameter was visually inspected to work . 
+
++ voxel grid filter
+
+
+Next, the point cloud is downsampled using the voxel grid filtering scheme available in the PCL library. The voxel grid filter approximates the world with a voxel grid that is a grid of cubic 3d volumes representing whether a space is occupied or not. The accuracy of the voxel grid depends on the selected cube length. Consequently, the voxel grid filtering can be used to compute different fidelity levels for the environment representation (analogous to Gaussian image pyramids). For example, in the implemented software a value of 0.12 m was selected as the voxel cube side, which produces a point cloud presentation of the original point cloud downsampled to a 2.2\% size compared to the original point cloud size. The downsampled cloud that is significantly smaller than the original still contains the geometry data in decent detail. The subset of the downsampled point cloud that represents the load object is used to produce the actual load object measurement.
+
+All data points that coincide in the same voxel grid voxel are downsampled into a single data point that is then output as the voxel grid cell result. Two different approaches are used in the approximation: the voxel cell can simply output its center coordinate as the result, or a more often used center of gravity (centroid) of the original point set can be used as the output result. In this work, the computationally more expensive centroid of the points approximation is used. The resulting downsampled point cloud will thereby consist of a set of centroids computed from the original point cloud that was divided in voxel grid cells.
+
 \subsection{Object Segmentation}
 \label{subsection:object_segmentation}
+
+
+
+
 + Euclidean Cluster Extraction
+
+
 
 % the used scale of the point cloud point entries does have an effect on the computation time
 % a computation processed using meters is much faster than computation on the same point cloud represented in micrometers, a million times larger values
@@ -2158,17 +2183,6 @@ Setting parameters in the ROS parameter server is done using an XML launch file 
 Object segmentation is the first operation done for the point cloud after initial preprocessing is finished. The current implementation uses k-means clustering that clusters N-dimensional data points into k different spatial clusters using the PCL Euclidean Cluster Extraction class. For three-dimensional point cloud data, clustering uses $N = 3$ and an Euclidean metric for measuring distance between clusters and data candidates. Following the dissertation by Rusu \citep{Rusu09} the k-means clustering search would be presented algorithmically as
 
 The visual indicator that was added in the object segmentation visualisation turned out to be very useful in understanding where the load selection coordinate was, and it was used to move the proximity based selection center using ROS rqt\_reconfigure sliders.
-
-\subsection{Point Cloud Filtering}
-\label{subsubsection:point_cloud_filtering}
-
-Point Cloud Library provides many readily available filtering products to be used for point cloud processing purposes. For example, filters that remove NaN values, voxel grid filtering, and outlier data point filtering are available online. Next, all the filters used in the pre-processing, and downsampling phases of the load area point cloud are introduced. The load area point cloud contains the depth data computed from the stereo cameras, which describes the nearby environment from a single viewpoint.
-
-In pre-processing of the load area point cloud, a NaN removal filter, and a Inf value filter are used. The filters remove any values marked as infinity ($Inf$/$std::numeric_limits<float>::infinity()$), or not a number ($NaN$). The NaN removal is a PCL feature that was readily used, and the Inf removal was implemented in the work.
-
-Next, the point cloud is downsampled using the voxel grid filtering scheme available in the PCL library. The voxel grid filter approximates the world with a voxel grid that is a grid of cubic 3d volumes representing whether a space is occupied or not. The accuracy of the voxel grid depends on the selected cube length. Consequently, the voxel grid filtering can be used to compute different fidelity levels for the environment representation (analogous to Gaussian image pyramids). For example, in the implemented software a value of 0.12 m was selected as the voxel cube side, which produces a point cloud presentation of the original point cloud downsampled to a 2.2\% size compared to the original point cloud size. The downsampled cloud that is significantly smaller than the original still contains the geometry data in decent detail. The subset of the downsampled point cloud that represents the load object is used to produce the actual load object measurement.
-
-All data points that coincide in the same voxel grid voxel are downsampled into a single data point that is then output as the voxel grid cell result. Two different approaches are used in the approximation: the voxel cell can simply output its center coordinate as the result, or a more often used center of gravity (centroid) of the original point set can be used as the output result. In this work, the computationally more expensive centroid of the points approximation is used. The resulting downsampled point cloud will thereby consist of a set of centroids computed from the original point cloud that was divided in voxel grid cells.
 
 \subsection{Ground Plane Estimation}
 \label{subsubsection:ground_plane_estimation}
