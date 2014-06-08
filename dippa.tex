@@ -1949,13 +1949,13 @@ The fourth use case has a small telescopic crane installed on a forestry machine
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
 %Histogram equalization maps the current image intensity response over the full available intensity range. 
 
-Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit \ref{Karhu13}.
+Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit \citep{Karhu13}.
 %todo reference from Sami
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{himmeli_modules.jpg}
-    \caption{Himmeli platform includes a sensor module, a computation module, and a support module with IR light source.}
+    \caption{Himmeli platform includes a sensor module, a computation module, and a support module.}
     \label{fig:himmeli_modules}
   \end{center}
 \end{figure}
@@ -1963,17 +1963,17 @@ Himmeli sensor platform is a modular sensor rig that was engineered in Aalto uni
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{himmeli.pdf}
-    \caption{Himmeli platform perception sensor schematic\ref{Terho10}.}
+    \caption{Himmeli perception platform sensor schematic\citep{Terho10}.}
     \label{fig:himmeli_schematic}
   \end{center}
 \end{figure}
 
-The Himmeli platform includes three modules who are namely the sensor module, a computation module, and a support module with an IR light source seen in Figure \ref{fig:himmeli_modules}. On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The Velodyne HDL-32 can be used to scan the environment geometry with 32 micromirror controlled lasers. The schematic of all the sensors can be seen in Figure \ref{fig:himmeli_schematic}.
+The Himmeli platform includes three modules: the sensor module, a computation module, and a support module with an IR light source (see Figure \ref{fig:himmeli_modules}). On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The Velodyne HDL-32 can be used to scan the environment geometry with 32 micromirror controlled lasers. The schematic of all the sensors can be seen in Figure \ref{fig:himmeli_schematic}.
 
-The automotive radar installed in Himmeli was not used to model the environment because of its low accuracy of 5 cm to 1 m depending on band used\ref{Ahtiainen12}. In general, radars are not often used in machine perception systems due to their low resolution output. They can operate in adverse weather, such as fog, so for some outdoor applications the radar might be useful. For example, if the load object measurement system was used to measure geometry of container cranes in a seaport terminal, the radar could be used for partial modeling of the load object under harsh weather circumstances.
+The automotive radar installed in Himmeli was not used at all due to its low resolution output, but it could be helpful under adverse weather conditions\citep{Ahtiainen12}. If the load object measurement system was used to measure distance of container cranes in a seaport terminal, then the RADAR would be used during low visibility periods of operation.
 
-\subsection{Stereo Camera Technical Details}
-\label{subsection:stereo_camera_technical_details}
+\subsection{Himmeli Stereo Cameras}
+\label{subsection:himmeli_stereo_cameras}
 
 The Himmeli sensor module includes two high resolution GigE uEye UI-5120 RE HDR cameras with industrial grade casings. The uEye UI-5120 RE HDR camera is a high dynamic range camera with a CMOS (complementary metal oxide semiconductor) sensor array with a PAL resolution of 768 x 576 pixels seen in Figure \ref{fig:gige-camera}. The model in use (UI-5120RE-M-GL Rev.2) has a monochrome sensor that transmits intensity images at a maximum of 50 frames per second using Gigabit Ethernet data connection. 
 
