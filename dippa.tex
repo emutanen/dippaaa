@@ -2168,7 +2168,7 @@ The voxel grid filtering can be used to compute different lower fidelity levels 
 % the used scale of the point cloud point entries does have an effect on the computation time
 % a computation processed using meters is much faster than computation on the same point cloud represented in micrometers, a million times larger values
 
-After the preprocessing of the point cloud, the 3d data is being segmented into separate objects using Euclidean cluster extraction in PCL (pcl::EuclideanClusterExtraction class). The cluster extractor uses k-means clustering that clusters n-dimensional data points into k different spatial clusters. For 3d point cloud data, a Euclidean metric is used in measuring distance between cluster candidates. The extractor uses a k-D -tree search Following the dissertation by Rusu  the k-means clustering search would be presented algorithmically as
+After the preprocessing of the point cloud, the 3d data is being segmented into separate objects using PCL Euclidean cluster extraction. The cluster extractor uses k-means clustering technique to cluster n-dimensional data points into k different spatial clusters. For 3d point cloud data, a Euclidean metric is used in measuring distance between cluster candidates. The extractor is implemented in pcl::EuclideanClusterExtraction class, and the steps of the algorithm in Algorithm \ref{algorithm:cluster_extraction} follow the presentation of Rusu's dissertation. \citep{Rusu09} 
 
 \begin{algorithm}
 \KwData{point cloud $P$}
@@ -2188,8 +2188,11 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
         }
     }
 }
-\caption{Nearest neighbour algorithm that utilises a k-D -tree structure. Algorithm presented in \citep{Rusu09}.}
-\label{eq:cluster_extraction}
+
+
+
+\caption{Nearest neighbour algorithm that utilises a k-D -tree structure.}
+\label{algorithm:cluster_extraction}
 \end{algorithm}
 
 \citep{Rusu09}
