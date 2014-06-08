@@ -2142,9 +2142,11 @@ byte[] & base64 & Base64-encoded byte array \\
 Setting parameters in the ROS parameter server is done using an XML launch file when launching a ROS node. All the variables are evaluated before launching any nodes, and all information is uploaded to the parameter server before launching the nodes. We can force certain data types for the parameters if the data types are not unambiguos. Supported types in the launch file are \emph{str}, \emph{int}, \emph{double}, and \emph{bool}. Additionally, we may set parameters in child namespaces or fully upload the contents of a parameter file to the parameter server as text or binary.
 
 \chapter{Computation}
-\label{chapter:algorithms}
+\label{chapter:computation}
 
-This chapter introduces computation techniques used to recover the load object measurement from the 3d data provided by the stereo cameras. The data generated according to Chapter \ref{chapter:stereoscopic_machine_vision} is processed using Point Cloud Library and into a 3d bounding volume measurement.
+This chapter introduces computation techniques used to recover the load object measurement from the 3d data provided by the stereo cameras. The point cloud data was generated in Chapter \ref{chapter:stereoscopic_machine_vision}, and this chapter presents how the data is processed into a bounding volume measurement with help of Point Cloud Library.
+
+The C++ software source code is not shown in this chapter, because it was done as part of the FAMOUS project, and as such it is not publicly available. Fortunately, an interested reader can find the same functionality from the PCL tutorials available at \citep{PCLTutorials14}.
 
 \section{Point Cloud Library Operations}
 \label{section:point_cloud_library_operations}
