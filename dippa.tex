@@ -1906,9 +1906,6 @@ The load object measurement implementation was realised as part of the FAMOUS pr
 
 The programming work was carried out between March 2013 and May 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library was used for image processing and stereo rectification purposes, and Point Cloud Library (PCL) was used for all data intensive point cloud processing. Boost library was used for all file system operations. All the data networking, runtime configurations, and other networking solutions were implemented using the Robot Operating System (ROS).
 
-
-During the implementation period, new versions of most of the libraries became available, but the implementation uses latest currently stable versions: ROS Groovy and PCL 1.6 (compatible with ROS Groovy). If the software would be upgraded, then a newer version of ROS (Hydro) can only be used with the next version of PCL (1.7). PCL 1.7 does simplify some things, for example PCL visualization camera controls, and brings some extended features that could benefit the load object measurement system (for example, the new moment of inertia and eccentricity based descriptors functionality). Other than that, the old versions have all the functionality that the system needs, and they are successfully used to run the software at the time of writing this.
-
 \section{Software Architecture}
 \label{section:software_architecture}
 
@@ -1925,7 +1922,7 @@ The software component design was planned modular so that different parts of the
 \section{Use Cases}
 \label{section:use_cases}
 
-Performance of the implemented software is tested with four different use cases. The first use case has an overhead crane setup with a top-down camera viewpoint. The stereo camera rig is attached to the crane trolley with cameras facing down so that the crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the center of the image at all times. Hoisting the load up will enlarge and slightly decenter the image of the load object.
+In the first use case an overhead crane  with a top-down camera viewpoint. The stereo camera rig is attached to the crane trolley with cameras facing down so that the crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the center of the image at all times. Hoisting the load up will enlarge and slightly decenter the image of the load object.
 
 The second use case has an overhead crane setup with a bird's eye viewpoint. The stereo camera rig is attached to the traveling beam below the driving rails. The cameras are tilted vertically so that they are facing the load object with some parts of the opposite wall, and most of the floor visible. Hoisting the load up will show the load moving towards the upper part of the image. Hoisting movement does not enlarge the image of the load object, but driving the crane bridge trolley near the cameras will enlarge it.
 
@@ -2070,22 +2067,6 @@ The Himmeli platform computation module includes different components that contr
 % \end{center}
 %\end{figure}
 
-\section{Point Cloud Library}
-\label{section:point_cloud_library}
-
-Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
-PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
-
-\subsection{Limitations of Point Cloud Computing}
-\label{subsection:limitations_of_point_cloud_computing}
-
-Although PCL library is optimized for point cloud computing, the biggest limitation in point cloud processing currently is the slow processing speeds of some operations. The number of data entries per point cloud has a big effect on some operations, such as the K-nearest neighbour search.
-
-
-One estimate for the processing speed of a single cloud into a bounding volume output can be done by looking into other implementations in other research teams' efforts. As all the computation for PCL processing is done using an Intel Core i5 3.2GHz CPU on a 64-bit system with 
-
-
-
 \section{Robot Operating System}
 \label{section:robot_operating_system}
 
@@ -2100,12 +2081,10 @@ ROS also includes a multitude of tools that can be used for data traffic verific
 
 For the networked data approach, ROS was considered as the number one framework choice in terms of cross-platform communications for the load object measurement system. Other options considered were an own implementation of the UDP communication protocol, some other real-time operating system, such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not as readily available for a full-fledged PC network in an industrial LAN setting as ROS was, thus, ROS was selected for use in the software development effort.
 
-\subsection{ROS Naming Conventions}
-
+%ROS Naming Conventions
 The current naming convention is meant to protect from colliding topic, node, and parameter names. 
 
-\subsection{Parameter Server}
-\label{subsection:parameter_server}
+%parameter_server
 
 ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is one of the advantages of using ROS since it can be used for reliably configuring a multi-device network. The parameter server is implemented usig XMLRPC libraries in the ROS master node.
 
@@ -2138,8 +2117,11 @@ This chapter introduces computation techniques used to recover the load object m
 
 The C++ software source code is not shown, because it was done as part of the FAMOUS project, and as such it is not publicly available. An interested reader can find a large part of the used code from the PCL tutorials available at pointclouds.org website\citep{PCLTutorials14}.
 
-\section{Point Cloud Library Operations}
-\label{section:point_cloud_library_operations}
+\section{Point Cloud Operations}
+\label{section:point_cloud_operations}
+
+Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
+PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
 
 \subsection{Filtering And Downsampling}
 \label{subsubsection:filtering_and_downsampling}
