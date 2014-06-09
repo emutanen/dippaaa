@@ -2010,26 +2010,24 @@ The mass of a single GigE uEye camera is only 0.175 kg, which means that the cam
 
 The Himmeli platform computation module includes 2 PC computers, and different components that control the power and the data flow of the perception platform. The PCs run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. The other PC is installed with a Linux distribution that runs the sensor fusion software. We do not consider the details of the Himmeli platform in more detail, except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
 
-\section{Robot Operating System}
+\section{Robot Operating System (ROS)}
 \label{section:robot_operating_system}
-
-
 %Additionally, different versions of ROS distributions are not cross-compatible in the same ROS network. That means we need to decide upon a single ROS version which we are using. This is also a problem, because it is easiest to run PCL on a ROS Hydro distibution, where the other parts of the software (e.g. the TLD tracker) runs on older ROS Fuerte distribution. The old software component code base may be difficult to upgrade, so quite probably we will use ROS Fuerte and run older versions of PCL on it.   
 
-Robot Operating System, or shortly ROS, is an open source operating system-like framework targeted specifically for robotics application use. It was originally developed by Stanford AI laboratory in 2007 and currently supported by the open source community. The latest release was ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, stacks (legacy), and community-supported repositories, who provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup.
+Robot Operating System (ROS) is an open source operating system -like framework targeted specifically for robotics application use. It was originally developed by the Stanford AI laboratory in 2007 and currently supported by the open source community. The latest release was ROS Hydro release in September 2013. ROS is structured with a hierarchy of nodes, packages, and community-supported repositories that provide the user with a large code base of readily available robotic applications. ROS system can also utilize a heterogenous computation network which is administered using a master-slave network setup in a normal LAN network.
 
-ROS is mainly used in this thesis for its excellent capability of networked messaging through topics and subscribers. With a little effort we may use readily available data types for point cloud data networking, and interaction between popular operating system platforms, such as Windows and Unix environments. Data can be published via topics if we wish to disseminate it in the ROS network without receiving any feedback. In case we need feedback whether someone uses the data or not, ROS provides with a server-client scheme. 
+ROS is used in this thesis due to its excellent networking capability of messages with topics and subscribers. Little effort is needed to use readily available message types for point cloud data networking, and interaction between popular operating system platforms such as Windows and Linux. Data can be disseminated via topics in the ROS network, and any configured computer can access and subscribe the information as needed.
 
-ROS also includes a multitude of tools that can be used for data traffic verification.
+ROS was the first choice for networked data communication, but other options were also considered including an own implementation of the UDP communication protocol, some other real-time operating system, such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not suitable for a PC network in an industrial LAN setting, thus, ROS was selected for use in the software development effort.
 
-For the networked data approach, ROS was considered as the number one framework choice in terms of cross-platform communications for the load object measurement system. Other options considered were an own implementation of the UDP communication protocol, some other real-time operating system, such as FreeRTOS, or an implementation with no networking capabilities at all. The other options were not as readily available for a full-fledged PC network in an industrial LAN setting as ROS was, thus, ROS was selected for use in the software development effort.
+ROS Groovy was the version used for all development purposes, and packages such as rqt\_graph, rqt\_logger, rviz, dynamic\_reconfigure, and others were used for debugging the software. At the heart of the ROS system there is a ROS parameter server, which is detailed next.
 
-%ROS Naming Conventions
-The current naming convention is meant to protect from colliding topic, node, and parameter names. 
-
-%parameter_server
+\subsection{ROS Parameter Server}
+\label{subsection:ros_parameter_server}
 
 ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is one of the advantages of using ROS since it can be used for reliably configuring a multi-device network. The parameter server is implemented usig XMLRPC libraries in the ROS master node.
+
+ROS uses parameter server that keeps track of all topics, nodes, and parameters used in the network. The parameter server handles all data relay information, and the names used for all parameters had to be unique to prevent collisions in the parameter server, which was why a naming convention with long, unique names was used for all parameters. 
 
 \begin{table}\centering
 \ra{1.3}
