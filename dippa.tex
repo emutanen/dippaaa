@@ -2185,20 +2185,15 @@ Some problems in cylinder segmentation were encountered because the load object 
   \end{center}
 \end{figure}
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{cylinder_fitting_pt2.jpg}
-    \caption{Cylinder fitting image 2/3 shows the segmented load objects assigned with colors, and the length of the found cylinder in millimeters.}
+\begin{figure}%
+    \centering
+    \parbox{5cm}{\includegraphics[width=\linewidth]{cylinder_fitting_pt2.jpg}}%
+    \qquad
+    \begin{minipage}{5cm}%
+    \includegraphics[width=\linewidth]{cylinder_fitting_pt3.jpg}
+    \end{minipage}%
+    \caption{a) Cylinder length in millimeters in the segmented object view b) Cylinder visualisation in the load object point cloud.}
     \label{fig:cylinder_fitting_pt2}
-  \end{center}
-\end{figure}
-
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{cylinder_fitting_pt3.jpg}
-    \caption{Cylinder fitting image 3/3 shows the selected load object point cloud and the extracted cylinder.}
-    \label{fig:cylinder_fitting_pt3}
-  \end{center}
 \end{figure}
 
 
@@ -2206,7 +2201,7 @@ If a verification check reported that the location of the found load object is n
 
 The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other logs approximately 50\% of the time. It is not possible to detect the number of logs carried in the boom crane using the RANSAC model estimator, but the bounding volume can be computed for multiple logs. The radius of the cylinder was estimated slightly too large typically, which is acceptable in bounding volume computation.
 
-The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt3}, which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters, because it is not fully overlapping the log point response.
+The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt3}, which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters.
 
 \section{Bounding Volume Computation}
 \label{section:bounding_volume_computation}
