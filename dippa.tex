@@ -1939,8 +1939,7 @@ In the fourth use case, the stereo camera platform is installed on a forestry ma
 %HIMMELI sensor platform provides means for creating digital models of the environment with stereo cameras and a LIDAR laser scanner. The environment modeling accuracy depends on the distance of the target area to the stereo cameras, and consequently the area of the modeled environment depends on the distance to the cameras. The laser scanner can model larger areas with higher accuracy.
 %Histogram equalization maps the current image intensity response over the full available intensity range. 
 
-Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform for the implementation work done in this thesis. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit \citep{Karhu13}.
-%todo reference from Sami
+Himmeli sensor platform is a modular sensor rig that was engineered in Aalto university department of automation and systems technology in a research project in 2012. The sensor platform was created for use in future automated machinery research and its purpose is to provide flexible sensing of environment with multiple sensors. Himmeli sensor platform was used as the perception platform in this work. It can collect data from the crane environments using stereo cameras or laser scanner, and it can provide orientation change data using an inertial measurement unit \citep{Karhu13}.
 
 \begin{figure}[ht]
   \begin{center}
@@ -1958,20 +1957,20 @@ Himmeli sensor platform is a modular sensor rig that was engineered in Aalto uni
   \end{center}
 \end{figure}
 
-The Himmeli platform includes three modules: the sensor module, a computation module, and a support module with an IR light source (see Figure \ref{fig:himmeli_modules}). On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The Velodyne HDL-32 can be used to scan the environment geometry with 32 micromirror controlled lasers. The schematic of all the sensors can be seen in Figure \ref{fig:himmeli_schematic}.
+The Himmeli platform includes three modules: (see Figure \ref{fig:himmeli_modules}) the sensor module, a computation module, and a support module with an IR light source. On the front side of Himmeli, the sensor module includes a high resolution stereo camera pair, a single high resolution camera, a thermal imaging camera, an automotive ultrasound RADAR, and an inertial measurement unit (IMU). There is an optional Velodyne HDL-32E LIDAR sensor on top of the sensor module. The Velodyne HDL-32 can be used to scan the environment geometry with 32 micromirror controlled lasers. The schematic of all the sensors can be seen in Figure \ref{fig:himmeli_schematic}.
 
-The automotive radar installed in Himmeli was not used at all due to its low resolution output, but it could be helpful under adverse weather conditions\citep{Ahtiainen12}. If the load object measurement system was used to measure distance of container cranes in a seaport terminal, then the RADAR would be used during low visibility periods of operation.
+The automotive radar installed in Himmeli was not used at all due to its low resolution output, but it could be helpful under adverse weather conditions\citep{Ahtiainen12}. If the load object measurement system was used to measure distances of container cranes in a seaport terminal, then the RADAR could be used during low visibility periods of operation.
 
 \subsection{Himmeli Stereo Cameras}
 \label{subsection:himmeli_stereo_cameras}
 
-The Himmeli sensor module includes two high resolution GigE uEye UI-5120 RE HDR cameras with industrial grade casings. The uEye UI-5120 RE HDR camera is a high dynamic range camera with a CMOS (complementary metal oxide semiconductor) sensor array with a PAL resolution of 768 x 576 pixels seen in Figure \ref{fig:gige-camera}. The model in use (UI-5120RE-M-GL Rev.2) has a monochrome sensor that transmits intensity images at a maximum of 50 frames per second using Gigabit Ethernet data connection. 
+The Himmeli sensor module includes two high resolution GigE uEye UI-5120 RE HDR cameras with industrial grade casings. The uEye UI-5120 RE HDR camera is a high dynamic range camera with a CMOS (complementary metal oxide semiconductor) sensor array with a resolution of 768 x 576 pixels (PAL) (see Figure \ref{fig:gige-camera}). The model in use (UI-5120RE-M-GL Rev.2) has a monochrome sensor that transmits intensity images at a maximum of 50 frames per second using Gigabit Ethernet. 
 
-If the 175 gram GigE uEye cameras are installed in a vibrating environment (e.g. a rotary crane boom) the camera's image output quality may suffer, because the optics do not include image stabilisers. Using the stereo pair installed in the Himmeli sensor module may improve the image quality in some environments due to passive damping properties of a larger mass of a sensor module body.
+If the 175 gram GigE uEye cameras are installed in a vibrating environment (some crane environments) the cameras' image output quality may suffer, because the optics do not include image stabilisers. Using the stereo cameras installed as part of the Himmeli perception platform may improve the image quality due to passive damping properties of a larger mass of the sensor module body.
 
-The cameras are installed with lens tube shieldings (class IP65/67) so they can operate even in outdoor winter conditions. The rest of the components of the camera comply to the splashproof and dustproof IP65/65 class so the camera and its casing are well-suited for industrial imaging purposes.
+The cameras are installed with lens tube shieldings (class IP65/67) that enable operation in outdoor winter conditions. The components of the camera comply to the splashproof and dustproof IP65/65 class, thus, the camera and its casings are well-suited for industrial imaging purposes.
 
-The camera CMOS mono sensor is manufactured by NIT and has a pixel size of 10 $\mu$m and an optical size of 5.75 mm x 7.68 mm. It has a colour depth of 12 bits, and the dynamic range of the camera is logarithmic with a 120dB sensitivity\ref{IDSImagingWeb13}.
+The camera CMOS mono sensor has a pixel size of 10 $\mu$m and an optical size of 5.75 mm x 7.68 mm. It has a colour depth of 12 bits (single channel only), and a logarithmic dynamic range of a 120dB sensitivity\ref{IDSImagingWeb13}.
 
 \begin{figure}[ht]
   \begin{center}
@@ -1984,7 +1983,7 @@ The camera CMOS mono sensor is manufactured by NIT and has a pixel size of 10 $\
 \subsection{Installation}
 \label{subsection:installation}
 
-The Himmeli platform was installed in two different test environments as described in the use cases.
+The Himmeli platform was installed in two different test environments in total of 4 differenct configurations as was described in the use cases in Section \ref{section:use_cases}.
 
 \subsubsection{Overhead Crane Installation}
 \label{subsubsection:overhead_crane_installation}
@@ -1997,13 +1996,9 @@ The Himmeli platform was installed in two different test environments as describ
  \end{center}
 \end{figure}
 
-In the overhead crane environment the Himmeli perception platform was installed modularly so that the sensor module was installed in the overhead crane, and the computation module was used at the operator balcony of the process hall. Since most overhead cranes have little available space to install anything, only the sensor module was installed in the overhead test crane. Two installation options were available for the sensor module: first option was to install the sensor module to a moving trolley, and the second option was to install the sensor module to the side of the bridge. 
+In the overhead crane environment only the Himmeli sensor module was installed in the overhead crane trolley or the traveling bridge. 
 
-In the first installation option the sensor module was attached directly to the moving crane trolley housing so that the camera units were facing down towards the crane working area in a top-down manner with a slight angle to the warehouse floor as seen in figure \ref{fig:himmeli_installation_option_1}. 
-%In option 1 the laser scanner rotation axis points towards the floor, aligning the laser scan lines along the shorter length of the warehouse space (Y axis of the warehouse coordinate system).
-
-In the second installation option the sensor module was attached to the side of the moving bridge using a custom made metal frame. In this installation option the camera units were facing towards the crane working area from side and above in a bird's eye view manner. 
-%The laser scanner rotation axis points towards the opposite end of the moving bridge, aligning the laser scan lines along the longer length of the warehouse space (X axis of the warehouse coordinate system).
+In the overhead crane environment two installation options were available for the perception platform: first option was to install the sensor module in the moving trolley (top-down viewpoint, see Figure \ref{fig:himmeli_installation_option_1}), and the second option was to install the sensor module to the side of the bridge (using a custom made metal frame). Due to spatial limitations only the sensor module was installed into moving parts of the crane while the computation module was used at the operator balcony of the process hall. Most overhead cranes have little available space to install anything, thus, the modularity of the Himmeli system was very useful.
 
 \subsubsection{Forestry Crane Installation}
 \label{subsubsection:forestry_crane_installation}
