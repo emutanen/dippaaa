@@ -1902,9 +1902,11 @@ Q is the reprojection matrix that encodes information about the stereo camera se
 \label{chapter:implementation}
 %test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
 
-The load object measurement implementation was realised as part of the FAMOUS project in Generic Intelligent Machines (GIM) research group. The implemented software included e.g. the stand-alone load object measurement tool that processes point cloud data into load object bounding volume information, and a point cloud data publisher that generates data using the Himmeli stereo camera platform.
+The load object measurement implementation was realised as part of the FAMOUS project in Generic Intelligent Machines (GIM) research group. The implemented software included e.g. the stand-alone load object measurement client that processes point cloud data into load object bounding volume information, and a point cloud data publisher that generates data from the Himmeli perception platform stereo cameras.
 
-The programming work was carried out between March 2013 and May 2014. In addition to standard C and C++ libraries, external libraries specialized in image processing and point cloud processing were used. OpenCV library was used for image processing and stereo rectification purposes, and Point Cloud Library (PCL) was used for all data intensive point cloud processing. Boost library was used for all file system operations. All the data networking, runtime configurations, and other networking solutions were implemented using the Robot Operating System (ROS).
+The programming work was carried out between March 2013 and May 2014. In addition to standard C and C++ libraries, external libraries specialised in image processing and point cloud processing were used. OpenCV library was used for camera calibration and stereo rectification purposes, and Point Cloud Library (PCL) was used for all data intensive point cloud processing, such as k-nearest neighbour search and parameter estimation techniques. Boost library was used for all file system operations. All the data networking, runtime configurations, and other networking solutions were implemented using the Robot Operating System (ROS).
+
+This chapter introduces the used software architecture, use cases, and the perception platform hardware. The software details are discussed in other chapters. Point Cloud Library computation will be detailed in Chapter \ref{chapter:computation}, and OpenCV computation was discussed earlier in Chapter \ref{chapter:stereoscopic_machine_vision}.
 
 \section{Software Architecture}
 \label{section:software_architecture}
@@ -1918,6 +1920,8 @@ The programming work was carried out between March 2013 and May 2014. In additio
 \end{figure}
 
 The software component design was planned modular so that different parts of the measurement, e.g. stereo rectification and object segmentation, can be developed independently. The full system design would consist of many sequential components, some of which would be designed and implemented by other researchers in the FAMOUS research project. The final design of the software was finished in December 2013, which can be seen in Figure \ref{fig:software_architecture}.
+
+In Figure \ref{fig:software_architecture} the ROS interface can be seen as a dashed line, and the blue lines show ROS messages that were used for moving data in and out of the ROS network (and between ROS nodes). The yellow lines represent UDP packet communication, which was only used by the cameras for image data transfer. Different versions of the software can be configured using ROS topics and subscribers: for example, the TLD block can be removed with simple configuration when the processed camera image data only contains overhead crane applications. Dynamic reconfigure server was used to switch quickly at runtime from application to another and e.g. enable / disable detection of cylindrical logs, but it is not shown in the general architecture diagram. To understand all the applications that the software design must support, use cases must be introduced.
 
 \section{Use Cases}
 \label{section:use_cases}
