@@ -2132,20 +2132,26 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
 \subsection{Parameter Estimation And Ground Plane Removal}
 \label{subsubsection:parameter_estimation_and_ground_plane_removal}
 
-Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)) via using a parameter estimation technique. 
+Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)) via using a parameter estimation technique. If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data for easy extraction.
 
-If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data. Parameter estimation finds models from datasets, and in this case, it is known that a planar model (in 3 dimensions) is needed, which can be implicitly formulated as 
+Classic parameter estimation methods (e.g. least squares minimisation) effectively optimise the fit of the selected parameter model using all points in the dataset. In 1981, Fischler and Bolles presented a new parameterised model estimation technique titled random sample consensus (RANSAC) that improves classic techniques by detecting which points are outliers in the data\citep{Fischler81}.
+
+While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initialises the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found that support existence of the suggested model. This way, outlier data points are not used in the model fitting, and the solution is found easily even when gross errors are present in the dataset.
+
+PCL parameter estimation finds models from datasets using the RANSAC method or a variant. Before RANSAC iteration, a model type is required, which in this case is a planar model that can be equated as  
 
 \begin{equation}
 ax + by + cz + d = 0
 \label{eq:planar_model}
 \end{equation}
 
-The parameter estimation tries to fit the model of Equation \ref{eq:planar_model} in the test data using PCL sample consensus model types and methods. Other model types include planes, cylinders, spheres, and other simple models that can be formulated using an implicit parameter model. The existence of a certain model in the dataset is tested by guessing an initial model, and finding out inliers that determine whether the dataset supports the candidate model or not. A typical sample consensus (SAC) search may run hundreds of iterations, and the number of maximum iterations is usually limited. 
+Initial values for variables  $a$, $b$, $c$, and $d$ are randomly chosen by the PCL software and iterated until a model with small error metric is obtained. PCL implementation uses pcl::ModelCoefficients class to represent sample consensus model types, such as planar, cylindrical, and spherical implicit parameter models. A simple tutorial, which will show the steps of plane model segmentation using the pcl::SACSegmentation class and its methods can be visited at the pointclouds.org website\citep{PlaneModelSegmentation14}.
 
-Classic parameter estimation methods (e.g. least squares minimisation) effectively optimise the fit of the selected parameter model using all points in the data set. In 1981, Fischler and Bolles presented a new parameterised model estimation technique called random sample consensus (RANSAC) that improves classic techniques by detecting which points are outliers in the data\citep{Fischler81}.
+A typical sample consensus (SAC) search may run hundreds of iterations, and the number of maximum iterations is usually limited with a parameter. Parameters used in this work were
 
-While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initialises the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found. This way, outlier data points are not used in the model fitting, and the solution is found easily even when gross errors are present in the dataset.
+
+
+
 
 In the implemented test software, the RANSAC algorithm from PCL package is used, which finds the ground plane from point cloud data sets successfully for most cases. 
 
