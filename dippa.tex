@@ -2196,7 +2196,6 @@ Some problems in cylinder segmentation were encountered because the load object 
     \label{fig:cylinder_fitting_pt2}
 \end{figure}
 
-
 If a verification check reported that the location of the found load object is not correct, then the cylinder segmentation was being iterated until the verification check reported a correct cylinder (or a cylinder not found). To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
 
 The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other logs approximately 50\% of the time. It is not possible to detect the number of logs carried in the boom crane using the RANSAC model estimator, but the bounding volume can be computed for multiple logs. The radius of the cylinder was estimated slightly too large typically, which is acceptable in bounding volume computation.
