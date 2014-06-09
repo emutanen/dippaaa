@@ -2062,8 +2062,7 @@ The C++ software source code is not shown, because it was done as part of the FA
 \section{Point Cloud Operations}
 \label{section:point_cloud_operations}
 
-Point Cloud Library, or shortly PCL, is a fully templated modern C++ library for 3d point cloud processing purposes. 
-PCL uses optimizations such as Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms.
+Point cloud operations are computed with the Point Cloud Library (PCL), which is a fully templated modern C++ library for 3d point cloud processing purposes. PCL is optimised with Intel SSE with Eigen library backend, GPU CUDA processing, and parallel programming in order to maximize the computation efficiency on specific computation platforms. PCL installation will require other software libraries, such as Boost 1.46, Eigen 3.0, FLANN 1.7.1, and VTK 5.6, which are used as part of the point cloud computation, but not further detailed in this work.
 
 \subsection{Filtering And Downsampling}
 \label{subsubsection:filtering_and_downsampling}
@@ -2074,9 +2073,9 @@ After using the NaN removal filter, the data becomes unorganised, which drops th
 
 The used value was found using a slider that changed the cube size in real-time in the software core, and the effects were instantly seen on the output point cloud. The voxel grid leaf size had an effect on the object segmentation process, too, which is why it was compulsory to visually inspect the parameter effect on the output object segmentation.
 
-A grid of cubic 3d volumes covers all the data, and all points residing in a single voxel cube are replaced by their centroid or the center of the voxel. The current implementation uses the centroid (center of gravity) approach, which is slower than outputting only the center coordinate of the voxel. By using the centroid approach the underlying 3d surface is being represented more accurately. \citep{VoxelGrid14} The voxel grid leaf size is the only parameter in voxel grid filtering that controls the coarseness of the downsampling result besides the selected approximation method.
+A grid of cubic 3d volumes covers all the data, and all points residing in a single voxel cube are replaced by their centroid or the center of the voxel. The current implementation uses the centroid (center of gravity) approach, which is slower than outputting only the center coordinate of the voxel. By using the centroid approach with the voxel grid, the underlying 3d surface of the data is being represented more accurately\citep{VoxelGrid14}. The voxel grid leaf size is the only parameter in the filtering that controls the coarseness of the downsampling result besides the selected approximation method.
 
-The voxel grid filtering can be used to compute different lower fidelity levels for the environment representation analogous to the Gaussian image pyramids technique for 2d images. The downsampled cloud that is significantly smaller than the original still contains the geometry data in smoothed detail as seen in Figure \ref{fig:downsampling}. The subset of the downsampled point cloud that represents the load object is used to produce the load object measurement.
+The voxel grid filtering can be used to compute different lower fidelity representations for the environment analogous to the Gaussian image pyramid technique for 2d images. The downsampled cloud that is significantly smaller than the original still contains the geometry data in smoothed detail as seen in Figure \ref{fig:downsampling}. The subset of the downsampled point cloud that represents the load object is used to produce the load object measurement.
 
 \begin{figure}[ht]
   \begin{center}
@@ -2093,7 +2092,7 @@ The voxel grid filtering can be used to compute different lower fidelity levels 
 % the used scale of the point cloud point entries does have an effect on the computation time
 % a computation processed using meters is much faster than computation on the same point cloud represented in micrometers, a million times larger values
 
-After the preprocessing of the point cloud, the 3d data is being segmented into separate objects using PCL Euclidean cluster extraction. The cluster extractor uses k-means clustering technique to cluster n-dimensional data points into k different spatial clusters. For 3d point cloud data, a Euclidean metric is used in measuring distance between cluster candidates. The extractor is implemented in pcl::EuclideanClusterExtraction class, and the steps of the algorithm in Algorithm \ref{algorithm:cluster_extraction} follow the presentation of Rusu's dissertation. \citep{Rusu09} 
+After the preprocessing of the point cloud, the 3d data is being segmented into separate objects using PCL Euclidean cluster extraction. The cluster extractor uses k-means clustering technique to cluster n-dimensional data points into k different spatial clusters. For 3d point cloud data, a Euclidean metric is used in measuring distance between cluster candidates. The extractor is implemented in pcl::EuclideanClusterExtraction class, and the steps of the algorithm (see Algorithm \ref{algorithm:cluster_extraction}) follow the presentation of Rusu's dissertation. \citep{Rusu09} 
 
 \begin{algorithm}
 \KwData{point cloud $P$}
