@@ -2003,50 +2003,12 @@ In the overhead crane environment two installation options were available for th
 
 The installation of the Himmeli platform is even more constrained by spatial limitations in a log picker truck. In an actual log picker truck the installation location options are the rooftop of the driver booth (bird's eye viewpoint) and the forestry machine chassis near the base of the rotary boom crane (frog perspective viewpoint). In testing, a log picker truck was not available, and the rotary boom crane was operated on the ground with plenty of space to install anything nearby. The Himmeli platform was installed near the base plate of the rotary boom crane in the third use case, and on the rooftop of the operator booth in the fourth use case (see \ref{section:use_cases} for use case details).
 
-The mass of a single GigE uEye camera is only 0.175 kg, which means that the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively, the smaller forestry crane rotary booms tend to break measurement devices (e.g. encoders, resistive elements) that are mechanically attached to rotary actuators due to roughness of the environment \citep{Pedro09}. If the camera is attached mechanically to such a rough environment, it may produce low quality images, which is why it could be beneficial to install camera systems on the rooftop of the driver's booth in an actual log picker truck - especially if the booth has active vibration damping technology .
+The mass of a single GigE uEye camera is only 0.175 kg, which means that the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively, the smaller forestry crane rotary booms tend to break measurement devices (e.g. encoders, resistive elements) that are mechanically attached to rotary actuators due to roughness of the environment \citep{Pedro09}. If the camera is attached mechanically to a rough environment, it may produce low quality images, which is why it could be beneficial to install camera systems on the rooftop of the driver's booth in an actual log picker truck - especially if the booth has active vibration damping technology .
 
 \subsection{Computation Module}
 \label{subsection:computation_module}
 
-The Himmeli platform computation module includes different components that control the power and the data flow of the perception platform. The integrated computers run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. There is also a Linux distribution PC that runs the sensor fusion software for the captured images. The computing module can be remotely operated via a wireless local area network. We do not consider the details of the Himmeli platform in more detail, except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
-
-%\begin{itemize}
-% item separation length in a list
-%\setlength{\itemsep}{0pt}
-%\item HDR stereo camera pair
-%\item High resolution camera
-%\item 3D LIDAR laser scanner \url{http://velodynelidar.com/lidar/hdlproducts/hdl32e.aspx}
-%\item Infrared (IR) camera
-%\item Automotive radar
-%\end{itemize}
-%\begin{table}
-%\caption{Device and its connector type in HIMMELI sensor rig.}
-%\label{table:connectortypes} %lable just after caption
-%\begin{tabular}{|p{6cm}|p{5cm}|}
-%\hline % The line on top of the table
-%\textbf{Device} & \textbf{Connector Type} \\
-%\hline
-%High dynamic range camera & Gigabit Ethernet \\
-%\hline
-%High resolution camera & IEEE 1394b (FireWire) \\
-%\hline
-%Automotive radar & CAN bus \\
-%\hline
-%Thermal camera & CVBS (PAL) or serial bus \\
-%\hline
-%LIDAR laser scanner & LIDAR \\
-%\hline
-%GNSS receiver & Serial bus 1 \\ \hline
-%\end{tabular} % for really simple tables, you can just use tabular
-%\end{table} % table makes a floating object with a title
-
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=\textwidth]{himmeli_modules.jpg}
-%   \caption{HIMMELI platform modules: a PC module, a support frame module, and the sensor module.}
-%    \label{fig:himmeli_modules}
-% \end{center}
-%\end{figure}
+The Himmeli platform computation module includes 2 PC computers, and different components that control the power and the data flow of the perception platform. The PCs run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. The other PC is installed with a Linux distribution that runs the sensor fusion software. We do not consider the details of the Himmeli platform in more detail, except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
 
 \section{Robot Operating System}
 \label{section:robot_operating_system}
