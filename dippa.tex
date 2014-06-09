@@ -2145,11 +2145,15 @@ ax + by + cz + d = 0
 \label{eq:planar_model}
 \end{equation}
 
-Initial values for variables  $a$, $b$, $c$, and $d$ are randomly chosen by the PCL software and new guesses are iterated until a model with small error metric is obtained for the inlier model. PCL implementation uses pcl::ModelCoefficients class to represent sample consensus model types, such as planar, cylindrical, and spherical implicit parameter models. A simple tutorial, which will show the steps of the plane model segmentation in more detail can be visited at the pointclouds.org website\citep{PlaneModelSegmentation14}. The implementation uses pcl::SACSegmentation class and its methods to extract the data points belonging to the found model.
+After randomly picking three non-collinear data points that define a plane, the model coefficients $a$, $b$, $c$, and $d$ are computed from the randmoly chosen candidate plane. Finally, for all data points that fall within a specified error threshold from the candidate plane the distances from the parameter model are computed, and the candidate is scored accordingly \citep{Rusu09}.
 
-A typical sample consensus (SAC) search may run hundreds of iterations, and the number of maximum iterations is usually limited with a parameter. Parameters used for RANSAC in this work were maximum iterations (value 500) and distance threshold (value 140).
+New plane candidate guesses are iterated until a model with small error metric is obtained for the inlier model, or the iteration maximum limit is reached. PCL implementation uses pcl::ModelCoefficients class to represent sample consensus model types, such as planar, cylindrical, and spherical implicit parameter models. A simple tutorial, which will show the steps of the plane model segmentation in more detail can be found at pointclouds.org website\citep{PlaneModelSegmentation14}. The implementation uses pcl::SACSegmentation class and its methods to extract the data points belonging to the found model.
 
-In the implemented software, the RANSAC algorithm found the ground plane successfully almost 100\% of the time and removed it fully, which means that the selected error threshold of 14 cm was well chosen. The ground plane removal was very robust against missing parts of the floor data, and occlusions in testing. Still, there are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, for example, a large warehouse wall can be found by the RANSAC search. Secondly, the plane must be contained within an error threshold. In the bird's eye views for both tested crane environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. If the results from a RANSAC estimator are not satisfying, the most used variants can be tried, such as 
+A typical sample consensus search may run hundreds of iterations, and the number of maximum iterations is usually limited with a parameter. Parameters used for RANSAC in this work were maximum iterations (value 500) and distance threshold (value 140).
+
+In the implemented software, the RANSAC algorithm found the ground plane successfully almost 100\% of the time and removed it fully, which means that the selected error threshold of 14 cm was well chosen. The ground plane removal was very robust against missing parts of the floor data, and occlusions in testing. Still, there are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, for example, a large warehouse wall can be found by the RANSAC search. Secondly, the plane must be contained within an error threshold. In the bird's eye views for both tested crane environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. Similarly, the ground plane estimator will fail to remove grounds that are not planar, e.g. rolling hills or mounds of dirt in the ground.
+
+If the results from a RANSAC estimator are not satisfying, many variants can be found in the literature, such as 
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
@@ -2158,7 +2162,7 @@ In the implemented software, the RANSAC algorithm found the ground plane success
 \item or progressive sample consensus (PROSAC),
 \end{itemize}
 
-and many more exist depending on the used estimator. Many options can be found in the literature\citep{Torr00, Huber81}.
+and many more depending on the used estimator\citep{Torr00, Huber81}.
 
 \subsection{Cylinder Fitting}
 \label{subsection:cylinder_fitting}
