@@ -2216,34 +2216,29 @@ The cylinder model segmentation was moderately fast with the test data clocking 
 
 A bounding volume measurement is the target product or information that is produced by the implemented load object measurement system software. Now a load object point cloud is extracted from the 3d data using the point cloud operations introduced in this chapter, and the bounding volume can be computed using either an axis-aligned bounding box (AABB) approach, or an oriented bounding box (OBB) approach.
 
-AABB is the simplest bounding volume that can be applied in 3d Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object in 2d space as seen in Figure \ref{fig:aabb_obb}. AABB is straightforward to apply in 3d by finding minimae and maximae of the point set along each axis and by spanning a convex polyhedron so that all the minimum values are selected as the other corner that spans the polyhedral graph, and all the maximum values are selected as the opposing corner of the polyhedral graph.
+AABB is the simplest bounding volume that can be applied in 3d Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object in 2d space as seen in Figure \ref{fig:aabb_obb} a). AABB is straightforward to apply in 3d by finding minimae and maximae of the point set along each axis and by spanning a convex polyhedron so that all the minimum values are selected as the other corner that spans the polyhedral graph, and all the maximum values are selected as the opposing corner of the polyhedral graph. This can be done in PCL by using the function pcl::getMinMax3d().
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{aabb_obb.jpg}
-    \caption{a) Axis-aligned bounding box perimeter b) Oriented bounding box perimeter}
+    \caption{a) Axis-aligned bounding box perimeter is bigger than b) Oriented bounding box perimeter}
     \label{fig:aabb_obb}
   \end{center}
 \end{figure}
 
-AABB computation is very simple, but the biggest drawback of this technique is the large amount of empty space not occupied by the object that the AABB bounding volume contains. In the special case of maximally off-axis aligned pole shaped objects, or planar objects, an AABB volume representation may report a volume that is occupied by empty space up to more than 95\% of the volume.
+AABB computation is very simple, but the biggest drawback of this technique is the large amount of empty space not occupied by the object that the AABB bounding volume contains. In the special case of maximally off-axis aligned pole shaped objects, or planar objects, an AABB volume representation may report a volume that is mostly occupied by empty space.
 
-To combat the AABB reported bounding volume as function of orientation, an oriented bounding box can be used instead. An oriented bounding volume solution rotates the axes of the perimeter so that the minimum bounding volume is found and being reported as seen in Figure \ref{fig:aabb_obb}. OBB will help in reporting the correct minimum bounding volume of specially shaped objects, such as cylinders and planar items. It also computes the relative orientation of the load object in the sensor frame.
+To combat the bounding volume being reported as a function of the load object orientation in the world frame, an oriented bounding box OBB can be used. The 3d oriented bounding box (OBB) rotates its perimeter along the load object main axis as seen in Figure \ref{fig:aabb_obb} b). An OBB bounding volume minimises the bounding volume optimally and makes it invariant to load object rotation in the world frame.
 
-It is possible to find more complex bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented polytopes (DOPs), k-DOPs and boxtrees. More complex representation of object perimeters can lead to more accurate collision detection techniques, for example, BVH can be used to detect collisions or object interference using raytracing and culling. In the load object measurement purposes, an AABB bounding volume is a good solution, and OBB bounding volume is left as an improvement suggestion in the current software solution.
+OBB will report the actual bounding volume more accurately than the AABB bounding volume, and it is invariant to rotations of the load object. Still, for load object measurement purposes, an AABB bounding volume is a good solution, and OBB bounding volume is left as an improvement suggestion in the current software solution.
 
-\subsection{Bounding Volume From 3d Axis-aligned Bounding Box}
-\label{subsection:bounding_volume_from_3d_axisaligned_bounding_box}
+It is possible to find more complex bounding volume techniques for even more accurate object volume representation, such as bounding volume shapes, bounding volume hierarchies (BVH), discrete oriented polytopes (DOPs), k-DOPs and boxtrees. More complex representation of object perimeters can lead to more accurate collision detection techniques, for example, BVH can be used to detect collisions or object interference using raytracing and culling. 
 
-+ possibly previously unknown object who is suspended from the crane end effector tool. The form of the output information should be simple while still carefully thought in order to 
+%It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
 
 
-It is computationally expensive to update the AABB bounding box as the load orientation changes via rotation, and it is suggested that in order to fight excessive computation, the bounding box should be loosely defined so that with small angle changes there is no need for recomputation \cite{Ericson05}.
 
-\subsection{Bounding Volume From 3d Oriented Bounding Box}
-\label{subsection:bounding_volume_from_3d_oriented_bounding_box}
 
-The 3d oriented bounding box (OBB) is similar to the axis-aligned bounding box (AABB) with one difference: the bounding volume fills the cubic shape of the OBB optimally so that the bounding volume is minimized. This means that the OBB first computes a main axis for the load object and then the object frame is rotated along the axis. Now, the bounding box for the load object is seen as rotated in the world frame along the object, and the bounding volume becomes invariant to load rotation in the world frame.\par
 The PCL library versions 1.7 and higher support a version of the oriented bounding box computation using moment of inertia and eccentricity based descriptors. With these descriptors the eigen vectors of the point cloud object can be computed, and the bounding box can be oriented along the largest eigen vector in a right-hand normalised coordinate system. The OBB along the major eigen vector axis does not guarantee minimality of the bounding volume, but the method does make the bounding volume computation more invariant to changes in the load object orientation in the world coordinate space.\par
 Unfortunately, the current version of ROS Groovy does not include the moment of inertia and eccentricity descriptors required to compute the OBB. Consequently, future versions of the software running on ROS Hydro with PCL 1.7 and higher can improve the bounding volume accuracy by implementing the oriented bounding box computation. The AABB bounding volume computation currently used should be replaced with the OBB computation if the reported bounding volume accuracy is increased.
 
