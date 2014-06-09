@@ -2027,7 +2027,7 @@ ROS Groovy was the version used for all development purposes, and packages such 
 
 ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is one of the advantages of using ROS since it can be used for reliably configuring a multi-device network. The parameter server is implemented usig XMLRPC libraries in the ROS master node.
 
-ROS uses parameter server that keeps track of all topics, nodes, and parameters used in the network. The parameter server handles all data relay information, and the names used for all parameters had to be unique to prevent collisions in the parameter server, which was why a naming convention with long, unique names was used for all parameters. 
+ROS uses parameter server that keeps track of all topics, nodes, and parameters used in the network. The parameter server handles all data relay information, and the names used for all parameters have to be unique to prevent namespace collisions in the parameter server. Unique naming of parameters was enforced during the work by using a long naming convention where each parameter included the node name also in the beginning of the parameter name. 
 
 \begin{table}\centering
 \ra{1.3}
@@ -2049,7 +2049,7 @@ byte[] & base64 & Base64-encoded byte array \\
 \end{table}
 %\begin{tabular}{|p{7cm}|p{3cm}|}
 
-Setting parameters in the ROS parameter server is done using an XML launch file when launching a ROS node. All the variables are evaluated before launching any nodes, and all information is uploaded to the parameter server before launching the nodes. We can force certain data types for the parameters if the data types are not unambiguos. Supported types in the launch file are \emph{str}, \emph{int}, \emph{double}, and \emph{bool}. Additionally, we may set parameters in child namespaces or fully upload the contents of a parameter file to the parameter server as text or binary.
+Setting parameters in the ROS parameter server can be done using an XML launch file at the time of starting ROS nodes. All the variables are evaluated before launching any nodes (a single launch file can launch multiple nodes), and all the information is uploaded to the parameter server before launching any of the nodes. Supported data types in the launch file are string, integer, double and Boolean values.
 
 \chapter{Computation}
 \label{chapter:computation}
