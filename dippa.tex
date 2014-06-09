@@ -2129,12 +2129,12 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
 
 %The visual indicator that was added in the object segmentation visualisation turned out to be very useful in understanding where the load selection coordinate was, and it was used to move the proximity based selection center using ROS rqt\_reconfigure sliders.
 
-\subsection{Ground Plane Estimation}
-\label{subsubsection:ground_plane_estimation}
+\subsection{Parameter Estimation And Ground Plane Removal}
+\label{subsubsection:parameter_estimation_and_ground_plane_removal}
 
-Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)). If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data. In order to find and remove the ground plane a parameter estimation technique was used.
+Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)) via using a parameter estimation technique. 
 
-Parameter estimation finds models from datasets, and in this case, it is known that the parametric model for the ground plane is a planar model (in 3 dimensions), which can be equated as 
+If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data. Parameter estimation finds models from datasets, and in this case, it is known that a planar model (in 3 dimensions) is needed, which can be implicitly formulated as 
 
 \begin{equation}
 ax + by + cz + d = 0
