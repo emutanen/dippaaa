@@ -1926,8 +1926,6 @@ In Figure \ref{fig:software_architecture} the ROS interface can be seen as a das
 \section{Use Cases}
 \label{section:use_cases}
 
-has an overhead crane with a top-down camera viewpoint. 
-
 In the first use case, the stereo camera platform is attached to the crane trolley with cameras facing down so that the crane trolley can move freely with cameras attached, and the camera image will show the crane load approximately in the center of the image at all times (top-down viewpoint). Hoisting the load up will enlarge and slightly decenter the image of the load object. The load object bounding volume is measured from the produced images using the implemented software. The measurement is repeated for different load objects and process hall locations according to a dataset recording plan shown in Appendix \ref{appendix:overhead_dataset_recording_plan}.
 
 In the second use case, the stereo camera rig is attached to the traveling beam below the driving rails. The cameras are tilted vertically so that they are facing the load object with some parts of the opposite wall, and most of the floor visible (bird's eye viewpoint). Hoisting the load up will show the load moving towards the upper part of the image. Hoisting movement does not enlarge the image of the load object, but driving the crane bridge trolley near the cameras will enlarge it. The load object bounding volume is measured from the produced images using the implemented software. The measurement is repeated for different load objects and process hall locations according to a dataset recording plan shown in Appendix \ref{appendix:overhead_dataset_recording_plan}.
