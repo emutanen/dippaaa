@@ -2129,46 +2129,36 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
 
 %The visual indicator that was added in the object segmentation visualisation turned out to be very useful in understanding where the load selection coordinate was, and it was used to move the proximity based selection center using ROS rqt\_reconfigure sliders.
 
-\subsection{Parameter Estimation And Ground Plane Removal}
-\label{subsubsection:parameter_estimation_and_ground_plane_removal}
+\subsection{Parameter Estimator For Ground Plane Removal}
+\label{subsubsection:parameter_estimator_for_ground_plane_removal}
 
-Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)) via using a parameter estimation technique. If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data for easy extraction.
+Before the object segmentation results in Figures \ref{fig:downsampling} and \ref{fig:object_segmentation} are possible, the ground plane must be removed from the original data (see ground plane in Figure \ref{fig:object_segmentation} a)) via using a parameter estimator. If the data points belonging to the ground plane are removed, then only the load object and other items in the environment will remain in the point cloud data for easy extraction.
 
-Classic parameter estimation methods (e.g. least squares minimisation) effectively optimise the fit of the selected parameter model using all points in the dataset. In 1981, Fischler and Bolles presented a new parameterised model estimation technique titled random sample consensus (RANSAC) that improves classic techniques by detecting which points are outliers in the data\citep{Fischler81}.
+Classic parameter estimation methods (e.g. least squares minimisation) effectively optimised the fit of the selected parameter model using all points in the dataset. In 1981, Fischler and Bolles presented a new parameterised model estimator titled random sample consensus (RANSAC) that improves classic techniques by detecting which points are outliers in the data\citep{Fischler81}. In this work, the RANSAC estimator is used to estimate a parameter model for the ground plane.
 
-While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initialises the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found that support existence of the suggested model. This way, outlier data points are not used in the model fitting, and the solution is found easily even when gross errors are present in the dataset.
+While classic parameter estimation techniques incorrectly assume that most outliers are smoothed out in favor of good results, the RANSAC technique initialises the inlier point search with a small initial data set, and accumulates inliers when consistent data points are found that support existence of the suggested model. This way, as the RANSAC iteration progresses, outlier data points are not used in the model fitting, and the solution is found even in the presence of gross errors in the dataset.
 
-PCL parameter estimation finds models from datasets using the RANSAC method or a variant. Before RANSAC iteration, a model type is required, which in this case is a planar model that can be equated as  
+PCL parameter estimation finds models from datasets using the RANSAC method or some of its variants. A model type is required, which in this case is a planar model that can be equated as  
 
 \begin{equation}
 ax + by + cz + d = 0
 \label{eq:planar_model}
 \end{equation}
 
-Initial values for variables  $a$, $b$, $c$, and $d$ are randomly chosen by the PCL software and iterated until a model with small error metric is obtained. PCL implementation uses pcl::ModelCoefficients class to represent sample consensus model types, such as planar, cylindrical, and spherical implicit parameter models. A simple tutorial, which will show the steps of plane model segmentation using the pcl::SACSegmentation class and its methods can be visited at the pointclouds.org website\citep{PlaneModelSegmentation14}.
+Initial values for variables  $a$, $b$, $c$, and $d$ are randomly chosen by the PCL software and new guesses are iterated until a model with small error metric is obtained for the inlier model. PCL implementation uses pcl::ModelCoefficients class to represent sample consensus model types, such as planar, cylindrical, and spherical implicit parameter models. A simple tutorial, which will show the steps of the plane model segmentation in more detail can be visited at the pointclouds.org website\citep{PlaneModelSegmentation14}. The implementation uses pcl::SACSegmentation class and its methods to extract the data points belonging to the found model.
 
-A typical sample consensus (SAC) search may run hundreds of iterations, and the number of maximum iterations is usually limited with a parameter. Parameters used in this work were
+A typical sample consensus (SAC) search may run hundreds of iterations, and the number of maximum iterations is usually limited with a parameter. Parameters used for RANSAC in this work were maximum iterations (value 500) and distance threshold (value 140).
 
-
-
-
-
-In the implemented test software, the RANSAC algorithm from PCL package is used, which finds the ground plane from point cloud data sets successfully for most cases. 
-
-Originally, the RANSAC algorithm was used to solve the location determination problem (LDP), which is a well-known camera extrinsic calibration problem. In this work, RANSAC is used to find the ground planes from the geometric data sets. 
-
-Some variants of the RANSAC algorithm are 
+In the implemented software, the RANSAC algorithm found the ground plane successfully almost 100\% of the time and removed it fully, which means that the selected error threshold of 14 cm was well chosen. The ground plane removal was very robust against missing parts of the floor data, and occlusions in testing. Still, there are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, for example, a large warehouse wall can be found by the RANSAC search. Secondly, the plane must be contained within an error threshold. In the bird's eye views for both tested crane environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. If the results from a RANSAC estimator are not satisfying, the most used variants can be tried, such as 
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
-\item M-estimator Sample Consensus (MSAC)
-\item Maximum Likelihood Estimator Sample Consensus (MLESAC) 
-\item Progressive Sample Consensus (PROSAC)
+\item M-estimator sample consensus (MSAC),
+\item maximum likelihood estimator sample consensus (MLESAC), 
+\item or progressive sample consensus (PROSAC),
 \end{itemize}
 
-but there are many more depending on the estimator technique used. When RANSAC algorithm produces poor results in parameter estimation application, other variants can be used if they are more suited for the data set. Many options can be found in the literature. \ref{Torr00} \ref{Huber81}
-
-While most of the time the RANSAC algorithm finds the ground plane correctly, there are some conditions that must be fulfilled in order to find a correct solution. First, the ground plane must contain the largest number of points in a planar fashion. Otherwise, some other plane will be found by the algorithm, such as a large warehouse wall.
+and many more exist depending on the used estimator. Many options can be found in the literature\citep{Torr00, Huber81}.
 
 \subsection{Cylinder Fitting}
 \label{subsection:cylinder_fitting}
