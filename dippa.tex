@@ -2153,7 +2153,7 @@ A typical sample consensus search may run hundreds of iterations, and the number
 
 In the implemented software, the RANSAC algorithm found the ground plane successfully almost 100\% of the time and removed it fully, which means that the selected error threshold of 14 cm was well chosen. The ground plane removal was very robust against missing parts of the floor data, and occlusions in testing. Still, there are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion found in the dataset. If not, then another plane will be found by the algorithm, for example, a large warehouse wall can be found in the RANSAC search. Secondly, the plane response must be within the selected error threshold. In the bird's eye views for both tested crane environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. Similarly, the ground plane estimator will fail to remove grounds that are not planar, e.g. rolling hills or mounds of dirt in the ground.
 
-If the results from a RANSAC estimator are not satisfying, many variants can be found in the literature, such as 
+If the results from a RANSAC estimator are not satisfying, many variants can be found from the literature\citep{Torr00, Huber81}, for example 
 \begin{itemize}
 % item separation length in a list
 \setlength{\itemsep}{0pt}
@@ -2161,8 +2161,6 @@ If the results from a RANSAC estimator are not satisfying, many variants can be 
 \item maximum likelihood estimator sample consensus (MLESAC), 
 \item or progressive sample consensus (PROSAC),
 \end{itemize}
-
-and many more depending on the used estimator\citep{Torr00, Huber81}.
 
 \subsection{Cylinder Fitting}
 \label{subsection:cylinder_fitting}
