@@ -925,16 +925,14 @@ Point cloud representations enable storing for organised datasets, fast binary d
 
 Range image is a 3d data point representation that has depth measurements in a 2d grid array. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
 
-Range images have limitations in the ability to reproduce a detailed original convex hull model since they only support visible surface modeling (surfaces seen from the viewpoint of the perception sensor). A detailed point cloud can be converted to a range image, but if multiple points on a line project to a single pixel in the range image, only one can be assigned as the grid array cell value. As a result, some data may be lost in the conversion of a point cloud to a range image. In this work, there should be no data loss in the range image conversion since the point cloud is generated with a camera system from a single viewpoint, which also produces a visible surface model. The data loss problem is only encountered if full surface models (via using point cloud registration) are converted into range image \citep{Unnikrishnan08}..
+Range images only support visible surface modeling (surfaces seen from the viewpoint of the perception sensor), and they are limited in the ability to reproduce a full surface model. A full surface point cloud can be converted into a range image, but if multiple points on a line project to a single pixel in the range image, only one can be assigned as the grid array cell value. As a result, data may be lost in the conversion of a point cloud to a range image. In this work, there should be no data loss in the range image conversion since the point cloud is generated with a camera system from a single viewpoint, which also produces a visible surface model (unless the viewpoint changes a lot). The data loss problem is only encountered if full surface models (via using point cloud registration) are converted into range image \citep{Unnikrishnan08}.
 
 \subsection{Volume Pixel Representation}
 \label{subsection:volume_pixel_representation}
 
-A volume pixel, or a voxel, is a prototype of a single entry in a 3d grid structure consisting of voxels. A voxel indicates occupancy in space, and it has at least a volume, and a location, which usually is in 3-dimensional array with constant dimensional sampling. A perfect example of a prototype voxel is a wooden box, which occupies a constant volume in space, and has a location in terms of, for example, a living room space. In digital systems, a voxel is more of a conceptual item that has a location, size, and optional services, such as statistical information about the encompassed voxel subspace. 
+A volume pixel (voxel), is a single volume partition in a 3d grid structure consisting of voxel partitions. A voxel indicates occupancy in space, and it has at least a volume, and a location. A voxel grid has a constant dimensional sampling, which means that all the voxels are the same size in a single digital model. A voxel grid can be used to represent a 3d geometry whose detail depends on the selected voxel cube length. In digital systems, a voxel is a location based item that has optional services, such as statistical information about the encompassed voxel subspace. Typically the voxel has three states: free space, occupied space, or unknown space.
 
-A 3d scene captured with a stereo camera system can be represented with a voxel grid. A standard voxel grid will have a constant sampling grid, thus, the scene will be composed of same-sized cubes. Anoter option is to use a varying sampling grid structure, or an octree structure (described in...?).
-
-limitations: grid resolution, high-resolution grid consumes a lot of memory
+A 3d scene captured with a stereo camera system can be represented with a voxel grid. A standard voxel grid will compose the 3d scene of same sized cubes. If the scene must support different size cubes (different fidelity levels in a single scene), an octree partitioning can be used. The major limitation of the voxel grid representation is its limited grid resolution, which does not approximates curved surfaces well unless a very large number of data entries is used. Also, a high-resolution grid consumes a lot of memory in a software implementation.
 
 \subsection{Octree Representation}
 \label{subsection:octree_representation}
@@ -945,7 +943,7 @@ Octree is a tree structure whose nodes always have exactly eight child nodes. Th
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{octree_quadrants.pdf}
-    \caption{Bla bla bla.}
+    \caption{Octree structure partitions space recursively around a point region.}
     \label{fig:octree_quadrants}
   \end{center}
 \end{figure}
