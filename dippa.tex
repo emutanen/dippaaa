@@ -953,25 +953,25 @@ Octrees are used in 3d computer graphics applications for nearest neighbour sear
 Octree representation is suitable for fast interactive physics simulation purposes or feedback control, because the memory efficient structure enables a detection of virtual object collisions in just milliseconds \citep{Noborio99}. Using these properties, detection and tracking of dynamic moving objects in a static environment can be done.
 
 %opinion
-Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility.
+Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility. In gaming industry, octrees are already used for digital environment modeling. For example, the new id Tech 6 game engine uses octree environment modeling.
 
+Octree structure is a 3d extension to the quadtree, which is a four-pointer binary tree. Originally, the idea to use octrees for spatial representation was introduced by Donald Meagher in 1982 \citep{Meagher82}. Today, many different implementations exist, for example, the Octomap library supports probabilistic sensor fusion with occupancy grid estimation \citep{Hornung10}. 
 
-Octree structure is a 3d extension to the quadtree, which is a four-pointer binary tree. Originally, the idea to use octrees for spatial representation was introduced by Donald Meagher in 1982 \cite{Meagher82]. Today, many different implementations exist, for example, a probabilistic occupancy estimation approach of the Octomap library, \citep{Hornung10}.
 
 % how to build an octree
-The octree structure may be computed from non-convex polygonal contours from multiple different viewpoint cameras (structure from silhouette), but up to 5 - 15 different viewpoints are needed to attain good precision \citep{Noborio88}.
+%The octree structure may be computed from non-convex polygonal contours from multiple different viewpoint cameras (structure from silhouette), but up to 5 - 15 different viewpoints are needed to attain good precision \citep{Noborio88}.
 
 %Octomap
-+ Octomap can model occupied space, free space, and unknown space all at the same time.
-We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
-Octomap
-    + memory-efficiency principle (memory and disk space handling)
-    + differentiates unmapped and obstacle-free areas
-    + supports probabilistic sensor fusion
-    + can represent arbitrary shapes in space (elevation map cannot)
+%+ Octomap can model occupied space, free space, and unknown space all at the same time.
+%We can assume that in all cases of range measurements a lot of noise and uncertainty will be introduced in the measured values. Thus, it is a good idea to represent the range measurements in a map that is probabilistic in nature.
+%Octomap
+%    + memory-efficiency principle (memory and disk space handling)
+%    + differentiates unmapped and obstacle-free areas
+%    + supports probabilistic sensor fusion
+%    + can represent arbitrary shapes in space (elevation map cannot)
     
-Octrees are used in
-    + id Tech 6 game engine
+%Octrees are used in
+%    + id Tech 6 game engine
     
 \begin{figure}[ht]
   \begin{center}
