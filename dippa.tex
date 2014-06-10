@@ -737,7 +737,7 @@ A human operator is better able to move load objects through narrow passages and
 Some automatic overhead cranes have been built, but usually they move bulk items, such as sand, steel, or other process-like material that is moved in environments where people are not allowed to be working simultaneously.
 
 % törmäyksenesto
-An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties. Ideally a collision avoidance technique simply prevents collision based damage to the working area housings and storaged products by engaging safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe lifting operations can be carried out. The interaction with the overhead crane controller may be implemented using traditional control pendants, wireless controllers, or some new approach, for example, a hand motion controller suggested by Peng and Singhose in \ref{Peng12}.
+An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties. Ideally a collision avoidance technique simply prevents collision based damage to the working area housings and storaged products by engaging safety measures if needed. The system should be able to detect people who walk on the factory floor, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe lifting operations can be carried out. The interaction with the overhead crane controller may be implemented using traditional control pendants, wireless controllers, or some new approach, for example, a hand motion controller suggested by Peng and Singhose in \citep{Peng12}.
 
 % mitä tarvitaan
 To realise a working collision avoidance system, an understanding of the crane environment and its qualities including all the moving parts must be formed. In general, all the static and moving parts of the crane environment should continuosly provide information about their location, dimensions, and moving speeds to begin with. Using such an extensive information model it would be possible to introduce collision avoidance techniques in overhead crane environments. Fortunately, the surrounding environment model is generated as a side product in the load object 3d reconstruction step, on which the thesis work mainly focuses on. A stereo camera pair seems like an excellent solution regarding the load object dimension measurement problem since it has the capability of modeling the imminent surrounding environment.
@@ -809,7 +809,7 @@ Research in automatic forestry machines is an ongoing effort that tries to incre
 \section{Goals And Objectives}
 \label{section:goals_and_objectives}
 
-The goal of this work is to measure the dimensions of industrial goods being lifted and moved in an industrial crane setting with the help of a stereo camera based machine vision system. The work is carried out and analysed for two environments: an indoor overhead crane, and an outdoor rotary boom crane on a forestry machine. The tested scenarios are detailed more in Section \ref{subsection:use_cases} \emph{Use Cases}.
+The goal of this work is to measure the dimensions of industrial goods being lifted and moved in an industrial crane setting with the help of a stereo camera based machine vision system. The work is carried out and analysed for two environments: an indoor overhead crane, and an outdoor rotary boom crane on a forestry machine. The tested scenarios are detailed more in Section \ref{section:use_cases} \emph{Use Cases}.
 
 The overhead crane load object measurement is the primary objective of this work. The forestry crane load object measurement is a secondary objective that investigates the applicability of the same machine vision system in a log picker truck setting.
 
@@ -887,6 +887,14 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
+A 3d environment model is a digital data representations that describes the environment acquired by a perception sensor. Efficient modeling of real-world objects has been a major research issue for a long time especially in virtual reality research. It is not easy to automatically recreate a real-world item in a digital system, but many approaches have been suggested.
+
+The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a LIDAR scanner and stereo cameras both can generate point cloud data, but a LIDAR scanner cannot produce a range image. This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
+
+%A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
+
+%In order to obtain a digital model we may utilise a multi-camera stereo process and compute range images for further processing. Obviously, this approach is very computationally difficult and results vary depending on the object convexity, lighting environment and the used algorithms.  
+
 %Many research efforts report using laser range finders for 3d environment modeling \ref{Hähnel03}. This is natural since laser range finders and LADAR scanners output a high resolution point cloud that is accurate up to sub-centimeter lengths in range of hundreds of meters. In this thesis, a stereo camera based environment modeling approach is used since measured lengths are limited to maximum of 15 meters depending on the application. While the accuracy of the stereo camera depth map output is suitable for the bounding volume computation of a load object, the price of the system is much smaller when compared to a laser based solution. 
 
 %If we wanted to fully model the load object then additional camera viewpoints would be needed that cover all the occluded and non-visible load object surfaces, such as the backside. With a full stereo camera envelop we are able to reconstruct the structure using any available reconstruction algorithm. 
@@ -898,26 +906,16 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 %Countering the varying geometric signal is difficult and a matter of discussion in itself: do we wish to add filtering that may possibly lower spatial resolution of the depicted scene in order to receive a filtered signal? 
 %Since we are interested in the load object AABB measurements we are not required to normalize coordinates for 
 
-Environment models are different types of digital data representations that describe the environments acquired by a perception sensor. The work implemented in the Chapter \ref{chapter:implementation} uses point cloud representation, which will be presented.
-
-
-
-In the virtual reality research the modeling of real-world objects has been an issue for many years. It is not easy to recreate a real-world item in a digital system, but many approaches have been suggested.
-
-One option is to record video from multiple cameras that look at the object from different points of view. In order to obtain a digital model we may utilise a multi-camera stereo process and compute range images for further processing. Obviously, this approach is very computationally difficult and results vary depending on the object convexity, lighting environment and the used algorithms.  
-
-A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
-
 \subsection{Point Cloud Representation}
 \label{subsection:point_cloud_representation}
 
 A point cloud is a set of data entries that typically describes a 3d surface geometry of an object in a coordinate frame. Technically, a point cloud contains simple 3d coordinate data, and it can have a few implementation dependent attributes. Point clouds are widely used in stereo 3d reconstruction, metrology applications, robotics applications, multiple viewpoint data registration, 3d data processing, and 3d visualisation purposes. Point clouds can be easily created using 3d scanners, or they can be computed generated from parametric models.
 
-One of the most significant properties of the point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. set a colour value from a 2d image into a corresponding 3d coordinate. Organised data is used in many robotics applications and machine vision applications. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved.
+One of the most significant properties of the point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. compare a 2d RGB colour image with a corresponding 3d coordinate. Organising the data enables use of point clouds in many robotics applications and machine vision applications, which is why it is an important property. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved.
 
-Point cloud geometry can be easily rendered and inspected, but the data is often not usable in 3d applications without processing. For examepl, point cloud data may be required to be converted into a polygon representation, or a mesh model\ref{Rusinkiewicz00}.
+Point cloud geometry can be easily rendered and inspected, but the data is often not usable in 3d applications without processing. For example, point cloud data may be required to be converted into a polygon representation, or a mesh model \citep{Rusinkiewicz00}.
 
-Point cloud representations enable storing of organised datasets, fast binary data saving, and flexible storing of different primitive data types natively. Some challenges with point clouds include limited suitability for modeling dynamice environments, and high memory consumption when a high precision equipment is used to generate a large point cloud\citep{PCDFormat14, Hornung10}.
+Point cloud representations enable storing for organised datasets, fast binary data saving, and flexible storing of different primitive data types natively. Some challenges with point clouds include limited suitability for modeling dynamic environments, and high memory consumption when a high precision equipment is used to generate a large point cloud \citep{PCDFormat14, Hornung10}.
 
 %Challenges
 %(Hornung et al.) a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
@@ -925,15 +923,9 @@ Point cloud representations enable storing of organised datasets, fast binary da
 \subsection{Range Image Representation}
 \label{subsection:range_image_representation}
 
-Range image is a type of 3d data point representation that uses a 2d image array whose pixels correspond to a known location in the imaged scene. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
+Range image is a 3d data point representation that has depth measurements in a 2d grid array. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
 
-Range images have limitations in the ability to reproduce a detailed original point cloud. The term detailed point cloud here is a reference to an object model that loosely describes the object shape and details using a convex hull of points in space, including points that may be not visible from a single viewpoint. Then, if the detailed original point cloud includes multiple points on a line that projects to a single pixel in the range image, some data will be lost in the conversion to a range image. 
-
-Also, if the ranging sensor has a spatially different measurement lattice structure compared to the 2d-array structure of range image, some pixels may be left blank because of a mismatch in spacing of range measurements.
-
-for range measurements than what the range image uses, then some pixels in the range image will be left empty.
-
-Since we create the point cloud with a camera system, we would not have the described projection data loss problem. Another problem with range images       \cite{Unnikrishnan08}.
+Range images have limitations in the ability to reproduce a detailed original convex hull model since they only support visible surface modeling (surfaces seen from the viewpoint of the perception sensor). A detailed point cloud can be converted to a range image, but if multiple points on a line project to a single pixel in the range image, only one can be assigned as the grid array cell value. As a result, some data may be lost in the conversion of a point cloud to a range image. In this work, there should be no data loss in the range image conversion since the point cloud is generated with a camera system from a single viewpoint, which also produces a visible surface model. The data loss problem is only encountered if full surface models (via using point cloud registration) are converted into range image \citep{Unnikrishnan08}..
 
 \subsection{Volume Pixel Representation}
 \label{subsection:volume_pixel_representation}
