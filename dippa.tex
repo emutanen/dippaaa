@@ -1895,10 +1895,21 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
   \end{center}
 \end{figure}
 
+The 3d reconstruction problem can be formulated as a problem of extracting the best possible estimate of a disparity map $d(x,y)$ using correspondence search techniques such as block matching that was introduced in Section \ref{subsection:block_matching}. A disparity map contains the values computed in the block matching processing in the form of a single channel intensity image, which can be associated with one of the stereo camera images - often it is standard to use the left camera image. The expected ideal disparity map that the viewed scene should generate is called a ground truth disparity, but in reality the correspondence techniques can only recover an approximation of the ground truth. Disparity images that were generated using the datasets from suggested use cases described in Section \ref{section:use_cases} can be seen in Figures \ref{fig:disparity} and \ref{fig:disparity_overhead}.
 
-After the image rectification is done for a stereo image pair captured by the calibrated stereo camera setup, then the 3d point cloud generation becomes a problem of extracting the estimate of the disparity map (d(x,y).
+Using the pinhole camera model and the inverse of its camera projection matrix $C$ (see Equation \ref{eq:homogenous_projection}) the disparity map values can be reprojected back into 3d coordinate points. The reprojection matrix $Q$ is a 4 x 4 perspective transformation matrix that in this work was estimated using the OpenCV function stereoRectify(). The 3d point cloud is generated using reprojectImageTo3d() -function, which projects the disparity map values according to
 
-Q is the reprojection matrix that encodes information about the stereo camera setup. Q matrix will provide information about camera optical axis convergence (parallel or cross-eyed), image plane principal points, and the stereo setup baseline width b.
+\begin{equation}
+\begin{bmatrix}
+X \\
+Y \\
+Z \\
+W \end{bmatrix} = Q*\begin{bmatrix}
+x \\
+y \\
+d(x,y) \\
+1 \end{bmatrix}
+\end{eqeuation}
 
 \chapter{Implementation}
 \label{chapter:implementation}
