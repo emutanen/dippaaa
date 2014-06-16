@@ -1843,7 +1843,7 @@ The stereo correspondence problem is a general multiple camera system problem an
 
 Stereo correspondence can be solved using correlation-based methods, or feature-based methods. Feature-based methods only provide sparse matching algorithms that match distinctive features. Correlation-based methods can be extended to dense matching that run for all pixels \citep{Terho10}.
 
-The correlation-based methods rely on the assumption that corresponding features have same intensity values and the same intensity pattern in a region, and they can be mathced using an image kernel (e.g. 5x5 window). Block matching algorithms are an example of correlation-based methods, also known as area-based stereo. The block matching algorithm is used in the software implementation in Chapter \ref{chapter:computation}, and is detailed more in Section \ref{subsection:block_matching}.
+The correlation-based methods rely on the assumption that corresponding features have same intensity values and the same intensity pattern in a region, and they can be mathced using an image kernel (e.g. 5x5 window). Block matching algorithms are an example of correlation-based methods, also known as area-based stereo. The block matching algorithm is used in the software implementation in Chapter \ref{chapter:computation}, and is detailed more in Section \ref{subsection:block_matching}. 
 
 Feature-based methods use sparse feature points found using feature detectors, such as the Harris corner detector, or a SURF descriptor. A feature-based correspondence algorithm is found using a PMF algorithm, which outputs correspondence matches that can attain sub-pixel accuracy \citep{Sonka07}.
 
@@ -1852,45 +1852,34 @@ Constraints can be used to reduce the correspondence search space, for example, 
 \subsection{Feature Description}
 \label{subsection:feature_description}
 
-In a 2d image, a feature is a 2d response of a 3d object that is formed on the image plane according to the camera model described in Section \ref{section:the_pinhole_camera_model}. Since different cameras have different viewpoints of the same 3d object, the feature response of the object looks different from each viewpoint. 
+In a 2d image, a feature is a 2d response of a 3d object that is formed on the image plane according to the camera model described in Section \ref{section:the_pinhole_camera_model}. Since different cameras have different viewpoints of the same 3d object, the feature response of the object is different for each different viewpoint. 
 
-The feature response, or the shape of the object projection, may be simplified and extracted using image segmentation techniques, such as histogram or color based thresholding, k-means clustering, water-filling algorithm, region growing algorithm or some other segmentation method, and matched using feature descriptor data. 
+The feature response may be simplified and extracted using image segmentation techniques, such as histogram or color based thresholding, k-means clustering, water-filling algorithm, region growing algorithm or some other segmentation method, and matched using feature descriptors. 
 
 A feature descriptor measures the shape of a segmented image region using invariant moments of the image, or other constant shape descriptors. A good feature descriptor response is invariant to changes in scale, orientation, and viewpoint, and it should tolerate changes in the camera system used for imaging, such as white balance, exposure, and illumination changes (specular reflections, shadows etc.).\citep{Corke11}
 
-Image feature detection is a large field on its own, which is why only a few general feature descriptos are introduced that can be used to track features and solve the correspondence problem. Some full-fledged feature descriptor techniques include scale-invariant feature transform (SIFT), speeded up robust features detector (SURF), and histogram of oriented gradients (HOG). Also blob detectors, such as the maximally stable extremal regions (MSER) could be used to solve a general correspondence problem \ref{Karlson09}. The Harris corner detector (see Figure \ref{fig:harris_features_left}), and Shi and Tomasi corner detector are useful for tracking the corners of a lifted load objects as part of the measurement software. Moreover, the features returned by a corner detector could be used as control points in the point cloud verification process introduced in section \ref{section:data_quality_in_the_machine_vision_process}.
+Image feature detection is a large field on its own, which is why only a few general feature descriptos are introduced that can be used to track features and solve the correspondence problem. Some full-fledged feature descriptor techniques include scale-invariant feature transform (SIFT), speeded up robust features detector (SURF), and histogram of oriented gradients (HOG). Also blob detectors, such as the maximally stable extremal regions (MSER) could be used to solve a general correspondence problem \citep{Karlson09}. The Harris corner detector (see Figure \ref{fig:rectified_image_pair}), and Shi and Tomasi corner detector are useful for tracking the corners of a lifted load objects as part of the measurement software. Moreover, the features returned by a corner detector could be used as control points in the point cloud verification process introduced in section \ref{section:evaluation_of_3d_data_quality}.
 
-In the implementation of the prototype software the correspondence problem is solved using the epipolar geometry property that enables a 1-dimensional correspondence search space using image rectification. If the geometry of the stereo setup is unambiguosly known, the extrinsic calibration knowledge makes image rectification possible. 
-
-(UNEDITED)It is important to choose a proper window size for stereo matching. In low contrast regions of the image too small a window cannot guarantee a unique match because of too little intensity variation. 
-In general, a small window is desirable to avoid unnecessary smoothing, but optimal window size depends on the region intensity variation, texture, and disparity \cite{Zitnick00}.
-The problems of window size can be solved with iterative window size methods, but increase in computation overhead or problems at occlusion boundary are still left unsolved \cite{Zitnick00}..
-
-% correspondence problem
-+ the ambiguity of the correspondence problem can be reduced using one or multiple constraints such as
-disparity limit constraint (disparity must be < limit, e.g. finger in front of the face cannot be imagined in stereo)
-disparity smoothness (disparity changes only a little in any direction)
-epipolar constraint (search space for matching pixels 1D on the epipolar line)
-figural disparity constraint (corresponding elements should lie on an edge element in both images)
-feature compatibility (physical origin of the matched points should be the same)
-geometric similarity constraint (geometric features differ only a little)
-mutual correspondence constraint (occluded points are not found thus ruled out)
-ordering constraints (typically points lie on the same epipolar line for similar depth items, exception narrow close-up sticks)
-photometric compatibility (little intensity differences)
-uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
-
-+ specularity edges cannot be used for feature matching because specular lighting changes depending on the viewpoint \cite{Sonka07}
+%disparity smoothness (disparity changes only a little in any direction)
+%epipolar constraint (search space for matching pixels 1D on the epipolar line)
+%figural disparity constraint (corresponding elements should lie on an edge element in both images)
+%feature compatibility (physical origin of the matched points should be the same)
+%geometric similarity constraint (geometric features differ only a little)
+%mutual correspondence constraint (occluded points are not found thus ruled out)
+%ordering constraints (typically points lie on the same epipolar line for similar depth items, exception narrow close-up sticks)
+%photometric compatibility (little intensity differences)
+%uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, exception two or more points on 1 ray in 1 image)
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
 
 Block matching algorithms are area based stereo methods that solve the stereo correspondence problem using the epipolar constraint introduced in Section \ref{section:epipolar_geometry}. A block matching algorithm (BM) using mean square error metric, and a semi-global block matching algorithm (SGBM) using a modified Hirschmuller algorithm are presented.
 
-The block matching algorithm assumes that the cameras are in a canonical configuration with parallel optical axes, which is often enforced using image rectification by software. The algorithm blocks the left and right images into kernel size blocks, which are minimally 1 pixel, and usually 3x3 pixels wide windows or larger. Then the blocks are assigned a mean intensity value, and the blocks are being compared with a sliding window across the second image. When the selected error metric, e.g. squared mean error is being minimised, a correct match is found, and the disparity value is assigned for that pixel location. Block matching algorithm generates a sparse correspondence match matrix, but it can be extended for dense matching using scalable coarse matching methods.
+The block matching algorithm assumes that the cameras are in a canonical configuration with parallel optical axes, which is often enforced using image rectification by software. The algorithm blocks the left and right images into kernel size blocks, which are minimally 1 pixel, and usually 3x3 pixels wide kernel windows or larger. Then the blocks are assigned a mean intensity value, and the blocks are being compared with a sliding window across the second image. When the selected error metric, e.g. squared mean error is being minimised, a correct match is found, and the disparity value is assigned for that pixel location. Block matching algorithm generates a sparse correspondence match matrix, but it can be extended for dense matching using scalable coarse matching methods.
 
-In this work, the epipolar constraint will reduce the block matching search space into a single 1-dimensional line of pixels, which means that the corresponding intensities must be found on the corresponding scan lines of the images. 
+In general, a small kernel window is desirable to avoid unnecessary smoothing in block matching, but optimal window size depends on the region intensity variation, texture, and disparity. For example, in low contrast image regions a small window cannot guarantee a unique match due to little intensity variation. The trade-offs in window size can be solved with iterative window size methods, but increase in computation overhead, and other problems, such as occlusion boundary and matching on specularity edges will remain unsolved \citep{Zitnick00}.
 
-
+In this work, the epipolar constraint will reduce the block matching search space into a single 1-dimensional line of pixels, which means that the corresponding intensities must be found on the corresponding scan lines of the images. This makes a sliding kernel of a single pixel, or larger single row kernel window a requirement.
 
 \section{Depth From Disparity Map}
 \label{section:depth_from_disparity_map}
