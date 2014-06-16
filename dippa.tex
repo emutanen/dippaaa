@@ -1839,11 +1839,22 @@ The stereo cameras can be physically rotated towards each other, or they can be 
 \section{Stereo Correspondence Problem}
 \label{section:stereo_correspondence_problem}
 
-Stereo imaging is divided into two different categories by the used algorithm. The first category is dense matching algorithms where stereo matching algorithms run on all pixels. The second category is sparse matching algorithms where only distinctive features will be matched\cite{Terho10}.
+The stereo correspondence problem is a general multiple camera system problem answering whether multiple images contain a same 2d feature or not. Figure \ref{fig:rectified_image_pair} displays a pair of images seen from different viewpoints, and the correspondence problem solves where are the locations of the lifted load object seen in both pictures relative to each other. People are good at solving the correspondence problem - clearly the same  box can be seen in both images in Figure \ref{fig:rectified_image_pair}, which is a solution that a computer system will not solve easily.
 
-The correspondence problem is a general multiple camera system problem regarding whether multiple images contain a same 2d feature or not. A feature is an understanding of some feature that has a visible shape response in its 2d projection on the image according to natural image formation in a camera. A simplification of the shape may be a result of image segmentation using histogram or color based thresholding, k-means clustering, a water-filling algorithm, region growing algorithm or some other segmentation method.
+Stereo correspondence can be solved using correlation-based methods, or feature-based methods. Feature-based methods only provide sparse matching algorithms that match distinctive features. Correlation-based methods can be extended to dense matching that run for all pixels \citep{Terho10}.
 
-On one hand, in figures \ref{fig:harris_features_left} and \ref{fig:harris_features_right} it is easily seen that the same lifted box is seen from different viewpoints, but on the other hand, the machine vision system does not understand this unless some feature descriptor is formulated that returns a similar response for both images of the lifted box.
+The correlation-based methods rely on the assumption that corresponding features have same intensity values and the same intensity pattern in a region, and they can be mathced using an image kernel (e.g. 5x5 window). Block matching algorithms are an example of correlation-based methods, also known as area-based stereo. The block matching algorithm is used in the software implementation in Chapter \ref{chapter:computation}, and is detailed more in Section \ref{subsection:block_matching}.
+
+Feature-based methods use sparse feature points found using feature detectors, such as the Harris corner detector, or a SURF descriptor. A feature-based correspondence algorithm is found using a PMF algorithm, which outputs correspondence matches that can attain sub-pixel accuracy \citep{Sonka07}.
+
+Constraints can be used to reduce the correspondence search space, for example, the epipolar constraint, uniqueness constraint, disparity smoothness constraint, disparity limit constraint, ordering constraint, and mutual correspondence constraint are used in the OpenCV implementation of the prototype software block matching. A more detailed, short taxonomy of the disparity constraints can be found in Chapter 9 in Sonka's book on image processing\citep{Sonka07}.
+
+\subsection{Feature Description}
+\label{subsection:feature_description}
+
+In a 2d image, a feature is a 2d response of a 3d object that is formed on the image plane according to the camera model described in Section \ref{section:the_pinhole_camera_model}. Since different cameras have different viewpoints of the same 3d object, the feature response of the object looks different from each viewpoint. 
+
+The feature response, or the shape of the object projection, may be simplified and extracted using image segmentation techniques, such as histogram or color based thresholding, k-means clustering, water-filling algorithm, region growing algorithm or some other segmentation method, and matched using feature descriptor data. 
 
 A feature descriptor measures the shape of a segmented image region using invariant moments of the image, or other constant shape descriptors. A good feature descriptor response is invariant to changes in scale, orientation, and viewpoint, and it should tolerate changes in the camera system used for imaging, such as white balance, exposure, and illumination changes (specular reflections, shadows etc.).\citep{Corke11}
 
@@ -1872,6 +1883,14 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
 
 \subsection{Block Matching}
 \label{subsection:block_matching}
+
+Block matching algorithms are area based stereo methods that solve the stereo correspondence problem using the epipolar constraint introduced in Section \ref{section:epipolar_geometry}. A block matching algorithm (BM) using mean square error metric, and a semi-global block matching algorithm (SGBM) using a modified Hirschmuller algorithm are presented.
+
+The block matching algorithm assumes that the cameras are in a canonical configuration with parallel optical axes, which is often enforced using image rectification by software. The algorithm blocks the left and right images into kernel size blocks, which are minimally 1 pixel, and usually 3x3 pixels wide windows or larger. Then the blocks are assigned a mean intensity value, and the blocks are being compared with a sliding window across the second image. When the selected error metric, e.g. squared mean error is being minimised, a correct match is found, and the disparity value is assigned for that pixel location. Block matching algorithm generates a sparse correspondence match matrix, but it can be extended for dense matching using scalable coarse matching methods.
+
+In this work, the epipolar constraint will reduce the block matching search space into a single 1-dimensional line of pixels, which means that the corresponding intensities must be found on the corresponding scan lines of the images. 
+
+
 
 \section{Depth From Disparity Map}
 \label{section:depth_from_disparity_map}
@@ -1909,13 +1928,10 @@ x \\
 y \\
 d(x,y) \\
 1 \end{bmatrix}
-\end{eqeuation}
+\end{equation}
 
-back to 3d world coordinates, which solves the 3d reconstruction problem. The quality of the disparity map depends on the selected block matching algorithm, and on disparity tuning parameters. The disparity tuning parameters include 10 parameters that are discussed more in Section \ref{section:parameter_tuning_evaluation}.
+back to 3d world coordinates, which solves the 3d reconstruction problem. The quality of the disparity map depends on the selected block matching algorithm, and on disparity tuning parameters. The disparity tuning parameters include 10 parameters that are discussed more in Section \ref{section:parameter_tuning_evaluation}. The parameters were tuned using controllable sliders with a visual inspection of the output disparity map, and the full parameter descriptions and value ranges can be seen in Table \ref{table:bm_state_parameters}.
 
-
-
-were tuned using a visualisation that was controlled with tuner sliders. The parameter tuning 
 \chapter{Implementation}
 \label{chapter:implementation}
 %test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
