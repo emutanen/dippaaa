@@ -1890,7 +1890,7 @@ uniqueness constraint (1 pixel can only correspond to 1 pixel in the 2nd image, 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{disparity3.jpg}
-    \caption{}
+    \caption{A disparity map depicting an overhead crane environment.}
     \label{fig:disparity_overhead}
   \end{center}
 \end{figure}
@@ -1910,6 +1910,8 @@ y \\
 d(x,y) \\
 1 \end{bmatrix}
 \end{eqeuation}
+
+back to 3d world coordinates, which solves the 3d reconstruction problem. The disparity map generation output quality depends on the selected block matching algorithm, and on the selected disparity tuning parameters. The disparity map generation parameters were tuned using a visualisation that was controlled with tuner sliders. The parameter tuning is discussed more in Section \ref{section:parameter_tuning_evaluation}.
 
 \chapter{Implementation}
 \label{chapter:implementation}
