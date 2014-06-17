@@ -2275,32 +2275,32 @@ OBB will report the actual bounding volume more accurately than the AABB boundin
 
 The Point Cloud Library cylinder fitting process outputs a parameter set pcl::ModelCoefficients that contains 7 parameters: 6 of them cover the coordinates of two random points on the main cylinder axis, and the final parameter reports the radius of the cylinder. Thus, the starting point and the ending point of the cylinder are not computed at all by the RANSAC computation. To solve the issue of missing cylinder length, an algorithm was written that solves the cylinder length. The algorithm projects points on the main cylinder axis using standard dot product computation, and grows the cylinder length until all the points in the cylinder data are iterated through. The working of the algorithm is as follows:
 
-\begin{algorithm}[H]
- \KwData{Load Object Cylinder Segmented Data From RANSAC}
- \KwResult{Fitter cylinder end point coordinates}
- compute N units long vector along the main cylinder axis so that all data points project on it\;
- compute closest data point to centroid of data\;
- initialise a start point at the closest data point from centroid projected on the main cylinder axis\;
- initialise two subcylinders who represent distance along the cylinder main axis starting from start point to the end points in two opposing directions\;
- \While{data points left}{
-  iterate to next point cloud data entry\;
-  compute projection on cylinder main axis using dot product\;
+\begin{algorithm}
+\KwData{point cloud $P$ representing the load object segmented cylinder}
+\KwResult{cylinder end point coordinates along main axis}
+1. compute N units long vector along the main cylinder axis so that all data points in point cloud $P$ project on it\;
+2. compute closest data point $C$ to centroid of data\;
+3. initialise a start point $S$ at projection of $C$ along the cylinder main axis\;
+4. initialise two subcylinders that represent distance along the cylinder main axis starting from start point $S$ to the end points in two opposing directions along the cylinder main axis\;
+\For{all points $p_i \in P$}{
+iterate to next point cloud data entry\;
+compute projection on cylinder main axis using dot product\;
   \eIF{projection is in negative coefficient vector direction}{
-       eIF{check if distance to start point greater than current subcylinder 1 height value}{
+       \eIF{check if distance to start point greater than current subcylinder 1 height value}{
         set projection point as the new end coordinate for subcylinder 1\;
         }{
         continue\;
         }
    }{
-       eIF{check if distance to start point greater than current subcylinder 2 height value}{
+       \eIF{check if distance to start point greater than current subcylinder 2 height value}{
         set projection point as the new end coordinate for subcylinder 2\;
         }{
         continue\;
         }
    } 
-} 
-return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
-\caption{Cylinder growing algorithm}
+}
+5. return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
+\caption{Cylinder growing algorithm that computes the length of the segmented cylinder and returns the end point coordinates along the cylinder main axis.}
 \end{algorithm}
 
 \chapter{Evaluation}
