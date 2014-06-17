@@ -2273,7 +2273,9 @@ OBB will report the actual bounding volume more accurately than the AABB boundin
 \subsection{Cylinder Growing Algorithm}
 \label{subsection:cylinder_growing_algorithm}
 
-The Point Cloud Library cylinder fitting process outputs a parameter set pcl::ModelCoefficients that contains 7 parameters: 6 of them cover the coordinates of two random points on the main cylinder axis, and the final parameter reports the radius of the cylinder. Thus, the starting point and the ending point of the cylinder are not computed at all by the RANSAC computation. To solve the issue of missing cylinder length, an algorithm was written that solves the cylinder length. The algorithm projects points on the main cylinder axis using standard dot product computation, and grows the cylinder length until all the points in the cylinder data are iterated through. The working of the algorithm is as follows:
+The PCL cylinder fitting process outputs a parameter set in pcl::ModelCoefficients format that contains 7 parameters: 6 of them cover the coordinates of two random points on the main cylinder axis, and the final parameter reports the radius of the cylinder. The starting point and the ending point of the cylinder are not computed at all by the standard RANSAC computation, which is why the algorithm was written. The algorithm projects all segmented cylinder point cloud entries on the main cylinder axis using standard dot product computation, and reports the projected end points of the cylinder. The algorithm runs in approximately 0.1 milliseconds, which is a very acceptable time used for computation of the cylinder lenght. 
+
+Another way of computing the end points using PCL was found after the thesis project was finished, which includes projecting the points along a linear pcl::ModelCoefficients model and selecting the values produced by the function getMinMax3d(). The implemented algorithm follows the standard linear projection mathematics, and the working of the algorithm is presented in Algorithm \ref{algorithm:cylinder_growing}.
 
 \begin{algorithm}
 \KwData{point cloud $P$ representing the load object segmented cylinder}
@@ -2296,6 +2298,7 @@ compute projection on cylinder main axis using dot product\;
 }
 5. return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
 \caption{Cylinder growing algorithm that computes the length of the segmented cylinder and returns the end point coordinates along the cylinder main axis.}
+\label{algorithm:cylinder_growing}
 \end{algorithm}
 
 \chapter{Evaluation}
