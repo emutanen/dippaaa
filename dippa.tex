@@ -2288,15 +2288,10 @@ compute projection on cylinder main axis using dot product\;
   \eIF{projection is in negative coefficient vector direction}{
        \eIF{check if distance to start point greater than current subcylinder 1 height value}{
         set projection point as the new end coordinate for subcylinder 1\;
-        }{
-        continue\;
-        }
-   }{
-       \eIF{check if distance to start point greater than current subcylinder 2 height value}{
+        }{continue}
+   }{\eIF{distance to start point greater than current subcylinder 2 height value}{
         set projection point as the new end coordinate for subcylinder 2\;
-        }{
-        continue\;
-        }
+        }{continue}
    } 
 }
 5. return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
