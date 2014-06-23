@@ -267,8 +267,8 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Crane Load Object Geometry Measurement using Machine Vision}
-\newcommand{\FTITLE}{Nosturin taakan geometrian mittaus konenäköavusteisesti}
+\newcommand{\TITLE}{Geometry Measurement Of Crane Load (Object) using Machine Vision}
+\newcommand{\FTITLE}{Geometrian mittaus nosturin taakasta konenäköavusteisesti}
 \newcommand{\DATE}{May 27th, 2014}
 \newcommand{\FDATE}{27. toukokuuta 2014}
 \newcommand{\SDATE}{Den 27 Maj 2014}
@@ -379,7 +379,7 @@
 % have a hyphen in them (for example, if you write ``structure-modification
 % operation'', the word structure-modification will never be hyphenated).
 % You need a special package to hyphenate those words.
-\hyphenation{di-gi-taa-li-sta yksi-suun-tai-sta}
+\hyphenation{di-gi-taa-li-sta yksi-suun-tai-sta mai-nit-tu-jen me-ne-tel-män yk-sin-ker-tai-sel-la}
 
 % The preamble ends here, and the document begins.
 % Place all formatting commands and such before this line.
@@ -406,11 +406,11 @@
 % ------------------------------------------------------------------
 \thesisabstract{english}{
 
-In manufacturing industry, the electric overhead crane is used in lifting and moving operations of industrial goods, such as beams, engines, and large coils. Mostly, these cranes are manually operated in locations where people work, such as a factory floor. The cranes do not operate automatically and they do not have safety features that would prevent collisions of the lifted load object and other products or workers.
+In manufacturing industry, electric overhead cranes are used in lifting and moving operations of industrial goods, such as beams, engines, and large coils. Mostly, these cranes are manually operated in locations where people work, such as a factory floor. The cranes do not operate automatically and they do not have safety features that would prevent collisions of the lifted load object and other objects or workers.
 
-Geometry measurement of the load object is required to allow for new smarter automated features to the overhead crane environment, such as route planning, collision detection, and collision avoidance. The incentives for developing such features are increased goods handling safety, and the need to improve easiness of operation for the crane operator. 
+Geometry measurement of the load object is required to develop new automated features to the overhead crane environment. The aim is to automatically handle e.g. route planning, collision detection, and collision avoidance. The incentives for developing such features are increased goods handling safety and the need to improve easiness of operation for the crane operator. 
 
-A 3d machine vision process was selected to produce a load object measurement using a passive stereographic triangulation technique. A perception platform with two high dynamic range cameras was used to acquire data from a real overhead crane environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and robot operating system (ROS). 
+A 3-D machine vision process was selected to produce a load object measurement using passive stereographic triangulation. A perception platform with two high dynamic range cameras was used to acquire data from an overhead crane environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and Robot Operating System (ROS). 
 
 This thesis studies two different applications for machine vision -based load object geometry measurement. The first case introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor overhead crane environment. The second case introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor rotary telescopic crane environment.  
 }
@@ -444,13 +444,13 @@ This thesis studies two different applications for machine vision -based load ob
 % Abstract in Finnish
 % ------------------------------------------------------------------
 \thesisabstract{finnish}{
-Valmistusteollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan manuaalisesti tiloissa joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatiloissa. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella, eikä niissä ole turvaominaisuuksia jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
+Valmistavassa teollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan käsiohjauksella tiloissa, joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatiloissa. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella eikä niissä ole turvaominaisuuksia, jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
 
-Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi tehdasympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa, ja helpottaa nosturin operoimista.
+Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi tehdasympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa ja helpottaa nosturin operoimista.
 
-Taakan mittauksen tuottamiseksi valittiin 3d-konenäkömenetelmä, joka käyttää passiivista stereokolmiointimenetelmää. Työn toteutuksessa käytettiin kahta high dynamic range -kameraa, jotka tallensivat kuvadataa oikeasta nosturiympäristöstä. Kuvadata prosessoitiin 3d-pistepilviksi, joista edelleen tuotettiin metrinen koordinaattiakselien myötäinen bounding volume -mittaus Point Cloud Library -kirjaston (PCL) avulla. Mittausohjelmisto toteutettiin C++ -kirjastoilla ja Robot Operating System:llä (ROS).
+Taakan mittauksen tuottamiseksi valittiin 3-D -konenäkömenetelmä, joka käyttää passiivista stereokolmiointimenetelmää. Työn toteutuksessa käytettiin kahta korkean dynamiikan kameraa, jotka tallensivat kuvadataa nosturiympäristöstä. Kuvadata prosessoitiin 3-D -pistepilviksi, joista edelleen tuotettiin metrinen koordinaattiakselien myötäinen rajoittava tilavuusmittaus Point Cloud Library -kirjaston (PCL) avulla. Mittausohjelmisto toteutettiin C++ -kirjastoilla ja Robot Operating System:llä (ROS).
 
-Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nosturin taakan geometrian mittaukselle. Ensimmäinen sovellus esittelee menetelmän koordinaattiakselien suuntaiseen bounding volume -mittaukseen yksinkertaisella nosturin taakan seuraamisella sisätiloissa. Toinen sovellus esittelee menetelmän sylinterimäisten taakkojen mittaukseen parametrisovitusmenetelmän ja 2d-kuvaseurannan avulla ulkotiloissa teleskooppinosturilla.
+Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nosturin taakan geometrian mittaukselle. Ensimmäinen sovellus esittelee menetelmän koordinaattiakselien suuntaiseen rajoitettuun tilavuusmittaukseen yksinkertaisella nosturin taakan seurannalla sisätiloissa. Toinen sovellus esittelee menetelmän sylinterimäisten taakkojen mittaukseen parametrisovitusmenetelmän ja 2d-kuvaseurannan avulla ulkotiloissa teleskooppinosturilla.
 }
 % Abstract in Swedish
 % ------------------------------------------------------------------
@@ -702,13 +702,13 @@ XMLRPC & XML Remote Procedure Call \\
 %A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
 %business
 
-In the modern world, products are being manufactured more than ever before, and at the same time the factory workflows should be optimised to guarantee profitable continuity for a business. These new requirements challenge all business owners, including industrial product makers who use overhead cranes in their manufacturing processes. Overhead cranes are found in most warehouses and factories, and they are often used in storage solutions, or as a part of the manufacturing floor, and in the initial installation of heavy machinery in the factory.
+In the modern world, products are being manufactured more than ever before, and at the same time the factory workflows should be optimised to guarantee profitable continuity for a business. These new requirements challenge all business owners, including industrial product makers who use overhead cranes in their manufacturing processes. Overhead cranes are found in most warehouses and factories where they are often used in storage solutions, as a part of the manufacturing floor, and in the initial installation of heavy machinery in the factory.
 
 %development
-Since industrial revolution many different types of cranes were designed to help in loading and unloading of ship cargo in container crate terminals. Before the ideation of a modern container cargo handling process, the lifting of barrels, pallets, and sacks was inefficient, and the ships were stalling longer times at docks than at sea, which reduced profitability. Today, the modern sea cargo handling process is highly automated, but the development of the overhead crane never reached the same level of automation. Even though steam engine cranes have been replaced by the modern electric overhead traveling crane (EOT), the operation of EOTs still remains mostly manual at factory sites. Thus, it seems that lifting operations with an EOT crane could become more efficient with added automation systems. Depending on the amount of use, the profitability of the crane use can possibly be improved. \citep{Zrni04}
+Since industrial revolution many different types of cranes were designed to help in loading and unloading of ship cargo in container crate terminals. Before the ideation of a modern container cargo handling process, the lifting of barrels, pallets, and sacks was inefficient, and the ships were stalling longer times at docks than at sea, which reduced profitability. Today, the modern sea cargo handling process is highly automated, but the development of the overhead crane never reached the same level of automation. Even though steam engine cranes have been replaced by the modern electric overhead traveling crane (EOT), the operation of EOTs still remains mostly manual at factory sites. Thus, it seems that lifting operations with an EOT crane could become more efficient with added automation systems. Depending on the amount of use, the profitability of the crane use can possibly be improved\citep{Zrni04}.
 
 %productivity
-The business of lifting solutions gets more automated as new crane systems are being developed to meet the increasing needs for productivity. Productivity may be measured using selected productivity indicators, for example, energy consumption, service intervals, speed of operations, or safety features are easily quantifiable measures that can add up to a productivity rating. All of these indicators affect performance of lifting and moving goods using overhead cranes, and with ever lowering computing prices a lot of research is going on to find ways how added programming and sensors could have a positive effect on any productivity aspects.
+The business of lifting solutions gets more automated as new crane systems are being developed to meet the increasing needs for productivity. Productivity may be measured using selected productivity indicators. For example energy consumption, service intervals, speed of operations, and safety features are easily quantifiable measures that can add up to a productivity rating. All of these indicators affect performance of lifting and moving goods using overhead cranes, and with ever lowering computing prices a lot of research is going on to find ways how added programming and sensors could have a positive effect on any productivity aspects.
 
 %In the modern world, goods are being moved more than ever before, which brings challenges to keep the goods handling easy and safe. Products are mostly transported from one location to another using a modern automatic container handling process, but for example loading and unloading events remain laborous when single industrial items, such as engines or other machinery, are moved to a new location. The electric overhead crane (EOT) is the de facto standard for heavy lifting work in factory and warehouse environments.
 
@@ -720,11 +720,9 @@ The business of lifting solutions gets more automated as new crane systems are b
 
 Manual EOT crane movement may suffer from non-optimized route selection, operator fatigue, damage to goods in collisions, safety issues for other workers, and other problems that are caused by an operator. 
 
+%Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. To improve things, a real-time description of the load object and its environment could be available, so it would be possible to prevent unwanted events from happening using perception sensors and safety software\citep{Kappi13}.
 
-Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. To improve things, a real-time description of the load object and its environment could be available, so it would be possible to prevent unwanted events from happening using perception sensors and safety software. \citep{Kappi13}
-
-%measuring goods
-Measuring products while they are being moved and processed at the industrial site is the very basis for all quality control in other manufacturing industries: for example, radio frequency identification tags are used to identify and control a batch of products in bulk manufacturing, video systems measure process quality in a paper factory, and a spectral analyzer measures the concentration of foreign substances in a soda bottle washing process. In an overhead crane environment, there is information available only on how large a mass is being lifted and where it is being lifted, but no information on what is being lifted or what volume is the load object. A machine vision perception system can add quality control in the crane environment by providing a feedback link with information on lifted object size, shape, orientation, color, movement, past locations, and visuals.
+In an overhead crane environment, there is limited information available about the lifted load object. Only the mass and location of the lifted load object are known as inputs for any computer control system. A machine vision perception system can provide additional information on lifted object size, shape, orientation, color, and visuals.
 
 \section{Interactive Control In A Crane Environment}
 \label{section:collision_control_in_a_crane_environment}
@@ -817,7 +815,7 @@ The project affiliated with this master's thesis was the GIM research group's FA
 
 A tertiary objective regarding hardware was to keep the costs of the load object measurement system significantly lower than the price range of a LIDAR based solution. A tertiary objective regarding software was to make the load object measurement client provide measurement data nearly in real-time, or at least 5 measurements per second.
 
-\chapter{Perceiving Environments In 3d}
+\chapter{Perceiving Environments In 3-D}
 \label{chapter:perceiving_environments_in_3d}
 %+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
