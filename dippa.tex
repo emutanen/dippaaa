@@ -802,14 +802,16 @@ Perception sensors used in machine vision systems include sensors such as digita
 
 Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. Typically, the energy that is registered and digitally sampled by a camera is visible light.
     
-\section{Digital 3d Environment Models}
+\section{Digital 3-D Environment Models}
 \label{section:digital_3d_environment_models}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 A 3d environment model is a digital data representations that describes the environment acquired by a perception sensor. Efficient modeling of real-world objects has been a major research issue for a long time especially in virtual reality research. It is not easy to automatically recreate a real-world item in a digital system, but many approaches have been suggested.
 
-The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a LIDAR scanner and stereo cameras both can generate point cloud data, but a LIDAR scanner cannot produce a range image. This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
+The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a stereo camera pair can generate point cloud data, or a range image can be used. 
+
+%This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
 
 %A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
@@ -2149,7 +2151,7 @@ If a verification check reported that the location of the found load object was 
 
 To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
 
-The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of logs carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
+The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the objects were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of objects carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
 
 The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} a) in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt2} b), which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters.
 
@@ -2553,19 +2555,19 @@ Heuristics should be used to prevent wrong feature matches in the cylinder fitti
 
 It was noticed in dataset C2 that if the end effector tool is empty, the cylinder fitting procedure does not produce meaningful results. Currently, the fitting will result in the volume of the end effector tool or parts of the boom depending on where the RANSAC search finds a cylinder fit in the data. This behaviour adds noise and erroneous measurements in the bounding volume measurement visualisations of outdoor tests.
 
-A rotation of the object perpendicularly to the optical axis will report different bounding volumes for different angles of rotation in dataset C3. The measurement was most accurate when the maximal length of the log is shown in the image. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the object and generate a very poor object surface model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the elongated object is visible, and in this situation it was not possible to measure the size of the object at all.
+A rotation of the object perpendicularly to the optical axis will report different bounding volumes for different angles of rotation in dataset C3. The measurement was most accurate when the maximal length of the object was shown in the image. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the object and generate a very poor object surface model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the elongated object is visible, and in this situation it was not possible to measure the size of the object at all.
 
 High smoothness constraint of the disparity map fills holes that are present in the environment. For example, the loops formed by the wiring seen above the end effector tool will generate a solid surface point cloud response. This phenomenon is present in the SGBM algorithm implementation, but not in the BM algorithm implementation. It was concluded that while the SGBM algorithm produces better 3d models of the environment with more data points in the output, the BM algorithm actually can have finer detail in some features with faster computation speeds. In the end, the SGBM algorithm was more suitable for the development of the prototype software. The algorithms can be used interchangeably depending on the dataset and suitability of each algorithm.
 
 The cylinder fitting can handle picking of multiple objects at once if multiple objects are modeled as a single large cylinder. Multiple objects tend to be in an hour-glass shape than a cylinder shape. Because of this, the cylinder fitting can fit most volume of the objects inside a single cylinder, but the furthest ends of the logs will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the objects actually stay inside the bounding volume. It remains to be verified whether the actual load objects would fit inside the computed bounding volume or not when using a single cylinder approximation.
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=0.5\textwidth]{left1377162788433.jpg}
-    \caption{Multiple log objects form an hour-glass shaped pack of logs. A left camera image from dataset 1377162465. Image was captured on August 22nd 2013 in a rotary boom crane test site.}
-    \label{fig:left1377162788433}
-  \end{center}
-\end{figure}
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=0.5\textwidth]{left1377162788433.jpg}
+%    \caption{Multiple log objects form an hour-glass shaped pack of objects. A left camera image from dataset %1377162465. Image was captured on August 22nd 2013 in a rotary boom crane test site.}
+%    \label{fig:left1377162788433}
+%  \end{center}
+%\end{figure}
 
 In dataset C4 it was discovered that when the crane end effector is brought in proximity of objects on the ground it is possible to measure a single object dimension even before it is grasped by the end effector tool. When the cylinder fitting computation is used the object does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property possibly eliminates the need to rotate the object after grasping in order to measure a correct geometry.
 
