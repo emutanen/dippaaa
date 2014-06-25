@@ -1880,9 +1880,6 @@ The software component design was planned modular so that different parts of the
 
 In Figure \ref{fig:software_architecture} the ROS interface can be seen as a dashed line, and the blue lines show ROS messages that were used for moving data in and out of the ROS network (and between ROS nodes). The yellow lines represent UDP packet communication, which was only used by the cameras for image data transfer. Different versions of the software can be configured using ROS topics and subscribers: for example, the TLD block can be removed with simple configuration when the processed camera image data only contains overhead crane applications. Dynamic reconfigure server was used to switch quickly at runtime from application to another and e.g. enable / disable detection of cylindrical objects, but it is not shown in the general architecture diagram.
 
-\section{Camera Configurations}
-\label{section:camera_configurations}
-
 %\section{Use Cases}
 %\label{section:use_cases}
 
@@ -1940,13 +1937,13 @@ The camera CMOS mono sensor has a pixel size of 10 $\mu$m and an optical size of
 %  \end{center}
 %\end{figure}
 
-\subsection{Installation}
-\label{subsection:installation}
+\section{Camera Installation Configurations}
+\label{section:camera_installation_configurations}
 
 The Himmeli platform was installed in two different test environments in total of 4 differenct configurations as was described in the use cases in Section \ref{section:use_cases}.
 
-\subsubsection{Overhead Crane Installation}
-\label{subsubsection:overhead_crane_installation}
+%\subsubsection{Overhead Crane Installation}
+%\label{subsubsection:overhead_crane_installation}
 
 %\begin{figure}[ht]
 %  \begin{center}
@@ -1956,19 +1953,19 @@ The Himmeli platform was installed in two different test environments in total o
 % \end{center}
 %\end{figure}
 
-In the overhead crane environment two installation options were available for the perception platform: first option was to install the sensor module in the moving trolley (top-down viewpoint, see Figure \ref{fig:himmeli_installation_option_1}), and the second option was to install the sensor module to the side of the bridge (using a custom made metal frame). Due to spatial limitations only the sensor module was installed into moving parts of the crane while the computation module was used at the operator balcony of the process hall. Most overhead cranes have little available space to install anything, thus, the modularity of the Himmeli system was very useful.
+%In the overhead crane environment two installation options were available for the perception platform: first option was to install the sensor module in the moving trolley (top-down viewpoint, see Figure \ref{fig:himmeli_installation_option_1}), and the second option was to install the sensor module to the side of the bridge (using a custom made metal frame). Due to spatial limitations only the sensor module was installed into moving parts of the crane while the computation module was used at the operator balcony of the process hall. Most overhead cranes have little available space to install anything, thus, the modularity of the Himmeli system was very useful.
 
-\subsubsection{Forestry Crane Installation}
-\label{subsubsection:forestry_crane_installation}
+%\subsubsection{Forestry Crane Installation}
+%\label{subsubsection:forestry_crane_installation}
 
-The installation of the Himmeli platform is even more constrained by spatial limitations in a log picker truck. In an actual log picker truck the installation location options are the rooftop of the driver booth (bird's eye viewpoint) and the forestry machine chassis near the base of the rotary boom crane (frog perspective viewpoint). In testing, a log picker truck was not available, and the rotary boom crane was operated on the ground with plenty of space to install anything nearby. The Himmeli platform was installed near the base plate of the rotary boom crane in the third use case, and on the rooftop of the operator booth in the fourth use case (see \ref{section:use_cases} for use case details).
+%The installation of the Himmeli platform is even more constrained by spatial limitations in a log picker truck. In an actual log picker truck the installation location options are the rooftop of the driver booth (bird's eye viewpoint) and the forestry machine chassis near the base of the rotary boom crane (frog perspective viewpoint). In testing, a log picker truck was not available, and the rotary boom crane was operated on the ground with plenty of space to install anything nearby. The Himmeli platform was installed near the base plate of the rotary boom crane in the third use case, and on the rooftop of the operator booth in the fourth use case (see \ref{section:use_cases} for use case details).
 
-The mass of a single GigE uEye camera is only 0.175 kg, which means that the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively, the smaller forestry crane rotary booms tend to break measurement devices (e.g. encoders, resistive elements) that are mechanically attached to rotary actuators due to roughness of the environment \citep{Pedro09}. If the camera is attached mechanically to a rough environment, it may produce low quality images, which is why it could be beneficial to install camera systems on the rooftop of the driver's booth in an actual log picker truck - especially if the booth has active vibration damping technology .
+%The mass of a single GigE uEye camera is only 0.175 kg, which means that the camera is susceptible to vibrating environments, and the image quality may be affected if no active or passive damping is used in a vibrating crane environment. While overhead crane environments dampen the vibrations passively, the smaller forestry crane rotary booms tend to break measurement devices (e.g. encoders, resistive elements) that are mechanically attached to rotary actuators due to roughness of the environment \citep{Pedro09}. If the camera is attached mechanically to a rough environment, it may produce low quality images, which is why it could be beneficial to install camera systems on the rooftop of the driver's booth in an actual log picker truck - especially if the booth has active vibration damping technology .
 
-\subsection{Computation Module}
-\label{subsection:computation_module}
+%\subsection{Computation Module}
+%\label{subsection:computation_module}
 
-The Himmeli platform computation module includes 2 PC computers, and different components that control the power and the data flow of the perception platform. The PCs run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. The other PC is installed with a Linux distribution that runs the sensor fusion software. We do not consider the details of the Himmeli platform in more detail, except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
+%The Himmeli platform computation module includes 2 PC computers, and different components that control the power and the data flow of the perception platform. The PCs run on 230 volts AC power with an option for 24 volts DC operation. The PC that controls the camera software runs on Windows 7 operating system. The other PC is installed with a Linux distribution that runs the sensor fusion software. We do not consider the details of the Himmeli platform in more detail, except some issues that were encountered will be reported in the evaluation chapter \ref{chapter:evaluation}.
 
 \section{Robot Operating System (ROS)}
 \label{section:robot_operating_system}
@@ -1982,35 +1979,34 @@ ROS was the first choice for networked data communication, but other options wer
 
 ROS Groovy was the version used for all development purposes, and packages such as rqt\_graph, rqt\_logger, rviz, and dynamic\_reconfigure were used to debug the software during its development. At the heart of the ROS system there is a ROS parameter server, which is detailed next. ROS uses parameter server that keeps track of all topics, nodes, and parameters used in the network.
 
-\subsection{ROS Parameter Server}
-\label{subsection:ros_parameter_server}
+%\subsection{ROS Parameter Server}
+%\label{subsection:ros_parameter_server}
 
-ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is the main advantages of ROS system since it can be used for reliably configuring a multi-device network, too. The parameter server is implemented using XMLRPC libraries in the ROS master node.
+%ROS parameter server is a cross-platform shared dictionary service that enables parameter retrieval at runtime in a ROS network. It is the main advantages of ROS system since it can be used for reliably configuring a multi-device network, too. The parameter server is implemented using XMLRPC libraries in the ROS master node.
 
-The parameter server handles all network data by using unique parameter names, and to prevent namespace collisions in the parameter server the naming of parameters was enforced during the work by using a long naming convention where each parameter included the node name also in the beginning of the parameter name. 
+%The parameter server handles all network data by using unique parameter names, and to prevent namespace collisions in the parameter server the naming of parameters was enforced during the work by using a long naming convention where each parameter included the node name also in the beginning of the parameter name. 
 
-\begin{table}\centering
-\ra{1.3}
-\caption{The data types supported by the ROS parameter server XMLRPC library.}
-\begin{tabular}{@{}lll@{}}\toprule
-Java type & XML name tag & Description \\
-\midrule
-Integer & int & 32-bit signed integer \\
-Boolean & boolean & 0 or 1 \\
-String & string & A string \\
-Double & double & A 64-bit signed floating point number \\
-java.util.Date & dateTime.iso8601 & A ISO860 timestamp \\
- & & (milliseconds and time zone missing) \\
-java.util.List & array & An array of objects \\
-java.util.Map & struct & Key-value pairs \\
-byte[] & base64 & Base64-encoded byte array \\
-\bottomrule
-\end{tabular}
-\label{table:parameterserver}
-\end{table}
-%\begin{tabular}{|p{7cm}|p{3cm}|}
+%\begin{table}\centering
+%\ra{1.3}
+%\caption{The data types supported by the ROS parameter server XMLRPC library.}
+%\begin{tabular}{@{}lll@{}}\toprule
+%Java type & XML name tag & Description \\
+%\midrule
+%Integer & int & 32-bit signed integer \\
+%Boolean & boolean & 0 or 1 \\
+%String & string & A string \\
+%Double & double & A 64-bit signed floating point number \\
+%java.util.Date & dateTime.iso8601 & A ISO860 timestamp \\
+% & & (milliseconds and time zone missing) \\
+%java.util.List & array & An array of objects \\
+%java.util.Map & struct & Key-value pairs \\
+%byte[] & base64 & Base64-encoded byte array \\
+%\bottomrule
+%\end{tabular}
+%\label{table:parameterserver}
+%\end{table}
 
-Setting parameters in the ROS parameter server can be done using an XML launch file at the time of starting ROS nodes. All the variables are evaluated before launching any nodes (a single launch file can launch multiple nodes), and all the information is uploaded to the parameter server before launching. Supported data types in the launch file are string, integer, double and Boolean values.
+%Setting parameters in the ROS parameter server can be done using an XML launch file at the time of starting ROS nodes. All the variables are evaluated before launching any nodes (a single launch file can launch multiple nodes), and all the information is uploaded to the parameter server before launching. Supported data types in the launch file are string, integer, double and Boolean values.
 
 \chapter{Computation}
 \label{chapter:computation}
@@ -2083,7 +2079,7 @@ After the preprocessing of the point cloud, the 3d data is being segmented into 
     \begin{minipage}{5cm}%
     \includegraphics[width=\linewidth]{segmentation_on_velodyne.jpg}
     \end{minipage}%
-    \caption{a) LIDAR scanner data from overhead crane environment b) Segmented objects output from PCL nearest neighbour search}
+    \caption{a) LIDAR scanner data from test environment b) Segmented objects output from PCL nearest neighbour search}
     \label{fig:object_segmentation}
 \end{figure}
 
@@ -2113,7 +2109,7 @@ A typical sample consensus search may run hundreds of iterations, and the number
 
 In the implemented software, the RANSAC algorithm found the ground plane successfully almost 100\% of the time and removed it fully, which means that the selected error threshold of 14 cm was well chosen. The ground plane removal was very robust against missing parts of the floor data and occlusions in testing.
 
-There are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion found in the dataset. If not, then another plane will be found by the algorithm, for example, a large warehouse wall can be found in the RANSAC search. Secondly, the plane response must be within the selected error threshold. In the bird's eye views for both tested crane environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. Similarly, the ground plane estimator will fail to remove grounds that are not planar, e.g. rolling hills or mounds of dirt in the ground.
+There are some conditions that must be fulfilled in order to find the correct solution. First, the ground plane must contain the largest number of points in a planar fashion found in the dataset. If not, then another plane will be found by the algorithm, for example, a large warehouse wall can be found in the RANSAC search. Secondly, the plane response must be within the selected error threshold. In the bird's eye views for all test environments some points were not removed that fell outside the error threshold due to high depth estimation error and curving of the floor-wall interface as described later in Section \ref{subsubsection:findings_from_birdseye_viewpoint_datasets}. Similarly, the ground plane estimator will fail to remove grounds that are not planar, e.g. rolling hills or mounds of dirt in the ground.
 
 If the results from a RANSAC estimator are not satisfying, many variants can be found from the literature\citep{Torr00, Huber81}, for example 
 \begin{itemize}
@@ -2130,11 +2126,11 @@ In tests, the computation time of the RANSAC estimator output was on average les
 \label{subsection:cylinder_model_estimation}
 %+ a great cylinder fitting scheme can be found in Pekka Forsman doctoral thesis
 
-The cylinder model estimation was used in finding cylindrical load objects from the 3d point cloud data. In the rotary boom crane case the load objects consist of a single log (or multiple logs), which can be approximated as a single cylinder. The model estimation uses exactly the same technique as was described for plane model segmentation in Section \ref{subsubsection:parameter_estimator_for_ground_plane_removal}, the only difference is that the model type is replaced with a cylindrer implicit parameter model using type pcl::SACMODEL\_CYLINDER. The tutorial code for implementing a cylinder model segmentation in PCL code can be found from the pointclouds.org website\citep{CylinderModelSegmentation14}.  
+The cylinder model estimation was used in finding cylindrical load objects from the 3d point cloud data. Cylinder model estimation was useful when elongated or cylinder-shaped objects were handled. The model estimation uses exactly the same technique as was described for plane model segmentation in Section \ref{subsubsection:parameter_estimator_for_ground_plane_removal}, the only difference is that the model type is replaced with a cylinder implicit parameter model using type \emph{pcl::SACMODEL\_CYLINDER}. The tutorial code for implementing a cylinder model segmentation in PCL code can be found from the pointclouds.org website\citep{CylinderModelSegmentation14}.  
 
 The cylinder model coefficients in PCL implementation contain 6 values that represent two 3d coordinate values, and the radius of the cylinder. The first 3d coordinate value is a random coordinate found on the cylinder main axis, and the second coordinate reports the direction of the cylinder main axis. The biggest drawback of using only 7 values to represent a cylinder is that while the cylinder main axis orientation and translation are recovered, the length of the cylinder is not recovered. Since the coordinates in RANSAC model parameters were never found on the extreme ends of the inlier data, the length of the cylinder must be computed by other means. The solution was to implement a cylinder growing algorithm that projects inlier points on the cylinder main axis and keeps track of the maximum length of the oriented cylinder. The algorithm is introduced in more detail in Section \ref{subsection:cylinder_growing_algorithm}.
 
-Some problems in cylinder segmentation were encountered because the load object point cloud contains the rotary crane boom. The estimator easily fitted the cylinder model on the crane boom and not on the load object, which was an incorrect result. To prevent selection of wrong data, a set of simple heuristic checks were implemented in the software.
+Some problems in cylinder segmentation were encountered when the load object point cloud contained a crane boom itself. The estimator easily fitted the cylinder model on the boom and not on the load object, which was an incorrect result. To prevent selection of wrong data, a set of simple heuristic checks were implemented in the software.
 
 % Large images of a single cylinder fitting result
 \begin{figure}[ht]
@@ -2156,9 +2152,11 @@ Some problems in cylinder segmentation were encountered because the load object 
     \label{fig:cylinder_fitting_pt2}
 \end{figure}
 
-If a verification check reported that the location of the found load object is not correct, then the cylinder segmentation was being iterated until the verification check reported a correct cylinder (or a cylinder not found). To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
+If a verification check reported that the location of the found load object was not correct, then the cylinder segmentation was being iterated until the verification check reported a correct cylinder (or a cylinder not found).
 
-The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other logs approximately 50\% of the time. It is not possible to detect the number of logs carried in the boom crane using the RANSAC model estimator, but the bounding volume can be computed for multiple logs. The radius of the cylinder was estimated slightly too large typically, which is acceptable in bounding volume computation.
+To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
+
+The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of logs carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
 
 The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} a) in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt2} b), which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters.
 
@@ -2176,7 +2174,7 @@ The cylinder model segmentation was moderately fast with the test data clocking 
 
 A bounding volume measurement is the target product or information that is produced by the implemented load object measurement system software. Now a load object point cloud is extracted from the 3d data using the point cloud operations introduced in this chapter, and the bounding volume can be computed using either an axis-aligned bounding box (AABB) approach, or an oriented bounding box (OBB) approach.
 
-AABB is the simplest bounding volume that can be applied in 3d Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object in 2d space as seen in Figure \ref{fig:aabb_obb} a). AABB is straightforward to apply in 3d by finding minimae and maximae of the point set along each axis and by spanning a convex polyhedron so that all the minimum values are selected as the other corner that spans the polyhedral graph, and all the maximum values are selected as the opposing corner of the polyhedral graph. This can be done in PCL by using the function pcl::getMinMax3d().
+AABB is the simplest bounding volume that can be applied in 3d Euclidean space. AABB is the minimum perimeter along the directions of the axes that span the Euclidean space that fully contain the target object in 2d space as seen in Figure \ref{fig:aabb_obb} a). AABB is straightforward to apply in 3d by finding minima and maxima of the point set along each axis and by spanning a convex polyhedron so that all the minimum values are selected as the other corner that spans the polyhedral graph, and all the maximum values are selected as the opposing corner of the polyhedral graph. This can be done in PCL by using the function pcl::getMinMax3d().
 
 \begin{figure}[ht]
   \begin{center}
@@ -2254,7 +2252,7 @@ The design of the load object measurement system evolved a lot during its implem
 \item Data reduced and information increased per component principle was enforced by the new design   
 \end{itemize}
 
-This chapter evaluates the implementation of the final software schematic presented in Figure \ref{fig:software_architecture}. The design proved to enable stable heterogenous PC network communications with the Himmeli platform on wired LAN architectures in tests. Tests were run in an actual overhead crane environment, and also in laboratory conditions with simple networks (no hardware routers). Many readily available ROS software packages for visualization, configuration and debugging tools were used to get the networks running as designed. These utilities proved to be of tremendous help in configuring and troubleshooting the network settings. No tests were run in a wireless network environment, but it is quite possible that the current system would be bottlenecked in a wireless network due high data bandwidth requirement.
+This chapter evaluates the implementation of the final software schematic presented in Figure \ref{fig:software_architecture}. The design proved to enable stable heterogenous PC network communications with the Himmeli platform on wired LAN architectures in tests. Tests were run in industrial environment, and also in laboratory conditions with simple networks (no hardware routers). Many readily available ROS software packages for visualization, configuration and debugging tools were used to get the networks running as designed. These utilities proved to be of tremendous help in configuring and troubleshooting the network settings. No tests were run in a wireless network environment, but it is quite possible that the current system would be bottlenecked in a wireless network due high data bandwidth requirement.
 
 For the selected stereo camera setup and tested networks, any amount of data could be relayed from any software component to the next one successfully by using networking with topics and subscribers. No issues were found, although some limitations posed by the architecture were discovered: 
 
@@ -2262,7 +2260,7 @@ For the selected stereo camera setup and tested networks, any amount of data cou
 % item separation length in a list
 \setlength{\itemsep}{0pt}
 \item The ROS network introduced varying length delays, as expected
-\item Custom ROS message contents (LoadArea.msg) could not be viewed on subscriber machine that had no message headers built
+\item Custom ROS message contents could not be viewed on subscriber machine that had no message headers built
 \item Implemented PCL visualisation introduces large periodic delays of more than 1000 milliseconds 
 \end{itemize}
 
@@ -2281,7 +2279,7 @@ The evaluation of the load object measurement system was done using offline data
 
 The point cloud data quality was affected by the overall machine vision process including stereo calibration, disparity tuning, and the hardware setup. The hardware setup and the stereo calibration were used as monolithic initial calibration items. The calibration was done automatically for the hardware setup using OpenCV as described in Section \ref{subsection:opencv_stereo_calibration_workflow}, and after a good basic point cloud output generation was achieved, no further engineering was done for the hardware or the stereo calibration. After an initial point cloud output was generated, the problem of understanding the data quality could be presented: how accurately does the point cloud data resemble the real world scene?
 
-The generated point cloud resembles the real scene, but some noisy parts or parts that are difficult to model, such as hoisting wires in a crane environment, do not look like their real-life counterparts. Accuracy of the point cloud representation can be quantified using point cloud data quality indicators. The most important indicators in point cloud data quality assessment are
+The generated point cloud resembles the real scene, but some noisy parts or parts that are difficult to model do not look like their real-life counterparts. Accuracy of the point cloud representation can be quantified using point cloud data quality indicators. The most important indicators in point cloud data quality assessment are
 
 \begin{itemize}
 % item separation length in a list
@@ -2292,15 +2290,15 @@ The generated point cloud resembles the real scene, but some noisy parts or part
 \item and number of finite data point entries.
 \end{itemize}
 
-\begin{figure}[ht]
-  \begin{center}
-    \includegraphics[width=\textwidth]{riegl_reference.jpg}
-    \caption{A point cloud of the forestry crane boom environment taken with an industrial Riegl terrestial laser scanner.}
-    \label{fig:riegl_reference}
-  \end{center}
-\end{figure}
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{riegl_reference.jpg}
+%    \caption{A point cloud of the forestry crane boom environment taken with an industrial Riegl terrestial laser scanner.}
+%    \label{fig:riegl_reference}
+%  \end{center}
+%\end{figure}
 
-Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis. The need for different quality indicators depends on the application, but the constructed industrial crane environment encourages to try spatial structure analysis for quality evaluation. Positioning analysis cannot be done in this work since multiple view registration is not used \citep{Feng08}.
+Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis. The need for different quality indicators depends on the application, but the constructed industrial environment encourages to try spatial structure analysis for quality evaluation. Positioning analysis cannot be done in this work since multiple view registration is not used \citep{Feng08}.
 
 In literature, also reverse engineering of shape primitives from point cloud response have been used for point cloud data quality verification in industrial settings. In industrial environments, a lot of box-shaped or cylinder-shaped objects can be found and be used for verification. Also, for any primitive geometric shapes it is fairly simple to quantify a goodness of fit value using geometric fitting schemes via least squares error minimization \citep{Fidera04}.
 
