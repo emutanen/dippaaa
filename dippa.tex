@@ -406,21 +406,14 @@
 % ------------------------------------------------------------------
 \thesisabstract{english}{
 
-In manufacturing industry, electric overhead cranes are used in lifting and moving operations of industrial goods, such as beams, engines, and large coils. Mostly, these cranes are manually operated in locations where people work, such as a factory floor. The cranes do not operate automatically and they do not have safety features that would prevent collisions of the lifted load object and other objects or workers.
-
-Geometry measurement of the load object is required to develop new automated features to the overhead crane environment. The aim is to automatically handle e.g. route planning, collision detection, and collision avoidance. The incentives for developing such features are increased goods handling safety and the need to improve easiness of operation for the crane operator. 
+In manufacturing industry, a geometry measurement of the load object is required to develop new automated features to crane environments. The aim is to automatically handle e.g. route planning, collision detection, and collision avoidance. The incentives for developing such features are increased goods handling safety and the need to improve easiness of operation for the crane operator. Mostly, these cranes are manually operated in locations where people work.
 
 A 3-D machine vision process was selected to produce a load object measurement using passive stereographic triangulation. A perception platform with two high dynamic range cameras was used to acquire data from an overhead crane environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and Robot Operating System (ROS). 
 
-This thesis studies two different applications for machine vision -based load object geometry measurement. The first case introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor overhead crane environment. The second case introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor rotary telescopic crane environment.  
+This thesis studies two different applications for machine vision -based load object geometry measurement. The first application introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor environment. The second application introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor crane environment.  
 }
 
-%BADThis thesis will primarily study a machine vision approach that uses stereo vision for the work environment
-%epth mapping. Other optional sensors, such as a laser scanner, are considered.
-
-%BADExisting machine vision approaches will be applied to the crane load problem. 
-%The location measurement of the crane load could enable additional improvements in obstable avoidance while
-%operating the crane.}
+% TODO results here
 
 %\fixme{Abstract text goes here (and this is an example how to use fixme).}
 %Fixme is a command that helps you identify parts of your thesis that still
@@ -444,37 +437,13 @@ This thesis studies two different applications for machine vision -based load ob
 % Abstract in Finnish
 % ------------------------------------------------------------------
 \thesisabstract{finnish}{
-Valmistavassa teollisuudessa käytetään sähkökäyttöisiä prosessihallinostureita tuotteiden nosto- ja siirtotehtäviin. Tuotteet ovat usein yksittäiseriä, kuten moottoreita, palkkeja, tai isoja käämejä. Yleensä nostureita ohjataan käsiohjauksella tiloissa, joissa ihmiset työskentelevät, esimerkiksi tehdaslattiatiloissa. Nostureita ei edellä mainituissa tilanteissa yleensä voi ohjata tietokoneella eikä niissä ole turvaominaisuuksia, jotka estävät nostettavan kappaleen törmäykset tehdasympäristössä olevien muiden tuotteiden tai työntekijöiden kanssa.
 
-Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi tehdasympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa ja helpottaa nosturin operoimista.
+Nosturin taakan geometrian mittaus vaaditaan uusien automaattisten toimintojen mahdollistamiseksi nosturiympäristössä. Uusia toimintoja ovat esimerkiksi reitinsuunnittelu-, törmäystarkastelu-, ja törmäyksenestotoiminnot. Edellä mainittujen toimintojen kehittäminen mahdollistaa turvallisemman taakan siirtämisen tilassa ja helpottaa nosturin ohjaamista. Yleensä nosturiympäristössä on ihmisiä työskentelemässä, jonka takia nosturia ohjataan käsiohjauksella.
 
 Taakan mittauksen tuottamiseksi valittiin 3-D -konenäkömenetelmä, joka käyttää passiivista stereokolmiointimenetelmää. Työn toteutuksessa käytettiin kahta korkean dynamiikan kameraa, jotka tallensivat kuvadataa nosturiympäristöstä. Kuvadata prosessoitiin 3-D -pistepilviksi, joista edelleen tuotettiin metrinen koordinaattiakselien myötäinen rajoittava tilavuusmittaus Point Cloud Library -kirjaston (PCL) avulla. Mittausohjelmisto toteutettiin C++ -kirjastoilla ja Robot Operating System:llä (ROS).
 
-Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nosturin taakan geometrian mittaukselle. Ensimmäinen sovellus esittelee menetelmän koordinaattiakselien suuntaiseen rajoitettuun tilavuusmittaukseen yksinkertaisella nosturin taakan seurannalla sisätiloissa. Toinen sovellus esittelee menetelmän sylinterimäisten taakkojen mittaukseen parametrisovitusmenetelmän ja 2d-kuvaseurannan avulla ulkotiloissa teleskooppinosturilla.
+Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nosturin taakan geometrian mittaukselle. Ensimmäinen sovellus esittelee menetelmän koordinaattiakselien suuntaiseen rajoitettuun tilavuusmittaukseen yksinkertaisella nosturin taakan seurannalla sisätiloissa. Toinen sovellus esittelee menetelmän taakkojen mittaukseen parametrisovitusmenetelmän ja 2d-kuvaseurannan avulla ulkotiloissa toimivalla nosturilla.
 }
-% Abstract in Swedish
-% ------------------------------------------------------------------
-%\thesisabstract{swedish}{
-%illa Vargens universum är det tredje fiktiva universumet inom huvudfäran av de
-%ecknade disneyserierna - de övriga två är Kalle Ankas och Musse Piggs
-%niversum. Figurerna runt Lilla Vargen kommer huvudsakligen frän tre källor ---
-%els persongalleriet i kortfilmen Tre smä grisar frän 1933 och dess uppföljare,
-%dels längfilmen Sängen om Södern frän 1946, och dels frän episoden ``Bongo'' i
-%ängfilmen Pank och fägelfri frän 1947. Framför allt de två första har
-%sedermera även kommit att leva vidare, utvidgas och införlivas i varandra genom
-%tecknade serier, främst sädana producerade av Western Publishing för
-%amerikanska Disneytidningar under ären 1945--1984.
-
-%Världen runt Lilla Vargen är, i jämförelse med den runt Kalle Anka eller Musse
-%Pigg, inte helt enhetlig, vilket bland annat märks i Bror Björns skiftande
-%personlighet. Den har även varit betydligt mer öppen för influenser frän andra
-%Disneyvärldar, inte minst de tecknade längfilmerna. Ytterligare en skillnad är
-%tt varelserna i vargserierna förefaller stä närmare sina förebilder inom den
-%verkliga djurvärlden. Att vargen Zeke vill äta upp grisen Bror Duktig är till
-%exempel ett ständigt äterkommande tema, men om katten Svarte Petter skulle fä
-%för sig att äta upp musen Musse Pigg skulle detta antagligen höja ett och annat
-%ögonbryn bland läsarna.}
-
 
 % Acknowledgements
 % ------------------------------------------------------------------
@@ -838,11 +807,9 @@ Perception sensors used in machine vision system include sensors such as digital
 
 Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
 
-
-
-+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
-+ time-of-flight cameras (TOF)
-According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
+%+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
+%+ time-of-flight cameras (TOF)
+%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
 \section{Effects Of Camera Optics In Modeling}
 \label{section:effects_of_camera_optics_in_modeling}
@@ -956,7 +923,7 @@ Octrees are used in 3d computer graphics applications for nearest neighbour sear
 Octree representation is suitable for fast interactive physics simulation purposes or feedback control, because the memory efficient structure enables a detection of virtual object collisions in just milliseconds \citep{Noborio99}. Using these properties, detection and tracking of dynamic moving objects in a static environment can be done.
 
 %opinion
-Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility. In gaming industry, octrees are already used for digital environment modeling. For example, the new id Tech 6 game engine uses octree environment modeling.
+Octree would be a suitable representation format for load object environment data because it supports many of the operations needed to realise a collision avoidance system, such as the collision detection possibility. In gaming industry, octrees are already used for digital environment modeling. For example, the new id Tech 6 game engine uses octree environment modeling \citep{Shrout08}.
 
 Octree structure is a 3d extension to the quadtree, which is a four-pointer binary tree. Originally, the idea to use octrees for spatial representation was introduced by Donald Meagher in 1982 \citep{Meagher82}. Today, many different implementations exist, for example, the Octomap library supports probabilistic sensor fusion with occupancy grid estimation \citep{Hornung10}. 
 
