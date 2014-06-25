@@ -267,7 +267,7 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Geometry Measurement Of Crane Load (Object) using Machine Vision}
+\newcommand{\TITLE}{Geometry Measurement Of Crane Load Object using Machine Vision}
 \newcommand{\FTITLE}{Geometrian mittaus nosturin taakasta konenäköavusteisesti}
 \newcommand{\DATE}{May 27th, 2014}
 \newcommand{\FDATE}{27. toukokuuta 2014}
@@ -791,66 +791,16 @@ A tertiary objective regarding hardware was to keep the costs of the load object
 
 \chapter{Perceiving Environments In 3-D}
 \label{chapter:perceiving_environments_in_3d}
-%+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
-%page 473 Sonka07
 
-The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
+The problem of the load object geometry measurement inherently requires a sensor that can recover a 3-D geometry of the environment. Extensive research has been done in the field of 3-D geometry recovery, and this chapter reviews the available sensors, acquisition techniques, and representation formats.
 
-Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered\citep{You11}. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
+Additionally, other perception sensors exist that can recover 3-D data, for example laser scanners and radars. These are not machine vision sensors, but for example the laser scanner technology can be used to accurately recover 3-D geometry for load object measurement purposes. A laser scanner can be used to verify a 3-D geometry that any camera based solutions have produced\citep{You11}. A Velodyne laser scanner was used in capturing accurate models of the 3-D test environments.
 
 \section{Sensors}
 
-Perception sensors used in machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
+Perception sensors used in machine vision systems include sensors such as digital cameras, time-of-flight cameras, structured light cameras (Kinect), and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
-\subsection{Stereo Cameras}
-\label{subsection:stereo_cameras}
-
-Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
-
-%+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
-%+ time-of-flight cameras (TOF)
-%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
-
-\section{Effects Of Camera Optics In Modeling}
-\label{section:effects_of_camera_optics_in_modeling}
-
-% todo add teledyne white paper to optics
-%\ref{teledyne_whitepaper}
-
-Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
-% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
-
-The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
-
-The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
-
-The aperture of the camera is described by a unitless number that is presented as f over a number
-
-\begin{equation}
-\label{eq:lens_aperture}
-f/# = N = \frac{f}{D}
-\end{equation}
-
-where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
-
-
-% angle of view of the lens???
-
-% resolution of the sensor array,
-%camera dynamic range
-%electromagnetic spectrum range 
-%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
-%Irradiance is a measure of power of light cast on a unit surface are of an object.
-%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
-
-%\begin{equation}
-%\label{equation:radiance}
-%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
-%\end{equation}
-
-%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
-
-%weather conditions
+Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. Typically, the energy that is registered and digitally sampled by a camera is visible light.
     
 \section{Digital 3d Environment Models}
 \label{section:digital_3d_environment_models}
@@ -1014,6 +964,49 @@ Motion field of an SFM system is similar to a disparity map in a stereo vision s
 
 % another snippet
 %A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
+
+\section{Effects Of Camera Optics In Modeling}
+\label{section:effects_of_camera_optics_in_modeling}
+
+% todo add teledyne white paper to optics
+%\ref{teledyne_whitepaper}
+
+Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
+% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
+
+The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
+
+The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
+
+The aperture of the camera is described by a unitless number that is presented as f over a number
+
+\begin{equation}
+\label{eq:lens_aperture}
+f/# = N = \frac{f}{D}
+\end{equation}
+
+where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
+
+
+% angle of view of the lens???
+
+% resolution of the sensor array,
+%camera dynamic range
+%electromagnetic spectrum range 
+%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+%Irradiance is a measure of power of light cast on a unit surface are of an object.
+%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
+
+%\begin{equation}
+%\label{equation:radiance}
+%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+%\end{equation}
+
+%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+
+%weather conditions
+%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
+
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision}
 \label{chapter:stereoscopic_machine_vision}
@@ -2671,7 +2664,7 @@ A minor problem with measuring loads was introduced when the bird's eye viewpoin
 
 It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The load is often tilted so that the other end of the load is located above the end effector tool. This was verified to be true during the outdoor testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is grabbed by the end effector tool or not.
 
-There are no major improvement suggestions for the object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the object (in case a high detail object model is needed). A model that approximates the object with segments of cylinders is introduced in Forsman's Ph.D. thesis \citep{Forsman01}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex log object model would significantly slow down the computation, and the effect of the accuracy of the model on the bounding volume is minimal.
+There are no major improvement suggestions for the object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the object (in case a high detail object model is needed). A model that approximates the object with segments of cylinders is introduced in Forsman's Ph.D. thesis \citep{Forsman01}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex object model would significantly slow down the computation, and the effect of the accuracy of the model on the bounding volume is minimal.
 
 \section{System Bottlenecks}
 \label{section:system_bottlenecks}
@@ -2690,13 +2683,15 @@ A suggested improvement for environment 3d modeling is to install 3d spheres as 
 \section{Perception Platform}
 \label{section:perception_platform}
 
-Using Himmeli perception platform as the medium for stereo camera processing was a successful decision. The platform provided ROS and PCL computing hardware at the ready, and the installed perception sensors were of high quality. The stereo cameras in Himmeli were in a converging camera installation whose property of negative disparity was used to remove hoisting wires from the 3d data in the overhead crane case with top-down viewpoint.
+Using Himmeli perception platform as the medium for stereo camera processing was a successful decision. The platform provided ROS and PCL computing hardware at the ready, and the installed perception sensors were of high quality. 
+
+%The stereo cameras in Himmeli were in a converging camera installation whose property of negative disparity was used to remove hoisting wires from the 3d data in the overhead crane case with top-down viewpoint.
 
 The sturdy metal frame protected the stereo cameras from moving or dislocating during platform installations and transport from test site to another, and the modularity was very useful in installing the cameras in tight spaces. The Himmeli platform was very heavy, which helped passively stabilise the camera images in vibrating environments, but made moving the platform a bit difficult.
 
 The platform handled temperatures below zero well, and the system can be used even in winter conditions if the camera lens casings are installed with heaters and a solution that keeps the optics clear of water, dirt, and snow. In bright daylight, the camera image was very good.
 
-The stereo camera image capture was limited at 4 FPS, because a higher rate of image capture, even 5 FPS resulted in skipping of frames, which lead to a situation where many frames with different timestamps had the same image content. If a dataset includes such inconsistent content in frame pairs, the stereo calibration fails, and 3d reconstruction assumptions do not hold anymore.  
+The stereo camera image capture was limited at 4 FPS, because a higher rate of image capture, even 5 FPS resulted in skipping of frames, which lead to a situation where many frames with different timestamps had the same image content. If a dataset includes such inconsistent content in frame pairs, the stereo calibration fails, and 3-D reconstruction assumptions do not hold anymore.  
 
 The platform included a LIDAR scanner that was used to collect data for object segmentation testing, which was an invaluable asset in the work. The Velodyne scanner was also a plan B perception sensor if the stereo camera setup would have proved to be not suitable for load object measuring.
 
