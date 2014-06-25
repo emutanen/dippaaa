@@ -946,7 +946,7 @@ Octree structure is a 3d extension to the quadtree, which is a four-pointer bina
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{velodyne_octree.jpg}
-    \caption{An octree whose leaf nodes are visualised with a coarse resolution. The red object represents a large standard box (see section \ref{subsubsection:analysis_overheadcrane}) lifted with an overhead crane. The green object represents a crane operating person near the load object. Data from Velodyne HDL-32e LIDAR scanner.}
+    \caption{An octree whose leaf nodes are visualised with a coarse resolution. The red object represents a large standard box lifted with an overhead crane. The green object represents a crane operating person near the load object. Data from Velodyne HDL-32e LIDAR scanner.}
     \label{fig:velodyne_octree}
   \end{center}
 \end{figure}
@@ -962,7 +962,7 @@ In this work the focus on environmental acquisition is on systems capable of 3d 
 
 In general, a real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \citep{ElHakim98}
 
-Quality of modeling may degrade in bad weather, such as fog, mist, rain, or snow. Especially camera systems are affected by inhomogenous degradation in image quality. Different types of degradation in image quality are caused by issues such as lens flare, condensation of water on lens, changes in illumination, shadows, and noise from droplets of water moving on the lens. Weather also affects the surrounding environment by e.g. changing the surface reflectance properties in rainy weather. If colored markers are used for load object tracking, sensitivity to natural light in outdoor environments occur. \citep{Kawai12} 
+Quality of modeling may degrade in bad weather, such as fog, mist, rain, or snow. Especially camera systems are affected by inhomogeneous degradation in image quality. Different types of degradation in image quality are caused by issues such as lens flare, condensation of water on lens, changes in illumination, shadows, and noise from droplets of water moving on the lens. Weather also affects the surrounding environment by e.g. changing the surface reflectance properties in rainy weather. If colored markers are used for load object tracking, sensitivity to natural light in outdoor environments occur. \citep{Kawai12} 
 
 If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images. \citep{Chen91}
 
@@ -1130,14 +1130,14 @@ y = f\frac{Y}{Z}
 \end{equation}
 
 
-In homogenous form, a projected point $\tilde{p}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
+In homogeneous form, a projected point $\tilde{p}$ = ($\tilde{x}$,$\tilde{y}$,$\tilde{z}$) can be further formulated as
 
 \begin{equation}
 \tilde{x} = f\frac{X}{\tilde{z}}, \tilde{y} = f\frac{Y}{\tilde{z}}, \tilde{z} = Z
 \label{eq:image_projection}
 \end{equation}
 
-where the origin of the homogenous coordinate system is point 
+where the origin of the homogeneous coordinate system is point 
 
 \begin{equation*}
 $\tilde{O_c} = \begin{bmatrix}
@@ -1147,10 +1147,10 @@ $\tilde{O_c} = \begin{bmatrix}
 \end{equation*}
 .
 
-This coordinate system can be shown in homogenous matrix form as 
+This coordinate system can be shown in homogeneous matrix form as 
 
 \begin{equation} \tilde{p} =
-\label{eq:homogenous_matrix_form}
+\label{eq:homogeneous_matrix_form}
 \begin{bmatrix}
 f & 0 & 0 \\
 0 & f & 0 \\
@@ -1162,7 +1162,7 @@ Z \\
 \end{bmatrix}
 \end{equation}
 
-Point P can be written in homogenous matrix form as
+Point P can be written in homogeneous matrix form as
 
 \begin{equation*}
 \tilde{P} = (X,Y,Z,1)
@@ -1171,7 +1171,7 @@ Point P can be written in homogenous matrix form as
 so that the projection becomes a linear matrix operation
 
 \begin{equation} \tilde{p} = 
-\label{eq:homogenous_world_point}
+\label{eq:homogeneous_world_point}
 \begin{bmatrix}
 f & 0 & 0 & 0 \\
 0 & f & 0 & 0 \\
@@ -1182,11 +1182,11 @@ f & 0 & 0 & 0 \\
 or
 
 \begin{equation}
-\label{eq:homogenous_projection}
+\label{eq:homogeneous_projection}
 \tilde{p} = C\tilde{P}
 \end{equation}
 
-where C is a 3 x 4 matrix called the camera matrix, and $\tilde{p}$ and $\tilde{P}$ are the homogenous image plane projection and 3d object surface point coordinates, respectively. The camera matrix can be factored into form
+where C is a 3 x 4 matrix called the camera matrix, and $\tilde{p}$ and $\tilde{P}$ are the homogeneous image plane projection and 3d object surface point coordinates, respectively. The camera matrix can be factored into form
 
 \begin{equation}
 \label{eq:factor_camera_matrix}
@@ -1205,7 +1205,7 @@ where $T_{c}^{-1}$ is the extrinsic calibration matrix containing at least 6 par
 \subsection{Extension To Pixel Frame}
 \label{subsection:extension_to_pixel_frame}
 
-After formulating the perspective projection $\tilde{p} = C\tilde{P}$ in equation \ref{eq:homogenous_projection} the projected image point $\tilde{p}$ must be related to the pixel frame grid that the digital sensor array contains. The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90 degrees. The pixel coordinates are by convention in a non-negative $u- v-$ coordinate frame whose origin is located at the site of the top left corner pixel of the imaging array. This coordinate frame is titled the \emph{image frame} and it is coinciding with the planar image projection plane $\pi$.
+After formulating the perspective projection $\tilde{p} = C\tilde{P}$ in equation \ref{eq:homogeneous_projection} the projected image point $\tilde{p}$ must be related to the pixel frame grid that the digital sensor array contains. The image sensor contains light sensitive photosites that are arranged in an array whose width \emph{w} and height \emph{h} determine the resolution of the camera. In a modern digital camera, the pixels are rectangular with no skew, which means that the angle between the width and height component is strictly 90 degrees. The pixel coordinates are by convention in a non-negative $u- v-$ coordinate frame whose origin is located at the site of the top left corner pixel of the imaging array. This coordinate frame is titled the \emph{image frame} and it is coinciding with the planar image projection plane $\pi$.
 
 The principal point $(u_{0},v_{0})$ of the image sensor is the center of the sensor array where the principal ray enters the camera through the pinhole aperture perpendicularly to the image plane. If the principal point is shifted due to lens alignment error, then the shift can be adjusted by shifting the principal point so that the new principal point site is at 
 
@@ -1252,9 +1252,9 @@ Point $X_c$ projects onto the image plane as Euclidean point $U_c$ where the pro
 
 
 
-The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogenous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication for \ref{equation:projectedpointUc}.
+The image point that the camera outputs is the affine transformed $\textbf{U}_c$. Next, we must formulate a homogeneous coordinate representation that allows to compute the affine transformation with a $3x3$ matrix multiplication for \ref{equation:projectedpointUc}.
 
-We can represent a homogenous coordinate point in the image plane $\pi$ as 
+We can represent a homogeneous coordinate point in the image plane $\pi$ as 
 
 \begin{equation}
 \label{equation:affinedefinition}
@@ -1457,7 +1457,7 @@ y_c \\
 z_c\end{bmatrix} = R(P_w - t)
 \end{equation}
 
-where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed into a camera frame C. The homogenous coordinate frame transformation is formulated similarly
+where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed into a camera frame C. The homogeneous coordinate frame transformation is formulated similarly
 
 \begin{equation}
 \tilde{P_c} = \begin{bmatrix}
@@ -1465,7 +1465,7 @@ where $x_c$, $y_c$, and $z_c$ are the coordinates of point $P_w$ transformed int
 \tilde{y_c} \\
 \tilde{z_c} \\
 1 \end{bmatrix} = \tilde{R}(\tilde{P_w} - \tilde{t})
-\label{eq:homogenous_transformation}
+\label{eq:homogeneous_transformation}
 \end{equation}
 
 where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since rotations in Euler angle system are applied to the rotating coordinate frame, the order of the axis rotations is crucial unless the matrices are commutative. Commutativity is not a common property in transformation matrices, thus, the order of applying of rotation matrices changes the orientation outcome accordingly. The combinations of Euler angle rotations are presented in detail in Introduction to Robotics by Craig in Appendix B \emph{The 24 angle-set conventions} \citep{Craig05}. 
@@ -1598,7 +1598,7 @@ A precise relationship between a conjugate pair $p_1$ and $p_2$ is expressed usi
 \label{eq:fundamental_matrix}
 \end{equation}
 
-where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected (conjugate) points expressed in homogenous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_2$ is a function of point $\tilde{p1}$ 
+where $\tilde{p_1}$ and $\tilde{p_2}$ are the projected (conjugate) points expressed in homogeneous coordinates. The line equations for the epipolar lines are solved using the fundamental matrix so that epipolar line $l_2$ is a function of point $\tilde{p1}$ 
 
 \begin{equation}
 \tilde{l_2} = F \tilde{p_1}
@@ -1654,7 +1654,7 @@ A successful image rectification can be seen in figure \ref{fig:rectified_image_
 \section{Stereo Calibration}
 \label{section:stereo_calibration}
 
-A stereo calibration computes an extrinsic calibration that relates two camera viewpoints of a stereo camera pair to each other. The calibration output is a rotation matrix $R$ and a translation matrix $T$ according to equation \ref{eq:homogenous_transformation}, and the combined transformation $T$ can be seen in figure \ref{fig:epipolar_geometry}. Stereo calibration techniques are based on fundamental matrix estimation techniques that use epipolar geometry and constraints (see section \ref{section:epipolar_geometry}). 
+A stereo calibration computes an extrinsic calibration that relates two camera viewpoints of a stereo camera pair to each other. The calibration output is a rotation matrix $R$ and a translation matrix $T$ according to equation \ref{eq:homogeneous_transformation}, and the combined transformation $T$ can be seen in figure \ref{fig:epipolar_geometry}. Stereo calibration techniques are based on fundamental matrix estimation techniques that use epipolar geometry and constraints (see section \ref{section:epipolar_geometry}). 
 
 If the stereo camera pair is used to produce metric data output, then both single camera intrinsic calibration parameters are required as an input to the stereo calibration. The same algorithms that are used to estimate the fundamental matrix in section \ref{section:epipolar_geometry} can be used to solve for the stereo calibration including the 7-point algorithm, the 8-point algorithm, and random sample consensus based parameter estimators methods. The stereo calibration used in the prototype software that was implemented in this thesis work uses the OpenCV stereo calibration workflow, which will be introduced next.
 
@@ -1875,7 +1875,7 @@ In this work, the epipolar constraint will reduce the block matching search spac
 
 The 3d reconstruction problem can be formulated as a problem of extracting the best possible estimate of a disparity map $d(x,y)$ using correspondence search techniques such as block matching that was introduced in Section \ref{subsection:block_matching}. A disparity map contains the values computed in the block matching processing in the form of a single channel intensity image, which can be associated with one of the stereo camera images - often the left camera image being used. The expected ideal disparity map that the viewed scene should generate is called a ground truth disparity. In reality the correspondence techniques can only recover an approximation of the ground truth. Disparity images that were generated using the datasets from suggested use cases described in Section \ref{section:use_cases} can be seen in Figures \ref{fig:disparity} and \ref{fig:disparity_overhead}.
 
-Using the pinhole camera model and the inverse of its camera projection matrix $C$ (see Equation \ref{eq:homogenous_projection}) the disparity map values can be reprojected back into 3d coordinate points. The reprojection matrix $Q$ is a 4 x 4 perspective transformation matrix that in this work was estimated using the OpenCV function stereoRectify(). The 3d point cloud is generated using function reprojectImageTo3d(), which projects the disparity map values according to equation
+Using the pinhole camera model and the inverse of its camera projection matrix $C$ (see Equation \ref{eq:homogeneous_projection}) the disparity map values can be reprojected back into 3d coordinate points. The reprojection matrix $Q$ is a 4 x 4 perspective transformation matrix that in this work was estimated using the OpenCV function stereoRectify(). The 3d point cloud is generated using function reprojectImageTo3d(), which projects the disparity map values according to equation
 
 \begin{equation}
 \begin{bmatrix}
