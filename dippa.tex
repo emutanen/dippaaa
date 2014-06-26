@@ -2519,12 +2519,12 @@ In the outdoor case, the performance of the load object measurement system was t
 \subsection{Load Measurement Results}
 \label{subsection:load_measurement_results}
 
-Load measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:load_detected}. The recovered orientation of the load was less than 5 degrees when the object was lifted high in the air, and within a $\pm$ 10 degree error when the load was located near the ground and the data was cluttered because of other objects. There are no exact statistics on the extracted load orientation error, but a result can be reviewed in Figure \ref{fig:log_detected}. The position of the load object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the load measurement values.
+Load measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:load_detected}. The recovered orientation of the load was less than 5 degrees when the object was lifted high in the air, and within a $\pm$ 10 degree error when the load was located near the ground and the data was cluttered because of other objects. There are no exact statistics on the extracted load orientation error, but a result can be reviewed in Figure \ref{fig:load_detected}. The position of the load object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the object. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the load measurement values.
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{log_detected.jpg}
-    \caption{Log object detected using data from BM algorithm in block matching (low quality data).}
+    \caption{Load object detected using data with BM algorithm (low number of points) in block matching.}
     \label{fig:load_detected}
   \end{center}
 \end{figure}
@@ -2541,9 +2541,18 @@ For example, if the distance between the candidate cylinder and the end effector
 
 In Figure \ref{fig:log_detected}, the stereo parameters and object segmentation parameters were not optimally tuned. Still, the correct cylinder extraction was quite robust in the presence of missing data, noisy 3d data, and non-optimal parameter tuning. Especially the OpenCV stereo calibration that was described in Section \ref{section:stereo_calibration} did a good job on estimating parameters with little a priori information, which worked a lot towards robustness in the software.
 
-The most significant problem in the log object measurement was the grouping of multiple objects in the load object point cloud. While the cylinder extraction does well on selecting and extracting the correct feature, it remains unknown whether the object segmentation step is needed at all in the forestry crane case since objects tend to group as a single large point cloud most of the time. The load object point cloud usually contains the crane boom, the end effector tool, and the picked up log. Sometimes, the load object point cloud additionally contained objects lying on the ground.
+The most significant problem in the load object measurement was the grouping of multiple objects in the load object point cloud. While the cylinder extraction does well on selecting and extracting the correct feature, it remains unknown whether the object segmentation step is needed at all in the outdoor case since objects tend to group as a single large point cloud most of the time. The load object point cloud usually contains a boom, an end effector tool, and the picked up object.
 
-A minor problem with measuring logs was introduced when the bird's eye viewpoint was used and the logs were occluded by the crane boom. A log may be seen on both sides of the crane boom, which means that in the 3d data two point clouds are seen that represent partial surfaces of the load object. In these cases where the log object was occluded by the crane boom and divided into multiple point clouds, it was not possible to measure the load object size correctly. 
+A minor problem with measuring loads was introduced when the bird's eye viewpoint was used and the loads were occluded by a boom. An object may be seen on both sides of the boom, which means that in the 3-D data two point clouds are seen that represent partial surfaces of the load object. In these cases where the load object was occluded by the boom and divided into multiple point clouds, it was not possible to measure the load object size correctly.
+
+% TODO add image where a load object is being divided by a boom
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{log_detected.jpg}
+%    \caption{Load object detected using data with BM algorithm (low number of points) in block matching.}
+%    \label{fig:load_detected}
+%  \end{center}
+%\end{figure}
 
 It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The log is often tilted so that the other end of the log is located above the end effector tool. This was verified to be true during the forestry crane testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is actually grabbed by the end effector tool or not.
 
