@@ -409,7 +409,7 @@
 
 In manufacturing industry, a geometry measurement of the load object is required to develop new automated features to crane environments. The aim is to automatically handle e.g. route planning, collision detection, and collision avoidance. The incentives for developing such features are increased goods handling safety and the need to improve easiness of operation for the crane operator. Mostly, these cranes are manually operated in locations where people work.
 
-A 3-D machine vision process was selected to produce a load object measurement using passive stereographic triangulation. A perception platform with two high dynamic range cameras was used to acquire data from an overhead crane environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and Robot Operating System (ROS). 
+A 3-D machine vision process was selected to produce a load object measurement using passive stereographic triangulation. A perception platform with two high dynamic range cameras was used to acquire data from an indoor environment. Captured images were processed into 3d point clouds representing the environment. Finally, the point cloud was processed into a metric axis-aligned bounding volume measurement of the load object using Point Cloud Library (PCL) processing. The measurement software was implemented using C++ libraries and Robot Operating System (ROS). 
 
 This thesis studies two different applications for machine vision -based load object geometry measurement. The first application introduces a technique for measuring axis-aligned bounding volume of the load object using simple tracking of the load object in indoor environment. The second application introduces a technique for measuring cylindrical load objects using parameter fitting technique and 2d image tracking in outdoor crane environment.  
 }
@@ -508,7 +508,6 @@ CSM & Complete Surface Model \\
 CUDA & Compute Unified Device Architecture \\
 DC & Direct Current \\
 DOP & Discrete Oriented Polytope \\
-EOT & Electric Overhead Traveling Crane \\
 FLIR & Forward Looking Infra Red \\
 FOV & Field Of View \\
 GIM & Generic Intelligent Machines research group \\
@@ -2422,9 +2421,7 @@ In dataset B7 two non-reflective large markers were added on the see-through loa
 \subsection{Outdoor Measurements}
 \label{subsection:outdoor_measurements}
 
-The forestry crane image data sets were captured from an actual rotary boom crane test outdoor environment in August 2013 in Finland as part of the GIM project. Another dataset collection session was done during March 2013 in snowy winter conditions, but there was depth information loss due to a perception platform malfunction. The setback was unfortunate, thus, no findings from reflective snow and winter conditions are included.
-
-In the forestry crane data sets, an automatic TLD tracker was used in combination with a cylinder fitting scheme to provide more meaningful results. The TLD tracker provided the location of the end effector tool with great accuracy using 2d image feature tracking. A simple cylinder fitting scheme was used, which was further detailed in section \ref{subsection:cylinder_fitting}. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and the implemented load selection algorithm that was further detailed in section \ref{subsection:load_selection_algorithm}.
+The outdoor image data sets were captured from an outdoor test environment in August 2013. An automatic TLD tracker was used in combination with a cylinder fitting scheme to provide more meaningful results for measurements. The TLD tracker provided the location of the end effector tool with great accuracy using 2-D image feature tracking. A simple cylinder fitting scheme was used, which was further detailed in section \ref{subsection:cylinder_fitting}. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and the implemented load selection algorithm that was further detailed in section \ref{subsection:load_selection_algorithm}.
 
 \subsubsection{Findings From The Frog Perspective Viewpoint Datasets C1-C7}
 \label{subsubsection:findings_from_the_frog_perspective_viewpoint_datasets}
@@ -2471,17 +2468,15 @@ It was discovered in dataset D3 that a partially occluded object only reports th
 \section{Effect Of Sensor Frame Orientation On Bounding Volume}
 \label{section:effect_of_sensor_frame_orientation_on_bounding_volume}
 
-In the overhead crane case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
+In the indoor case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
 Figures x and y are screen captures from the data set 1372841000, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
 Now, a comparison criterion may be formulated that relates the output value of the geometry measurement software and the actual measures of the large standard box. The mean output values computed using MATLAB for the large box are shown in table \ref{table:large_standard_box_mean_values}.
-
 % put here a table that shows delta X: 1671.6 mm delta Y: 1473.2 mm delta Z: 1058.5 mm
 % put here a table that shows X = 152 cm Y = 94 cm Z = 92 cm
 % why is the delta Z smallest when delta Z is in the sensor frame.... is it?
+%If the standard box is rotated 34 degrees, a geometric calculation using Pythagoras theorem results a correct bounding volume size of 1787 mm x 1875.42 mm x ???
 
-If the standard box is rotated 34 degrees, a geometric calculation using Pythagoras theorem results a correct bounding volume size of 1787 mm x 1875.42 mm x ???
-
-In dataset 1372852802 an interesting phenomenon is visible in the visualisation of the data. In the end of the data set it seems like there is an object that continuosly changes size especially in the Z-axis direction. When the data was reviewed, it turned out that the load object was lifted near the ceiling, and as the load object was lowered, the hoisting wires become visible more and more as the load object is being lowered. Thus, the viewpoint generates this kind of continuously changing parameters that describe the bounding volume of the visible load object and the hoisting wires of the crane. 
+%In dataset 1372852802 an interesting phenomenon is visible in the visualisation of the data. In the end of the data set it seems like there is an object that continuosly changes size especially in the Z-axis direction. When the data was reviewed, it turned out that the load object was lifted near the ceiling, and as the load object was lowered, the hoisting wires become visible more and more as the load object is being lowered. Thus, the viewpoint generates this kind of continuously changing parameters that describe the bounding volume of the visible load object and the hoisting wires of the crane. 
 
 \chapter{Discussion And Conclusions}
 \label{chapter:discussion}
