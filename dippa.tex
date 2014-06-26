@@ -940,18 +940,18 @@ Structure from motion is similar to biological visual systems that easily infer 
 A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
 
 %Motion field
-\subsubsection{Motion Field And Optical Flow}
-\label{subsubsection:motion_field_and_optical_flow}
+%\subsubsection{Motion Field And Optical Flow}
+%\label{subsubsection:motion_field_and_optical_flow}
 
-In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+%In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
 
-Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
+%Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
 
-In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
+%In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
 
-The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
+%The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
 
-Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
+%Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
 
 %\subsubsection{Structure From Motion Challenges In Crane Environment}
 %\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
