@@ -79,13 +79,16 @@
 % (ISO-8859-1 works). Change the latin1-option if you use UTF8
 % (at some point LaTeX did not work with UTF8, but I'm not sure
 % what the current situation is)
-\usepackage[utf8]{inputenc}
+
 % OT1 font encoding seems to work better than T1. Check the rendered
 % PDF file to see if the fonts are encoded properly as vectors (instead
 % of rendered bitmaps). You can do this by zooming very close to any letter
 % - if the letter is shown pixelated, you should change this setting
 % (try commenting out the entire line, for example).
 \usepackage[OT1]{fontenc} %fontenc first, then inputenc if need be
+
+\usepackage[utf8]{inputenc}
+
 % The babel package provides hyphenating instructions for LaTeX. Give
 % the languages you wish to use in your thesis as options to the babel
 % package (as shown below). You can remove any language you are not
@@ -2044,9 +2047,9 @@ If a verification check reported that the location of the found load object was 
 
 To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
 
-The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the loads were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of logs carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
+The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the loads were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of objects carried in the end effector using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
 
-The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} a) in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt2} b), which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters.
+The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} a) in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt2} b), which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom, and there is some orientation error in the found cylinder parameters.
 
 \section{Bounding Volume Computation}
 \label{section:bounding_volume_computation}
@@ -2474,12 +2477,11 @@ It was noticed from dataset C5 that the load object cylinder fitting introduces 
 \subsubsection{Findings From The Bird's Eye Viewpoint Datasets D1-D5}
 \label{subsubsection:findings_from_the_birds_eye_viewpoint_datasets}
 
-In dataset M the crane boom is fully visible in both stereo images since the perception platform is installed on top of the forestry machine driver's booth. When the crane boom is completely visible in both images it can be 3d modeled and the crane's kinematic model can be estimated. In normal operation, the crane partially moved out of the picture, which introduced challenges to continuos kinematic modeling with MATLAB. If the view would be adjusted so that the crane boom stays in the image during operation, then kinematic modeling would be used, but now it was discarded as a nice but unnecessary feature. Kinematic modeling can be used to calculate the 3d location of the end effector tool from the image data.
+In dataset D1 the boom is fully visible in both stereo images since the perception platform is installed above the working area scene. When the crane boom is completely visible in both images it can be 3d modeled and the crane's kinematic model can be estimated. In normal operation, the crane partially moves out of the picture, which introduces challenges to continuos kinematic modeling with MATLAB. If the view would be adjusted so that the crane boom stays in the image during operation, then kinematic modeling would be useful, but now it was discarded as a partially working feature. Kinematic modeling can be used to calculate the 3d location of the end effector tool from the image data.
 
-It was noticed from dataset M+1 that it is possible to measure the current state of the end effector tool from the 3d geometry data. It is possible to report whether the end effector is closed or open, and whether it carries a log or not. In some tool orientations the object state estimation is an easy problem, but for some orientations the problem can become very difficult.
-% picture pair here of the end effector tool
+It was noticed from dataset D2 that it is possible to measure the current state of the end effector tool from the 3d geometry data. It is possible to report whether the end effector is closed or open, and whether it carries a log or not. In some tool orientations the object state estimation is an easy problem, but for some orientations the problem can become very difficult. For example, in Figure \ref{end_effector_tool} it is clearly seen that the end effector tool is in closed state.
 
-It was discovered in dataset M+2 that a partially occluded log only returns the geometry measurement for the visible part of the log. For example, if 50\% of the length of the log is visible in the image, then approximately 50\% of the actual length of the log is reported by the machine vision system. Occlusion is typical in situations where the log is moved behind the crane boom, and the occluding object is the crane boom itself.
+It was discovered in dataset D3 that a partially occluded object only reports the geometry measurement for the visible part of the object. For example, if 50\% of the length of the log is visible in the image, then approximately 50\% of the actual length of the log is reported by the machine vision system. Occlusion is typical in situations where the log is moved behind the crane boom, and the occluding object is the crane boom itself.
 
 \section{Effect Of Sensor Frame Orientation On Bounding Volume}
 \label{section:effect_of_sensor_frame_orientation_on_bounding_volume}
