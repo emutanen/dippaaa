@@ -2206,7 +2206,7 @@ The load object measurement software currently supports two block matching algor
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{p1_p2_effect.jpg}
-    \caption{The effect of parameters P1 and P2 in SGBM algorithm tuning. Values of P1 and P2 increase from left to right, and from top to bottom.}
+    \caption{The effect of parameters $p_1$ and $p_2$ in SGBM algorithm tuning. Values of $p_1$ and $p_2$ increase from left to right, and from top to bottom.}
     \label{fig:p1_p2_effect}
   \end{center}
 \end{figure}
@@ -2221,10 +2221,10 @@ The tuner was the most helpful aid in creating the load object measurement softw
 %\item and post-filtering to remove bad matches.
 %\end{itemize}
 
-The tuning of the BM parameters was done using datasets from all camera configurations. High saliency image regions were used for tuning since they produced good point responses in most cases.
+The tuning of the BM parameters was done using datasets from all camera configurations. High saliency image regions were used for visual inspection of the tuning, because such regions produced good point responses.
 
-\subsubsection{Block Matching Parameter Effects on Feature Matching Performance}
-\label{subsubsection:block_matching_parameter_effects_on_feature_matching_performance}
+\subsection{Block Matching Parameter Effects In Detail}
+\label{subsection:block_matching_parameter_effects_in_detail}
 
 First, the tuning was started with a coarse selection of parameters to get a visible disparity map. Especially, the SAD window size was kept higher than normal to produce a lot of visible matched points. The most important parameters in the final BM state tuning set are SAD window size, number of disparities, and speckle range parameters. These parameters should be tuned first, and other parameters can be used for fine tuning of the disparity map afterwards. 
 
@@ -2353,7 +2353,7 @@ From dataset A2 it was found out that objects suffer from enlarging effect that 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=0.3\textwidth]{enlarging_effect.jpg}
-    \caption{Enlarging effect seen in dataset 1372842312. The operators are separated with a gap between each other, but the segmented object view shows the two objects fused as one object due to disparity enlarging effect.}
+    \caption{Enlarging effect seen in dataset A2. People are separated with a gap between each other, but the segmented object view shows the two humans fused as one object due to enlarging effect in disparity mapping.}
     \label{fig:enlarging_effect}
   \end{center}
 \end{figure}
@@ -2363,7 +2363,7 @@ From dataset A3 it was noticed that the small end effector used in this dataset 
 
 The dataset also shows that a human and the load object will merge as a single object when the human stands near the load object or touches it. In the event of a person and the load object fusing, the bounding volume will become too large accordingly. In general, any objects will merge into nearby objects when the Euclidean distance between two objects becomes smaller than the threshold value used for object segmentation.
 
-Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the factory floor seen in the image. If the floor is not visible in the left camera image, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets although there is a danger that the ground plane will be fully occluded. The perception platform installation location above the load seems good according to this dataset since ground plane estimation did not fail during testing.
+Finally, when the load object was lifted very high up near the stereo camera platform, it occluded most of the floor visible in the image. If the floor is not visible in the left camera image, the ground plane segmentation step will fail. The event of ground plane removal failure was not encountered in any of the datasets although there is a danger that the ground plane will be fully occluded. The perception platform installation location above the load seems good according to this dataset since ground plane estimation did not fail during testing.
 
 %1372842898 = A4
 %\item The reprojection issues while the platform is moving depict the floor both too far away and too close in turns. This suggests that the HIMMELI platform shutters do not exposure images in the same left to right, or right to left order, but the order changes randomly due to network lag or other sync issues.
