@@ -685,22 +685,12 @@ The problem of the load object geometry measurement inherently requires a sensor
 
 Perception sensors used in machine vision systems include digital cameras, time-of-flight cameras, structured light cameras (Kinect), and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
-\subsection{Stereo Cameras}
-\label{subsection:stereo_cameras}
+Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. Typically, the energy that is registered and digitally sampled by a camera is visible light.
 
-Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
-
-%+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
-%+ time-of-flight cameras (TOF)
-
-\section{Digital 3d Environment Models}
+\section{Digital 3-D Environment Models}
 \label{section:digital_3d_environment_models}
-%+ possible algorithms: clustering, water-filling, and convex hull computations
-%+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
-A 3d environment model is a digital data representations that describes the environment acquired by a perception sensor. Efficient modeling of real-world objects has been a major research issue for a long time especially in virtual reality research. It is not easy to automatically recreate a real-world item in a digital system, but many approaches have been suggested.
-
-The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a LIDAR scanner and stereo cameras both can generate point cloud data, but a LIDAR scanner cannot produce a range image. This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
+A 3-D environment model is a digital data representation that describes the environment acquired by a perception sensor. Efficient modeling of real-world objects has been a major research issue especially in virtual reality research. Creation of a digital model of a real-world object automatically is not easy, but many approaches have been suggested. The selection of a digital model depends on the selected acquisition hardware available: e.g. a LIDAR scanner can output point cloud data, and stereo cameras can generate range image data. 
 
 %A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
@@ -720,36 +710,32 @@ The selected 3d environment digital model depends also of the acquisition hardwa
 \subsection{Point Cloud Representation}
 \label{subsection:point_cloud_representation}
 
-A point cloud is a set of data entries that typically describes a 3d surface geometry of an object in a coordinate frame. Technically, a point cloud contains simple 3d coordinate data, and it can have a few implementation dependent attributes. Point clouds are widely used in stereo 3d reconstruction, metrology applications, robotics applications, multiple viewpoint data registration, 3d data processing, and 3d visualisation purposes. Point clouds can be easily created using 3d scanners, or they can be computed generated from parametric models.
+A point cloud is a set of data entries that typically describes a 3-D surface geometry of an object in a coordinate frame. Technically, a point cloud contains simple 3-D coordinate data, and it can have a few implementation dependent attributes. Point clouds are widely used in stereo reconstruction, metrology applications, robotics applications, multiple viewpoint data registration, 3-D data processing, and 3-D visualisation purposes. Point clouds can be acquired using e.g. a LIDAR scanner.
 
-One of the most significant properties of the point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in an array format, which has the benefit of enabling single point cloud value polling, and making it possible to e.g. compare a 2d RGB colour image with a corresponding 3d coordinate. Organising the data enables use of point clouds in many robotics applications and machine vision applications, which is why it is an important property. Unordered point cloud data can only be iterated and the order of its data points is not guaranteed to be preserved.
+One of the most significant properties of a point cloud is whether the data contained is organised or unorganised. Organised point cloud data is structured in a 2-D array format, which enables machine vision application use in robotics applications. Unordered point cloud data is not guaranteed to preserve its data point order.
 
 Point cloud geometry can be easily rendered and inspected, but the data is often not usable in 3d applications without processing. For example, point cloud data may be required to be converted into a polygon representation, or a mesh model \citep{Rusinkiewicz00}.
 
-Point cloud representations enable storing for organised datasets, fast binary data saving, and flexible storing of different primitive data types natively. Some challenges with point clouds include limited suitability for modeling dynamic environments, and high memory consumption when a high precision equipment is used to generate a large point cloud \citep{PCDFormat14, Hornung10}.
-
-%Challenges
-%(Hornung et al.) a point cloud uses up a large amount of memory and are only suitable for modeling static environments with high precision sensory equipment.
+Point cloud representations enable storing for organised datasets, fast binary data saving, and flexible storing of different primitive data types natively\citep{PCDFormat14}. Some challenges with point clouds include limited suitability for modeling dynamic environments, and high memory consumption when a high precision equipment is used to generate a large point cloud \citep{Hornung10}.
 
 \subsection{Range Image Representation}
 \label{subsection:range_image_representation}
 
-Range image is a 3d data point representation that has depth measurements in a 2d grid array. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements acquired from a sensor.
+A range image is a 3-D representation that has depth measurements in a 2-D grid array. A range image is conceptually equivalent to an intensity image where image intensities are replaced with range measurements. Range images only support visible surface modeling (surfaces seen from the viewpoint of the perception sensor), and they are limited in the ability to reproduce a full surface model. A full surface point cloud can be converted into a range image, but if multiple points on a line project to a single pixel in the range image, some data loss will ensue. Data is lost in the conversion of a point cloud to a range image.
 
-Range images only support visible surface modeling (surfaces seen from the viewpoint of the perception sensor), and they are limited in the ability to reproduce a full surface model. A full surface point cloud can be converted into a range image, but if multiple points on a line project to a single pixel in the range image, only one can be assigned as the grid array cell value. As a result, data may be lost in the conversion of a point cloud to a range image. In this work, there should be no data loss in the range image conversion since the point cloud is generated with a camera system from a single viewpoint, which also produces a visible surface model (unless the viewpoint changes a lot). The data loss problem is only encountered if full surface models (via using point cloud registration) are converted into range image \citep{Unnikrishnan08}.
+In this work, there should be no data loss in the range image conversion since the point cloud is generated with a camera system from a single viewpoint, which also produces a visible surface model (unless the viewpoint changes a lot). The data loss problem is only encountered if full surface models (via using point cloud registration) are converted into range image \citep{Unnikrishnan08}.
 
 \subsection{Volume Pixel Representation}
 \label{subsection:volume_pixel_representation}
 
-A volume pixel (voxel), is a single volume partition in a 3d grid structure consisting of voxel partitions. A voxel indicates occupancy in space, and it has at least a volume, and a location. A voxel grid has a constant dimensional sampling, which means that all the voxels are the same size in a single digital model. A voxel grid can be used to represent a 3d geometry whose detail depends on the selected voxel cube length. In digital systems, a voxel is a location based item that has optional services, such as statistical information about the encompassed voxel subspace. Typically the voxel has three states: free space, occupied space, or unknown space.
+A volume pixel (voxel) is a single volume partition in a 3-D grid structure consisting of voxel partitions. A voxel indicates occupancy in space, and it has at least a volume, and a location. A voxel grid has a constant dimensional sampling, which means that all the voxels are the same size in a single digital model. A voxel grid can be used to represent a 3-D geometry whose detail depends on the selected voxel cube length. In digital systems, a voxel is a location based item that has optional services, such as statistical information about the encompassed voxel subspace. Typically the voxel has three states: \emph{free} space, \emph{occupied} space, or \emph{unknown} space.
 
-A 3d scene captured with a stereo camera system can be represented with a voxel grid. A standard voxel grid will compose the 3d scene of same sized cubes. If the scene must support different size cubes (different fidelity levels in a single scene), an octree partitioning can be used. The major limitation of the voxel grid representation is its limited grid resolution, which does not approximates curved surfaces well unless a very large number of data entries is used. Also, a high-resolution grid consumes a lot of memory in a software implementation.
+A 3-D scene captured with a stereo camera system can be represented with a voxel grid. A standard voxel grid will compose the 3-D scene of identically sized cubes. If the scene must support cubes of different sizes (different fidelity levels in a single scene), an octree partitioning can be used. The major limitation of the voxel grid representation is its limited grid resolution, which does not approximate curved surfaces well unless a very large number of data entries is used. Also, a high-resolution grid consumes a lot of memory in a software implementation.
 
 \subsection{Octree Representation}
 \label{subsection:octree_representation}
-% multi-resolution octree representations
 
-Octree is a tree structure whose nodes always have exactly eight child nodes. The octree structure is used to partition 3d data recursively into smaller partitions of space around a point region\citep{Laine11}. The point region and the sub-quadrants of an octree node are symmetrical cubic volumes also known as voxels. In an octree, the size of the voxels change depending on the depth of the tree search at hand according to Figure \ref{fig:octree_quadrants}.
+An octree is a tree structure whose nodes always have exactly eight child nodes. The octree structure is used to partition 3d data recursively into smaller partitions of space around a point region\citep{Laine11}. The point region and the sub-quadrants of an octree node are symmetrical cubic volumes also known as voxels. In an octree, the size of the voxels change depending on the depth of the tree search at hand according to Figure \ref{fig:octree_quadrants}.
 
 \begin{figure}[ht]
   \begin{center}
@@ -1747,6 +1733,7 @@ which solves the 3-D reconstruction problem. OpenCV provides readily available f
 \chapter{Implementation}
 \label{chapter:implementation}
 %test overhead crane dimensions: width 40 meters, length 10.7 meters, height 5.5 meters
+%This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs.
 
 The implemented software included e.g. the stand-alone load object measurement client that processes point cloud data into load object bounding volume information, and a point cloud data publisher that generates data from the Himmeli perception platform stereo cameras.
 
