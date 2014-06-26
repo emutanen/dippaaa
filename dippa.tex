@@ -886,19 +886,21 @@ where f is the focal lenght used and D is the diameter of the pupil of the lens 
 % stereoscopic means to perceive and/or see in 3d | stereographic means projecting a sphere onto a plane
 Stereoscopic perception is a natural phenomenon first discovered in human and animal vision systems. Stereoscopy in human vision is based on stereopsis effect, which means perceiving depth in a scene using binocular vision with two monocular vision eyes. The same depth perception can be programmed to a computer, but instead of eyes, cameras are used. Instead of the brain, a PC is used to recover and process depth information from a pair of camera images. A calibrated two-camera system that is capable of extracting depth information from objects in such a way is most often called a \emph{stereo vision system} or a \emph{3-D vision system}.
 
-While people perceive and estimate object sizes with the help of their previous knowledge of the world and their implicit stereo vision calibration by the brain, a machine vision system must be carefully calibrated to output proper metric measurements for viewed objects. For simplicity, in this thesis a single-time calibration is considered and no machine learning techniques are used to improve the calibration at a later time.
+While people perceive and estimate object sizes with the help of their previous knowledge of the world and their implicit stereo vision calibration by the brain, a machine vision system must be carefully calibrated to output proper metric measurements for viewed objects. For simplicity, in this thesis a single-time calibration is considered.
 
-After capturing a pair of images and processing them, it is possible to request a 3-D coordinate value for almost any feature found in one of the captured stereo images. In this way, the machine vision system can deliver coordinates for many object features in a scene simultaneously, which is quite impossible for a human to do. By selecting visible features of the load object in the 2-D image, the 3-D coordinates for those points are recovered. Finally, the load object dimensions are recovered by taking difference of the minimum and maximum coordinates along all axes. Transforming the 2-D image into a partial 3-D feature model is important since the measurement is ultimately done by requesting depths of points of interest and measuring their difference. While the approach does have its limitations, a partial 3-D model is acquired that can be used to successfully find a bounding volume that contains the load objects. Improvements and limitations are discussed more in depth in Chapter \ref{chapter:evaluation}: evaluation.
+After capturing a pair of images and processing them, it is possible to request a 3-D coordinate value for almost any feature found in one of the captured stereo images. In this way, the machine vision system can deliver coordinates for many object features in a scene simultaneously. By selecting visible features of the load object in the 2-D image, the 3-D coordinates for those points are recovered. Finally, the load object dimensions are recovered by taking difference of the minimum and maximum coordinates along all axes. Transforming the 2-D image into a partial 3-D feature model is important since the measurement is ultimately done by requesting depths of points of interest and measuring their difference. While the approach does have its limitations, a partial 3-D model is acquired that can be used to successfully find a bounding volume that contains the load objects. Improvements and limitations are discussed more in depth in Chapter \ref{chapter:evaluation}.
 
 \section{From 2-Dd to 3-D}
 \label{section:from_2d_to_3d}
 %Different 3d information recovery techniques are introduced in section \ref{section:environment_acquisition_techniques}. 
 
-Depending on the scientific application at hand, 3d vision systems used in engineering applications solve problems of 3d scene reconstruction, understanding of object properties, or minimisation problems\citep{Sonka07}. 
+Depending on the scientific application at hand, 3-D vision systems used in engineering applications solve problems of 3-D scene reconstruction, understanding of object properties, or minimisation problems\citep{Sonka07}. 
 
 %In this thesis, a calibrated stereo camera setup is used to solve the problem of a 3d scene reconstruction, which is a very typical machine vision application suited for solving the load object geometry measurement problem. The two other 3d vision problem domains, understanding of object properties, and minimisation computation are briefly visited in Sections \ref{section:point_cloud_library_operations} and \ref{section:bounding_volume_computation}. 
 
-The theory of understanding 3-D objects in a 2-D image format and processing them into representable information was first described by Marr in 1982 in his work \emph{Vision}. Marr ideated a description framework for creating 3-D models from 2-D data, which the implementation in Chapter \ref{chapter:implementation} loosely supports. The field of machine vision has advanced a lot since which is why parts of Marr's theoretical approach are less relevant today. Marr's theory suggests that the representation of objects will improve when a pixel-based viewer centered intensity image description is transformed into a feature-based object centered description.
+The theory of understanding 3-D objects in a 2-D image format and processing them into representable information was first described by Marr in 1982 in his work \emph{Vision}. Marr ideated a description framework for creating 3-D models from 2-D data, which the implementation in Chapter \ref{chapter:implementation} loosely supports. Marr's theory suggests that the representation of objects will improve when a pixel-based viewer centered intensity image description is transformed into a feature-based object centered description.
+
+%The field of machine vision has advanced a lot since which is why parts of Marr's theoretical approach are less relevant today.
 
 %\begin{figure}[ht]
 %  \begin{center}
@@ -910,7 +912,7 @@ The theory of understanding 3-D objects in a 2-D image format and processing the
 
 %The transformation from 2d to 3d contains 3 steps. The first step transforms the pixel representation of a 2d image into a surface representation called primal sketch. The second step transforms the primal sketch into an oriented surface model that maps depths of visible surfaces in a 2.5-dimensional description. The third and final step transforms the surface orientation model into a full feature based 3d model. The equivalent steps are presented in Figure \ref{fig:marrs_framework}.
 
-Typically the stereo reconstruction processes a pixel-based description straightforwardly into a disparity depth map, and onto a partial 3-D model. Next, the 3-D data is reprojected from the disparity map into a point cloud as a single entity, and only processed afterwards in 3-D domain.
+Typically, the stereo reconstruction system processes a pixel-based description straightforwardly into a disparity depth map, and onto a partial 3-D model. Next, the 3-D data is reprojected from the disparity map into a point cloud as a single entity, and only processed afterwards in 3-D domain.
 
 %In a primal sketch, there is knowledge available about surface boundaries in the depth map, which is not the case with the disparity map in the current implementation. 
 
@@ -1356,7 +1358,7 @@ where R is a $4x4$ matrix concatenating multiple Euler angle rotations. Since ro
 
 The scene that the camera sensors are viewing is called \emph{world frame} (or \emph{scene} interchangeably), which uses a standard (x,y,z) right-hand 3d coordinate convention. The world coordinate frame origin $O_w$ is fixed to some predefined location, for example to a corner of a room. In the works, the origin of the world frame was coincident with the \emph{camera frame} (or \emph{sensor frame}) origin $O_c$ since the load object measurement computation only requires relative coordinates to function properly. Relative coordinates can be used as long as metricity of the scene geometry is guaranteed, which means that the translation of the camera frame to the world frame need not be precisely correct. Thus, the world frame origin and the camera frame origin both are located at the camera sensor array center. Third frame, the \emph{image frame}, is needed to convert between metric camera frame locations and the pixel array values of the image. 
 
-The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or end effector position measurement. GPS signal is not very good for an indoor application with the accuracy of 1-10 meters, and as such other positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in the camera platform. In this thesis, the world frame transformation was not solved since it was not needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software and a common coordinate frame is required.
+The world frame depicts a three-dimensional system where a point lies in an Euclidian space $R^n$ and its span is $R^3$. The world coordinate frame follows the framework used in a report by Terho in 2010 \cite{Terho10}. A precise transformation from the world frame to the camera frame requires position and orientation information of the camera, which can only be estimated to a certain accuracy. Two options could be used for positioning: GPS signal or end effector position measurement. GPS signal is not very good for an indoor application with its accuracy of 1-10 meters, and as such other positioning services should be used instead. The orientation of the camera can be acquired using an inertial measurement unit (IMU) installed in the camera platform. In this thesis, the world frame transformation was not solved since it was not needed. The transformation $T_{c}^{w}$ from camera frame to the world frame would be needed if the software is integrated with other software and a common coordinate frame is required.
 
 The camera sensor array defines the first two orthogonal dimensions of the camera coordinate frame: X-Y- axis plane is parallel to the camera image array, and the positive Z-axis points out from the image plane perpendicularly towards the lens system of the camera. The camera frame positive Z-axis is the optical axis of the camera by definition. The origin $O_c$ of the camera frame is located in the focal point of the camera, that is the point through which all the light rays reflected through the lens system go.
 
@@ -1423,20 +1425,9 @@ z = \frac{bf}{d}
 \label{eq:depth_solution2}
 \end{equation}
 
-where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images. The (\ref{eq:depth_solution2}) suggests that when disparity is zero, the depth z will be at infinity. According to this model, disparity cannot increase when distance to the measured point P increases. This is a simplification, since for example when a converging camera setup is used, the disparity property behaves so that the disparity is zero at the optical axes convergence point, and as the distance from the convergence point increases, the disparity increases.
-
-%when a corresponding point shift information is known for a feature in a scene. 
+where $f$ is the focal length of the parallel stereo camera pair, $b$ is the baseline of the stereo pair, and $d$ is the measured disparity shift between the stereo images. Result (\ref{eq:depth_solution2}) suggests that when disparity is zero, the depth z will be at infinity. According to this model, disparity cannot increase when distance to the measured point P increases, which is a simplification. For example, when a converging camera setup is used, the disparity is zero at the optical axes convergence point, and as the distance from the convergence point increases, the disparity increases, towards negative infinity in direction of -z axis, and towards positive infinity in direction of +z axis.
 
 %Reconstruction by triangulation is the process of generating a depth map from two camera images e.g. parallel stereo cameras. If both intrinsic and extrinsic parameters of the camera are known, the reconstruction problem can be solved unambiguosly producing absolute coordinates in the world coordinate frame. As a simplification, two other cases would be that only intrinsic parameters are known, a
-
-%The results of triangulation mainly depend on the solution of the correspondence problem. 
-
-
-%In order to better understand the triangulation technique the simple stereo camera geometry will be introduced next.
-
-
-
-
 %+ lidar cannot measure the depth of highly reflective materials, or very low-reflectance materials such as glass or paint-black steel.
 %+ Mechanical coordinate measuring machine (CMM) (3D modeling)
 %    + DCC CMM
@@ -1497,7 +1488,7 @@ A lot of different techniques have been discovered by different researchers of h
 
 %The epipolar geometry in chapter \ref{subsection:epipolar_geometry} can explain how the rectification is done, but the interesting result is that the epipolar constraint makes a 1-dimensional correspondence search space possible. 
 
-Planar image rectification is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines (more information on epipolar geometry in section \ref{section:epipolar_geometry}). Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries.\citep{Pollefeys99}
+Planar image rectification is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines (more information on epipolar geometry in section \ref{section:epipolar_geometry}). Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries\citep{Pollefeys99}.
 
 %\begin{figure}%
 %    \centering
@@ -1525,7 +1516,7 @@ A stereo camera pair can never be fully parallel due to limits in mechanical ali
   \end{cente}
 \end{figure}
 
-A successful image rectification can be seen in figure \ref{fig:rectified_image_pair} where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. For comparison, a rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
+A successful image rectification can be seen in Figure \ref{fig:bad_calibration} on the right side where the corresponding feature points are found on the same horizontal lines. The correspondence search space is reduced to a single horizontal line in both images. One indicator of the goodness of the end result is the region of interest (ROI) values that are output by the rectification process. The larger the ROI is in the output, the more there is image detail left, and the image usable area loss (black margins) is minimised. It is easy to see from the output of the rectification process whether the camera calibration has been successful or not. For comparison, a rectification result after an unsuccessful stereo calibration is shown in figure \ref{fig:bad_calibration}.
 
 \section{Stereo Calibration}
 \label{section:stereo_calibration}
@@ -1547,25 +1538,18 @@ The OpenCV stereo calibration uses the same implementation used by the MATLAB Ca
   \end{center}
 \end{figure}
 
-\subsection{Stereo Assumptions}
-\label{subsection:stereo_assumptions}
+\subsection{Stereo Reconstruction Simplifications}
+\label{subsection:stereo_reconstruction_simplifications}
 
-Some basic assumptions about the measured crane working area must be made in order to use stereo correspondence algorithms. These assumptions operate on the collected images from the two stereo cameras. 
+Stereo reconstruction includes simplifications and assumptions for disparity map generation and object surface properties, which make the 3-D reconstruction possible. In general, the assumptions hold for any stereo camera setup that work on disparity principle. 
 
-In general, the assumptions hold for any stereo camera setup that work on disparity principle unless otherwise stated. 
+It is assumed that a single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through materials can be accurately measured with the used technique. Additionally, occluded and self-occluded surface pixels should be discarded in block matching in order to comply with the single pixel correspondence assumption.
 
-A single pixel must correspond to a single surface point in the world in order to construct a linear mapping function from the left stereo camera image to the right camera image. This restriction means that no opaque, or see-through, materials can be accurately measured with the used technology. Additionally, occluded and self-occluded surface pixels will be discarded in order to comply with the single pixel correspondence assumption.
+Next, disparity values are assumed as continuos, which means that local disparity neighbourhoods have a smoothness restriction. Typically, this means that high frequency edges in disparity map will be smoothed out, and sharp 3-D features in the environment are being reprojected as curved, less sharp objects in the 3-D reconstruction of the original environment. Finally, it is assumed that discontinuities only occur at object boundaries.
 
-+ A single pixel corresponds to a single surface point (restriction: no opaque materials | fish + fish bowl)
-+ Disparity values are generally continuos (smooth within a local neighbourhood | discontinuities occur only at object boundaries)
-+ Ordering constraint (if an object A is to the left of the object B in the left image, then the object A will be left of the object B also in the right image | sometimes violated by pole-like objects)
-+ Lambertian surfaces => surfaces do not change appearance when viewed from another angle.
-    + opaque
-    + ideal diffusion
-    + reclefts light energy in all directions
+The load objects being measured are assumed as Lambertian surfaces that do not change in appearance when viewed from another angle. A Lambertian object is opaque material that supports idel diffusion of light and reflects light energy in all directions.
 
-Stereo vision produces a dense disparity map . (If we compare to laser scanner sensor, the denseness of the produced point cloud is much higher)
-Some requirements for the disparity map are elaborated in Zitnick et al. report, namely the disparity map should be smooth and detailed . The desirable result would provide smooth continuos mapping that detects small surface elements as separable regions. It turns out that these requirements are opposing to each other: a smooth continuos disparit map tends to filter out small details, and a detail preserving mapping is affected by noise \cite{Zitnick00}.
+A more detailed report for disparity map assumptions and requirements can be found in a report by Zitnick and Kanade\citep{Zitnick00}.
 
 \section{Stereo Errors And Accuracy}
 \label{section:stereo_errors_and_accuracy}
