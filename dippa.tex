@@ -547,7 +547,6 @@ TOF & Time-Of-Flight \\
 UDP & User Datagram Protocol \\
 VSM & Visible Surface Model \\
 XML & Extensive Markup Language \\
-XMLRPC & XML Remote Procedure Call \\ 
 \end{longtable}
 
 % List of tables
@@ -2209,8 +2208,8 @@ In this work, installed landmarks or beacons would have been useful in the offli
 \subsection{Disparity Tuning}
 \label{subsection:disparity_tuning}
 
-The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter. The tool was made for what you see is what you get (WYSIWYG) operation, and the resulting disparity image is displayed instantaneously next to the sliders.
-    
+The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter.
+
 \subsubsection{Block Matching Algorithm Tuning}
 \label{subsubsection:block_matching_algorithm_tuning}
 
@@ -2511,8 +2510,8 @@ It was also deduced that a single measurement will not report the correct boundi
 
 In the outdoor case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint C and a bird's eye viewpoint D. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in an outdoors working machine. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Also the bird's eye viewpoint has its flaws: a boom is visible in the image and occludes the load object during normal operation. The bird's eye viewpoint has one major advantage over the frog perspective: if the outdoor machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in machine chassis installation.
 
-\subsection{Load Measurement Results}
-\label{subsection:load_measurement_results}
+\subsection{Outdoor Load Measurement Results}
+\label{subsection:outdoor_load_measurement_results}
 
 Load measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:load_detected}. The recovered orientation of the load was less than 5 degrees when the object was lifted high in the air, and within a $\pm$ 10 degree error when the load was located near the ground and the data was cluttered because of other objects. There are no exact statistics on the extracted load orientation error, but a result can be reviewed in Figure \ref{fig:load_detected}. The position of the load object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the object. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the load measurement values.
 
