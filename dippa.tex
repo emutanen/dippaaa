@@ -1627,16 +1627,16 @@ A lot of different techniques have been discovered by different researchers of h
 
 Planar image rectification is the process of virtual optical axis parallelisation for projective planar camera geometries done by software. Rectification transforms the image planes so that the same features seen in both stereo images are perceived on the same epipolar lines (more information on epipolar geometry in section \ref{section:epipolar_geometry}). Since optical axes are perpendicular to the image planes, the $u$ and $v$ axes of the image frames are also being parallelised into a coplanar camera configuration. Besides planar image rectification, also cylindrical and polar rectification can be used for non-planar camera projective geometries.\citep{Pollefeys99}
 
-\begin{figure}%
-    \centering
-    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
-    \qquad
-    \begin{minipage}{5cm}%
-    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
-    \end{minipage}%
-    \caption{A rectified image pair where the epipolar lines are horizontal. Red dots represent the Harris corner detector output of 200 feature points.}
-    \label{fig:rectified_image_pair}
-\end{figure}
+%\begin{figure}%
+%    \centering
+%    \parbox{5cm}{\includegraphics[width=\linewidth]{harris_feature_detector_left.jpg}}%
+%    \qquad
+%    \begin{minipage}{5cm}%
+%    \includegraphics[width=\linewidth]{harris_feature_detector_right.jpg}
+%    \end{minipage}%
+%    \caption{A rectified image pair where the epipolar lines are horizontal. Red dots represent the Harris corner detector output of 200 feature points.}
+%    \label{fig:rectified_image_pair}
+%\end{figure}
 
 Rectification of an image pair requires an estimated fundamental matrix $F$ and a set of corresponding feature point coordinates found from both images. Using $F$ and the corresponding points the epipolar line equations will be computed according to equations \ref{eq:epipolar_line_1} and \ref{eq:epipolar_line_2}. The original non-rectified image is warped to an epipolar-aligned destination image where the pixels that do not receive a mapped value are interpolated using a bilinear interpolation \citep{OpenCVRemap}. The effects of the image synthesis in the destination image depend on the used interpolation method, and more information on different interpolation methods can be found in Grevera's study on interpolation techniques used in medical imaging \citep{Grevera98}.
 
@@ -1647,7 +1647,7 @@ A stereo camera pair can never be fully parallel due to limits in mechanical ali
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=0.5\textwidth]{bad_calibration.jpg}
+    \includegraphics[width=0.5\textwidth]{bad_calibration_new.jpg}
     \caption{An unsuccessful camera calibration result generates large deformations in the rectified image.}
     \label{fig:bad_calibration}
   \end{cente}
@@ -1839,11 +1839,11 @@ In this work, the epipolar constraint will reduce the block matching search spac
 
 The 3-D reconstruction problem can be formulated as a problem of extracting the best possible estimate of a disparity map $d(x,y)$ using correspondence search techniques such as block matching that was introduced in Section \ref{subsection:block_matching}. A disparity map contains the values computed in the block matching processing in the form of a single channel intensity image, which can be associated with one of the stereo camera images - often the left camera image being used. The expected ideal disparity map that the viewed scene should generate is called a ground truth disparity. In reality the correspondence techniques can only recover an approximation of the ground truth. 
 
-The quality of the disparity map depends on the selected block matching algorithm, and on disparity tuning parameters. The disparity tuning parameters include 10 parameters that are discussed more in Section \ref{section:parameter_tuning_evaluation}. The parameters were tuned using controllable sliders with a visual inspection of the output disparity map, and the full parameter descriptions and value ranges can be seen in Table \ref{table:bm_state_parameters}.
+The quality of the disparity map depends on the selected block matching algorithm, and on disparity tuning parameters. The disparity tuning parameters include 10 parameters that are discussed more in Section \ref{section:parameter_tuning_evaluation}. The full parameter descriptions and value ranges can be seen in Table \ref{table:bm_state_parameters}.
 
 %Disparity images that were generated using the datasets from suggested use cases described in Section \ref{section:use_cases} can be seen in Figures \ref{fig:disparity} and \ref{fig:disparity_overhead}.
 
-Using the pinhole camera model and the inverse of its camera projection matrix $C$ (see Equation \ref{eq:homogeneous_projection}) the disparity map values can be reprojected back to 3-D coordinate points. The reprojection matrix $Q$ is a 4 x 4 perspective transformation matrix that can be estimated using stereo rectification techniques, such as OpenCV function \emph{stereoRectify()}. Finally, the 3-D point cloud is generated by reprojecting the disparity map values according to equation
+Using the pinhole camera model and the inverse of its camera projection matrix $C$ (\ref{eq:homogeneous_projection}) the disparity map values can be reprojected back to 3-D coordinate points. The reprojection matrix $Q$ is a 4 x 4 perspective transformation matrix that can be estimated using stereo rectification techniques, such as OpenCV function \emph{stereoRectify()}. Finally, the 3-D point cloud is generated by reprojecting the disparity map values according to equation
 
 \begin{equation}
 \begin{bmatrix}
@@ -1855,7 +1855,7 @@ x \\
 y \\
 d(x,y) \\
 1 \end{bmatrix}
-\end{equation},
+\end{equation}
 
 which solves the 3-D reconstruction problem. OpenCV provides readily available function \emph{reprojectImageTo3d()} to generate the point cloud. 
 
