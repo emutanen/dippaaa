@@ -2208,22 +2208,24 @@ The PCL cylinder fitting process outputs a parameter set in pcl::ModelCoefficien
 Another way of computing the end points using PCL was found after the thesis project was finished, which includes projecting the points along a linear pcl::ModelCoefficients model and selecting the values produced by the function getMinMax3d(). The implemented algorithm follows the standard linear projection mathematics, and the working of the algorithm is presented in Algorithm \ref{algorithm:cylinder_growing}.
 
 \begin{algorithm}
-\KwData{point cloud $P$ representing the load object segmented cylinder}
-\KwResult{cylinder end point coordinates along main axis}
-1. compute N units long vector along the main cylinder axis so that all data points in point cloud $P$ project on it\;
+\KwData{cylinder segmentation inlier point cloud $P$}
+\KwResult{cylinder end point coordinates}
+1. compute vector that is N units long along the main cylinder axis so that all data points in point cloud $P$ project on it\;
 2. compute closest data point $C$ to centroid of data\;
 3. initialise a start point $S$ at projection of $C$ along the cylinder main axis\;
-4. initialise two subcylinders that represent distance along the cylinder main axis starting from start point $S$ to the end points in two opposing directions along the cylinder main axis\;
+4. initialise two end points $L_1$ and $L_2$ that represent distance along the cylinder main axis starting from start point $S$ along the cylinder main axis\;
 \For{all points $p_i \in P$}{
 iterate to next point cloud data entry\;
 compute projection on cylinder main axis using dot product\;
   \eIF{projection is in negative coefficient vector direction}{
        \eIF{check if distance to start point greater than current subcylinder 1 height value}{
         set projection point as the new end coordinate for subcylinder 1\;
-        }{continue}
+        }{continue\;}
+        
    }{\eIF{distance to start point greater than current subcylinder 2 height value}{
         set projection point as the new end coordinate for subcylinder 2\;
-        }{continue}
+        }{continue\;}
+        
    } 
 }
 5. return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
