@@ -460,10 +460,8 @@ Tämä diplomityö käsittelee kahta eri sovellusta konenäköavusteiselle nostu
 % show up in the TOC
 \chapter*{Acknowledgements}
 
-I wish to thank all students who use \LaTeX\ for formatting their theses,
-because theses formatted with \LaTeX\ are just so nice.
+The research was a part of FAMOUS project of the Energy and Life Cycle Cost Efficient Machines (EFFIMA) research program, managed by the Finnish Metals and Engineering Competence Cluster (FIMECC), and funded by the Finnish Funding Agency for Technology and Innovation (TEKES), research institutes and companies. Their support is gratefully acknowledged.
 
-Thank you, and keep up the good work!
 \vskip 10mm
 
 \noindent Espoo, \DATE
@@ -671,7 +669,137 @@ XML & Extensive Markup Language \\
 %A machine can tirelessly inspect items on a product assembly line that would end up being dangerous, monotonous, or otherwise problematic for a human worker. Additionally, we may utilize the full electromagnetic spectral range in addition to visible light spectrum for quality control purposes.
 %business
 
-Currently under review. Will be written soon.
+In the modern world, products are being manufactured more than ever before, and at the same time the factory workflows should be optimised to guarantee profitable continuity for a business. These new requirements challenge all business owners, including industries that utilise cranes in the daily business.
+
+%product makers who use overhead cranes in their manufacturing processes. Overhead cranes are found in most warehouses and factories where they are often used in storage solutions, as a part of the manufacturing floor, and in the initial installation of heavy machinery in the factory.
+
+%development
+Since industrial revolution many different types of cranes were designed to help in loading and unloading, moving, processing, and stacking of goods. To begin with, the most popular cranes include electric overhead cranes, ship-to-shore cranes, rotary boom cranes, rotary telescopic boom cranes, chain lifters, double girder overhead cranes, nuclear cranes, and person lifters.
+
+Before the evolution of modern crane systems and the cargo process, the lifting of barrels, pallets, and sacks was inefficient, and the ships were stalling longer times at docks than at sea, which reduced profitability. 
+
+Today, the modern sea cargo handling process is highly automated, but the manually operated cranes still remain less automated and less profitable. It seems that lifting operations could become more efficient with added automation in spaces where manual operation is still used.
+
+%Since industrial revolution many different types of cranes were designed to help in loading and unloading of ship cargo in container crate terminals. Before the ideation of a modern container cargo handling process, the lifting of barrels, pallets, and sacks was inefficient, and the ships were stalling longer times at docks than at sea, which reduced profitability. Today, the modern sea cargo handling process is highly automated, but the development of the overhead crane never reached the same level of automation. Even though steam engine cranes have been replaced by the modern electric overhead traveling crane (EOT), the operation of EOTs still remains mostly manual at factory sites. Thus, it seems that lifting operations with an EOT crane could become more efficient with added automation systems. Depending on the amount of use, the profitability of the crane use can possibly be improved\citep{Zrni04}.
+
+%productivity
+The business of lifting solutions gets more automated as new crane and boom systems are being developed to meet the increasing needs for productivity. Productivity may be measured using selected productivity indicators. For example energy consumption, service intervals, speed of operations, and safety features are easily quantifiable measures that can add up to a productivity rating. All of these indicators affect performance of lifting and moving goods, and with ever lowering computing prices a lot of research is going on to find ways how added programming and sensors could have a positive effect on any productivity aspects.
+
+%In the modern world, goods are being moved more than ever before, which brings challenges to keep the goods handling easy and safe. Products are mostly transported from one location to another using a modern automatic container handling process, but for example loading and unloading events remain laborous when single industrial items, such as engines or other machinery, are moved to a new location. The electric overhead crane (EOT) is the de facto standard for heavy lifting work in factory and warehouse environments.
+
+%The business of lifting solutions gets more automated as new crane systems are being developed to meet the ever increasing needs for performance. Speed and safety affect the productivity of the event of lifting and moving goods with cranes, and with ever lowering computing prices a lot of research is going on to find ways how added programming and sensors could benefit the crane operator for increased performance. While speed is not important in all cargo  operations, safety is important in all of them. Then again, same automation technologies could be potentially used to speed up operations where speed is important, such as log picking operation in forestry solutions.
+
+%If an overhead traveling crane is used to move products inside a warehouse e.g. from one manufacturing station to another, then a measurement of the lifted load object can potentially provide useful information for automation systems that use the size of the load object as a parameter in smart applications. Currently, overhead cranes do not measure any geometry of the load objects that they lift. Thus, all the decision-making whether the load object is physically in correct spatial coordinates is left for the operator to decide.
+
+%Ideas of the modern container cargo handling process only started after the second half of the 20th century, and before that the only known way of transport was sea cargo packed in barrels, sacks and pallets. It was cumbersome to load and unload a ship filled with such small units, and it was not unusual that the ships spent more time in docks than at sea because of inefficient handling of small cargo.\ref{Zrni04}\par
+
+Manual EOT crane or boom movement may suffer from non-optimized route selection, operator fatigue, damage to goods in collisions, safety issues for other workers, and other problems that are caused by an operator. 
+
+%Some industries are not even profitable unless a certain speed of moving goods safely is reached, which applies for e.g. forestry log picking and tree felling work. To improve things, a real-time description of the load object and its environment could be available, so it would be possible to prevent unwanted events from happening using perception sensors and safety software\citep{Kappi13}.
+
+In an overhead crane environment, there is limited information available about the lifted load object. Only the mass and location of the lifted load object are known as inputs for any computer control system. A machine vision perception system can provide additional information on lifted object size, shape, orientation, color, and visuals.
+
+\section{Interactive Control Of Cranes And Booms}
+\label{section:interactive_control_of_cranes_and_booms}
+
+% käyttökokemus
+Many different kinds of loads, e.g. beams, engines, large coils, drums of dangerous goods, and pallets of stacked items are expensive, often unique one-time orders that are being lifted and transferred daily. If a lifted object is in collision, it may get damaged, break other objects, or it may cause dangerous situations to people who work in the area, all of which can be prevented using interactive control in the crane system. 
+
+%Collisions are possible only in manual operation, because in computer control systems collisions are a forbidden event and not tolerable. 
+
+A possible way of preventing manually operated lifted goods from colliding with the nearby environment would be interactive control where duality is used in control of the overhead crane. While the operator executes the initial hoisting and designs the trajectory of the moving action, a computer interactively recalculates the trajectory with an optimal control scheme. The computer controller provides feedback of the current state of the operations so that the operater may adjust his or her working style interactively. 
+
+% operointi
+Human operator is needed to assist and supervise a computer controller when complex decision-making is at hand e.g. how fast the lifted load object must be placed down\citep{Rintanen91}. Currently, the operator is more suited for accomplishing demanding tasks than a computer system. Demanding tasks include lifting items off the ground, placing objects down, lifting stacked objects, and traversing narrow spaces. On the other hand, a computer is more suited to quickly detect changing dynamics, and operate a crane or a machine boom at energy optimised speeds. Bulk item moving automatic cranes and machine booms have been built, but usually they move sand, steel, or other process materials that are moved in environments where people are not allowed to work at the same time.
+
+% törmäyksenesto
+%An overhead crane that uses collision avoidance technology or other interactive control technology helps the crane operator move products in a warehouse in a semi-automatic manner while providing added information about products and their properties.
+
+A collision avoidance technique would enable semi-automatic operation of a manual crane system. Ideally a collision avoidance technique simply prevents collision based damage to other objects in the working area by engaging safety measures if needed. The system should be able to detect people who walk near the load, and prevent injuries with high priority. Without designing the details of the human computer interaction here, the operator interacts with the computer safety systems so that productive and safe operations can be carried out. 
+
+%The interaction with the overhead crane controller may be implemented using traditional control pendants, wireless controllers, or some new approach, for example, a hand motion controller demonstrated by Peng and Singhose in \citep{Peng12}.
+
+% mitä tarvitaan
+To realise a working collision avoidance system, an understanding of the crane environment and its qualities including all the moving parts must be formed. In general, all the static and moving parts of the crane environment should continuosly provide information about their location, dimensions, and moving speeds to begin with. In the author's opinion, a stereo camera pair is a good solution for the load object dimension measurement problem since it has the capability of measuring other nearby objects, too.
+
+%Using such an extensive information model it would be possible to introduce collision avoidance techniques in overhead crane environments. Fortunately, the surrounding environment model is generated as a side product in the load object 3d reconstruction step, on which the thesis work mainly focuses on.
+
+% technical difficulties
+From a technical point of view, a discrete-time spatial tracker (4d tracker) needed in interactive collision avoidance system is difficult to realise. Still, estimated states of objects should provide enough information so that decision making processes can operate reliably even in the event of partial data loss. Trackers that would be suitable for this purpose are object state vector management systems, and Kalman filter based trackers, which are too large topics to be covered in this thesis in more detail. If the load object is carefully tracked and its geometry is known, a collision computation with a known environment model can be used to prevent collisions before they happen. The added value is potentially great, which is why the measurement of the load object is worth researching. \citep{Leibe07, Corke11, Miller12}
+
+%New overhead crane systems do not currently have any collision detection features, but optimized route planning could become a standard feature in the future.
+
+\section{Applications}
+% According to Yong-Seok03 vision systems in container cranes are difficult to maintenance and have high costs
+%They also reported machine vision reliability issues because of limited onboard camera processing abilities, and changing lighting in the environment. An upgrade to operation in the infrared spectrum of light was suggested to counteract changing visible light conditions in their applications. REF = Peng09
+%The use of machine vision brings the speed of the computer to many errands that are impossible or hazardous for a human to do.
+%+ 3d data of the environment is important in factory design, facility management and urban regional planning. \ref{Surmann03}
+%+ Environment sensing is needed for robotization of spaces
+% application: city-scale 3d reconstruction from community-sourced online photos | ref Agarval09
+
+Industrial applications for machine vision have become more ubiquitous as the price for machine vision systems have decreased. Different applications range from space exploration to agriculture, and from mobile robotics to quality control at a manufacturing line. Typically, applications of machine vision solve problems such as ranging, quality control, visual odometry, object detection, and tracking.
+
+Machine vision applications in industrial applications may include for example visual servoing\citep{Lun-Hui14}, real-time trajectory planning\citep{Kaneshige05}, wand controller following\citep{Peng09}, intelligent fault detection\citep{Rahmani10}, obstacle avoidance\citep{Nagai11}, load object tracking and control applications\citep{Yoshida06}, remote localisation of the end effector \citep{Hainsworth94}, and stereoscopic teleoperation of forestry cranes\citep{Westerberg08}. 
+
+Also some new applications can be thought out that use the stereo camera platform that was used in making of the load object measurement (see chapter \ref{chapter:implementation}). 
+
+%For example warehouse surveillance, recording of lifting operations, operations tracking, and quality control could be possible with the perception platform installed in the crane trolley. 
+
+For example, training videos can easily be recorded for new operators, and records of events may be used in case of accidents. Furthermore, the load object measurement statistics could be used to keep track of the machine usage. Finally, a load object measurement should be used to add functionality to safety applications. A traditional safety application halts the crane process if people are detected in a dangerous work zone \cite{Raula11}. With the help of a collision control system described in section \ref{section:collision_control_in_a_crane_environment}, an adaptive safety scheme can be used to restrict the operation range of a machine, but not fully stop it.
+
+%\section{Overhead Cranes}
+%\label{section:overhead_cranes}
+% big picture
+%A glimpse in the not so distant history reveals a development of the overhead crane, a hoisting system more commonly known as the bridge crane or the process crane. First mass manufactured overhead crane systems were commissioned in 1876 in England, and they were powered by steam engines in the beginning of the industrial revolution. Today, the overhead crane is electrically powered and widely used for service duties and efficient process lifting in heavy industries and in industrial custom manufacturing.
+
+% tällä hetkellä overhead cranes
+%An overhead crane is typically manually operated by a technical worker who is making the decision whether the lifted product can be moved in any direction. Usually, a control pendant, or a wireless hand-held controller is used to move the load object to a desired location in the 3d crane working space. Supposedly, other workers are going about their daily work in the same factory floor where the overhead crane operates. With current generation manual overhead cranes it is possible to collide a load object with other objects that lie on the factory floor or on the shelves of a warehouse. 
+
+%Overhead cranes have automation systems that help manual operation, such as load anti-sway systems, single motor hoisting mechanisms, and wireless remote controllers. While they add value for the crane operator and improve safety and speed of the overhead crane operation, the manual systems cannot warn the operator automatically of any hazards. 
+
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{single_girder_eot.pdf}
+%    \caption{A single girder electric overhead traveling crane. Image adapted from \citep{Abus14}.}
+%    \label{fig:single_girder_eot}
+%  \end{center}
+%\end{figure}
+
+%\begin{figure}[ht]
+%  \begin{center}
+%    \includegraphics[width=\textwidth]{double_girder_eot.pdf}
+%    \caption{A double girder electric overhead traveling crane. Image adapted from \citep{Abus14}.}
+%    \label{fig:double_girder_eot}
+%  \end{center}
+%\end{figure}
+
+%structure of a single overhead crane
+%Overhead cranes have a beam-like bridge installed between two rails as seen in figure \ref{fig:single_girder_eot}. The bridge spans the gap between the rails and travels from one end of the rail to the other. Effectively, a cuboid shaped crane working area (portal of the crane) is formed underneath the rails encompassing most space between a factory floor and the height of the installed crane.
+
+% medium picture, applications
+%Different types of overhead crane installations exist depending on the manufacturer and on the design of the crane and its supposed application. Figure \ref{fig:double_girder_eot} shows a heavier design with double girder installation used for medium to heavy lifting in industrial manufacturing and process industries. For example, in steel mills, heavy lifting is needed when cylinders of molten steel or other metal products are carried to the next process station. In heavy industry, the capacity of the crane and standard compliance is important, and the crane must operate reliably in hazardous environments. Efficient and safe usage patterns depend on the application at hand. In all applications, most important factors usually are time-wise efficient movement of the crane, safe operation of the crane, and easiness of operation.
+
+%In heavy process industry, it is not often meaningful to measure load objects or containers whose size is standard and known prior to the lifting operation. For practical reasons, all testing on overhead cranes have been done using a company test site installation that was capable of lifting medium to heavy objects up to 15 tonnes. All the objects lifted with the overhead crane were smaller than 2 meters for all dimensions, which is quite a normal size for a pallet.
+
+%\section{Forestry Machine Application}
+%\label{section:forestry_machine_application}
+
+%A forestry machine load object measurement is a secondary objective that is researched in this thesis. Forestry machines that include a rotary telescopic crane are included as research targets, mainly log picker trucks. In tree felling work, little automation is used currently, and to increase the level of automation, a load object measurement system has been suggested. A lot of research has been done in the area of stereographic 3d teleoperation of log picker trucks, but without a better spatial understanding of the truck environment and computer aided end effector tool control it has been deemed not feasible with current teleoperation technologies. A machine vision system can provide a geometry measurement of a log picker load object, which in turn could be further used to provide a better spatial description of the forestry crane working area for the teleoperator. 
+
+%Log picking work differs from lifting work in a warehouse environment mostly due its productivity constraints. A certain speed of picking logs must be maintained to keep the operation of the log picker truck profitable in business sense. While teleoperating a rotary log picking crane is possible, the speed of a teleoperated crane is much lower than a human operated crane. Teleoperation techniques do enable a single driver operate multiple log picker trucks simultaneously, but currently the work is only productive with drivers on site. 
+
+%Research in automatic forestry machines is an ongoing effort that tries to increase productivity in the field with help of teleoperation and automatic machinery. A fully automatic log picker truck that is as fast as a human operated truck would provide the biggest productivity increase, but currently the research is focused more on aiding a single driver increase his or her productivity with help of computers. For example, new augmented reality displays are being introduced in the forestry machine cockpits to help the driver get information that helps with the work. 
+
+\section{Goals And Objectives}
+\label{section:goals_and_objectives}
+
+The goal of this work is to measure the dimensions of loads being lifted and moved with the help of a stereo camera based machine vision system. The work is carried out and analysed in two very different environments: an indoor case, and an outdoor case.
+
+%The overhead crane load object measurement is the primary objective of this work. The forestry crane load object measurement is a secondary objective that investigates the applicability of the same machine vision system in a log picker truck setting.
+
+This master's thesis was part of FAMOUS project. The research was conducted in GIM research group. The software client for the load measurement software was a deliverable of the project. As such, another primary objective was to implement the load object measurement software that is easy to integrate into other software solutions and supports Robot Operating System (ROS) on a network of PCs.
+
+Another objective regarding hardware was to keep the costs of the load object measurement system significantly lower than the price range of a LIDAR based solution. Another objective regarding software was to make the load object measurement client provide measurement data nearly in real-time, or at least 5 measurements per second.
 
 \chapter{Perceiving Environments In 3-D}
 \label{chapter:perceiving_environments_in_3d}
