@@ -92,7 +92,7 @@
 % going to use.
 % Examples of valid language codes: english (or USenglish), british,
 % finnish, swedish; and so on.
-\usepackage[british]{babel}
+\usepackage[british,finnish]{babel}
 
 
 % Font selection
@@ -217,7 +217,7 @@
 %   twosupervisors  - changes the title of supervisors to plural form
 %\usepackage[mydraft,twosupervisors]{aalto-thesis}
 %usepackage[mydraft,doublenumbering]{aalto-thesis}
-\usepackage{aalto-thesis}
+\usepackage[ELEC]{aalto-thesis}
 % Added packages 11.5.2014
 \usepackage{amsmath,empheq}
 \usepackage{textcomp}
@@ -315,11 +315,11 @@
 
 % Other stuff
 % ------------------------------------------------------------------
-\newcommand{\PROFESSORSHIP}{Intelligent robotics}
-\newcommand{\FPROFESSORSHIP}{Älykäs robotiikka}
-\newcommand{\SPROFESSORSHIP}{Intelligent robotteknik}
+\newcommand{\PROFESSORSHIP}{Automation Technology}
+\newcommand{\FPROFESSORSHIP}{Automaatiotekniikka}
+\newcommand{\SPROFESSORSHIP}{Automationteknik}
 % Professorship code is the same in all languages
-\newcommand{\PROFCODE}{T-110}
+\newcommand{\PROFCODE}{AS-84}
 \newcommand{\KEYWORDS}{stereo vision, crane load object, environment mapping}
 \newcommand{\FKEYWORDS}{stereonäkö, nosturin taakka, ympäristön kartoitus}
 \newcommand{\SKEYWORDS}{stereoseende, kran last, miljö kartläggning}
@@ -2573,19 +2573,19 @@ It was noticed in dataset C2 that if the end effector tool is empty, the cylinde
 
 A rotation of the object perpendicularly to the optical axis will report different bounding volumes for different angles of rotation in dataset C3. The measurement was most accurate when the maximal length of the object was shown in the image. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the object and generate a very poor object surface model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the object is visible, and in this situation it was not possible to measure the size of the object at all.
 
-High smoothness constraint of the disparity map fills holes that are present in the environment. For example, the loops formed by the wiring seen above the end effector tool in Figure \ref{end_effector_tool} will generate a solid surface point cloud response. This phenomenon is present in the SGBM algorithm implementation, but not in the BM algorithm implementation. It was concluded that while the SGBM algorithm produces better 3d models of the environment with more data points in the output, the BM algorithm actually can have finer detail in some features with faster computation speeds. In the end, the SGBM algorithm was more suitable for the development of the prototype software. The algorithms can be used interchangeably depending on the dataset and suitability of each algorithm.
+High smoothness constraint of the disparity map fills holes that are present in the environment. For example, the loops formed by the wiring seen above the end effector tool in Figure \ref{end_effector_tool} will be filled when SGBM algorithm is used. The hole filling phenomenon is present in the SGBM algorithm implementation, but not in the BM algorithm implementation, because there is less fattening effect by the disparity map. It was concluded that while the SGBM algorithm produces better 3d models of the environment with more data points in the output, the BM algorithm actually can have finer detail in some features with faster computation speeds. In the end, the SGBM algorithm was more suitable for the development of the prototype software. The algorithms can be used interchangeably depending on the dataset and suitability of each algorithm.
 
-The cylinder fitting can handle picking of multiple objects at once if multiple objects are modeled as a single large cylinder. Multiple objects tend to be in a more hour-glass shape than a cylinder shape. Because of this, the cylinder fitting can fit most volume of the objects inside a single cylinder, but the furthest ends of the objects will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the logs actually stay inside the bounding volume. It remains to be verified whether the actual logs would fit inside the computed bounding volume or not when using a single cylinder approximation.
+The cylinder fitting can handle picking of multiple objects at once if multiple objects are modeled as a single large cylinder. Multiple objects tend to be in a more hour-glass shape than a cylinder shape. Because of this, the cylinder fitting can fit most volume of the objects inside a single cylinder, but the furthest ends of the objects will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the objects actually stay inside the bounding volume. It remains to be verified whether the actual objects would fit inside the computed bounding volume or not when using a single cylinder approximation.
 
-In dataset C4 it was discovered that when the crane end effector is brought in proximity of objects on the ground it is possible to measure a single object dimension even before it is grasped by the end effector tool. When the cylinder fitting computation is used the object does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property possibly eliminates the need to rotate the object after grasping in order to measure a correct geometry.
+In dataset C4 it was discovered that when the crane end effector is brought in proximity of objects on the ground it is possible to measure a single object dimension even before it is grasped by the end effector tool. When the cylinder fitting computation is used the object does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property eliminates the need to rotate the object after grasping in some cases for geometry measurement.
 
-In dataset C5 an object was picked up from a pile. The segmentation will group all objects in a pile as a single object, and the detection of a single object remains to be solved by the RANSAC estimation purely. In general, if the measured object is occluded by other nearby objects, the cylinder fitting will easily return wrong matches without heuristics. It was noticed that it is especially easy to fit a cylinder on a person walking nearby. This could be solved once again with heuristics, for example, a good heuristic rule would be \emph{cylinders that are in 90 degree upright position in the world frame are not load objects}.
+In dataset C5 an object was picked up from a pile of objects. The segmentation will group all objects in a pile as a single object, and the detection of a single object remains to be solved by the RANSAC estimation purely. In general, if the measured object is occluded by other nearby objects, the cylinder fitting will easily return wrong matches without heuristics. It was noticed that it is especially easy to fit a cylinder on a person walking nearby. This could be solved once again with heuristics, for example, a good heuristic rule would be \emph{cylinders that are in 90 degree upright position in the world frame are not load objects}.
 
-People walking in the area are not easy to distinguish as separate objects if they are nearby load objects similarly to the overhead crane case. For example, a person walking over a pile of logs will be grouped as a single object with the pile of logs.
+People walking in the area are not easy to distinguish as separate objects if they are nearby load objects similarly to the indoor environment. For example, a person walking over a pile of objects will be grouped as part of the entity that represents the pile of objects. 
 
-It was noticed that goodness of 3d geometry data can be assessed using any non-moving objects. The average number of points and their average noise can be statistically measured in a point 3d region by using statistical methods. A statistical method was not implemented in the course of this work.
+It was noticed that goodness of 3d geometry data can be assessed using any non-moving objects. The average number of points and their average noise can be statistically measured in a point 3-D region by using statistical methods. A statistical method was not in the scope of this work.
 
-It was noticed from dataset N+4 that the load object cylinder fitting introduces errors because the backside of the cylinder is missing from the 3d point cloud data. A 3d reconstruction only generates a surface model, which means that the cylinder RANSAC computation estimates the cylinder model parameters using partial data. The outcome may or may not describe the actual cylinder, but possibly the cylinder translation is incorrectly estimated as too near the cameras. Missing backside of the log object does not affect the orientation estimation. The estimated position, orientation and volume of the log are useful, but the estimates could be further improved if another camera viewpoint was used. If multiple stereo camera viewpoints are used, the point cloud registration problem is introduced.
+It was noticed from dataset C5 that the load object cylinder fitting introduces errors because the backside of the cylinder is missing from the 3d point cloud data. A 3d reconstruction only generates a surface model, which means that the cylinder RANSAC computation estimates the cylinder model parameters using partial data. The outcome may or may not describe the actual cylinder, but the cylinder translation is incorrectly estimated as too near the cameras. Missing backside of the object does not affect the orientation estimation. The estimated position, orientation and volume of the object are useful, but the estimates could be further improved if another camera viewpoint was used. If multiple stereo camera viewpoints are used, the point cloud registration problem is introduced. Registration is not in the scope of this thesis, but i
 
 \subsubsection{Findings From The Bird's Eye Viewpoint Datasets D1-D5}
 \label{subsubsection:findings_from_the_birds_eye_viewpoint_datasets}
