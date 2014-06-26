@@ -679,13 +679,11 @@ Currently under review. Will be written soon.
 %+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
 %page 473 Sonka07
 
-The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
-
-Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered\citep{You11}. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
+The problem of the load object geometry measurement inherently requires a sensor that can recover 3-D geometry of the environment. Extensive research has been done in the field of 3-D geometry recovery, and this chapter introduces sensor options, acquisition techniques, and representation formats that can be used for 3-D environment acquisition and processing. Additionally, other perception sensors exist that are not machine vision sensors, but that can be used to recover 3-D geometry data, such as LIDAR scanners and radars. For example, the LIDAR technology can recover an accurate 3-D geometry of the environment, thus, it can be used to verify any camera based solution accuracy\citep{You11}.
 
 \section{Sensors}
 
-Perception sensors used in machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
+Perception sensors used in machine vision systems include digital cameras, time-of-flight cameras, structured light cameras (Kinect), and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
 \subsection{Stereo Cameras}
 \label{subsection:stereo_cameras}
@@ -694,49 +692,7 @@ Camera based vision sensing can be active or passive depending on the technology
 
 %+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
 %+ time-of-flight cameras (TOF)
-%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
-\section{Effects Of Camera Optics In Modeling}
-\label{section:effects_of_camera_optics_in_modeling}
-
-% todo add teledyne white paper to optics
-%\ref{teledyne_whitepaper}
-
-Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
-% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
-
-The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
-
-The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
-
-The aperture of the camera is described by a unitless number that is presented as f over a number
-
-\begin{equation}
-\label{eq:lens_aperture}
-f/# = N = \frac{f}{D}
-\end{equation}
-
-where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
-
-
-% angle of view of the lens???
-
-% resolution of the sensor array,
-%camera dynamic range
-%electromagnetic spectrum range 
-%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
-%Irradiance is a measure of power of light cast on a unit surface are of an object.
-%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
-
-%\begin{equation}
-%\label{equation:radiance}
-%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
-%\end{equation}
-
-%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
-
-%weather conditions
-    
 \section{Digital 3d Environment Models}
 \label{section:digital_3d_environment_models}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
@@ -848,6 +804,7 @@ In this work the focus on environmental acquisition is on systems capable of 3d 
 In general, a real-world scene is difficult to model using perception sensors. A lot of study in real-world object modeling has been done using multiple sensors including laser range scanners, multiple viewpoint cameras, color cameras, inertial measurement units (IMU) and global positioning system (GPS). Multiple perception sensors and large image quantities from a single environment are needed in order to compute a realistic virtual environment model that displays a correct geometry of the environment, and presents textured object models with realistic lighting. \citep{ElHakim98}
 
 Quality of modeling may degrade in bad weather, such as fog, mist, rain, or snow. Especially camera systems are affected by inhomogeneous degradation in image quality. Different types of degradation in image quality are caused by issues such as lens flare, condensation of water on lens, changes in illumination, shadows, and noise from droplets of water moving on the lens. Weather also affects the surrounding environment by e.g. changing the surface reflectance properties in rainy weather. If colored markers are used for load object tracking, sensitivity to natural light in outdoor environments occur. \citep{Kawai12} 
+%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
 
 If multiple depth maps are used to acquire a complete model of an object, then data acquisition, registration between different viewpoints, and integration of the different registered views are compulsory steps in modeling.  Multiple camera view registration is a classic technique that can estimate geometric surfaces of objects in more complete detail than a single camera view depth mapping. Multiple view registration is outside of the scope of this thesis, but an interested reader may find extensive research in literature on complete object modeling using multiple registered camera images. \citep{Chen91}
 
@@ -873,18 +830,18 @@ Structure from motion is similar to biological visual systems that easily infer 
 A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
 
 %Motion field
-\subsubsection{Motion Field And Optical Flow}
-\label{subsubsection:motion_field_and_optical_flow}
+%\subsubsection{Motion Field And Optical Flow}
+%\label{subsubsection:motion_field_and_optical_flow}
 
-In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+%In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
 
-Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
+%Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
 
-In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
+%In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
 
-The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
+%The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
 
-Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
+%Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
 
 %\subsubsection{Structure From Motion Challenges In Crane Environment}
 %\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
@@ -899,6 +856,49 @@ Motion field of an SFM system is similar to a disparity map in a stereo vision s
 
 % another snippet
 %A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
+
+\section{Effects Of Camera Optics In Modeling}
+\label{section:effects_of_camera_optics_in_modeling}
+
+% todo add teledyne white paper to optics
+%\ref{teledyne_whitepaper}
+
+Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
+% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
+
+The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
+
+The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
+
+The aperture of the camera is described by a unitless number that is presented as f over a number
+
+\begin{equation}
+\label{eq:lens_aperture}
+f/# = N = \frac{f}{D}
+\end{equation}
+
+where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
+
+
+% angle of view of the lens???
+
+% resolution of the sensor array,
+%camera dynamic range
+%electromagnetic spectrum range 
+%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+%Irradiance is a measure of power of light cast on a unit surface are of an object.
+%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
+
+%\begin{equation}
+%\label{equation:radiance}
+%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+%\end{equation}
+
+%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+
+%weather conditions
+    
+
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision}
 \label{chapter:stereoscopic_machine_vision}
@@ -2529,10 +2529,10 @@ It was also deduced that a single measurement will not report the correct boundi
 
 In the outdoor case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint C and a bird's eye viewpoint D. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in an outdoors working machine. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Also the bird's eye viewpoint has its flaws: a boom is visible in the image and occludes the load object during normal operation. The bird's eye viewpoint has one major advantage over the frog perspective: if the outdoor machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in machine chassis installation.
 
-\subsection{Log Measurement Results}
-\label{subsection:log_measurement_results}
+\subsection{Load Measurement Results}
+\label{subsection:load_measurement_results}
 
-Log measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:log_detected}. The orientation of the log was found approximately within a few degrees error when the load object was lifted high in the air, and within a 10 degree error window when the log was located near the ground and the data was cluttered because of other logs. There are no exact statistics on the extracted log orientation error, but the results can be reviewed in Figures \ref{fig:log_detected} and N. The position of the log object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
+Load measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:log_detected}. The recovered orientation of the log was less than 5 degrees when the load object was lifted high in the air, and within a $\pm$ 10 degree error when the log was located near the ground and the data was cluttered because of other objects. There are no exact statistics on the extracted log orientation error, but the results can be reviewed in Figure \ref{fig:log_detected}. The position of the log object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
 
 \begin{figure}[ht]
   \begin{center}
