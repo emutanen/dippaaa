@@ -267,7 +267,7 @@
 % You can just fix the texts there. Just remember to check all the language
 % variants you use (they are all there in the same place).
 % ------------------------------------------------------------------
-\newcommand{\TITLE}{Geometry Measurement Of Crane Load Object using Machine Vision}
+\newcommand{\TITLE}{Geometry Measurement Of Crane Load (Object) using Machine Vision}
 \newcommand{\FTITLE}{Geometrian mittaus nosturin taakasta konenäköavusteisesti}
 \newcommand{\DATE}{May 27th, 2014}
 \newcommand{\FDATE}{27. toukokuuta 2014}
@@ -791,27 +791,75 @@ A tertiary objective regarding hardware was to keep the costs of the load object
 
 \chapter{Perceiving Environments In 3-D}
 \label{chapter:perceiving_environments_in_3d}
+%+ 3 camera-setup can understand all available information in an orthographic projection => 4th camera does not add any more information
+%page 473 Sonka07
 
-The problem of the load object geometry measurement inherently requires a sensor that can recover a 3-D geometry of the environment. Extensive research has been done in the field of 3-D geometry recovery, and this chapter reviews the available sensors, acquisition techniques, and representation formats.
+The problem of the load object geometry measurement inherently requires a sensor that can recover 3d geometry of the environment. Extensive research has been done in the field of 3d geometry recovery, and by utilising these vast sources of research many different sensors can be selected that can produce a good 3d geometry model of the environment.
 
-Additionally, other perception sensors exist that can recover 3-D data, for example laser scanners and radars. These are not machine vision sensors, but for example the laser scanner technology can be used to accurately recover 3-D geometry for load object measurement purposes. A laser scanner can be used to verify a 3-D geometry that any camera based solutions have produced\citep{You11}. A Velodyne laser scanner was used in capturing accurate models of the 3-D test environments.
+Besides machine vision, also other perception sensors exist that can be used to recover 3d geometry, such as laser scanners and radars. These are not considered strictly machine vision sensors, but for example the laser scanner technology is accurate enough to be used to verify a 3d geometry that any of the camera based solutions have recovered\citep{You11}. Thus, a Velodyne laser scanner was used in capturing an accurate model of the 3d environment in this work.
 
 \section{Sensors}
 
-Perception sensors used in machine vision systems include sensors such as digital cameras, time-of-flight cameras, structured light cameras (Kinect), and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
+Perception sensors used in machine vision system include sensors such as digital cameras, time-of-flight cameras, structured light cameras, and other equipment that may recover information about the surrounding environment by capturing emitted electromagnetic radiation. Machine vision cameras may use the visible spectrum of the light, or sometimes other spectrum of light e.g. ultraviolet light spectrum. A lot of different sensor options are commercially available for machine vision systems. The design of the machine vision system is highly affected by the selection of the sensor and the digital format of the information that is output from the sensor.
 
-Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. Typically, the energy that is registered and digitally sampled by a camera is visible light.
+\subsection{Stereo Cameras}
+\label{subsection:stereo_cameras}
+
+Camera based vision sensing can be active or passive depending on the technology used. An active sensor emits energy into the environment and measures the energy radiated back to a sensor array. A passive sensor does not emit energy on its own, but registers and measures energy radiated to the sensor array from the environment. In general, the energy that is registered and digitally sampled by a camera is visible light, which will be the technology used in this work.
+
+%+ active sensor: a sensor that controls and uses its own images. An active sensor controls its image's illumination with an electromagentic energy source, such as laser or white light.
+%+ time-of-flight cameras (TOF)
+%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
+
+\section{Effects Of Camera Optics In Modeling}
+\label{section:effects_of_camera_optics_in_modeling}
+
+% todo add teledyne white paper to optics
+%\ref{teledyne_whitepaper}
+
+Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
+% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
+
+The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
+
+The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
+
+The aperture of the camera is described by a unitless number that is presented as f over a number
+
+\begin{equation}
+\label{eq:lens_aperture}
+f/# = N = \frac{f}{D}
+\end{equation}
+
+where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
+
+
+% angle of view of the lens???
+
+% resolution of the sensor array,
+%camera dynamic range
+%electromagnetic spectrum range 
+%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
+%Irradiance is a measure of power of light cast on a unit surface are of an object.
+%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
+
+%\begin{equation}
+%\label{equation:radiance}
+%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
+%\end{equation}
+
+%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
+
+%weather conditions
     
-\section{Digital 3-D Environment Models}
+\section{Digital 3d Environment Models}
 \label{section:digital_3d_environment_models}
 %+ possible algorithms: clustering, water-filling, and convex hull computations
 %+different approaches: top-down (model-based) or bottom-up (reconstruction)
 
 A 3d environment model is a digital data representations that describes the environment acquired by a perception sensor. Efficient modeling of real-world objects has been a major research issue for a long time especially in virtual reality research. It is not easy to automatically recreate a real-world item in a digital system, but many approaches have been suggested.
 
-The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a stereo camera pair can generate point cloud data, or a range image can be used. 
-
-%This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
+The selected 3d environment digital model depends also of the acquisition hardware available: e.g. a LIDAR scanner and stereo cameras both can generate point cloud data, but a LIDAR scanner cannot produce a range image. This work uses primarily stereo camera data acquisition, and secondarily LIDAR scanner acquisition, thus, a suitable model should support both perception sensor outputs. A point cloud model is introduced first, because it can support both sensors just mentioned. Additionally, other digital models that can be used are briefly introduced. 
 
 %A study by the Carnegie Mellon university robotics institute call the model acquired from the intensity image and the corresponding range imagery a visible surface model (VSM) \cite{Rander97}. Basically a VSM contains a subset of real-world surface features and texture in the digital format, and the VSM can be further placed into a more comprehensive representation of the world, namely a complete surface model (CSM). 
 
@@ -940,18 +988,18 @@ Structure from motion is similar to biological visual systems that easily infer 
 A simple structure from motion system is able to reconstruct static scenes with a moving camera, but reconstructing a moving scene is a more difficult problem. In the case of reconstructing dynamic environments with a single camera, some additional problems must be addressed, such as what image regions correspond to moving objects and which do not, and how does the illumination change spatially and temporally.
 
 %Motion field
-%\subsubsection{Motion Field And Optical Flow}
-%\label{subsubsection:motion_field_and_optical_flow}
+\subsubsection{Motion Field And Optical Flow}
+\label{subsubsection:motion_field_and_optical_flow}
 
-%In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
+In SFM processing, the reconstruction of a 3d scene from a sequence of images is based on motion field computation. Motion field is a 2d vector field of velocities of image points induced from a scene viewed by the camera. It represents the projections of 3d motion of visible features. Only approximations of the ideal motion field can be computed, for example the optical flow is such an estimate of the motion field.
 
-%Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
+Optical flow describes the apparent motion of an object in a visual scene. It can be estimated using differential methods, feature-based methods, or phase correlation methods. In practice, a good differential method that is easy to implement and use is a method originally published by Lucas and Kanade, which is referred to as an optical flow algorithm in \citep{Trucco98, Lucas81}
 
-%In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
+In Lucas's method the optical flow is estimated using the image brightness constancy equation. The image brightness constancy equation computes the optical flow only in the direction of the normal of the spatial image gradient as shown by the aperture problem. The aperture problem shows in more detail how it is not possible to understand the actual direction of movement of a spatial gradient seen through an aperture.  
 
-%The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
+The optical flow is well estimated using the brightness constancy equation for some cases where the objects are assumed to exhibit lambertian surface properties, be illuminated by a point light source at the distance of infinity, and  no photometric distortions are present. Under the previously mentioned assumptions the error of the estimated normal of motion field is small at image points with high spatial gradient. The error is zero only for components whose motion is translational only, or whose illumination direction is parallel to the angular velocity. 
 
-%Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
+Motion field of an SFM system is similar to a disparity map in a stereo vision system: they both represent a point displacement map. While motion field is a differential concept, the disparity map is not, which means that the motion field is an estimate of the point displacement map.
 
 %\subsubsection{Structure From Motion Challenges In Crane Environment}
 %\label{subsubsection:structure_from_motion_challenges_in_crane_environment}
@@ -966,49 +1014,6 @@ A simple structure from motion system is able to reconstruct static scenes with 
 
 % another snippet
 %A histogram is a two-dimensional graphical representation of an image grey-level distribution. The grey-levels correspond to the image intensity. As depicted in figure X, the X axis represents the number of independent grey levels that the image contains. The grey-levels range from 0 to N levels. For example, in an 8-bit single channel image there can be up to 255 independent different tones of gray. The Y axis represents per centage information about a single grey-level ranging from 0\% to 100\%. Thus, the histogram essentially displays a distribution of all grey-levels.
-
-\section{Effects Of Camera Optics In Modeling}
-\label{section:effects_of_camera_optics_in_modeling}
-
-% todo add teledyne white paper to optics
-%\ref{teledyne_whitepaper}
-
-Intensities perceived by a visual system are a function of the target geometry, reflectance of the target surface, illumination, and the camera viewpoint.
-% http://homepages.inf.ed.ac.uk/rbf/CVonline/LOCAL_COPIES/GOMES1/marr.html
-
-The machine vision cameras include optical systems that control the amount of light entering the photosensitive CMOS sensor array in the camera. A basic understanding of parameters that affect the physical behaviour of light entering the sensor is needed to realise a working design for the application at hand. The most important parameters that must be set in the optical system include focal length, field of view (FOV), depth of view, and camera shutter speed. Other parameters that may affect the performance of the camera system are the selection of materials, and how light enters through the interface of two different materials. Different materials may be used inside the lenses and on the lens coatings. 
-
-The aperture of the camera lens system controls the depth of field (DOF) perceived in a digital or analog image of a scene. The depth of field describes the range of depth that can be viewed in sharp detail through the lens system. If the DOF is large, then only a small depth range is in sharp detail, and the rest of the image is blurry for near-field objects and faraway objects. If the DOF is small, then near-field objects and faraway objects are sharply in focus both alike. For the design of a stereo camera depth measurement system a small DOF, or extended DOF, is used to fully enable a deep range of a scene in sharp detail. Thus, the load object will stay in sharp detail before and after the lifting nearer to the cameras. Since a small DOF is achieved by using a larger aperture value, a tradeoff is done between feature sharpness and the amount of noise present in the image. Aperture sizes are limited by diffraction, thus, small DOF images may suffer from high variance noise effects and low light conditions.
-
-The aperture of the camera is described by a unitless number that is presented as f over a number
-
-\begin{equation}
-\label{eq:lens_aperture}
-f/# = N = \frac{f}{D}
-\end{equation}
-
-where f is the focal lenght used and D is the diameter of the pupil of the lens system. Higher f numbers have a large depth of field since the camera lens approaches the asymptotic limit of the pinhole camera.
-
-
-% angle of view of the lens???
-
-% resolution of the sensor array,
-%camera dynamic range
-%electromagnetic spectrum range 
-%Radiance is a measure of power of light radiated from a unit surface area of an object to some spatial angle. 
-%Irradiance is a measure of power of light cast on a unit surface are of an object.
-%The relation between an object's surface that radiates onto the camera sensor array can be formulated as
-
-%\begin{equation}
-%\label{equation:radiance}
-%E = L \frac{\pi}{4} (\frac{d}{f})^2 \cos^4{\alpha}
-%\end{equation}
-
-%where L is object's radiance of unit surface area, and $\frac{d}{f}$ is the f-number of the lens in use. The $cos^4{\alpha}$ is the vignetting term. Not all radiating energy from the object is captured by the CMOS sensor array, but only the fraction that enters the camera lens and falls on the effective sensor array surface.
-
-%weather conditions
-%According to other research, the Kinect sensor cannot observe items cast in direct sunlight, preventing extensive outdoor usage besides its range limitations \cite{tikkanen13}.  
-
 %end of chapter 3
 \chapter{Stereoscopic Machine Vision}
 \label{chapter:stereoscopic_machine_vision}
@@ -1813,22 +1818,22 @@ In this work, the epipolar constraint will reduce the block matching search spac
 \section{Depth From Disparity Map}
 \label{section:depth_from_disparity_map}
 
-\begin{figure}%
-    \centering
-    \parbox{5cm}{\includegraphics[width=\linewidth]{disparity.jpg}}%
-    \qquad
-    \begin{minipage}{5cm}%
-    \includegraphics[width=\linewidth]{disparity2.jpg}
-    \end{minipage}%
-    \caption{a) A disparity map depicting a scene with a rotary boom crane. The intensity channel is converted into an 8-bit representation (256 different brightness levels). b) A disparity image depicting a scene with a rotary boom crane. A 32-bit intensity channel is being presented in an 8-bit image. Near-field items are seen as white regions.}
-    \label{fig:disparity}
-\end{figure}
+%\begin{figure}%
+%    \centering
+%    \parbox{5cm}{\includegraphics[width=\linewidth]{disparity.jpg}}%
+%    \qquad
+%    \begin{minipage}{5cm}%
+%    \includegraphics[width=\linewidth]{disparity2.jpg}
+%    \end{minipage}%
+%    \caption{a) A disparity map depicting a scene with a rotary boom crane. The intensity channel is converted into an 8-bit representation (256 different brightness levels). b) A disparity image depicting a scene with a rotary boom crane. A 32-bit intensity channel is being presented in an 8-bit image. Near-field items are seen as white regions.}
+%    \label{fig:disparity}
+%\end{figure}
 
 \begin{figure}[ht]
   \begin{center}
-    \includegraphics[width=\textwidth]{disparity3.jpg}
-    \caption{A disparity map depicting an overhead crane environment.}
-    \label{fig:disparity_overhead}
+    \includegraphics[width=\textwidth]{office_disparity.jpg}
+    \caption{An office environment and its disparity map.}
+    \label{fig:office_disparity}
   \end{center}
 \end{figure}
 
@@ -2151,7 +2156,7 @@ If a verification check reported that the location of the found load object was 
 
 To make the RANSAC segmentation find new cylinders, the previously segmented incorrect points are being deleted from the data, and the RANSAC search is imposed again on the remaining points. The heuristics used are evaluated in Chapter \ref{chapter:evaluation} and discussed in more detail in Section \ref{subsection:log_measurement_results}.
 
-The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the objects were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of objects carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
+The results of the cylinder model estimation were good since the estimator found the correct cylindrical load object nearly 100\% of the time when the logs were lifted in the air. The cylinder segmentation returned a correct result even for a load object that was on the ground merged with other objects approximately 50\% of the time. A typical dataset that was tested contained 200-1000 stereo image pairs with a speed of 4 frames per second. It was not possible to detect the number of logs carried in the boom using the RANSAC model estimator, but the bounding volume could be computed for multiple objects. The radius of the cylinder was estimated slightly too large typically, which was acceptable in bounding volume computation.
 
 The cylinder model segmentation was moderately fast with the test data clocking in less than 10 milliseconds of time used on computation on average. The cylinder segmentation result can be seen in Figure \ref{fig:cylinder_fitting_pt1} where the inliers of the cylinder model are shown as red data points, and the bounding volume of the cylinder load object is shown as a red cuboid. The length of the segmented cylinder is shown in Figure \ref{fig:cylinder_fitting_pt2} a) in millimeters. The cylinder visualisation is seen in Figure \ref{fig:cylinder_fitting_pt2} b), which contains only the load object point cloud data. It can be seen that the load object point cloud contains the boom of the crane, and there is some orientation error in the found cylinder parameters.
 
@@ -2208,24 +2213,22 @@ The PCL cylinder fitting process outputs a parameter set in pcl::ModelCoefficien
 Another way of computing the end points using PCL was found after the thesis project was finished, which includes projecting the points along a linear pcl::ModelCoefficients model and selecting the values produced by the function getMinMax3d(). The implemented algorithm follows the standard linear projection mathematics, and the working of the algorithm is presented in Algorithm \ref{algorithm:cylinder_growing}.
 
 \begin{algorithm}
-\KwData{cylinder segmentation inlier point cloud $P$}
-\KwResult{cylinder end point coordinates}
-1. compute vector that is N units long along the main cylinder axis so that all data points in point cloud $P$ project on it\;
+\KwData{point cloud $P$ representing the load object segmented cylinder}
+\KwResult{cylinder end point coordinates along main axis}
+1. compute N units long vector along the main cylinder axis so that all data points in point cloud $P$ project on it\;
 2. compute closest data point $C$ to centroid of data\;
 3. initialise a start point $S$ at projection of $C$ along the cylinder main axis\;
-4. initialise two end points $L_1$ and $L_2$ that represent distance along the cylinder main axis starting from start point $S$ along the cylinder main axis\;
+4. initialise two subcylinders that represent distance along the cylinder main axis starting from start point $S$ to the end points in two opposing directions along the cylinder main axis\;
 \For{all points $p_i \in P$}{
 iterate to next point cloud data entry\;
 compute projection on cylinder main axis using dot product\;
   \eIF{projection is in negative coefficient vector direction}{
        \eIF{check if distance to start point greater than current subcylinder 1 height value}{
         set projection point as the new end coordinate for subcylinder 1\;
-        }{continue\;}
-        
+        }{continue}
    }{\eIF{distance to start point greater than current subcylinder 2 height value}{
         set projection point as the new end coordinate for subcylinder 2\;
-        }{continue\;}
-        
+        }{continue}
    } 
 }
 5. return subcylinder 1 top coordinate and subcylinder 2 top coordinate\;
@@ -2467,7 +2470,7 @@ The coordinate system was not transformed to the world coordinate frame in any d
 
 The effect of the fluorescent lighting in the test environment was not analysed, and the lighting conditions could not be controlled. The tests were done in 50 Hz fluorescent lighting conditions. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR camera parameters change in different lighting conditions, thus, modeling would be difficult without better knowledge of the HDR camera image formation. The effects of lighting conditions on the image quality in machine vision solutions are a vast research topic on their own and not detailed in this work.
 
-\subsubsection{Findings From Top-down Viewpoint Datasets A1-A6}
+\subsubsection{Findings From Top-down Viewpoint Datasets}
 \label{subsubsection:findings_from_topdown_viewpoint_datasets}
 
 %1372841000 = A1
@@ -2503,7 +2506,7 @@ To counteract inaccuracy caused by movements, the cameras should not move while 
 %1372843166 = A5
 In dataset A5 it was noticed that when people walk exactly under the camera view in a top-down camera setup, the point response for a person will become so small that it is discarded as noise in the point cloud data. On one hand, this result suggests that the limit of the point cloud object size should be made smaller than the currently used value (80 data points) to be able to detect small targets. On the other hand, making the limit smaller will allow small disparity speckles clutter the 3d data as objects. Since the original point cloud is downsampled using a voxel grid filter, such a scenasrio may not be problematic at all, because noise speckles are filtered away from the downsampled point cloud.
 
-\subsubsection{Findings From Bird's Eye Viewpoint Datasets B1-B7}
+\subsubsection{Findings From Bird's Eye Viewpoint Datasets}
 \label{subsubsection:findings_from_birdseye_viewpoint_datasets}
 
 %1372851907 = B2
@@ -2543,66 +2546,69 @@ In dataset B7 two non-reflective large markers were added on the see-through loa
 \subsection{Outdoor Measurements}
 \label{subsection:outdoor_measurements}
 
-The outdoor image datasets were captured from a test environment in August 2013.
+The forestry crane image data sets were captured from an actual rotary boom crane test outdoor environment in August 2013 in Finland as part of the GIM project. Another dataset collection session was done during March 2013 in snowy winter conditions, but there was depth information loss due to a perception platform malfunction. The setback was unfortunate, thus, no findings from reflective snow and winter conditions are included.
 
-In the outdoor crane datasets, an automatic TLD tracker was used in combination with a cylinder fitting scheme to provide more meaningful results. The TLD tracker provided the location of the end effector tool with good accuracy using 2d image feature tracking. A simple cylinder fitting scheme was used, which was further detailed in section \ref{subsection:cylinder_fitting}. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and the implemented load selection algorithm that was detailed in section \ref{subsection:load_selection_algorithm}.
+In the forestry crane data sets, an automatic TLD tracker was used in combination with a cylinder fitting scheme to provide more meaningful results. The TLD tracker provided the location of the end effector tool with great accuracy using 2d image feature tracking. A simple cylinder fitting scheme was used, which was further detailed in section \ref{subsection:cylinder_fitting}. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and the implemented load selection algorithm that was further detailed in section \ref{subsection:load_selection_algorithm}.
 
-\subsubsection{Findings From The Frog Perspective Viewpoint Datasets C1-C7}
+\subsubsection{Findings From The Frog Perspective Viewpoint Datasets}
 \label{subsubsection:findings_from_the_frog_perspective_viewpoint_datasets}
 
-It was found out from dataset C1 that objects too close to each other will merge into single objects similarly as in the indoor test environment. The merging of objects can be controlled using the k-D -tree search cluster tolerance parameter, which affects the segmentation threshold distance. Occlusion made the problem of object segmentation more difficult to solve since usually the occluding object will fuse with the occluded object given the objects are near each other. 
+It was found out from dataset N that objects too close to each other will merge into single objects similarly as in the overhead crane case. The merging of objects can be controlled using the k-D -tree search cluster tolerance parameter, which affects the segmentation threshold distance. Occlusion made the problem of object segmentation more difficult to solve since usually the occluding object will fuse with the occluded object given the objects are near each other. 
 
 Heuristics should be used to prevent wrong feature matches in the cylinder fitting step. A check that the cylinder centroid is not located above the end effector in the sensor frame was used, which only prevents matching errors caused by the crane boom.
 %image of the frog perspective and boom here
 
-It was noticed in dataset C2 that if the end effector tool is empty, the cylinder fitting procedure does not produce meaningful results. Currently, the fitting will result in the volume of the end effector tool or parts of the boom depending on where the RANSAC search finds a cylinder fit in the data. This behaviour adds noise and erroneous measurements in the bounding volume measurement visualisations of outdoor tests.
+It was noticed in dataset N+1 that if the end effector tool is empty, the cylinder fitting procedure does not produce meaningful results. Currently, the fitting will result in the volume of the end effector tool or parts of the crane boom depending on where the RANSAC search finds a cylinder fit in the data. This behaviour adds noise and erroneous measurements in the bounding volume measurement visualisations of forestry crane tests.
 
-A rotation of the object perpendicularly to the optical axis will report different bounding volumes for different angles of rotation in dataset C3. The measurement was most accurate when the maximal length of the object was shown in the image. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the object and generate a very poor object surface model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the elongated object is visible, and in this situation it was not possible to measure the size of the object at all.
+A rotation of the log perpendicularly to the optical axis will report different bounding volumes for different angles of rotation in dataset N+2. The measurement was most accurate when the maximal length of the log is shown in the image. Let this angle be the 0 degrees angle. A rotation of 0-65 degrees will give similar results, but a rotation of more than 65 degrees will cause self-occlusion of the log and generate a very poor object surface model. In the case of 90 degree rotation (maximum self-occlusion) only the other end of the log is visible, and in this situation it was not possible to measure the size of the log at all.
 
 High smoothness constraint of the disparity map fills holes that are present in the environment. For example, the loops formed by the wiring seen above the end effector tool will generate a solid surface point cloud response. This phenomenon is present in the SGBM algorithm implementation, but not in the BM algorithm implementation. It was concluded that while the SGBM algorithm produces better 3d models of the environment with more data points in the output, the BM algorithm actually can have finer detail in some features with faster computation speeds. In the end, the SGBM algorithm was more suitable for the development of the prototype software. The algorithms can be used interchangeably depending on the dataset and suitability of each algorithm.
+%add an image of the wiring loop in the end effector
 
-The cylinder fitting can handle picking of multiple objects at once if multiple objects are modeled as a single large cylinder. Multiple objects tend to be in an hour-glass shape than a cylinder shape. Because of this, the cylinder fitting can fit most volume of the objects inside a single cylinder, but the furthest ends of the logs will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the objects actually stay inside the bounding volume. It remains to be verified whether the actual load objects would fit inside the computed bounding volume or not when using a single cylinder approximation.
+The cylinder fitting can handle picking of multiple logs at once if multiple logs are modeled as a single large cylinder. Multiple logs tend to be in a more hour-glass shape than a cylinder shape, which can be seen in figure \ref{fig:left1377162788433}. Because of this, the cylinder fitting can fit most volume of the logs inside a single cylinder, but the furthest ends of the logs will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the logs actually stay inside the bounding volume. It remains to be verified whether the actual logs would fit inside the computed bounding volume or not when using a single cylinder approximation.
 
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=0.5\textwidth]{left1377162788433.jpg}
-%    \caption{Multiple log objects form an hour-glass shaped pack of objects. A left camera image from dataset %1377162465. Image was captured on August 22nd 2013 in a rotary boom crane test site.}
-%    \label{fig:left1377162788433}
-%  \end{center}
-%\end{figure}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.5\textwidth]{left1377162788433.jpg}
+    \caption{Multiple log objects form an hour-glass shaped pack of logs. A left camera image from dataset 1377162465. Image was captured on August 22nd 2013 in a rotary boom crane test site.}
+    \label{fig:left1377162788433}
+  \end{center}
+\end{figure}
 
-In dataset C4 it was discovered that when the crane end effector is brought in proximity of objects on the ground it is possible to measure a single object dimension even before it is grasped by the end effector tool. When the cylinder fitting computation is used the object does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property possibly eliminates the need to rotate the object after grasping in order to measure a correct geometry.
+In dataset N+3 it was discovered that when the crane end effector is brought in proximity of logs on the ground it is possible to measure a single log dimension even before a log is grasped by the end effector tool. When the cylinder fitting computation is used the log does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property possibly eliminates the need to rotate the log object after grasping in order to measure a correct geometry.
 
-In dataset C5 an object was picked up from a pile. The segmentation will group all objects in a pile as a single object, and the detection of a single object remains to be solved by the RANSAC estimation purely. In general, if the measured load is occluded by other objects nearby, the cylinder fitting will easily return wrong matches. It was noticed that it is especially easy to fit a cylinder on a person walking nearby. This could be solved once again with heuristics, for example, a good heuristic rule would be emph{cylinders that are in 90 degree upright position in the world frame are not load objects}. People walking in the area are not easy to distinguish as separate objects if they are nearby load objects similarly to the indoor test environment.
+In dataset N+3 a log was picked up from a pile of logs. The segmentation will group all logs in a pile as a single object, and the detection of a single log remains to be solved by the RANSAC estimation purely. In general, if the measured log is occluded by other logs, or nearby other logs, the cylinder fitting will easily return wrong matches without heuristics. It was noticed that it is especially easy to fit a cylinder on a person walking nearby. This could be solved once again with heuristics, for example, a good heuristic rule would be "cylinders that are in 90 degree upright position in the world frame are not load objects".
+
+People walking in the area are not easy to distinguish as separate objects if they are nearby load objects similarly to the overhead crane case. For example, a person walking over a pile of logs will be grouped as a single object with the pile of logs.
 
 It was noticed that goodness of 3d geometry data can be assessed using any non-moving objects. The average number of points and their average noise can be statistically measured in a point 3d region by using statistical methods. A statistical method was not implemented in the course of this work.
 
-It was noticed from dataset C6 that the load object cylinder fitting introduces errors because the backside of the cylinder is missing from the 3d point cloud data. A 3d reconstruction only generates a surface model, which means that the cylinder RANSAC computation estimates the cylinder model parameters using partial data. The outcome may or may not describe the actual cylinder, but possibly the cylinder translation is incorrectly estimated as too near the cameras. Missing backside of the object does not affect the orientation estimation. The estimated position, orientation and volume of the log are useful, but the estimates could be further improved if another camera viewpoint was used. If multiple stereo camera viewpoints are used, the point cloud registration problem is introduced.
+It was noticed from dataset N+4 that the load object cylinder fitting introduces errors because the backside of the cylinder is missing from the 3d point cloud data. A 3d reconstruction only generates a surface model, which means that the cylinder RANSAC computation estimates the cylinder model parameters using partial data. The outcome may or may not describe the actual cylinder, but possibly the cylinder translation is incorrectly estimated as too near the cameras. Missing backside of the log object does not affect the orientation estimation. The estimated position, orientation and volume of the log are useful, but the estimates could be further improved if another camera viewpoint was used. If multiple stereo camera viewpoints are used, the point cloud registration problem is introduced.
 
-\subsubsection{Findings From The Bird's Eye Viewpoint Datasets D1-D5}
+\subsubsection{Findings From The Bird's Eye Viewpoint Datasets}
 \label{subsubsection:findings_from_the_birds_eye_viewpoint_datasets}
 
-In dataset D1 the boom is fully visible in both stereo images since the perception platform is installed in camera configuration D. When the boom is completely visible in both images it can be 3-D modeled and the boom kinematic model can be estimated. In normal operation, the crane partially moved out of the picture, which introduced challenges to continuos kinematic modeling with MATLAB. If the view would be adjusted so that the crane boom stays in the image during operation, then kinematic modeling would be used, but now it was discarded, because the kinematic tracking feature was not available all the time. Kinematic modeling can be used to calculate the 3-D location of the end effector tool from the image data.
+In dataset M the crane boom is fully visible in both stereo images since the perception platform is installed on top of the forestry machine driver's booth. When the crane boom is completely visible in both images it can be 3d modeled and the crane's kinematic model can be estimated. In normal operation, the crane partially moved out of the picture, which introduced challenges to continuos kinematic modeling with MATLAB. If the view would be adjusted so that the crane boom stays in the image during operation, then kinematic modeling would be used, but now it was discarded as a nice but unnecessary feature. Kinematic modeling can be used to calculate the 3d location of the end effector tool from the image data.
 
-It was noticed from dataset D2 that it is possible to measure the current state of the end effector tool from the 3d geometry data. It is possible to report whether the end effector is closed or open, and whether it carries an object or not. In some tool orientations the object state estimation is an easy problem, but for some orientations the problem can become very difficult.
+It was noticed from dataset M+1 that it is possible to measure the current state of the end effector tool from the 3d geometry data. It is possible to report whether the end effector is closed or open, and whether it carries a log or not. In some tool orientations the object state estimation is an easy problem, but for some orientations the problem can become very difficult.
+% picture pair here of the end effector tool
 
-It was discovered in dataset D3 that a partially occluded object only returns the geometry measurement for the visible part of the log. For example, if 50\% of the length of the object is visible in the image, then approximately 50\% of the actual length of the object is reported by the machine vision system. Occlusion is typical in situations where the object is moved behind a boom, and the occluding object is the boom itself.
+It was discovered in dataset M+2 that a partially occluded log only returns the geometry measurement for the visible part of the log. For example, if 50\% of the length of the log is visible in the image, then approximately 50\% of the actual length of the log is reported by the machine vision system. Occlusion is typical in situations where the log is moved behind the crane boom, and the occluding object is the crane boom itself.
 
 \section{Effect Of Sensor Frame Orientation On Bounding Volume}
 \label{section:effect_of_sensor_frame_orientation_on_bounding_volume}
 
-In the indoor case, only the bounding volumes provided by the top-down camera viewpoint A produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
-
-Figures x and y are screen captures from the data set A1, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
+In the overhead crane case, only the bounding volumes provided by the top-down camera viewpoint produced meaningful results, thus, the results of the top-down viewpoint will be primarily presented.
+Figures x and y are screen captures from the data set 1372841000, which was used to analyse the bounding volume performance for the large standard box. As seen in figure x, the actual object lied on the ground so that the object was rotated about Y axis in a 34 degree angle compared to X-Y -plane. Now, the axis-aligned bounding box computes the maximum and minimum values along an axis, which results in a maximum projection along the axes in each dimension. The axis projection makes it difficult to verify that the measurement actually is correct, but we may estimate how much the measurement differs from reality for example in per centage. If a working online version of the software was available, it would be easy to rotate the standard box into correct orientation, and tune the system so that a correct measurement is given, provided that the calibration is good. Unfortunately this is not the case, and only offline data set may be used for verification in the thesis.
 Now, a comparison criterion may be formulated that relates the output value of the geometry measurement software and the actual measures of the large standard box. The mean output values computed using MATLAB for the large box are shown in table \ref{table:large_standard_box_mean_values}.
 
 % put here a table that shows delta X: 1671.6 mm delta Y: 1473.2 mm delta Z: 1058.5 mm
 % put here a table that shows X = 152 cm Y = 94 cm Z = 92 cm
 % why is the delta Z smallest when delta Z is in the sensor frame.... is it?
 
-%If the standard box is rotated 34 degrees, a geometric calculation using Pythagoras theorem results a correct bounding volume size of 1787 mm x 1875.42 mm x ???
+If the standard box is rotated 34 degrees, a geometric calculation using Pythagoras theorem results a correct bounding volume size of 1787 mm x 1875.42 mm x ???
 
-%In dataset 1372852802 an interesting phenomenon is visible in the visualisation of the data. In the end of the data set it seems like there is an object that continuosly changes size especially in the Z-axis direction. When the data was reviewed, it turned out that the load object was lifted near the ceiling, and as the load object was lowered, the hoisting wires become visible more and more as the load object is being lowered. Thus, the viewpoint generates this kind of continuously changing parameters that describe the bounding volume of the visible load object and the hoisting wires of the crane. 
+In dataset 1372852802 an interesting phenomenon is visible in the visualisation of the data. In the end of the data set it seems like there is an object that continuosly changes size especially in the Z-axis direction. When the data was reviewed, it turned out that the load object was lifted near the ceiling, and as the load object was lowered, the hoisting wires become visible more and more as the load object is being lowered. Thus, the viewpoint generates this kind of continuously changing parameters that describe the bounding volume of the visible load object and the hoisting wires of the crane. 
 
 \chapter{Discussion And Conclusions}
 \label{chapter:discussion}
@@ -2611,46 +2617,46 @@ Now, a comparison criterion may be formulated that relates the output value of t
 %Like the introduction, this chapter is not very long.
 %Two to four pages might be a good limit.
 
-\section{Discussion On Indoor Load Object Measurement}
-\label{section:discussion_on_indoor_load_object_measurement}
+\section{Discussion On Overhead Crane Load Object Measurement}
+\label{section:discussion_on_overhead_crane_load_object_measurement}
 
-In the indoor case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint A and the bird's eye viewpoint B. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often than the bird's eye viewpoint. From the bird's eye viewpoint, the load object measurement was especially difficult for locations near the wall. In light of all findings and analysis the top-down camera view is recommended in the author's opinion for load object measurement purposes in an indoor machine vision setup.
+In the overhead crane case, the performance of the load object measurement software was tested extensively using two selected viewpoints: the top-down viewpoint and the bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation} the top-down viewpoint performed faster, and resulted in a successful load object measurement more often than the bird's eye viewpoint. From the bird's eye viewpoint, the load object measurement was especially difficult for locations near the opposite wall. In light of all findings and analysis the top-down camera view is recommended for load object measurement purposes in an overhead crane machine vision setup.
 
 \subsection{Effects Of Selected Viewpoints}
 \label{subsection:effect_of_selected_viewpoints}
 
-The output AABB bounding volume from a top-down camera was usable as is, and only a little extra volume was induced by a slight 6 degree tilt of the sensor frame in tests. In general, the load object measurement output was consistent with the top-down camera configuration, and even though the ground plane was not always fully modeled due to the moving cameras and changing lighting conditions, the measurement was not affected at all by such problems.
+The output AABB bounding volume from a top-down camera was usable as is, and only a little extra volume was induced by a slight 6 degree tilt of the sensor frame in tests. In general, the load object measurement output was consistent with the top-down camera configuration, and even though the ground plane was not always fully modeled due to the moving crane and changing lighting conditions, the measurement was not affected at all by such problems.
 
-The bird's eye view suffered from increased distance to objects near the wall causing smaller point responses for the load object (due to effectively smaller image area). Additionally, the bird's eye view suffered from merging of objects into the point response of the wall. A lesser problem with the bird's eye viewpoint was the possibility of lifting the load object out of picture. In comparison, it was not possible to lift the load object out of the picture in a top-down camera configuration. Finally, there was less object occlusion in the top-down camera, because moving objects do not occlude the space between cameras and the load object.
+The bird's eye view suffered from increased distance to objects near the opposite wall causing smaller point responses for the load object (due to effectively smaller image area). Additionally, the bird's eye view suffered from inclusion of hoisting wires in the segmented load object, and merging of objects into the point response of the back wall. A lesser problem with the bird's eye viewpoint was the possibility of lifting the load object out of picture. In comparison, it was not possible to lift the load object out of the picture in a top-down camera configuration. Finally, there was less object occlusion in the top-down camera, because moving objects do not occlude the space between cameras and the load object.
 
-In indoor case, the decision to use a proximity based load object selection instead of a 2d image tracker was far from perfect, but in the end no information about the end effector location was required to select and measure the load object. It was guessed that a load object would be found near the center of the image, which was approximately true for the top-down view datasets. On the other hand, in  the bird's eye viewpoint datasets, the load object was seen in the lower part of the image far off the center. Because of the central location assumption wrong objects were reported as the load object, which can be seen as large variance in dataset visualisations.
+In the overhead crane case, the decision to use a proximity based load object selection instead of a 2d image tracker was far from perfect, but in the end no information about the end effector location was required to select and measure the load object. It was guessed that a load object would be found near the center of the image, which was only approximately true for the top-down view datasets. For example, in some bird's eye viewpoint datasets, the load object can be seen in the lower part of the image far off the center. Because of such assumptions, often wrong objects were reported as the load object, which can be seen as clutter in the dataset visualisations.
 
-\subsection{Indoor Load Object Measurement Results}
+\subsection{Overhead Crane Load Object Measurement Results}
 \label{subsection:load_object_measurement_results}
 
-The measurement values produced by the software could be compared with the actual dimensions only after the orientation of the data was taken into account. The computed AABB bounding volume is a function of the orientation of the camera frame relative to the world frame even though the load object actual volume does not change. In top-down camera tests the axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
+The measurement values produced by the software could be compared with the actual dimensions only after the orientation of the data was taken into account. The computed AABB bounding volume is a function of the orientation of the camera frame relative to the world frame even though the load object actual volume does not change. In top-down camera overhead crane tests the axis-aligned bounding volume reported on average approximately 5-10\% larger values than the actual values of the dimensions, which is an acceptable result.
 
-It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would currently take 3-5 seconds of time. The decision of how to interpret the constant flow of load object measurement data in the ROS network is left responsibility of the software that subscribes to the provided data feed.
+It was also deduced that a single measurement will not report the correct bounding volume, but it is a better idea to report the median or average bounding volume of a series of e.g. 10 to 15 measurements. Since the Himmeli platform can successfully deliver 4 frames per second without skipping frames, a load object measurement would currently take 3-5 seconds of time. The decision of how to interpret the constant flow of load object measurement data in the ROS network is left as responsibility of the software that subscribes to the provided data feed.
 
-\section{Discussion On Outdoor Load Object Measurement}
-\label{section:discussion_on_outdoor_load_object_measurement}
+\section{Discussion On Forestry Crane Load Object Measurement}
+\label{section:discussion_on_forestry_crane_load_object_measurement}
 
-In the outdoor case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint C and a bird's eye viewpoint D. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in outdoor test environment. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Also the bird's eye viewpoint has its flaws: a boom is visible in the image and occludes the load object during normal operation. The segmented load object usually includes the boom that is visible in the image. This must be taken into account, and the cylindrical load object must be extracted from the data that contains parts of the boom. The bird's eye viewpoint has one major advantage over the frog perspective: if the machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in a machine chassis installation.
+In the forestry machine crane case, the performance of the load object measurement system was tested using two viewpoints: a frog perspective viewpoint and a bird's eye viewpoint. On the basis of all findings in Chapter \ref{chapter:evaluation}, the bird's eye viewpoint may be better for measuring load objects in a forestry machine. The frog perspective viewpoint does not cover the sides of the working area very effectively, and the load object can be moved out of the picture. Moreover, the installation of the perception platform may not be possible because of the limited space in the base of the rotary boom crane, and on the vehicle chassis itself. Also the bird's eye viewpoint has its flaws: the crane boom is visible in the image and occludes the load object during normal operation. Since hoisting wires are not used to lift the load object, the segmented load object usually includes the crane boom that is visible in the image. This must be taken into account, and the cylindrical load object must be extracted from the data that contains parts of the crane boom. The bird's eye viewpoint has one major advantage over the frog perspective: if the forestry machine driver's booth has active vibration canceling technology, and the stereo cameras are mechanically attached to the vibration free rooftop of the booth, then the image will be much more stabilised than in a forestry machine chassis installation.
 
-\subsection{Load Measurement Results}
-\label{subsection:load_measurement_results}
+\subsection{Log Measurement Results}
+\label{subsection:log_measurement_results}
 
-Load measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:load_detected}. The orientation of the load object included error that was less than 5 degrees when the load object was lifted high in the air, and within a $\pm$ 10 degree error window when the load was located near the ground and the data was cluttered because of other objects. There are no exact statistics on the extracted log orientation error, but the results can be reviewed in Figure \ref{fig:log_detected}. The position of the load object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the object. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
+Log measurement using simple cylinder fitting was implemented successfully, and the resulting cylinder extraction result can be seen in Figure \ref{fig:log_detected}. The orientation of the log was found approximately within a few degrees error when the load object was lifted high in the air, and within a 10 degree error window when the log was located near the ground and the data was cluttered because of other logs. There are no exact statistics on the extracted log orientation error, but the results can be reviewed in Figures \ref{fig:log_detected} and N. The position of the log object included a translation error in the direction of the cameras that was caused by the missing data from the back side of the log. The amount of erroneous translation towards the cameras was not measured. Both the translation error and the orientation error affect the output bounding volume measurement, but only a minor effect can be seen in the output load object measurement values.
 
 \begin{figure}[ht]
   \begin{center}
     \includegraphics[width=\textwidth]{log_detected.jpg}
-    \caption{Load object detected using data from BM algorithm in block matching (low quality data).}
-    \label{fig:load_detected}
+    \caption{Log object detected using data from BM algorithm in block matching (low quality data).}
+    \label{fig:log_detected}
   \end{center}
 \end{figure}
 
-Better heuristic checks for correct load object selection are suggested as an improvement in the object extraction and measurement processing. Currently, the correct object is extracted most of the time, and extraction of the cylindrical boom is prevented with simple constraints, such as, preventing selection of cylinders found above the end effector. Still, it is possible to select a wrong load object located below the end effector, for example, data generated by a pile of objects. Two checks that would improve the current cylinder selection significantly would be 
+Better heuristic checks for correct load object selection are suggested as an improvement in the log object extraction and measurement processing. Currently, the correct log is extracted most of the time, and extraction of the cylindrical crane boom is prevented with simple constraints, such as, preventing selection of cylinders found above the end effector. Still, it is possible to select a wrong load object located below the end effector, for example, data generated by a pile of logs. Two checks that would improve the current cylinder selection significantly would be 
 
 \begin{itemize}
 \setlength{\itemsep}{0pt}
@@ -2658,17 +2664,17 @@ Better heuristic checks for correct load object selection are suggested as an im
 \item and to check that the distance between the centroid of the segmented cylinder and the end effector does not exceed a pre-defined threshold.
 \end{itemize}
 
-For example, if the distance between the candidate cylinder and the end effector is too large, then the candidate should be rejected.
+For example, if the distance between the candidate cylinder and the end effector is too large, then the candidate should be rejected. Improvements in the load selection algorithm are easy to implement, but due to limited time the checks were not further developed.
 
-In Figure \ref{fig:log_detected}, the stereo parameters and object segmentation parameters were not optimally tuned. Still, the correct cylinder extraction was quite robust in the presence of missing data, noisy 3-D data, and non-optimal parameter tuning. Especially the OpenCV stereo calibration that was described in Section \ref{section:stereo_calibration} did a good job on estimating parameters with little a priori information.
+In Figure \ref{fig:log_detected}, the stereo parameters and object segmentation parameters were not optimally tuned. Still, the correct cylinder extraction was quite robust in the presence of missing data, noisy 3d data, and non-optimal parameter tuning. Especially the OpenCV stereo calibration that was described in Section \ref{section:stereo_calibration} did a good job on estimating parameters with little a priori information, which worked a lot towards robustness in the software.
 
-The most significant problem in the object measurement was the grouping of multiple objects in the load object point cloud. While the cylinder extraction does well on selecting and extracting the correct feature, it remains unknown whether the object segmentation step is needed at all in the outdoor case since objects tend to group as a single large point cloud most of the time. The load object point cloud usually contains the boom, the end effector tool, and the picked up object.
+The most significant problem in the log object measurement was the grouping of multiple objects in the load object point cloud. While the cylinder extraction does well on selecting and extracting the correct feature, it remains unknown whether the object segmentation step is needed at all in the forestry crane case since objects tend to group as a single large point cloud most of the time. The load object point cloud usually contains the crane boom, the end effector tool, and the picked up log. Sometimes, the load object point cloud additionally contained objects lying on the ground.
 
-A minor problem with measuring loads was introduced when the bird's eye viewpoint D was used and the loads were occluded by the boom. An object may be seen on both sides of the boom, which means that in the 3d data two point clouds are seen that represent partial surfaces of the load object. In these cases where the log object was occluded by the boom and divided into multiple point clouds, it was not possible to measure the load object size correctly. 
+A minor problem with measuring logs was introduced when the bird's eye viewpoint was used and the logs were occluded by the crane boom. A log may be seen on both sides of the crane boom, which means that in the 3d data two point clouds are seen that represent partial surfaces of the load object. In these cases where the log object was occluded by the crane boom and divided into multiple point clouds, it was not possible to measure the load object size correctly. 
 
-It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The load is often tilted so that the other end of the load is located above the end effector tool. This was verified to be true during the outdoor testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is grabbed by the end effector tool or not.
+It could be assumed that the load objects are always found below the end effector tool, which would lead to removing the data points above the end effector before processing. While this would radically reduce the number of points and lead to faster computation of the measurement, it can be easily shown that in normal operation this assumption is not valid. The log is often tilted so that the other end of the log is located above the end effector tool. This was verified to be true during the forestry crane testing sessions. It was decided that in order to avoid accidental cutting or filtering of the load object feature data, the assumption of a load object located only below the end effector tool cannot be used. Consequently, only object centroid proximity information should be used to decide whether the selected load object is actually grabbed by the end effector tool or not.
 
-There are no major improvement suggestions for the object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the object (in case a high detail object model is needed). A model that approximates the object with segments of cylinders is introduced in Forsman's Ph.D. thesis \citep{Forsman01}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex object model would significantly slow down the computation, and the effect of the accuracy of the model on the bounding volume is minimal.
+There are no major improvement suggestions for the log object measurement process. One improvement option would be to implement a more complex cylinder structure that would better approximate the actual shape of the log object (in case a high detail log object model is needed). A model that approximates the log object with segments of cylinders is introduced in Forsman's thesis \citep{Forsman10}, which could be implemented. At this point, a simple cylinder with a linear axis is used, because a more complex log object model would significantly slow down the computation, and the effect of the accuracy of the model on the bounding volume is minimal.
 
 \section{System Bottlenecks}
 \label{section:system_bottlenecks}
@@ -2687,15 +2693,13 @@ A suggested improvement for environment 3d modeling is to install 3d spheres as 
 \section{Perception Platform}
 \label{section:perception_platform}
 
-Using Himmeli perception platform as the medium for stereo camera processing was a successful decision. The platform provided ROS and PCL computing hardware at the ready, and the installed perception sensors were of high quality. 
-
-%The stereo cameras in Himmeli were in a converging camera installation whose property of negative disparity was used to remove hoisting wires from the 3d data in the overhead crane case with top-down viewpoint.
+Using Himmeli perception platform as the medium for stereo camera processing was a successful decision. The platform provided ROS and PCL computing hardware at the ready, and the installed perception sensors were of high quality. The stereo cameras in Himmeli were in a converging camera installation whose property of negative disparity was used to remove hoisting wires from the 3d data in the overhead crane case with top-down viewpoint.
 
 The sturdy metal frame protected the stereo cameras from moving or dislocating during platform installations and transport from test site to another, and the modularity was very useful in installing the cameras in tight spaces. The Himmeli platform was very heavy, which helped passively stabilise the camera images in vibrating environments, but made moving the platform a bit difficult.
 
 The platform handled temperatures below zero well, and the system can be used even in winter conditions if the camera lens casings are installed with heaters and a solution that keeps the optics clear of water, dirt, and snow. In bright daylight, the camera image was very good.
 
-The stereo camera image capture was limited at 4 FPS, because a higher rate of image capture, even 5 FPS resulted in skipping of frames, which lead to a situation where many frames with different timestamps had the same image content. If a dataset includes such inconsistent content in frame pairs, the stereo calibration fails, and 3-D reconstruction assumptions do not hold anymore.  
+The stereo camera image capture was limited at 4 FPS, because a higher rate of image capture, even 5 FPS resulted in skipping of frames, which lead to a situation where many frames with different timestamps had the same image content. If a dataset includes such inconsistent content in frame pairs, the stereo calibration fails, and 3d reconstruction assumptions do not hold anymore.  
 
 The platform included a LIDAR scanner that was used to collect data for object segmentation testing, which was an invaluable asset in the work. The Velodyne scanner was also a plan B perception sensor if the stereo camera setup would have proved to be not suitable for load object measuring.
 
