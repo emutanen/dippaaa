@@ -2474,7 +2474,7 @@ The coordinate system was not transformed to the world coordinate frame in any d
 
 The effect of the fluorescent lighting in the test environment was not analysed, and the lighting conditions could not be controlled. The tests were done in 50 Hz fluorescent lighting conditions. The fluorescent lights have some effect on the image quality, but it is unknown how the HDR camera parameters change in different lighting conditions, thus, modeling would be difficult without better knowledge of the HDR camera image formation. The effects of lighting conditions on the image quality in machine vision solutions are a vast research topic on their own and not detailed in this work.
 
-\subsubsection{Findings From Top-down Viewpoint Datasets}
+\subsubsection{Findings From Top-down Viewpoint Datasets A1-A6}
 \label{subsubsection:findings_from_topdown_viewpoint_datasets}
 
 %1372841000 = A1
@@ -2510,7 +2510,7 @@ To counteract inaccuracy caused by movements, the cameras should not move while 
 %1372843166 = A5
 In dataset A5 it was noticed that when people walk exactly under the camera view in a top-down camera setup, the point response for a person will become so small that it is discarded as noise in the point cloud data. On one hand, this result suggests that the limit of the point cloud object size should be made smaller than the currently used value (80 data points) to be able to detect small targets. On the other hand, making the limit smaller will allow small disparity speckles clutter the 3d data as objects. Since the original point cloud is downsampled using a voxel grid filter, such a scenasrio may not be problematic at all, because noise speckles are filtered away from the downsampled point cloud.
 
-\subsubsection{Findings From Bird's Eye Viewpoint Datasets}
+\subsubsection{Findings From Bird's Eye Viewpoint Datasets B1-B7}
 \label{subsubsection:findings_from_birdseye_viewpoint_datasets}
 
 %1372851907 = B2
@@ -2554,7 +2554,7 @@ The forestry crane image data sets were captured from an actual rotary boom cran
 
 In the forestry crane data sets, an automatic TLD tracker was used in combination with a cylinder fitting scheme to provide more meaningful results. The TLD tracker provided the location of the end effector tool with great accuracy using 2d image feature tracking. A simple cylinder fitting scheme was used, which was further detailed in section \ref{subsection:cylinder_fitting}. It is good to understand that some of the findings in this section are exclusively based on the cylinder fitting results and the implemented load selection algorithm that was further detailed in section \ref{subsection:load_selection_algorithm}.
 
-\subsubsection{Findings From The Frog Perspective Viewpoint Datasets}
+\subsubsection{Findings From The Frog Perspective Viewpoint Datasets C1-C7}
 \label{subsubsection:findings_from_the_frog_perspective_viewpoint_datasets}
 
 It was found out from dataset C1 that objects too close to each other will merge into single objects similarly as in the indoor case. The merging of objects can be controlled using the k-D -tree search cluster tolerance parameter, which affects the segmentation threshold distance. Occlusion made the problem of object segmentation more difficult to solve since usually the occluding object will fuse with the occluded object given the objects are near each other. 
@@ -2577,14 +2577,6 @@ High smoothness constraint of the disparity map fills holes that are present in 
 
 The cylinder fitting can handle picking of multiple objects at once if multiple objects are modeled as a single large cylinder. Multiple objects tend to be in a more hour-glass shape than a cylinder shape. Because of this, the cylinder fitting can fit most volume of the objects inside a single cylinder, but the furthest ends of the objects will stay outside the bounding volume. It is possible that the enlarging effect of the disparity map generation increases the bounding volume so that the logs actually stay inside the bounding volume. It remains to be verified whether the actual logs would fit inside the computed bounding volume or not when using a single cylinder approximation.
 
-%\begin{figure}[ht]
-%  \begin{center}
-%    \includegraphics[width=0.5\textwidth]{left1377162788433.jpg}
-%    \caption{Multiple log objects form an hour-glass shaped pack of logs. A left camera image from dataset 1377162465. Image was captured on August 22nd 2013 in a rotary boom crane test site.}
-%    \label{fig:left1377162788433}
-%  \end{center}
-%\end{figure}
-
 In dataset C4 it was discovered that when the crane end effector is brought in proximity of objects on the ground it is possible to measure a single object dimension even before it is grasped by the end effector tool. When the cylinder fitting computation is used the object does not need to be gripped and lifted before it can be measured. This phenomenon is useful in speed up of the load object measurement. This property possibly eliminates the need to rotate the object after grasping in order to measure a correct geometry.
 
 In dataset C5 an object was picked up from a pile. The segmentation will group all objects in a pile as a single object, and the detection of a single object remains to be solved by the RANSAC estimation purely. In general, if the measured object is occluded by other nearby objects, the cylinder fitting will easily return wrong matches without heuristics. It was noticed that it is especially easy to fit a cylinder on a person walking nearby. This could be solved once again with heuristics, for example, a good heuristic rule would be \emph{cylinders that are in 90 degree upright position in the world frame are not load objects}.
@@ -2595,7 +2587,7 @@ It was noticed that goodness of 3d geometry data can be assessed using any non-m
 
 It was noticed from dataset N+4 that the load object cylinder fitting introduces errors because the backside of the cylinder is missing from the 3d point cloud data. A 3d reconstruction only generates a surface model, which means that the cylinder RANSAC computation estimates the cylinder model parameters using partial data. The outcome may or may not describe the actual cylinder, but possibly the cylinder translation is incorrectly estimated as too near the cameras. Missing backside of the log object does not affect the orientation estimation. The estimated position, orientation and volume of the log are useful, but the estimates could be further improved if another camera viewpoint was used. If multiple stereo camera viewpoints are used, the point cloud registration problem is introduced.
 
-\subsubsection{Findings From The Bird's Eye Viewpoint Datasets}
+\subsubsection{Findings From The Bird's Eye Viewpoint Datasets D1-D5}
 \label{subsubsection:findings_from_the_birds_eye_viewpoint_datasets}
 
 In dataset M the crane boom is fully visible in both stereo images since the perception platform is installed on top of the forestry machine driver's booth. When the crane boom is completely visible in both images it can be 3d modeled and the crane's kinematic model can be estimated. In normal operation, the crane partially moved out of the picture, which introduced challenges to continuos kinematic modeling with MATLAB. If the view would be adjusted so that the crane boom stays in the image during operation, then kinematic modeling would be used, but now it was discarded as a nice but unnecessary feature. Kinematic modeling can be used to calculate the 3d location of the end effector tool from the image data.
