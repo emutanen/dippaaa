@@ -2191,35 +2191,37 @@ One finding about the effects of the angle of convergence was that with increasi
 
 For position accuracy verification, landmark objects may be installed in the environment, and their correct locations can be searched for and verified in the point cloud data. For orientation verification, eigenvectors may be calculated for a point cloud describing an object and the largest eigenvector direction can be compared to the real-world object main axis. For volume verification, an oriented bounding volume may be computed for fully visible objects using the previously mentioned eigenvector orientation, and be compared to the actual real-world object volume.
 
-In this work, installed landmarks or beacons would have been useful in the offline data sets since they could have been used to verify the correct scale of the point cloud, and correctness of local measured lengths. Since the data set environments did not contain any installed landmarks, a scale verification is not available. A suggested improvement would be to install spherical 3d landmark objects in the test environment prior to dataset capture, so that spatial structure analysis could be done using the landmarks and their known locations.
+In this work, installed landmarks or beacons would have been useful in the offline data sets since they could have been used to verify the correct scale of the point cloud, and correctness of local measured lengths. Since the data set environments did not contain any installed landmarks, a scale verification is not available. A suggested improvement would be to install spherical 3-D landmark objects in the test environment prior to dataset capture, so that spatial structure analysis could be done using the landmarks and their known locations.
 
-\section{Parameter Tuning Evaluation}
-\label{section:parameter_tuning_evaluation}
+\section{Block Matching Tuning Evaluation}
+\label{section:block_matching_tuning_evaluation}
 
 % reference Kim05 | Jet Propulsion Lab  
+The block matching algorithms in OpenCV need tuning of 10 parameters that are listed in Table \ref{table:bm_state_parameters}. The best parameters depend on the application and the conditions of the environment, thus, they should be easily accessible for changing during runtime. The parameter values can be chosen arbitrarily within the ranges stated in Table \ref{table:bm_state_parameters}. 
 
-\subsection{Disparity Tuning}
-\label{subsection:disparity_tuning}
+A custom software tool was programmed that displays a set of sliders, which control each parameter separately. The tuner paused the stereo camera image feed so that it was possible to detect the effect of a change of a single parameter in the same 3-D scene. As the user changed a value of a single parameter using a slider, the 3-D point cloud visualisation changed accordingly. 
 
-The disparity map generated with standard OpenCV functions needed parameter tuning to provide the best possible reprojection of geometric data from a 2d image to a 3d point cloud. The basic tuning of the block matching algorithm (BM) parameters was done first, and then a semi-global block matching algorithm (SGBM) was tuned with additional parameters. The tuning was done with a custom software tool that displays slider ranges for each parameter.
+The load object measurement software currently supports two block matching algorithms, the block matching algorithm (BM) and semi-global block matching algorithm (SGBM). The SGBM algorithm includes additional smoothness constraint parameters $p_1$ and $p_2$ whose effect on the point cloud output can be reviewed in Figure \ref{fig:p1_p2_effect}. A large value for $p_1$ and $p_2$ will result in large number of points even in low-texture image regions, but the environment will be smoothed a lot. A small value of $p_1$ and $p_2$ resulted in a small number of points, but there was not extensive smoothing of the environment.
 
-\subsubsection{Block Matching Algorithm Tuning}
-\label{subsubsection:block_matching_algorithm_tuning}
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=\textwidth]{p1_p2_effect.jpg}
+    \caption{The effect of parameters P1 and P2 in SGBM algorithm tuning. Values of P1 and P2 increase from left to right, and from top to bottom.}
+    \label{fig:p1_p2_effect}
+  \end{center}
+\end{figure}
 
-The block matching algorithm is tuned with 10 parameters who reside in a BM state object. The parameters are listed in table \ref{table:block_matching_state_parameters}. Additionally, a pair of regions of interest (ROI) are set up in the BM state to mark off the new effective image regions after rectification process. To be able to understand the parameter effects on the block matching performance, a quick note about the inner works of the algorithm is introduced next.
+The tuner was the most helpful aid in creating the load object measurement software since it helped study effects of a single parameter for a scene. For example, the effects of the \emph{fullDP} parameter was easy to study: the fullDP parameter runs a full-scale two-pass dynamic programming algorithm, which consumes large amounts of memory. The slider was used to switch the dynamic programming on and off, and the difference could be seen right away in the point cloud. 
 
-The feature matching works in three steps:
+%\begin{itemize}
+% item separation length in a list%
+%\setlength{\itemsep}{0pt}
+%\item pre-filtering to normalize image brightness,
+%\item correspondence search with SAD window along the epipolar lines, 
+%\item and post-filtering to remove bad matches.
+%\end{itemize}
 
-\begin{itemize}
-% item separation length in a list
-\setlength{\itemsep}{0pt}
-\item pre-filtering to normalize image brightness
-\item correspondence search with SAD window along the epipolar lines 
-\item post-filtering to remove bad matches
-\end{itemize}
-
-The tuning of the BM parameters was done against offline data collected from all selected camera configurations.
-High saliency image regions produce good results in block matching, and a rule of thumb would be: more visible 2d objects result in more correctly matched points in the region for the 3d point cloud.
+The tuning of the BM parameters was done using datasets from all camera configurations. High saliency image regions were used for tuning since they produced good point responses in most cases.
 
 \subsubsection{Block Matching Parameter Effects on Feature Matching Performance}
 \label{subsubsection:block_matching_parameter_effects_on_feature_matching_performance}
