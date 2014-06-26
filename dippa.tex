@@ -2135,7 +2135,7 @@ The only problem in the PCL design was the visualisation introducing quite perio
 
 The evaluation of the load object measurement system was done using offline data sets that were recorded from use cases in real crane environments. The results of the evaluation will be presented in Section \ref{section:experiments}. The online implementation was finished but not tested during the time of writing this, and as such the effects of online performance are not included in the review of software architecture.
 
-\section{Evaluation Of 3d Data Quality}
+\section{Evaluation Of 3-D Data Quality}
 \label{section:evaluation_of_3d_data_quality}
 
 The point cloud data quality was affected by the overall machine vision process including stereo calibration, disparity tuning, and the hardware setup. The hardware setup and the stereo calibration were used as monolithic initial calibration items. The calibration was done automatically for the hardware setup using OpenCV as described in Section \ref{subsection:opencv_stereo_calibration_workflow}, and after a good basic point cloud output generation was achieved, no further engineering was done for the hardware or the stereo calibration. After an initial point cloud output was generated, the problem of understanding the data quality could be presented: how accurately does the point cloud data resemble the real world scene?
@@ -2159,15 +2159,23 @@ The generated point cloud resembles the real scene, but some noisy parts or part
 %  \end{center}
 %\end{figure}
 
-Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis. The need for different quality indicators depends on the application, but the constructed industrial environment encourages to try spatial structure analysis for quality evaluation. Positioning analysis cannot be done in this work since multiple view registration is not used \citep{Feng08}.
+Point cloud data quality indicators are used in modeling of urban constructed environments and in airborne LIDAR mapping. In these fields, the quality evaluation is done using two different goodness analysis mechanisms: spatial structural analysis and positioning analysis\citep{Feng08}. The need for different quality indicators depends on the application, but the constructed industrial environment encourages to try spatial structure analysis for quality evaluation. Positioning analysis cannot be done in this work since multiple view registration is not used.
 
-In literature, also reverse engineering of shape primitives from point cloud response have been used for point cloud data quality verification in industrial settings. In industrial environments, a lot of box-shaped or cylinder-shaped objects can be found and be used for verification. Also, for any primitive geometric shapes it is fairly simple to quantify a goodness of fit value using geometric fitting schemes via least squares error minimization \citep{Fidera04}.
+In literature, also reverse engineering of shape primitives from point cloud response have been used for point cloud data quality verification in industrial settings\citep{Fidera04}. In industrial environments, a lot of box-shaped or cylinder-shaped objects can be found and be used for verification. Also, for any primitive geometric shapes it is fairly simple to quantify a goodness of fit value using geometric fitting schemes e.g. least squares error minimization.
 
 In spatial structure analysis, some real world feature qualities are measured from the environment, and the same qualities are then computed from the scene's point cloud response. Such qualities are for example: location, orientation, volume, smoothness of surface, or some other attribute of the item. Next, these measures are compared and it is possible to determine a goodness of fit -value that can be further processed into a goodness of data quality information. Formulation of a meaningful goodness indicator may be difficult in presence of missing surfaces, measurement noise, and increasing depth estimation error with distance among other problems with a point cloud presentation.
 
 %In this thesis, such objects whose qualities are known a priori are being called standard objects. For example, in the process hall data sets, a standard object titled \emph{large box} with dimensions of 1.52 x 0.94 x 0.92 meters was used. It can be seen in most process crane data sets as part of the setup. The large box object was constructed out of metal sheets, and it was a box-shaped, partially see-through mass weighing in 3.97 tonnes. In the forestry crane measurements, no standard objects were used, because the tree stumps were not measured nor tracked as individual standard objects. As such, the forestry crane data sets cannot be used for point cloud data quality control. In case a CAD model of the forestry crane boom was available, spatial structure analysis could be done for forestry data sets, too, but in this work no CAD model was available.
 
 A single effective spatial structure analysis that was possible to do with the captured offline data sets was to check how big was the angle between standing cabinets and the floor in the data sets. For example, a cabinet might be known to form a 90 degree angle with a floor, and such a scene would generate a point cloud response where the angle is not exactly 90 degrees (it could be e.g. 85 degrees). Obviously, this will give indication of goodness of structural integrity only for the local neighbourhood of the feature in the point cloud. For example, good structural integrity in the near-field feature does not guarantee similar accuracy for far-field features.
+
+\begin{figure}[ht]
+  \begin{center}
+    \includegraphics[width=0.6\textwidth]{spatial_structure_analysis.jpg}
+    \caption{Spatial analysis of dataset A1 shows well-maintained geometry.}
+    \label{fig:spatial_structure_analysis}
+  \end{center}
+\end{figure}
 
 The effects of different stereo camera hardware setups, for example toed-in optical axes installation against parallel installation, were not researched and no definite results can be said of different stereo camera setups on the point cloud quality. A toed-in hardware installation was used in this work, and some vertical disparity definitely affected the point cloud quality, but it was a minor hindrance. By visual inspection, physical moving of the cameras and recalibration of the system generated no visible change in the point cloud quality. 
 
