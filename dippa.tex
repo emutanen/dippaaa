@@ -741,11 +741,13 @@ Industrial applications for machine vision have become more ubiquitous as the pr
 
 Machine vision applications in industrial applications may include for example visual servoing\citep{Lun-Hui14}, real-time trajectory planning\citep{Kaneshige05}, wand controller following\citep{Peng09}, intelligent fault detection\citep{Rahmani10}, obstacle avoidance\citep{Nagai11}, load object tracking and control applications\citep{Yoshida06}, remote localisation of the end effector \citep{Hainsworth94}, and stereoscopic teleoperation of forestry cranes\citep{Westerberg08}. 
 
-Also some new applications can be thought out that use the stereo camera platform that was used in making of the load object measurement (see chapter \ref{chapter:implementation}). 
+Also some new applications can be thought out that use the stereo camera platform that is used in this work (see Chapter \ref{chapter:implementation}). 
 
 %For example warehouse surveillance, recording of lifting operations, operations tracking, and quality control could be possible with the perception platform installed in the crane trolley. 
 
-For example, training videos can easily be recorded for new operators, and records of events may be used in case of accidents. Furthermore, the load object measurement statistics could be used to keep track of the machine usage. Finally, a load object measurement should be used to add functionality to safety applications. A traditional safety application halts the crane process if people are detected in a dangerous work zone \cite{Raula11}. With the help of a collision control system described in section \ref{section:collision_control_in_a_crane_environment}, an adaptive safety scheme can be used to restrict the operation range of a machine, but not fully stop it.
+For example, training videos can easily be recorded for new operators, and records of events may be used in case of accidents. Furthermore, the load object measurement statistics could be used to keep track of the machine usage.
+
+The load object measurement should add functionality to safety applications. A traditional safety application halts the crane process if people are detected in a dangerous work zone \cite{Raula11}. With the help of a collision control system, an adaptive safety scheme can be used to restrict the operation range of a machine, but not fully stop it.
 
 %\section{Overhead Cranes}
 %\label{section:overhead_cranes}
@@ -797,9 +799,9 @@ The goal of this work is to measure the dimensions of loads being lifted and mov
 
 %The overhead crane load object measurement is the primary objective of this work. The forestry crane load object measurement is a secondary objective that investigates the applicability of the same machine vision system in a log picker truck setting.
 
-This master's thesis was part of FAMOUS project. The research was conducted in GIM research group. The software client for the load measurement software was a deliverable of the project. As such, another primary objective was to implement the load object measurement software that is easy to integrate into other software solutions and supports Robot Operating System (ROS) on a network of PCs.
+This master's thesis was part of FAMOUS project. The research was conducted in GIM research group. The software client for the load measurement software was a deliverable of the project. As such, one primary objective was to implement a load object measurement software that is easy to integrate into other software solutions and that supports Robot Operating System (ROS) on a network of PCs.
 
-Another objective regarding hardware was to keep the costs of the load object measurement system significantly lower than the price range of a LIDAR based solution. Another objective regarding software was to make the load object measurement client provide measurement data nearly in real-time, or at least 5 measurements per second.
+An objective regarding hardware was to keep the costs of the load object measurement system significantly lower than the price range of a LIDAR based solution. An objective regarding software was to make the load object measurement client provide measurement data nearly in real-time, or at least 5 measurements per second.
 
 \chapter{Perceiving Environments In 3-D}
 \label{chapter:perceiving_environments_in_3d}
